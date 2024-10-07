@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/Inter-VariableFont_slnt\,wght.ttf");
+}
+
 body {
     color: var(--tg-theme-text-color);
     background: var(--tg-theme-bg-color);

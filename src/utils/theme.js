@@ -1,8 +1,13 @@
 import { createTheme } from "@mui/material";
 
+import InterFont from "../assets/Inter-VariableFont_slnt,wght.ttf"
+
 export const theme = createTheme({
     palette: {
         // ... ваши существующие цвета
+    },
+    typography: {
+        fontFamily: '"Inter", sans-serif'
     },
     components: {
         MuiButton: {
@@ -26,28 +31,24 @@ export const theme = createTheme({
         MuiChip: {
             styleOverrides: {
                 label: {
-                    // Стили для Chip label
                     color: 'var(--tg-theme-text-color)', // Цвет текста
                     fontSize: '16px', // Размер шрифта
-                    fontWeight: '500'
+                    fontWeight: '600',
+                    color: 'white'
                 },
             },
         },
         MuiTypography: {
             styleOverrides: {
-                subtitle2: {
-                    // Стили для Typography с variant="subtitle2"
-                    color: 'var(--tg-theme-bg-color)', // Цвет текста
-                    backgroundColor: 'var(--tg-theme-text-color)', // Цвет фона
-                    borderRadius: '.6em', // Закругление углов
-                    padding: ' 0 .3em', // Отступы
-                    fontWeight: 'bold',
-                    fontSize: '.7em',
-                },
+                // subtitle2: {
+                //     color: 'var(--tg-theme-bg-color)', // Цвет текста
+                //     backgroundColor: 'var(--tg-theme-text-color)', // Цвет фона
+                //     borderRadius: '.6em', // Закругление углов
+                //     padding: ' 0 .3em', // Отступы
+                //     fontWeight: 'bold',
+                //     fontSize: '.7em',
+                // },
             },
         },
-    },
-    typography: {
-        // ... ваши существующие стили шрифта
     },
 });

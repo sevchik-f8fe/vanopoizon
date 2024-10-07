@@ -1,10 +1,15 @@
 import { Box, Chip, Avatar, Typography, Link } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
+import tgImg from "../assets/Telegram_2019_Logo.svg";
+
 const Navigation = () => {
     return (
         <Box
             sx={{
+                backgroundColor: '#2E2E3A',
+                p: '.5em',
+                borderRadius: '.5em',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 w: '100%',
             }}
@@ -21,10 +26,15 @@ const ProfileBtn = () => {
             sx={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '.2em'
+                cursor: 'pointer',
+                gap: '.5em',
             }}
         >
-            <Avatar>NN</Avatar>
+            <Avatar
+                sx={{
+                    border: '1px solid white'
+                }}
+            >NN</Avatar>
 
             <Box
                 sx={{
@@ -42,17 +52,26 @@ const ProfileBtn = () => {
                 >
                     <Typography
                         sx={{
-
+                            fontWeight: 'bold',
+                            color: 'white'
                         }}
                         variant="subtitle1"
-                    >Name </Typography>
-                    <ArrowOutwardIcon fontSize="small" />
+                    >Юзернейм </Typography>
+                    <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                 </Box>
 
 
                 <Typography
                     variant="subtitle2"
-                >status</Typography>
+                    sx={{
+                        color: '#F34213', // Цвет текста
+                        backgroundColor: '#fff', // Цвет фона
+                        borderRadius: '.6em', // Закругление углов
+                        padding: ' 0 .3em', // Отступы
+                        fontWeight: 'bold',
+                        fontSize: '.7em',
+                    }}
+                >статус</Typography>
             </Box>
         </Box>
     );
@@ -60,12 +79,12 @@ const ProfileBtn = () => {
 
 const ShopBtn = () => {
     return (
-        <Link href="#">
+        <Link href="https://t.me/IVANOV_SHOP">
             <Chip
                 sx={{ cursor: 'pointer' }}
-                avatar={<Avatar alt="Natacha">TG</Avatar>}
+                avatar={<Avatar alt="Natacha"><img src={tgImg} /></Avatar>}
                 label='@vano_poizon'
-                variant="filled"
+                variant="outlined"
             />
         </Link>
 
