@@ -37,7 +37,9 @@ const ProfileBtn = () => {
                 sx={{
                     border: '1px solid white'
                 }}
-            >NN</Avatar>
+            >
+                <img src={tg?.initDataUnsafe?.user?.photo_url} alt="profile photo" />
+            </Avatar>
 
             <Box
                 sx={{
