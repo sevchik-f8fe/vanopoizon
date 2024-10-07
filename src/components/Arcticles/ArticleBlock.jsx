@@ -6,8 +6,8 @@ const ArcticleBlock = ({ article_link, picture }) => {
             href={article_link}
             sx={{
                 display: 'block',
-                minHeight: '5em',
-                minWidth: '5em',
+                minHeight: '6em',
+                minWidth: '6em',
             }}
         >
             <Box
@@ -18,8 +18,8 @@ const ArcticleBlock = ({ article_link, picture }) => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
-                    minHeight: '5em',
-                    minWidth: '5em',
+                    minHeight: '6em',
+                    minWidth: '6em',
                 }}
             >
             </Box>
