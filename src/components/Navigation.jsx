@@ -4,7 +4,6 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import tgImg from "../assets/Telegram_2019_Logo.svg";
 
 const Navigation = () => {
-    let tg = window.Telegram.WebApp;
 
     return (
         <Box
@@ -23,6 +22,8 @@ const Navigation = () => {
 }
 
 const ProfileBtn = () => {
+    let tg = window.Telegram.WebApp;
+
     return (
         <Box
             sx={{
