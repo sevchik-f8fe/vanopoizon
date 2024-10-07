@@ -59,7 +59,7 @@ const ProfileBtn = () => {
                             color: 'white'
                         }}
                         variant="subtitle1"
-                    >{tg.initDataUnsafe.user.first_name} </Typography>
+                    >{tg?.initDataUnsafe?.user?.first_name.split(' ')[0]} </Typography>
                     <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                 </Box>
 
