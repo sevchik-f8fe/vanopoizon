@@ -38,7 +38,7 @@ const ProfileBtn = () => {
                     border: '1px solid white'
                 }}
             >
-                <img src={tg.initData.user.photo_url} alt="profile photo" />
+                <img src={window.Telegram.WebApp.initDataUnsafe.user.photo_url} alt="profile photo" />
             </Avatar>
 
             <Box
