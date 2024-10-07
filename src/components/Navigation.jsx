@@ -2,6 +2,7 @@ import { Box, Chip, Avatar, Typography, Link } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 import tgImg from "../assets/Telegram_2019_Logo.svg";
+import smile from "../assets/smile.svg"
 
 const Navigation = () => {
 
@@ -23,6 +24,8 @@ const Navigation = () => {
 
 const ProfileBtn = () => {
     let tg = window.Telegram.WebApp;
+    let user_photo = tg?.initDataUnsafe?.user?.photo_url || smile;
+    let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
 
     return (
         <Box
@@ -35,11 +38,10 @@ const ProfileBtn = () => {
         >
             <Avatar
                 sx={{
-                    border: '1px solid white'
+                    // border: '1px solid white'
                 }}
-            >
-                <img src={window.Telegram.WebApp.initDataUnsafe.user.photo_url} alt="profile photo" />
-            </Avatar>
+                src={user_photo}
+            />
 
             <Box
                 sx={{
@@ -61,7 +63,7 @@ const ProfileBtn = () => {
                             color: 'white'
                         }}
                         variant="subtitle1"
-                    >{tg?.initDataUnsafe?.user?.first_name.split(' ')[0]} </Typography>
+                    >{user_name} </Typography>
                     <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                 </Box>
 
