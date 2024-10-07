@@ -1,11 +1,6 @@
 import { createTheme } from "@mui/material";
 
-import InterFont from "../assets/Inter-VariableFont_slnt,wght.ttf"
-
 export const theme = createTheme({
-    palette: {
-        // ... ваши существующие цвета
-    },
     typography: {
         fontFamily: '"Inter", sans-serif'
     },
@@ -38,16 +33,21 @@ export const theme = createTheme({
                 },
             },
         },
-        MuiTypography: {
+        MuiTextField: {
             styleOverrides: {
-                // subtitle2: {
-                //     color: 'var(--tg-theme-bg-color)', // Цвет текста
-                //     backgroundColor: 'var(--tg-theme-text-color)', // Цвет фона
-                //     borderRadius: '.6em', // Закругление углов
-                //     padding: ' 0 .3em', // Отступы
-                //     fontWeight: 'bold',
-                //     fontSize: '.7em',
-                // },
+                root: {
+                    '& .MuiOutlinedInput-root': {
+                        backgroundColor: '#2E2E3A',
+                        color: 'white',
+                        borderRadius: '1em', // Скругление углов
+                        '&.Mui-focused': {
+                            '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ffffff50', // Используем цвет из темы
+                                borderWidth: '1px',
+                            },
+                        },
+                    },
+                },
             },
         },
     },

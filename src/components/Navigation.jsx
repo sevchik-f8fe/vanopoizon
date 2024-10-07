@@ -2,7 +2,7 @@ import { Box, Chip, Avatar, Typography, Link } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 import tgImg from "../assets/Telegram_2019_Logo.svg";
-import smile from "../assets/smile.svg"
+import poizonLogo from "../assets/miniman.png"
 
 const Navigation = () => {
 
@@ -24,7 +24,7 @@ const Navigation = () => {
 
 const ProfileBtn = () => {
     let tg = window.Telegram.WebApp;
-    let user_photo = tg?.initDataUnsafe?.user?.photo_url || smile;
+    let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
 
     return (
