@@ -1,10 +1,26 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import App from './App.jsx'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { ThemeProvider } from '@mui/material';
+
+import HomePage from './pages/HomePage';
 import './index.css'
+import { theme } from './utils/theme';
+
+const router = createBrowserRouter([
+  {
+    path: "/vanopoizon/",
+    element: <HomePage />,
+  },
+]);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <ThemeProvider theme={theme}>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>,
 )
