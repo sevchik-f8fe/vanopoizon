@@ -37,8 +37,8 @@ export const theme = createTheme({
             styleOverrides: {
                 subtitle2: {
                     // Стили для Typography с variant="subtitle2"
-                    color: 'white', // Цвет текста
-                    backgroundColor: 'black', // Цвет фона
+                    color: 'var(--tg-theme-bg-color)', // Цвет текста
+                    backgroundColor: 'var(--tg-theme-text-color)', // Цвет фона
                     borderRadius: '.6em', // Закругление углов
                     padding: ' 0 .3em', // Отступы
                     fontWeight: 'bold',
