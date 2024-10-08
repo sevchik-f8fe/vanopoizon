@@ -28,7 +28,8 @@ const ReferalBlock = () => {
                     sx={{
                         color: '#fff',
                         fontSize: '1.2em',
-                        fontWeight: '900'
+                        fontWeight: '900',
+                        gap: '1em'
                     }}
                 >Зови друзей</Typography>
                 <ArrowOutwardIcon

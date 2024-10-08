@@ -21,6 +21,7 @@ const PointBlock = ({ points }) => {
                 sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
+                    gap: '1em',
                     alignItems: 'center'
                 }}
             >
