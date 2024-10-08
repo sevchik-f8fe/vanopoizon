@@ -56,7 +56,7 @@ const CatalogElement = ({ picture, price, title }) => {
 
             <Box
                 sx={{
-                    m: '.5em 1em .5em .5em',
+                    m: '.5em',
                     backgroundColor: '#fff',
                     borderRadius: '1em',
                     display: 'flex',
