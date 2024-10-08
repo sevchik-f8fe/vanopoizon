@@ -22,6 +22,7 @@ const ReferalBlock = () => {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
+                    gap: '1em'
                 }}
             >
                 <Typography
@@ -29,7 +30,6 @@ const ReferalBlock = () => {
                         color: '#fff',
                         fontSize: '1.2em',
                         fontWeight: '900',
-                        gap: '1em'
                     }}
                 >Зови друзей</Typography>
                 <ArrowOutwardIcon

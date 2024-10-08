@@ -4,6 +4,8 @@ import Navigation from "../components/Navigation";
 import SearchField from "../components/SearchField";
 import ArcticleContainer from "../components/Arcticles/ArticleContainer";
 import BlocksContainer from "../components/HomePageBlocks/BlocksContainer";
+import ContestContainer from "../components/ContestContainer";
+import CatalogContainer from "../components/Catalog/CatalogContainer";
 
 const HomePage = () => {
     return (
@@ -16,12 +18,13 @@ const HomePage = () => {
             }}
         >
             <Navigation />
-
             <SearchField />
 
             <ArcticleContainer />
-
             <BlocksContainer />
+            <ContestContainer />
+
+            <CatalogContainer />
         </Box>
     );
 }

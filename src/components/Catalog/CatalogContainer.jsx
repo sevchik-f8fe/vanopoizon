@@ -1,0 +1,85 @@
+import { Box, Typography } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import TuneIcon from '@mui/icons-material/Tune';
+import { nanoid } from "nanoid";
+
+import CatalogElement from "./CatalogElement";
+
+const CatalogContainer = () => {
+    return (
+        <Box
+            sx={{
+                w: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+            }}
+        >
+            <CatalogHeader />
+            <CatalogContent />
+
+        </Box>
+    );
+}
+
+const CatalogHeader = () => {
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: '1em',
+            }}
+        >
+            <Typography
+                sx={{
+                    color: '#fff',
+                    fontSize: '1.6em',
+                    fontWeight: '900'
+                }}
+            >
+                Каталог
+            </Typography>
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '.5em'
+                }}
+            >
+                <SearchIcon
+                    sx={{
+                        color: '#fff',
+                        fontSize: '1.6em',
+                    }}
+                />
+                <TuneIcon
+                    sx={{
+                        color: '#fff',
+                        fontSize: '1.6em',
+                    }}
+                />
+            </Box>
+        </Box>
+    );
+}
+
+const CatalogContent = () => {
+    // 20 товаров, потом - автозагрузка при прокрутке
+
+    return (
+        <Box
+            sx={{
+                minWidth: '100%',
+                display: 'flex',
+                flexWrap: 'wrap',
+                gap: '.5em'
+            }}
+        >
+            {[1, 2, 3, 4, 5, 6, 7].map((elem) => <CatalogElement key={nanoid()} price='12 000' title='Бобёр коричнеый б/у' picture='https://avatars.dzeninfra.ru/get-zen_doc/1652143/pub_5efcb130cad1c07c5f6ab531_5efcb14e6c67e16da9e25364/smart_crop_516x290' />)}
+        </Box>
+    );
+}
+
+export default CatalogContainer;
