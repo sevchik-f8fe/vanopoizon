@@ -24,7 +24,7 @@ const Navigation = () => {
 
 const ProfileBtn = () => {
     let tg = window.Telegram.WebApp;
-    let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
+    let user_photo = JSON.parse(tg?.initData)?.user?.photo_url || poizonLogo;
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
 
     return (
