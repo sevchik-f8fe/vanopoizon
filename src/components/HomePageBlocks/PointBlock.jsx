@@ -11,7 +11,7 @@ const PointBlock = ({ points }) => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '.5em',
-                minWidth: '50%',
+                minWidth: '100%',
                 justifyContent: 'space-between',
                 p: '1em 1em .5em 1em',
                 borderRadius: '1em',

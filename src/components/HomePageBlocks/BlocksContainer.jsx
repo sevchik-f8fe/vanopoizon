@@ -16,7 +16,7 @@ const BlocksContainer = ({ children }) => {
         >
             <Box
                 sx={{
-                    w: '50%',
+                    minWidth: '50%',
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '.5em'

@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
 @font-face {
     font-family: "Inter";
     src: url("./assets/Inter-VariableFont_slnt\,wght.ttf");

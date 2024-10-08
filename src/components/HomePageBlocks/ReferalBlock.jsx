@@ -11,7 +11,7 @@ const ReferalBlock = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                minWidth: '50%',
+                minWidth: '100%',
                 justifyContent: 'space-between',
                 p: '1em',
                 borderRadius: '1em',
