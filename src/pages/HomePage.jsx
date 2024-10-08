@@ -3,6 +3,7 @@ import { Box } from "@mui/material";
 import Navigation from "../components/Navigation";
 import SearchField from "../components/SearchField";
 import ArcticleContainer from "../components/Arcticles/ArticleContainer";
+import BlocksContainer from "../components/HomePageBlocks/BlocksContainer";
 
 const HomePage = () => {
     return (
@@ -19,6 +20,8 @@ const HomePage = () => {
             <SearchField />
 
             <ArcticleContainer />
+
+            <BlocksContainer />
         </Box>
     );
 }

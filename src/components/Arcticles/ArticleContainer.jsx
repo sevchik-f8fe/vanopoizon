@@ -9,7 +9,6 @@ const ArcticleContainer = () => {
         <Box
             sx={{
                 gap: '.5em',
-                padding: ' 0 .5em',
                 display: 'flex',
                 overflowX: 'auto',
                 whiteSpace: 'nowrap',
