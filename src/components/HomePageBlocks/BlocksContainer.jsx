@@ -3,30 +3,40 @@ import { Box } from "@mui/material";
 import PointBlock from "./PointBlock";
 import ReferalBlock from "./ReferalBlock";
 import StartShopingBLock from "./StartShopingBlock";
+import CalculateBlock from "./CalculateBlock";
 
-const BlocksContainer = ({ children }) => {
+const BlocksContainer = () => {
     return (
         <Box
             sx={{
                 display: 'flex',
                 gap: '.5em',
+                flexDirection: 'column',
                 w: '100%',
-                // backgroundColor: '#fff'
             }}
         >
             <Box
                 sx={{
-                    minWidth: '50%',
                     display: 'flex',
-                    flexDirection: 'column',
-                    gap: '.5em'
+                    gap: '.5em',
+                    w: '100%',
                 }}
             >
-                <PointBlock />
-                <ReferalBlock />
-            </Box>
+                <Box
+                    sx={{
+                        minWidth: '50%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '.5em'
+                    }}
+                >
+                    <PointBlock />
+                    <ReferalBlock />
+                </Box>
 
-            <StartShopingBLock />
+                <StartShopingBLock />
+            </Box>
+            <CalculateBlock />
         </Box>
     );
 }
