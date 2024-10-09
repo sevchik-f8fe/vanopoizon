@@ -16,10 +16,10 @@ const ProfilePage = () => {
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
-    backBtn.onClick = () => {
+    tg.onEvent(() => {
         backBtn.hide();
         return redirect('/');
-    }
+    });
 
     return (
         <Box
