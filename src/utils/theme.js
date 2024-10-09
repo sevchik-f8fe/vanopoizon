@@ -10,14 +10,16 @@ export const theme = createTheme({
                 root: {
                     // Стили для всех кнопок Button
                 },
-                text: {
+                outlined: {
                     textTransform: 'none',
-                    fontWeight: '500',
-                    padding: '0 .4em',
-                    // Стили для кнопок Button с variant="text"
-                    color: 'var(--tg-theme-text-color)', // Цвет текста для кнопки
+                    borderRadius: '.5em',
+                    fontWeight: '600',
+                    backgroundColor: 'transparent',
+                    borderColor: '#fff',
+                    color: '#fff',
                     '&:hover': {
-                        backgroundColor: 'var(--tg-theme-bg-color)', // Цвет фона при наведении курсора
+                        borderColor: '#fff',
+                        backgroundColor: 'transparent',
                         opacity: 0.8, // Непрозрачность при наведении
                     },
                 },

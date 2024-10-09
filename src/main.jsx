@@ -7,13 +7,14 @@ import {
 import { ThemeProvider } from '@mui/material';
 
 import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 import './index.css'
 import { theme } from './utils/theme';
 
 const router = createBrowserRouter([
   {
     path: "/vanopoizon/",
-    element: <HomePage />,
+    element: <ProfilePage />,
   },
 ]);
 

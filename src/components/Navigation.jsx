@@ -2,7 +2,7 @@ import { Box, Chip, Avatar, Typography, Link } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 import tgImg from "../assets/Telegram_2019_Logo.svg";
-import poizonLogo from "../assets/miniman.png"
+import poizonLogo from "../assets/miniman.png";
 
 const Navigation = () => {
 
@@ -36,12 +36,7 @@ const ProfileBtn = () => {
                 gap: '.5em',
             }}
         >
-            <Avatar
-                sx={{
-                    // border: '1px solid white'
-                }}
-                src={user_photo}
-            />
+            <Avatar src={user_photo} />
 
             <Box
                 sx={{
