@@ -1,5 +1,8 @@
-import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Switch, Avatar } from "@mui/material";
+import { Box, IconButton, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar } from "@mui/material";
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { styled } from '@mui/material/styles';
 import { nanoid } from "nanoid";
 
 import shapka from "../assets/shapka_png.png";
@@ -62,6 +65,25 @@ const ProfilePage = () => {
                     {user_firstName} {user_secondName}
                 </Typography>
 
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        gap: '1em',
+                    }}
+                >
+
+                    <IconButton>
+                        <FavoriteIcon sx={{ color: '#F34213' }} />
+                    </IconButton>
+                    <IconButton
+                        variant="outlined"
+                    >
+                        <ShoppingCartIcon sx={{ color: '#F34213' }} />
+                    </IconButton>
+                </Box>
+
                 <NotificationsContainer />
 
                 <StatusContainer />
@@ -73,6 +95,42 @@ const ProfilePage = () => {
 }
 
 const NotificationsContainer = () => {
+    const AntSwitch = styled(Switch)(({ theme }) => ({
+        width: 34,
+        height: 24,
+        padding: '4px 2px',
+        display: 'flex',
+        '& .MuiSwitch-switchBase': {
+            padding: '3px 0',
+            '&.Mui-checked': {
+                transform: 'translateX(14px)',
+                color: '#fff',
+                '& + .MuiSwitch-track': {
+                    opacity: 1,
+                    backgroundColor: '#F34213',
+                },
+            },
+        },
+        '& .MuiSwitch-thumb': {
+            boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+            width: 18,
+            height: 18,
+            borderRadius: '50%',
+            transition: theme.transitions.create(['width'], {
+                duration: 200,
+            }),
+        },
+        '& .MuiSwitch-track': {
+            borderRadius: 25 / 2,
+            opacity: 1,
+            backgroundColor: 'rgba(0,0,0,.25)',
+            boxSizing: 'border-box',
+            ...theme.applyStyles('dark', {
+                backgroundColor: 'rgba(255,255,255,.35)',
+            }),
+        },
+    }));
+
     return (
         <Box
             sx={{
@@ -133,7 +191,7 @@ const NotificationsContainer = () => {
                     </Box>
                 </Box>
 
-                <Switch />
+                <AntSwitch />
             </Box>
         </Box>
     );
