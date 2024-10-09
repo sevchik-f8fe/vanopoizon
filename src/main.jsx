@@ -28,7 +28,7 @@ import { theme } from './utils/theme';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
-      <BrowserRouter basename={'/vanopoizon/'}>
+      <BrowserRouter basename={'/vanopoizon'}>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/profile' element={<ProfilePage />} />

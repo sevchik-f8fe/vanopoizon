@@ -4,12 +4,13 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { styled } from '@mui/material/styles';
 import { nanoid } from "nanoid";
-import { redirect } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import shapka from "../assets/shapka_png.png";
 import poizonLogo from "../assets/miniman.png"
 
 const ProfilePage = () => {
+
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
@@ -18,7 +19,7 @@ const ProfilePage = () => {
 
     tg.onEvent('backButtonClicked', function () {
         backBtn.hide();
-        return redirect('/');
+        navigate('/');
     });
 
     return (
@@ -368,6 +369,8 @@ const StatusContainer = () => {
 }
 
 const DataContainer = () => {
+    const navigate = useNavigate();
+
     const rows = [
         { title: 'Город', data: 'Не указано' },
         { title: 'ФИО', data: 'Не указано' },
