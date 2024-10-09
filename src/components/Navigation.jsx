@@ -25,11 +25,17 @@ const Navigation = () => {
 
 const ProfileBtn = () => {
     let tg = window.Telegram.WebApp;
+    let backBtn = tg?.backButton;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
 
     return (
-        <Link to={`/profile`}>
+        <Link
+            to={`/profile`}
+            onClick={() => {
+                if (backBtn) backBtn.show();
+            }}
+        >
             <Box
                 sx={{
                     display: 'flex',
