@@ -25,9 +25,13 @@ const Navigation = () => {
 
 const ProfileBtn = () => {
     let tg = window.Telegram.WebApp;
-    let backBtn = tg?.backButton;
+    let backBtn = tg?.BackButton;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
+
+    backBtn.onClick = () => {
+        backBtn.hide();
+    }
 
     return (
         <Link
