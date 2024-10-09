@@ -31,6 +31,7 @@ const ProfileBtn = () => {
 
     backBtn.onClick = () => {
         backBtn.hide();
+        navigate('/');
     }
 
     return (
