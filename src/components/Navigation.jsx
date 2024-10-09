@@ -29,11 +29,6 @@ const ProfileBtn = () => {
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
 
-    backBtn.onClick = () => {
-        backBtn.hide();
-        navigate('/');
-    }
-
     return (
         <Link
             to={`/profile`}

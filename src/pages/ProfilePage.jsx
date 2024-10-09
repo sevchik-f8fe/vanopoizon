@@ -371,6 +371,11 @@ const StatusContainer = () => {
 const DataContainer = () => {
     const navigate = useNavigate();
 
+    backBtn.onEvent('backButtonClicked', function () {
+        navigate('/');
+        backBtn.hide();
+    });
+
     const rows = [
         { title: 'Город', data: 'Не указано' },
         { title: 'ФИО', data: 'Не указано' },
