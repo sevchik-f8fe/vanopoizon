@@ -28,54 +28,56 @@ const ProfileBtn = () => {
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                alignItems: 'center',
-                cursor: 'pointer',
-                gap: '.5em',
-            }}
-        >
-            <Avatar src={user_photo} />
-
+        <a href={`/vanopoizon/profile/`}>
             <Box
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'start',
-                    justifyContent: 'center',
+                    alignItems: 'center',
+                    cursor: 'pointer',
+                    gap: '.5em',
                 }}
             >
+                <Avatar src={user_photo} />
+
                 <Box
                     sx={{
                         display: 'flex',
-                        alignItems: 'center',
+                        flexDirection: 'column',
+                        alignItems: 'start',
+                        justifyContent: 'center',
                     }}
                 >
-                    <Typography
+                    <Box
                         sx={{
-                            fontWeight: 'bold',
-                            color: 'white'
+                            display: 'flex',
+                            alignItems: 'center',
                         }}
-                        variant="subtitle1"
-                    >{user_name} </Typography>
-                    <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
+                    >
+                        <Typography
+                            sx={{
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }}
+                            variant="subtitle1"
+                        >{user_name} </Typography>
+                        <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
+                    </Box>
+
+
+                    <Typography
+                        variant="subtitle2"
+                        sx={{
+                            color: '#F34213', // Цвет текста
+                            backgroundColor: '#fff', // Цвет фона
+                            borderRadius: '.6em', // Закругление углов
+                            padding: ' 0 .3em', // Отступы
+                            fontWeight: 'bold',
+                            fontSize: '.7em',
+                        }}
+                    >статус</Typography>
                 </Box>
-
-
-                <Typography
-                    variant="subtitle2"
-                    sx={{
-                        color: '#F34213', // Цвет текста
-                        backgroundColor: '#fff', // Цвет фона
-                        borderRadius: '.6em', // Закругление углов
-                        padding: ' 0 .3em', // Отступы
-                        fontWeight: 'bold',
-                        fontSize: '.7em',
-                    }}
-                >статус</Typography>
             </Box>
-        </Box>
+        </a>
     );
 }
 
