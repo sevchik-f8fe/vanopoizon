@@ -10,13 +10,17 @@ import shapka from "../assets/shapka_png.png";
 import poizonLogo from "../assets/miniman.png"
 
 const ProfilePage = () => {
+    const navigate = useNavigate();
+    let tg = window.Telegram.WebApp;
+
+    let backBtn = tg?.BackButton;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
     tg.onEvent('backButtonClicked', function () {
-        backBtn.hide();
         navigate('/');
+        backBtn.hide();
     });
 
     return (
@@ -366,16 +370,6 @@ const StatusContainer = () => {
 }
 
 const DataContainer = () => {
-    const navigate = useNavigate();
-
-    let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
-
-    backBtn.onEvent('backButtonClicked', function () {
-        navigate('/');
-        backBtn.hide();
-    });
-
     const rows = [
         { title: 'Город', data: 'Не указано' },
         { title: 'ФИО', data: 'Не указано' },
