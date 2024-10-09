@@ -1,5 +1,6 @@
-import { Box, Chip, Avatar, Typography, Link } from "@mui/material";
+import { Box, Chip, Avatar, Typography } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import { Link } from "react-router-dom";
 
 import tgImg from "../assets/Telegram_2019_Logo.svg";
 import poizonLogo from "../assets/miniman.png";
@@ -28,7 +29,7 @@ const ProfileBtn = () => {
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
 
     return (
-        <a href={`/vanopoizon/profile/`}>
+        <Link to={`/profile`}>
             <Box
                 sx={{
                     display: 'flex',
@@ -77,20 +78,20 @@ const ProfileBtn = () => {
                     >статус</Typography>
                 </Box>
             </Box>
-        </a>
+        </Link>
     );
 }
 
 const ShopBtn = () => {
     return (
-        <Link href="https://t.me/IVANOV_SHOP">
+        <a href="https://t.me/IVANOV_SHOP">
             <Chip
                 sx={{ cursor: 'pointer' }}
                 avatar={<Avatar alt="Natacha"><img src={tgImg} /></Avatar>}
                 label='@vano_poizon'
                 variant="outlined"
             />
-        </Link>
+        </a>
 
     );
 }
