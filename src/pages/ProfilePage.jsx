@@ -8,8 +8,8 @@ import poizonLogo from "../assets/miniman.png"
 const ProfilePage = () => {
     let tg = window.Telegram.WebApp;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
-    let user_firstName = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Личный';
-    let user_secondName = tg?.initDataUnsafe?.user?.second_name.split(' ')[0] || '';
+    let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
+    let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
     return (
         <Box
