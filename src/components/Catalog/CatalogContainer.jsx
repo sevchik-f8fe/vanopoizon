@@ -1,13 +1,14 @@
 import { Box, Typography } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import { nanoid } from "nanoid";
 
+import SearchField from "../SearchField";
 import CatalogElement from "./CatalogElement";
 
 const CatalogContainer = () => {
     return (
         <Box
+            id="catalog"
             sx={{
                 w: '100%',
                 display: 'flex',
@@ -27,40 +28,50 @@ const CatalogHeader = () => {
         <Box
             sx={{
                 display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                gap: '1em',
+                flexDirection: 'column',
+                gap: '1em'
             }}
         >
-            <Typography
-                sx={{
-                    color: '#fff',
-                    fontSize: '1.6em',
-                    fontWeight: '900'
-                }}
-            >
-                Каталог
-            </Typography>
-
             <Box
                 sx={{
                     display: 'flex',
-                    gap: '.5em'
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    gap: '1em',
                 }}
             >
-                <SearchIcon
+                <Typography
+                    sx={{
+                        color: '#fff',
+                        fontSize: '1.6em',
+                        fontWeight: '900'
+                    }}
+                >
+                    Каталог
+                </Typography>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: '.5em'
+                    }}
+                >
+                    {/* <SearchIcon
                     sx={{
                         color: '#fff',
                         fontSize: '1.6em',
                     }}
-                />
-                <TuneIcon
-                    sx={{
-                        color: '#fff',
-                        fontSize: '1.6em',
-                    }}
-                />
+                /> */}
+                    <TuneIcon
+                        sx={{
+                            color: '#fff',
+                            fontSize: '1.6em',
+                        }}
+                    />
+                </Box>
             </Box>
+
+            <SearchField />
         </Box>
     );
 }

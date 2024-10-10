@@ -12,7 +12,7 @@ const Navigation = () => {
             sx={{
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
-                borderRadius: '.5em',
+                borderRadius: '1em',
                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
                 w: '100%',
             }}

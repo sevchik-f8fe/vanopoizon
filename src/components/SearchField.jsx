@@ -11,6 +11,7 @@ const SearchField = () => {
             }}
         >
             <TextField
+
                 slotProps={{
                     input: {
                         startAdornment: (
@@ -23,7 +24,7 @@ const SearchField = () => {
                 sx={{
                     flex: '1'
                 }}
-                placeholder="Поиск в Poizon"
+                placeholder="Nike Air Zoom"
                 size="small"
                 variant="outlined"
             />
