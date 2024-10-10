@@ -1,9 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
-import { backButton } from "@telegram-apps/sdk";
 
 const PointsPage = () => {
     const navigate = useNavigate();
