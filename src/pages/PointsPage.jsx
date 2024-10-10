@@ -110,15 +110,7 @@ const DescriptionContainer = () => {
                 }}
             >
                 Дальше ты будешь получать
-                <span style={{ color: '#F34213' }}> +50 баллов</span> за каждый завершенный заказ. Подробности
-                <Link
-                    to={`/profile`}
-                // onClick={() => {
-                //     if (!backBtn.isVisible()) backBtn.show();
-                // }}
-                >
-                    <span style={{ color: '#5685ca' }}> в профиле</span>
-                </Link>
+                <span style={{ color: '#F34213' }}> +50 баллов</span> за каждый завершенный заказ.
             </Typography>
             <Typography
                 sx={{
