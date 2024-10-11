@@ -20,7 +20,20 @@ export const theme = createTheme({
                     '&:hover': {
                         borderColor: '#fff',
                         backgroundColor: 'transparent',
-                        opacity: 0.8, // Непрозрачность при наведении
+                        // opacity: 0.8, // Непрозрачность при наведении
+                    },
+                },
+                contained: {
+                    textTransform: 'none',
+                    borderRadius: '1em',
+                    fontWeight: '600',
+                    backgroundColor: '#F34213',
+                    // borderColor: '#fff',
+                    color: '#fff',
+                    '&:hover': {
+                        // borderColor: '#fff',
+                        backgroundColor: '#F34213',
+                        // opacity: 0.8, // Непрозрачность при наведении
                     },
                 },
             },

@@ -9,6 +9,7 @@ import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import PointsPage from './pages/PointsPage';
 import ReferalPage from './pages/ReferalPage';
+import CalcPage from './pages/CalcPage.jsx/CalcPage';
 import './index.css'
 import { theme } from './utils/theme';
 
@@ -22,6 +23,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/points' element={<PointsPage />} />
           <Route path='/referal' element={<ReferalPage />} />
+          <Route path='/calc' element={<CalcPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

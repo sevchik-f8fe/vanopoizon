@@ -4,17 +4,24 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { styled } from '@mui/material/styles';
 import { nanoid } from "nanoid";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import shapka from "../assets/shapka_png.png";
 import poizonLogo from "../assets/miniman.png"
 
 const ProfilePage = () => {
-    let tg = window.Telegram.WebApp;
+    const navigate = useNavigate();
 
+    let tg = window.Telegram.WebApp;
+    let backBtn = tg?.BackButton;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
+
+    tg.onEvent('backButtonClicked', function () {
+        navigate('/');
+        backBtn.hide();
+    });
 
     return (
         <Box
