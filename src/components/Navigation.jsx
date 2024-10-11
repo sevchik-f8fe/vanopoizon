@@ -1,7 +1,7 @@
 import { Box, Chip, Avatar, Typography } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from "react-router-dom";
-import { useInitData } from "@telegram-apps/sdk-react";
+import { initData, parseInitData, backButton } from '@telegram-apps/sdk';
 
 import tgImg from "../assets/Telegram_2019_Logo.svg";
 import poizonLogo from "../assets/miniman.png";
@@ -24,8 +24,13 @@ const Navigation = () => {
 }
 
 const ProfileBtn = () => {
-    const initData = useInitData();
-    const src = initData?.user?.photoUrl; // Naive, isn't it?
+    const tg = parseInitData();
+    const btnSup = backButton.isSupported();
+
+    let userPhotoUrl = tg?.user?.photoUrl || poizonLogo;
+    let userFirstName = tg?.user?.firstName.split(' ')[0] || 'Профиль';
+
+    backButton.mount();
     // let tg = window.Telegram.WebApp;
     // let backBtn = tg?.BackButton;
     // let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
@@ -34,7 +39,7 @@ const ProfileBtn = () => {
         <Link
             to={`/profile`}
             onClick={() => {
-                if (backBtn) backBtn.show();
+                if (btnSup) backButton.show();
             }}
         >
             <Box
@@ -46,7 +51,7 @@ const ProfileBtn = () => {
                 }}
             >
                 {/* <Avatar src={user_photo} /> */}
-                <Avatar src={src} />
+                <Avatar src={userPhotoUrl} />
 
                 <Box
                     sx={{
@@ -69,7 +74,7 @@ const ProfileBtn = () => {
                             }}
                             variant="subtitle1"
                         // >{user_name} </Typography>
-                        >{initData?.user?.firstName} </Typography>
+                        >{userFirstName} </Typography>
                         <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                     </Box>
 
