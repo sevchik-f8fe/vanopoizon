@@ -35,13 +35,13 @@ const ProfileBtn = () => {
         btnSup = backButton.isSupported();
 
         userPhotoUrl = tg?.user?.photoUrl || poizonLogo;
-        userFirstName = tg?.user?.firstName.split(' ')[0] || 'Профиль';
+        userFirstName = tg?.user?.firstName || 'Профиль';
 
-        backButton.mount();
+        if (btnSup) backButton.mount();
     } else {
         btnSup = false;
         userPhotoUrl = poizonLogo;
-        userFirstName = 'gg'
+        userFirstName = 'Профиль';
     }
 
     // let tg = window.Telegram.WebApp;
