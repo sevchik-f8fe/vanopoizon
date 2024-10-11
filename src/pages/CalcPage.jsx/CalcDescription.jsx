@@ -1,8 +1,10 @@
 import { Box, Typography, Button } from "@mui/material";
+import { useCalc } from "./store";
 
 import dewu_app_icon from '../../assets/dewu_app_icon.jpg';
 
 const CalcDescription = () => {
+    const nextPage = useCalc(state => state.nextPage)
     return (
         <Box
             sx={{
@@ -117,6 +119,7 @@ const CalcDescription = () => {
                     А если не хочешь заморачиваться — пиши в чат, какие кроссы или одежду хочешь. Можешь вообще просто скинуть фотку кроссовок, а мы сами все найдем, заполним и рассчитаем.
                 </Typography>
                 <Button
+                    onClick={nextPage}
                     variant="outlined"
                     size="large"
                 >Начать</Button>

@@ -1,3 +1,4 @@
+import { Padding } from "@mui/icons-material";
 import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
@@ -54,13 +55,34 @@ export const theme = createTheme({
                     '& .MuiOutlinedInput-root': {
                         backgroundColor: '#2E2E3A',
                         color: 'white',
-                        borderRadius: '1em', // Скругление углов
+                        borderRadius: '1em',
                         '&.Mui-focused': {
                             '& .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ffffff50',
+                                borderWidth: '1px',
+                            },
+                        },
+                    },
+                    '& .MuiFilledInput-root': {
+                        backgroundColor: '#2E2E3A',
+                        fontSize: '.9em',
+                        color: '#fff',
+                        '&.Mui-focused': {
+                            backgroundColor: '#2E2E3A',
+                            '& .MuiFilledInput-notchedOutline': {
                                 borderColor: '#ffffff50', // Используем цвет из темы
                                 borderWidth: '1px',
                             },
                         },
+                        '&:hover': {
+                            backgroundColor: '#2E2E3A',
+                        },
+                        '&:after': {
+                            borderColor: '#ffffff60',
+                        },
+                    },
+                    '& .MuiInputLabel-root': {
+                        color: '#ffffff60',
                     },
                 },
             },
