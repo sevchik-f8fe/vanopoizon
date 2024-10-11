@@ -52,7 +52,7 @@ const ProfileBtn = () => {
         <Link
             to={`/profile`}
             onClick={() => {
-                if (btnSup) backBtn.show();
+                if (backBtn) backBtn.show();
             }}
         >
             <Box
