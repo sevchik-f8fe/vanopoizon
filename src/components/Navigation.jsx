@@ -1,15 +1,15 @@
 import { Box, Chip, Avatar, Typography } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from "react-router-dom";
-import { init, initData, parseInitData, backButton } from '@telegram-apps/sdk';
-import { isTMA } from "@telegram-apps/sdk";
+// import { init, initData, parseInitData, backButton } from '@telegram-apps/sdk';
+// import { isTMA } from "@telegram-apps/sdk";
 
 import tgImg from "../assets/Telegram_2019_Logo.svg";
 import poizonLogo from "../assets/miniman.png";
 
 const Navigation = () => {
 
-    if (isTMA('simple')) init();
+    // if (isTMA('simple')) init();
 
     return (
         <Box
@@ -28,31 +28,31 @@ const Navigation = () => {
 }
 
 const ProfileBtn = () => {
-    let tg, btnSup, userPhotoUrl, userFirstName;
+    // let tg, btnSup, userPhotoUrl, userFirstName;
 
-    if (isTMA('simple')) {
-        tg = parseInitData();
-        btnSup = backButton.isSupported();
+    // if (isTMA('simple')) {
+    //     tg = parseInitData();
+    //     btnSup = backButton.isSupported();
 
-        userPhotoUrl = tg?.user?.photoUrl || poizonLogo;
-        userFirstName = tg?.user?.firstName || 'Профиль';
+    //     userPhotoUrl = tg?.user?.photoUrl || poizonLogo;
+    //     userFirstName = tg?.user?.firstName || 'Профиль';
 
-        if (btnSup) backButton.mount();
-    } else {
-        btnSup = false;
-        userPhotoUrl = poizonLogo;
-        userFirstName = 'Профиль';
-    }
+    //     if (btnSup) backButton.mount();
+    // } else {
+    //     btnSup = false;
+    //     userPhotoUrl = poizonLogo;
+    //     userFirstName = 'Профиль';
+    // }
 
-    // let tg = window.Telegram.WebApp;
-    // let backBtn = tg?.BackButton;
-    // let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
-    // let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
+    let tg = window.Telegram.WebApp;
+    let backBtn = tg?.BackButton;
+    let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
+    let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
     return (
         <Link
             to={`/profile`}
             onClick={() => {
-                if (btnSup) backButton.show();
+                if (btnSup) backBtn.show();
             }}
         >
             <Box
@@ -63,8 +63,8 @@ const ProfileBtn = () => {
                     gap: '.5em',
                 }}
             >
-                {/* <Avatar src={user_photo} /> */}
-                <Avatar src={userPhotoUrl} />
+                <Avatar src={user_photo} />
+                {/* <Avatar src={userPhotoUrl} /> */}
 
                 <Box
                     sx={{
@@ -86,8 +86,8 @@ const ProfileBtn = () => {
                                 color: 'white'
                             }}
                             variant="subtitle1"
-                        // >{user_name} </Typography>
-                        >{userFirstName} </Typography>
+                        >{user_name} </Typography>
+                        {/* >{userFirstName} </Typography> */}
                         <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                     </Box>
 
