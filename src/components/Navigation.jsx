@@ -23,9 +23,6 @@ const Navigation = () => {
 }
 
 const ProfileBtn = () => {
-    const userData = Object.fromEntries(window?.Telegram?.WebApp?.initData);
-    let user = JSON.parse(userData?.user);
-
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
@@ -45,8 +42,7 @@ const ProfileBtn = () => {
                     gap: '.5em',
                 }}
             >
-                {/* <Avatar src={user_photo} /> */}
-                <Avatar src={user?.photo_url || poizonLogo} />
+                <Avatar src={user_photo} />
 
                 <Box
                     sx={{
@@ -68,8 +64,7 @@ const ProfileBtn = () => {
                                 color: 'white'
                             }}
                             variant="subtitle1"
-                        // >{user_name} </Typography>
-                        >{user?.first_name || 'prof'} </Typography>
+                        >{user_name} </Typography>
                         <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                     </Box>
 
