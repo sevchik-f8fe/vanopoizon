@@ -1,16 +1,11 @@
 import { Box, Chip, Avatar, Typography } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from "react-router-dom";
-// import { init, initData, parseInitData, backButton } from '@telegram-apps/sdk';
-// import { isTMA } from "@telegram-apps/sdk";
 
 import tgImg from "../assets/Telegram_2019_Logo.svg";
 import poizonLogo from "../assets/miniman.png";
 
 const Navigation = () => {
-
-    // if (isTMA('simple')) init();
-
     return (
         <Box
             sx={{
@@ -28,21 +23,8 @@ const Navigation = () => {
 }
 
 const ProfileBtn = () => {
-    // let tg, btnSup, userPhotoUrl, userFirstName;
-
-    // if (isTMA('simple')) {
-    //     tg = parseInitData();
-    //     btnSup = backButton.isSupported();
-
-    //     userPhotoUrl = tg?.user?.photoUrl || poizonLogo;
-    //     userFirstName = tg?.user?.firstName || 'Профиль';
-
-    //     if (btnSup) backButton.mount();
-    // } else {
-    //     btnSup = false;
-    //     userPhotoUrl = poizonLogo;
-    //     userFirstName = 'Профиль';
-    // }
+    const userData = Object.fromEntries(Telegram.WebApp.initData);
+    let user = JSON.parse(userData.user);
 
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
@@ -63,8 +45,8 @@ const ProfileBtn = () => {
                     gap: '.5em',
                 }}
             >
-                <Avatar src={user_photo} />
-                {/* <Avatar src={userPhotoUrl} /> */}
+                {/* <Avatar src={user_photo} /> */}
+                <Avatar src={user.photo_url} />
 
                 <Box
                     sx={{
@@ -86,8 +68,8 @@ const ProfileBtn = () => {
                                 color: 'white'
                             }}
                             variant="subtitle1"
-                        >{user_name} </Typography>
-                        {/* >{userFirstName} </Typography> */}
+                        // >{user_name} </Typography>
+                        >{user.first_name} </Typography>
                         <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                     </Box>
 

@@ -1,10 +1,15 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ProductPage from "../../pages/ProductPage/ProductPage";
+import { Link } from "react-router-dom";
 
 const CatalogElement = ({ picture, price, title }) => {
     return (
         <Box
             sx={{
+                position: 'relative',
                 minWidth: 'calc(50% - .25em)',
                 maxWidth: 'calc(50%)',
                 cursor: 'pointer',
@@ -12,18 +17,33 @@ const CatalogElement = ({ picture, price, title }) => {
                 backgroundColor: '#2E2E3A',
             }}
         >
-            <Box
+            <IconButton
+                size="small"
                 sx={{
-                    backgroundImage: `url(${picture})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    minWidth: '100%',
-                    borderRadius: '1em',
-                    minHeight: '8em',
+                    // backgroundColor: '#fff',
+                    top: '0',
+                    right: '0',
+                    position: 'absolute',
                 }}
             >
-            </Box>
+                {/* <FavoriteIcon sx={{ color: '#F34213' }} /> */}
+                <FavoriteBorderIcon sx={{ color: '#F34213' }} />
+            </IconButton>
+
+            <Link to={`/product`}>
+                <Box
+                    sx={{
+                        backgroundImage: `url(${picture})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        minWidth: '100%',
+                        borderRadius: '1em',
+                        minHeight: '8em',
+                    }}
+                >
+                </Box>
+            </Link>
 
             <Box
                 sx={{
@@ -54,26 +74,28 @@ const CatalogElement = ({ picture, price, title }) => {
                 >{title}</Typography>
             </Box>
 
-            <Box
-                sx={{
-                    m: '.5em',
-                    backgroundColor: '#fff',
-                    borderRadius: '1em',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}
-            >
-                <Typography
+            <Link to={`/product`}>
+                <Box
                     sx={{
-                        p: '.5em',
-                        color: '#2E2E3A',
-                        fontSize: '.8em',
-                        fontWeight: '700'
+                        m: '.5em',
+                        backgroundColor: '#fff',
+                        borderRadius: '1em',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
                     }}
-                >Купить</Typography>
-            </Box>
-        </Box >
+                >
+                    <Typography
+                        sx={{
+                            p: '.5em',
+                            color: '#2E2E3A',
+                            fontSize: '.8em',
+                            fontWeight: '700'
+                        }}
+                    >Купить</Typography>
+                </Box>
+            </Link>
+        </Box>
     );
 }
 

@@ -13,6 +13,7 @@ const BlocksContainer = () => {
                 gap: '.5em',
                 flexDirection: 'column',
                 w: '100%',
+                // p: '0 .5em 0 0',
             }}
         >
             <Box

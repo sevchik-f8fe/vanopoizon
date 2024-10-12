@@ -10,7 +10,7 @@ const StartShopingBLock = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                minWidth: '50%',
+                minWidth: 'calc(50% - .5em)',
                 justifyContent: 'space-between',
                 p: '1em',
                 borderRadius: '1em',
