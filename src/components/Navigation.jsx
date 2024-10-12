@@ -23,8 +23,8 @@ const Navigation = () => {
 }
 
 const ProfileBtn = () => {
-    const userData = Object.fromEntries(Telegram.WebApp.initData);
-    let user = JSON.parse(userData.user);
+    const userData = Object.fromEntries(window?.Telegram?.WebApp?.initData);
+    let user = JSON.parse(userData?.user);
 
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
@@ -46,7 +46,7 @@ const ProfileBtn = () => {
                 }}
             >
                 {/* <Avatar src={user_photo} /> */}
-                <Avatar src={user.photo_url} />
+                <Avatar src={user?.photo_url || poizonLogo} />
 
                 <Box
                     sx={{
@@ -69,7 +69,7 @@ const ProfileBtn = () => {
                             }}
                             variant="subtitle1"
                         // >{user_name} </Typography>
-                        >{user.first_name} </Typography>
+                        >{user?.first_name || 'prof'} </Typography>
                         <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                     </Box>
 
