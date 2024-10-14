@@ -45,7 +45,7 @@ const CatalogElement = ({ picture, price, title }) => {
                     mainBtn.color = '#fff';
                     mainBtn.textColor = '#F34213';
                     mainBtn.position = 'bottom';
-                    mainBtn.hasShineEffect = true;
+                    // mainBtn.hasShineEffect = true;
                     setAccordion('productPage');
                 }}
                 to={`/product`}

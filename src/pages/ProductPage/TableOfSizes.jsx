@@ -4,11 +4,11 @@ import { nanoid } from "nanoid";
 import { useProductPage } from "./store";
 
 const TableOfSizes = () => {
-    const { setAccordion } = useProductPage();
+    const { setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
 
     tg.onEvent('backButtonClicked', function () {
-        setAccordion('productPage');
+        setCurrentPage('productPage');
     });
 
     const rows = [
