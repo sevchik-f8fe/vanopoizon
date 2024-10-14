@@ -2,7 +2,6 @@ import { create } from "zustand";
 
 export const useProductPage = create((set) => ({
     currentSize: 33,
-    currentPage: 'productPage',
     accordion: {
         'delivery': true,
         'insurance': true,
@@ -19,8 +18,5 @@ export const useProductPage = create((set) => ({
     }),
     setCurrentSize: (value) => set(state => {
         return { currentSize: value };
-    }),
-    setCurrentPage: (value) => set(state => {
-        return { currentPage: value };
     }),
 }));

@@ -11,7 +11,9 @@ import PointsPage from './pages/PointsPage';
 import ReferalPage from './pages/ReferalPage';
 import CalcPage from './pages/CalcPage.jsx/CalcPage';
 import ProductPageContainer from './pages/ProductPage/ProductPageContainer';
-// import ProductPage from './pages/ProductPage/ProductPage';
+import ProductPage from './pages/ProductPage/ProductPage';
+import TableOfSizes from './pages/ProductPage/TableOfSizes';
+import BuyProductPage from './pages/ProductPage/BuyProductPage';
 import './index.css'
 import { theme } from './utils/theme';
 
@@ -26,7 +28,9 @@ createRoot(document.getElementById('root')).render(
           <Route path='/points' element={<PointsPage />} />
           <Route path='/referal' element={<ReferalPage />} />
           <Route path='/calc' element={<CalcPage />} />
-          <Route path='/product' element={<ProductPageContainer />} />
+          <Route path='/product' element={<ProductPage />} />
+          <Route path='/product/sizes' element={<TableOfSizes />} />
+          <Route path='/product/buy' element={<BuyProductPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

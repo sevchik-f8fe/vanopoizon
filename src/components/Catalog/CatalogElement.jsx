@@ -4,11 +4,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
 
-import { useProductPage } from "../../pages/ProductPage/store";
-
 const CatalogElement = ({ picture, price, title }) => {
-    const { setCurrentPage } = useProductPage();
-
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
     let mainBtn = tg?.MainButton;
@@ -45,8 +41,7 @@ const CatalogElement = ({ picture, price, title }) => {
                     mainBtn.color = '#fff';
                     mainBtn.textColor = '#F34213';
                     mainBtn.position = 'bottom';
-                    // mainBtn.hasShineEffect = true;
-                    setCurrentPage('productPage');
+                    mainBtn.hasShineEffect = false;
                 }}
                 to={`/product`}
             >

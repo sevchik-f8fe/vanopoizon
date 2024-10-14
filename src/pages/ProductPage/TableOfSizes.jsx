@@ -1,15 +1,14 @@
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { nanoid } from "nanoid";
-
-import { useProductPage } from "./store";
+import { useNavigate } from "react-router-dom";
 
 const TableOfSizes = () => {
-    const { setCurrentPage } = useProductPage();
+    const navigate = useNavigate()
     let tg = window.Telegram.WebApp;
     let mainBtn = tg?.MainButton;
 
     tg.onEvent('backButtonClicked', function () {
-        setCurrentPage('productPage');
+        navigate('/product')
         mainBtn.show();
     });
 
