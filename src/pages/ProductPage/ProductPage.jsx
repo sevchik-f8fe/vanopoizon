@@ -292,6 +292,7 @@ const ProductPage = () => {
 const SizesContainer = () => {
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
+    let backBtn = tg?.BackButton;
     let mainBtn = tg?.MainButton;
 
     return (
@@ -321,6 +322,7 @@ const SizesContainer = () => {
                     onClick={() => {
                         navigate('/product/sizes')
                         mainBtn.hide();
+                        backBtn.show();
                     }}
                     sx={{
                         cursor: 'pointer',

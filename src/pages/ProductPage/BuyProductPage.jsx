@@ -1,14 +1,14 @@
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import { useProductPage } from "./store";
-
 const BuyProductPage = () => {
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
+    let mainBtn = tg?.MainButton;
 
     tg.onEvent('backButtonClicked', function () {
         navigate('/product');
+        mainBtn.show();
         mainBtn.text = 'Перейти к оплате';
         mainBtn.color = '#fff';
         mainBtn.textColor = '#F34213';
