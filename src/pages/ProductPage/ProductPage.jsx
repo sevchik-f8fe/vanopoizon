@@ -11,7 +11,7 @@ import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
 
 const ProductPage = () => {
     const navigate = useNavigate();
-    const { setAccordion, accordion, setCurrentPage } = useProductPage();
+    const { setAccordion, accordion } = useProductPage();
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
     let mainBtn = tg?.MainButton;

@@ -5,10 +5,12 @@ const BuyProductPage = () => {
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     let mainBtn = tg?.MainButton;
+    let backBtn = tg?.BackButton;
 
     tg.onEvent('backButtonClicked', function () {
         navigate('/product');
         mainBtn.show();
+        backBtn.show();
         mainBtn.text = 'Перейти к оплате';
         mainBtn.color = '#fff';
         mainBtn.textColor = '#F34213';

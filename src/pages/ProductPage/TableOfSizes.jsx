@@ -5,10 +5,12 @@ import { useNavigate } from "react-router-dom";
 const TableOfSizes = () => {
     const navigate = useNavigate()
     let tg = window.Telegram.WebApp;
+    let backBtn = tg?.BackButton;
     let mainBtn = tg?.MainButton;
 
     tg.onEvent('backButtonClicked', function () {
         navigate('/product')
+        backBtn.show();
         mainBtn.show();
     });
 
