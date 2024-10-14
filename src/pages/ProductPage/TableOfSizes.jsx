@@ -1,7 +1,16 @@
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { nanoid } from "nanoid";
 
+import { useProductPage } from "./store";
+
 const TableOfSizes = () => {
+    const { setAccordion } = useProductPage();
+    let tg = window.Telegram.WebApp;
+
+    tg.onEvent('backButtonClicked', function () {
+        setAccordion('productPage');
+    });
+
     const rows = [
         { EU: '35', MM: '220', US: 'M3/W4.5', UK: '2.5', RU: '-' },
         { EU: '35.5', MM: '220', US: 'M3/W4.5', UK: '2.5', RU: '-' },

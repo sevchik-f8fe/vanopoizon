@@ -3,17 +3,26 @@ import { nanoid } from "nanoid";
 import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useNavigate } from "react-router-dom";
 
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
 
 const ProductPage = () => {
+    const navigate = useNavigate();
     const { setAccordion, accordion } = useProductPage();
     let tg = window.Telegram.WebApp;
-    let mainBtn = tg?.MainButton;
+    let backBtn = tg?.BackButton;
 
-    mainBtn.onClick = () => { setAccordion('buyProductPage') };
+    tg.onEvent('mainButtonClicked', function () {
+        setAccordion('buyProductPage');
+    });
+
+    tg.onEvent('backButtonClicked', function () {
+        navigate('/');
+        backBtn.hide();
+    });
 
     return (
         <Box>

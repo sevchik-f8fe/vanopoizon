@@ -2,11 +2,15 @@ import { Box, Typography, IconButton } from "@mui/material";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import ProductPage from "../../pages/ProductPage/ProductPage";
 import { Link } from "react-router-dom";
 
+import { useProductPage } from "../../pages/ProductPage/store";
+
 const CatalogElement = ({ picture, price, title }) => {
+    const { setAccordion } = useProductPage();
+
     let tg = window.Telegram.WebApp;
+    let backBtn = tg?.BackButton;
     let mainBtn = tg?.MainButton;
 
     return (
@@ -36,11 +40,13 @@ const CatalogElement = ({ picture, price, title }) => {
             <Link
                 onClick={() => {
                     mainBtn.show();
+                    backBtn.show();
                     mainBtn.text = 'Перейти к оплате';
                     mainBtn.color = '#fff';
                     mainBtn.textColor = '#F34213';
                     mainBtn.position = 'bottom';
                     mainBtn.hasShineEffect = true;
+                    setAccordion('productPage');
                 }}
                 to={`/product`}
 
