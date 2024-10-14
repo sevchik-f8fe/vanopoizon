@@ -10,7 +10,6 @@ import ProfilePage from './pages/ProfilePage';
 import PointsPage from './pages/PointsPage';
 import ReferalPage from './pages/ReferalPage';
 import CalcPage from './pages/CalcPage.jsx/CalcPage';
-import ProductPageContainer from './pages/ProductPage/ProductPageContainer';
 import ProductPage from './pages/ProductPage/ProductPage';
 import TableOfSizes from './pages/ProductPage/TableOfSizes';
 import BuyProductPage from './pages/ProductPage/BuyProductPage';

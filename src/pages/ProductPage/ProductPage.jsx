@@ -17,7 +17,7 @@ const ProductPage = () => {
     let mainBtn = tg?.MainButton;
 
     tg.onEvent('mainButtonClicked', function () {
-        setCurrentPage('buyProductPage');
+        navigate('/product/buy')
         mainBtn.text = 'Купить за 12 000 &#8381;';
         mainBtn.color = '#fff';
         mainBtn.textColor = '#F34213';
@@ -290,7 +290,7 @@ const ProductPage = () => {
 }
 
 const SizesContainer = () => {
-    const { setCurrentPage } = useProductPage();
+    const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     let mainBtn = tg?.MainButton;
 
@@ -319,8 +319,8 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
+                        navigate('/product/sizes')
                         mainBtn.hide();
-                        setCurrentPage('tableOfSizes')
                     }}
                     sx={{
                         cursor: 'pointer',
