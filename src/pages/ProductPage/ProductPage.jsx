@@ -14,14 +14,21 @@ const ProductPage = () => {
     const { setAccordion, accordion, setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
+    let mainBtn = tg?.MainButton;
 
     tg.onEvent('mainButtonClicked', function () {
         setCurrentPage('buyProductPage');
+        mainBtn.text = 'Купить за 12 000 &#8381;';
+        mainBtn.color = '#fff';
+        mainBtn.textColor = '#F34213';
+        mainBtn.position = 'bottom';
+        mainBtn.hasShineEffect = true;
     });
 
     tg.onEvent('backButtonClicked', function () {
         navigate('/');
         backBtn.hide();
+        mainBtn.hide();
     });
 
     return (
@@ -283,7 +290,9 @@ const ProductPage = () => {
 }
 
 const SizesContainer = () => {
-    const { currentPage, setCurrentPage } = useProductPage();
+    const { setCurrentPage } = useProductPage();
+    let tg = window.Telegram.WebApp;
+    let mainBtn = tg?.MainButton;
 
     return (
         <Box
@@ -309,7 +318,10 @@ const SizesContainer = () => {
                     }}
                 >Размер (EU)</Typography>
                 <Typography
-                    onClick={() => { setCurrentPage('tableOfSizes') }}
+                    onClick={() => {
+                        mainBtn.hide();
+                        setCurrentPage('tableOfSizes')
+                    }}
                     sx={{
                         cursor: 'pointer',
                         color: '#709ed9',

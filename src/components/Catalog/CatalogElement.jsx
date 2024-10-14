@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { useProductPage } from "../../pages/ProductPage/store";
 
 const CatalogElement = ({ picture, price, title }) => {
-    const { setAccordion } = useProductPage();
+    const { setCurrentPage } = useProductPage();
 
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
@@ -46,10 +46,9 @@ const CatalogElement = ({ picture, price, title }) => {
                     mainBtn.textColor = '#F34213';
                     mainBtn.position = 'bottom';
                     // mainBtn.hasShineEffect = true;
-                    setAccordion('productPage');
+                    setCurrentPage('productPage');
                 }}
                 to={`/product`}
-
             >
                 <Box
                     sx={{

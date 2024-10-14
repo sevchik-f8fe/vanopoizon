@@ -6,9 +6,11 @@ import { useProductPage } from "./store";
 const TableOfSizes = () => {
     const { setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
+    let mainBtn = tg?.MainButton;
 
     tg.onEvent('backButtonClicked', function () {
         setCurrentPage('productPage');
+        mainBtn.show();
     });
 
     const rows = [

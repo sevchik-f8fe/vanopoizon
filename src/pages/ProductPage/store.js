@@ -9,10 +9,6 @@ export const useProductPage = create((set) => ({
         'original': true,
     },
     setAccordion: (type) => set(state => {
-        // const newAccordion = {
-        //     ...state.accordion,
-        //     [type]: !state.accordion.type
-        // }
         console.log(1);
         return {
             accordion: {
