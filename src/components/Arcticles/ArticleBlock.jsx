@@ -1,29 +1,23 @@
-import { Box, Link } from "@mui/material";
+import { Box } from "@mui/material";
 
 const ArcticleBlock = ({ article_link, picture }) => {
+    let tg = window.Telegram.WebApp;
+
     return (
-        <Link
-            href={article_link}
+        <Box
+            onClick={() => { tg.openLink(article_link) }}
             sx={{
-                display: 'block',
+                borderRadius: '1em',
+                backgroundColor: 'white',
+                backgroundImage: `url(${picture})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
                 minHeight: '6em',
                 minWidth: '6em',
             }}
         >
-            <Box
-                sx={{
-                    borderRadius: '1em',
-                    backgroundColor: 'white',
-                    backgroundImage: `url(${picture})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                    minHeight: '6em',
-                    minWidth: '6em',
-                }}
-            >
-            </Box>
-        </Link>
+        </Box>
     );
 }
 

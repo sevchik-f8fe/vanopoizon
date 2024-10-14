@@ -6,6 +6,9 @@ import ProductPage from "../../pages/ProductPage/ProductPage";
 import { Link } from "react-router-dom";
 
 const CatalogElement = ({ picture, price, title }) => {
+    let tg = window.Telegram.WebApp;
+    let mainBtn = tg?.MainButton;
+
     return (
         <Box
             sx={{
@@ -30,7 +33,18 @@ const CatalogElement = ({ picture, price, title }) => {
                 <FavoriteBorderIcon sx={{ color: '#F34213' }} />
             </IconButton>
 
-            <Link to={`/product`}>
+            <Link
+                onClick={() => {
+                    mainBtn.show();
+                    mainBtn.text = 'Перейти к оплате';
+                    mainBtn.color = '#fff';
+                    mainBtn.textColor = '#F34213';
+                    mainBtn.position = 'bottom';
+                    mainBtn.hasShineEffect = true;
+                }}
+                to={`/product`}
+
+            >
                 <Box
                     sx={{
                         backgroundImage: `url(${picture})`,
@@ -43,38 +57,36 @@ const CatalogElement = ({ picture, price, title }) => {
                     }}
                 >
                 </Box>
-            </Link>
 
-            <Box
-                sx={{
-                    p: '.5em',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'senter',
-                    alignItems: 'start'
-                }}
-            >
-                <Typography
+                <Box
                     sx={{
-                        color: '#fff',
-                        fontSize: '1.2em',
-                        fontWeight: '700'
+                        p: '.5em',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'senter',
+                        alignItems: 'start'
                     }}
-                >{price}<CurrencyRubleIcon
+                >
+                    <Typography
+                        sx={{
+                            color: '#fff',
+                            fontSize: '1.2em',
+                            fontWeight: '700'
+                        }}
+                    >{price}<CurrencyRubleIcon
+                            sx={{
+                                color: '#fff',
+                                fontSize: '.8em',
+                            }}
+                        /></Typography>
+                    <Typography
                         sx={{
                             color: '#fff',
                             fontSize: '.8em',
                         }}
-                    /></Typography>
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '.8em',
-                    }}
-                >{title}</Typography>
-            </Box>
+                    >{title}</Typography>
+                </Box>
 
-            <Link to={`/product`}>
                 <Box
                     sx={{
                         m: '.5em',

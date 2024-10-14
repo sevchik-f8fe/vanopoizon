@@ -4,15 +4,19 @@ import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
 
 const ProductPage = () => {
+    const { setAccordion, accordion } = useProductPage();
+    let tg = window.Telegram.WebApp;
+    let mainBtn = tg?.MainButton;
+
+    mainBtn.onClick = () => { setAccordion('buyProductPage') };
+
     return (
-        <Box
-            sx={{
-            }}
-        >
+        <Box>
             <Box
                 sx={{
                     backgroundColor: "#fff",
@@ -73,7 +77,7 @@ const ProductPage = () => {
 
             <Box
                 sx={{
-                    p: '.5em',
+                    p: '.5em .8em',
                     m: '.5em 0',
                     borderRadius: '.5em',
                     backgroundColor: '#2E2E3A'
@@ -94,7 +98,7 @@ const ProductPage = () => {
 
             <Box
                 sx={{
-                    p: '.5em',
+                    p: '.5em .8em',
                     mb: '.5em',
                     borderRadius: '.5em',
                     backgroundColor: '#2E2E3A'
@@ -118,29 +122,41 @@ const ProductPage = () => {
                         Доставка
                     </Typography>
 
-                    <IconButton>
-                        <ExpandLessIcon
-                            sx={{
-                                color: '#fff',
-                            }}
-                        />
+                    <IconButton
+                        onClick={() => setAccordion('delivery')}
+                    >
+                        {(accordion.delivery === true) ? (
+                            <ExpandLessIcon
+                                sx={{
+                                    color: '#fff',
+                                }}
+                            />
+                        ) : (
+                            <ExpandMoreIcon
+                                sx={{
+                                    color: '#fff'
+                                }}
+                            />
+                        )}
                     </IconButton>
                 </Box>
+                {(accordion.delivery === true) && (
+                    <Typography
+                        sx={{
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '500',
+                        }}
+                    >
+                        Среднее время доставки 20–25 дней. После оплаты вы сможете отслеживать статусы доставки и получать уведомления об их изменении.
+                    </Typography>
+                )}
 
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '.9em',
-                        fontWeight: '500',
-                    }}
-                >
-                    Среднее время доставки 20–25 дней. После оплаты вы сможете отслеживать статусы доставки и получать уведомления об их изменении.
-                </Typography>
             </Box>
 
             <Box
                 sx={{
-                    p: '.5em',
+                    p: '.5em .8em',
                     mb: '.5em',
                     borderRadius: '.5em',
                     backgroundColor: '#2E2E3A'
@@ -163,30 +179,41 @@ const ProductPage = () => {
                     >
                         Страховка и безопасность
                     </Typography>
-
-                    <IconButton>
-                        <ExpandLessIcon
-                            sx={{
-                                color: '#fff',
-                            }}
-                        />
+                    <IconButton
+                        onClick={() => setAccordion('insurance')}
+                    >
+                        {(accordion.insurance === true) ? (
+                            <ExpandLessIcon
+                                sx={{
+                                    color: '#fff',
+                                }}
+                            />
+                        ) : (
+                            <ExpandMoreIcon
+                                sx={{
+                                    color: '#fff'
+                                }}
+                            />
+                        )}
                     </IconButton>
                 </Box>
 
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '.9em',
-                        fontWeight: '500',
-                    }}
-                >
-                    В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности.
-                </Typography>
+                {(accordion.insurance === true) && (
+                    <Typography
+                        sx={{
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '500',
+                        }}
+                    >
+                        В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности.
+                    </Typography>
+                )}
             </Box>
 
             <Box
                 sx={{
-                    p: '.5em',
+                    p: '.5em .8em',
                     mb: '.5em',
                     borderRadius: '.5em',
                     backgroundColor: '#2E2E3A'
@@ -209,25 +236,36 @@ const ProductPage = () => {
                     >
                         Строго оригинал
                     </Typography>
-
-                    <IconButton>
-                        <ExpandLessIcon
-                            sx={{
-                                color: '#fff',
-                            }}
-                        />
+                    <IconButton
+                        onClick={() => setAccordion('original')}
+                    >
+                        {(accordion.original === true) ? (
+                            <ExpandLessIcon
+                                sx={{
+                                    color: '#fff',
+                                }}
+                            />
+                        ) : (
+                            <ExpandMoreIcon
+                                sx={{
+                                    color: '#fff'
+                                }}
+                            />
+                        )}
                     </IconButton>
                 </Box>
 
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '.9em',
-                        fontWeight: '500',
-                    }}
-                >
-                    Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере.
-                </Typography>
+                {(accordion.original === true) && (
+                    <Typography
+                        sx={{
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '500',
+                        }}
+                    >
+                        Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере.
+                    </Typography>
+                )}
             </Box>
 
             <ReviewContainer />
@@ -236,6 +274,8 @@ const ProductPage = () => {
 }
 
 const SizesContainer = () => {
+    const { currentPage, setCurrentPage } = useProductPage();
+
     return (
         <Box
             sx={{
@@ -260,7 +300,9 @@ const SizesContainer = () => {
                     }}
                 >Размер (EU)</Typography>
                 <Typography
+                    onClick={() => { setCurrentPage('tableOfSizes') }}
                     sx={{
+                        cursor: 'pointer',
                         color: '#709ed9',
                         fontSize: '.75em',
                         fontWeight: '500'
@@ -276,25 +318,45 @@ const SizesContainer = () => {
                     overflowX: 'scroll',
                 }}
             >
-                {[1, 2, 3, 4, 5, 6, 7, 8, 9, 0].map((elem) => <SizesElement key={nanoid()} size='27.3' price='12 000' />)}
+                {[30, 31, 32, 33, 34, 35, 36, 37, 38, 39].map((elem) => <SizesElement key={nanoid()} size={elem} price='12 000' />)}
             </Box>
         </Box>
     );
 }
 
 const SizesElement = ({ size, price }) => {
+    const { currentSize, setCurrentSize } = useProductPage();
+
     return (
         <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                p: '.5em',
-                alignItems: 'center',
-                borderRadius: '.5em',
-                border: '1px solid #fff',
-                minWidth: 'fit-content'
-            }}
+            onClick={() => { setCurrentSize(size) }}
+            sx={
+                (currentSize == size) ? (
+                    {
+                        display: 'flex',
+                        cursor: 'pointer',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        p: '.5em',
+                        alignItems: 'center',
+                        borderRadius: '.5em',
+                        minWidth: 'fit-content',
+                        border: '1px solid #F34213',
+                    }
+                ) : (
+                    {
+                        cursor: 'pointer',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        p: '.5em',
+                        alignItems: 'center',
+                        borderRadius: '.5em',
+                        minWidth: 'fit-content',
+                        border: '1px solid #ffffff60',
+                    }
+                )
+            }
         >
             <Typography
                 sx={{
@@ -391,10 +453,12 @@ const SplitContainer = () => {
 }
 
 const ReviewContainer = () => {
+    let tg = window.Telegram.WebApp;
+
     return (
         <Box
             sx={{
-                p: '.5em',
+                p: '.5em .8em',
                 borderRadius: '.5em',
                 backgroundColor: '#2E2E3A',
                 display: 'flex',
@@ -423,6 +487,7 @@ const ReviewContainer = () => {
             </Box>
 
             <Button
+                onClick={() => { tg.openTelegramLink('https://t.me/reviews_12345') }}
                 variant="outlined"
                 size="large"
                 sx={{
