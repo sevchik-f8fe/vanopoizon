@@ -9,6 +9,9 @@ import ContestContainer from "../components/ContestContainer";
 import CatalogContainer from "../components/Catalog/CatalogContainer";
 
 const HomePage = () => {
+    let tg = window.Telegram.WebApp;
+    tg.BackButton.hide();
+
     return (
         <Box
             sx={{
