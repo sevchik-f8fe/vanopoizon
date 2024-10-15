@@ -1,18 +1,12 @@
 import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
 import { nanoid } from "nanoid";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
-import { useNavigate } from "react-router-dom";
+
+import { goBackAndHideBtnHandle } from "../utils/utilFuncs";
 
 const ReferalPage = () => {
-    const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
-
-    let backBtn = tg?.BackButton;
-
-    tg.onEvent('backButtonClicked', function () {
-        navigate('/');
-        backBtn.hide();
-    });
+    tg.onEvent('backButtonClicked', goBackAndHideBtnHandle);
 
     const rows = [
         { title: 'Переходов по ссылке', value: '0' },
@@ -23,7 +17,6 @@ const ReferalPage = () => {
     return (
         <Box
             sx={{
-                // p: '1em',
                 w: '100%',
                 display: 'flex',
                 flexDirection: 'column',
