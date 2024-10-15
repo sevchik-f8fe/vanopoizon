@@ -3,7 +3,8 @@ import { useCalc } from "./store";
 import calcImg from "../../assets/calc_page_size.png";
 
 const SetCalcSize = () => {
-    const { prevPage } = useCalc();
+    const { prevPage, size, setSize } = useCalc();
+    let tg = window.Telegram.WebApp;
 
     return (
         <Box
@@ -16,6 +17,8 @@ const SetCalcSize = () => {
         >
             <TextField
                 label="Размер"
+                value={size}
+                onChange={(e) => { setSize(e.target.value) }}
                 variant="filled"
                 size="small"
                 InputLabelProps={{
@@ -32,7 +35,7 @@ const SetCalcSize = () => {
                     fontSize: '.75em'
                 }}
             >
-                Шаг 2 из 4: Выберите размер. Чтобы подобрать правильный, загляните в размерную сетку.
+                Шаг 2 из 3: Выберите размер (EU). Чтобы подобрать правильный, загляните в размерную сетку.
             </Typography>
             <Box
                 sx={{
@@ -66,6 +69,10 @@ const SetCalcSize = () => {
                     }}
                 >
                     <Button
+                        onClick={() => {
+                            if (size.length > 0 && /^[0-9.]+$/.test(size)) console.log('ура');
+                            else tg?.HapticFeedback?.impactOccurred('light')
+                        }}
                         variant="outlined"
                         size="large"
                     >Далее</Button>

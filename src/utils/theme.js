@@ -9,7 +9,6 @@ export const theme = createTheme({
         MuiButton: {
             styleOverrides: {
                 root: {
-                    // Стили для всех кнопок Button
                 },
                 outlined: {
                     textTransform: 'none',
@@ -21,7 +20,16 @@ export const theme = createTheme({
                     '&:hover': {
                         borderColor: '#fff',
                         backgroundColor: 'transparent',
-                        // opacity: 0.8, // Непрозрачность при наведении
+                    },
+                },
+                text: {
+                    textTransform: 'none',
+                    borderRadius: '.5em',
+                    fontWeight: '600',
+                    backgroundColor: '#709dd915',
+                    color: '#709ed9',
+                    '&:hover': {
+                        backgroundColor: '#709dd915',
                     },
                 },
                 contained: {

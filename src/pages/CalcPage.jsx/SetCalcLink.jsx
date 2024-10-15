@@ -5,7 +5,7 @@ import calcImg from "../../assets/calc_page_link.png";
 
 const SetCalcLink = () => {
     let tg = window.Telegram.WebApp;
-    const { nextPage, prevPage } = useCalc()
+    const { nextPage, prevPage, setLink, link } = useCalc()
 
     return (
         <Box
@@ -20,6 +20,8 @@ const SetCalcLink = () => {
                 label="Ссылка на товар в Poizon"
                 variant="filled"
                 size="small"
+                value={link}
+                onChange={(e) => { setLink(e.target.value) }}
                 InputLabelProps={{
                     style: { color: '#ffffff60' },
                 }}
@@ -68,7 +70,10 @@ const SetCalcLink = () => {
                     }}
                 >
                     <Button
-                        onClick={nextPage}
+                        onClick={() => {
+                            if (link.length > 0 && link.startsWith('https://dw4.co/')) nextPage();
+                            else tg?.HapticFeedback?.impactOccurred('light')
+                        }}
                         variant="outlined"
                         size="large"
                     >Далее</Button>
