@@ -5,7 +5,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from "react-router-dom";
 
-import { goBackBtnHandle, showShineMainBtn } from "../../utils/utilFuncs";
+import { goBtnHandle, showShineMainBtn } from "../../utils/utilFuncs";
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
@@ -17,12 +17,12 @@ const ProductPage = () => {
     let mainBtn = tg?.MainButton;
 
     tg.onEvent('mainButtonClicked', function () {
-        navigate('/product_buy')
+        goBtnHandle('product_buy')
         showShineMainBtn(12000);
     });
 
     tg.onEvent('backButtonClicked', function () {
-        goBackBtnHandle();
+        goBtnHandle('');
         mainBtn.hide();
     });
 
@@ -315,7 +315,7 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
-                        navigate('/sizes')
+                        goBtnHandle('sizes')
                         mainBtn.hide();
                         backBtn.show();
                     }}
