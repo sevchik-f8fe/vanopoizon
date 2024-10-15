@@ -2,11 +2,11 @@ import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, T
 import { nanoid } from "nanoid";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 
-import { goBtnHandle } from "../utils/utilFuncs";
+import { goBackBtnHandle } from "../utils/utilFuncs";
 
 const ReferalPage = () => {
     let tg = window.Telegram.WebApp;
-    tg.onEvent('backButtonClicked', goBtnHandle(''));
+    tg.onEvent('backButtonClicked', goBackBtnHandle);
 
     const rows = [
         { title: 'Переходов по ссылке', value: '0' },

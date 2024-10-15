@@ -1,8 +1,7 @@
 let tg = window.Telegram.WebApp;
-export const goBtnHandle = (pathName) => {
-    // export const goBackBtnHandle = (pathName) => {
-    // window.history.back();
-    window.location.href = `/${pathName}`;
+
+export const goBackBtnHandle = () => {
+    history.back();
 }
 
 export const showShineMainBtn = (price) => {

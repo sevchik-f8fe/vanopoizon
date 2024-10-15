@@ -1,11 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 
-import { goBtnHandle } from "../utils/utilFuncs";
+import { goBackBtnHandle } from "../utils/utilFuncs";
 
 const PointsPage = () => {
     let tg = window.Telegram.WebApp;
-    tg.onEvent('backButtonClicked', goBtnHandle(''));
+    tg.onEvent('backButtonClicked', goBackBtnHandle);
 
     return (
         <Box

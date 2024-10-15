@@ -3,8 +3,6 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { Link } from "react-router-dom";
 
-import { goBtnHandle } from "../../utils/utilFuncs";
-
 const PointBlock = ({ points }) => {
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
@@ -14,10 +12,9 @@ const PointBlock = ({ points }) => {
             sx={{
                 textDecoration: 'none'
             }}
-            // to={`/points`}
+            to={`/points`}
             onClick={() => {
                 backBtn.show();
-                goBtnHandle('points');
             }}
         >
             <Box
