@@ -1,21 +1,13 @@
 import { Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
+import { goBackBtnHandle, showMainBtn } from "../../utils/utilFuncs";
 
 const BuyProductPage = () => {
-    const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
-    let mainBtn = tg?.MainButton;
-    let backBtn = tg?.BackButton;
 
     tg.onEvent('backButtonClicked', function () {
-        navigate('/product');
-        mainBtn.show();
-        backBtn.show();
-        mainBtn.text = 'Перейти к оплате';
-        mainBtn.color = '#fff';
-        mainBtn.textColor = '#F34213';
-        mainBtn.position = 'bottom';
-        mainBtn.hasShineEffect = false;
+        goBackBtnHandle();
+        showMainBtn();
     });
 
     return (

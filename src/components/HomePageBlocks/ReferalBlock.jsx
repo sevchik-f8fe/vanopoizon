@@ -15,9 +15,7 @@ const ReferalBlock = () => {
                 textDecoration: 'none'
             }}
             to={`/referal`}
-            onClick={() => {
-                if (backBtn) backBtn.show();
-            }}
+            onClick={() => backBtn.show()}
         >
             <Box
                 sx={{

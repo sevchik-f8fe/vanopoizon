@@ -5,6 +5,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from "react-router-dom";
 
+import { goBackBtnHandle, showShineMainBtn } from "../../utils/utilFuncs";
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
@@ -13,21 +14,15 @@ const ProductPage = () => {
     const navigate = useNavigate();
     const { setAccordion, accordion } = useProductPage();
     let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
     let mainBtn = tg?.MainButton;
 
     tg.onEvent('mainButtonClicked', function () {
         navigate('/product/buy')
-        mainBtn.text = 'Купить за 12 000 &#8381;';
-        mainBtn.color = '#fff';
-        mainBtn.textColor = '#F34213';
-        mainBtn.position = 'bottom';
-        mainBtn.hasShineEffect = true;
+        showShineMainBtn(12000);
     });
 
     tg.onEvent('backButtonClicked', function () {
-        navigate('/');
-        backBtn.hide();
+        goBackBtnHandle();
         mainBtn.hide();
     });
 

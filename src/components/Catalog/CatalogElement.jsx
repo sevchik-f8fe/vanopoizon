@@ -4,10 +4,11 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
 
+import { showMainBtn } from "../../utils/utilFuncs";
+
 const CatalogElement = ({ picture, price, title }) => {
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
-    let mainBtn = tg?.MainButton;
 
     return (
         <Box
@@ -35,13 +36,8 @@ const CatalogElement = ({ picture, price, title }) => {
 
             <Link
                 onClick={() => {
-                    mainBtn.show();
+                    showMainBtn();
                     backBtn.show();
-                    mainBtn.text = 'Перейти к оплате';
-                    mainBtn.color = '#fff';
-                    mainBtn.textColor = '#F34213';
-                    mainBtn.position = 'bottom';
-                    mainBtn.hasShineEffect = false;
                 }}
                 to={`/product`}
             >

@@ -1,5 +1,4 @@
-import { Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { goBackBtnHandle } from "../../utils/utilFuncs";
 import CalcDescription from "./CalcDescription";
 import SetCalcSize from "./SetCalcSize";
 import SetCalcLink from "./SetCalcLink";
@@ -7,14 +6,9 @@ import { useCalc } from "./store";
 
 const CalcPage = () => {
     const { page } = useCalc()
-    const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
 
-    tg.onEvent('backButtonClicked', function () {
-        navigate('/');
-        backBtn.hide();
-    });
+    tg.onEvent('backButtonClicked', goBackBtnHandle);
 
     return (
         <>

@@ -14,7 +14,7 @@ const PointBlock = ({ points }) => {
             }}
             to={`/points`}
             onClick={() => {
-                if (backBtn) backBtn.show();
+                backBtn.show();
             }}
         >
             <Box

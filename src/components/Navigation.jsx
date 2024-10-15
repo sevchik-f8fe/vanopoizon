@@ -27,12 +27,11 @@ const ProfileBtn = () => {
     let backBtn = tg?.BackButton;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_name = tg?.initDataUnsafe?.user?.first_name.split(' ')[0] || 'Профиль';
+
     return (
         <Link
             to={`/profile`}
-            onClick={() => {
-                if (backBtn) backBtn.show();
-            }}
+            onClick={() => backBtn.show()}
         >
             <Box
                 sx={{

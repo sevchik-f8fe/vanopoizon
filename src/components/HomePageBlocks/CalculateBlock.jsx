@@ -16,7 +16,7 @@ const CalculateBlock = () => {
             to={`/calc`}
             onClick={() => {
                 setPage(0);
-                if (backBtn) backBtn.show();
+                backBtn.show();
             }}
         >
             <Box
