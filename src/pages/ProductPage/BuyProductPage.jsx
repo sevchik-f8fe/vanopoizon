@@ -1,12 +1,15 @@
 import { Typography } from "@mui/material";
+import { useNavigate, useParams } from "react-router-dom";
 
-import { goBackBtnHandle, showMainBtn } from "../../utils/utilFuncs";
+import { showMainBtn } from "../../utils/utilFuncs";
 
 const BuyProductPage = () => {
     let tg = window.Telegram.WebApp;
+    let { lastPathName } = useParams();
+    const navigate = useNavigate();
 
     tg.onEvent('backButtonClicked', function () {
-        goBackBtnHandle();
+        navigate(`/${lastPathName}`);
         showMainBtn();
     });
 

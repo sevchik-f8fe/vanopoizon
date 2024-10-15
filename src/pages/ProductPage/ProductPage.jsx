@@ -11,14 +11,13 @@ import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
 
 const ProductPage = () => {
-    // console.log(window.history.state);
     const navigate = useNavigate();
     const { setAccordion, accordion } = useProductPage();
     let tg = window.Telegram.WebApp;
     let mainBtn = tg?.MainButton;
 
     tg.onEvent('mainButtonClicked', function () {
-        navigate('/product_buy')
+        navigate('/product_buy/:productPage')
         showShineMainBtn(12000);
     });
 
@@ -316,10 +315,9 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
-                        navigate('/sizes', { replace: false })
+                        navigate('/sizes/:productPage')
                         mainBtn.hide();
                         backBtn.show();
-                        console.log(window.history.state)
                     }}
                     sx={{
                         cursor: 'pointer',
