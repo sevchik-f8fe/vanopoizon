@@ -2,7 +2,7 @@ import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 
-import { showMainBtn, goBackBtnHandle, goBtnHandle } from "../../utils/utilFuncs";
+import { showMainBtn, goBtnHandle } from "../../utils/utilFuncs";
 
 const TableOfSizes = () => {
     let tg = window.Telegram.WebApp;

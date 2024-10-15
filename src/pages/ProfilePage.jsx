@@ -7,7 +7,7 @@ import { nanoid } from "nanoid";
 
 import shapka from "../assets/shapka_png.png";
 import poizonLogo from "../assets/miniman.png"
-import { goBackBtnHandle } from "../utils/utilFuncs";
+import { goBtnHandle } from "../utils/utilFuncs";
 
 const ProfilePage = () => {
     let tg = window.Telegram.WebApp;
@@ -15,7 +15,7 @@ const ProfilePage = () => {
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
-    tg.onEvent('backButtonClicked', goBackBtnHandle);
+    tg.onEvent('backButtonClicked', goBtnHandle(''));
 
     return (
         <Box
