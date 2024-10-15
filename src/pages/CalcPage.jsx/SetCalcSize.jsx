@@ -58,7 +58,6 @@ const SetCalcSize = () => {
                 >
                 </Box>
                 <Button
-                    onClick={nextPage}
                     variant="outlined"
                     size="large"
                 >Далее</Button>

@@ -16,7 +16,7 @@ const CalcPage = () => {
             navigate('/');
             backBtn.hide();
         } else {
-            navigate('/calc');
+            // navigate('/calc');
             backBtn.show();
             prevPage();
         }
