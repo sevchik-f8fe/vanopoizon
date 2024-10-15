@@ -74,7 +74,7 @@ const SetCalcLink = () => {
                         onClick={() => {
                             if (link.length > 0 && link.startsWith('https://dw4.co/')) nextPage();
                             else {
-                                if (hapticFeedback.isSupported()) hapticFeedback.impactOccurred('medium');
+                                hapticFeedback.notificationOccurred('error');
                             }
                         }}
                         variant="outlined"
