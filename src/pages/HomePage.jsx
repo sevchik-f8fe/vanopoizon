@@ -12,11 +12,7 @@ import CatalogContainer from "../components/Catalog/CatalogContainer";
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
     tg.BackButton.hide();
-
-    (async () => {
-        await viewport.mount();
-        if (viewport.isMounted()) viewport.expand();
-    })
+    tg.expand();
 
     return (
         <Box

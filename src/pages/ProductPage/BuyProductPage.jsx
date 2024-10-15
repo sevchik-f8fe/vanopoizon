@@ -1,14 +1,15 @@
 import { Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-import { showMainBtn } from "../../utils/utilFuncs";
+import { showMainBtn, goBackBtnHandle } from "../../utils/utilFuncs";
 
 const BuyProductPage = () => {
     let tg = window.Telegram.WebApp;
     const navigate = useNavigate();
 
     tg.onEvent('backButtonClicked', function () {
-        navigate(`/product`);
+        // navigate(`/product`);
+        goBackBtnHandle();
         showMainBtn('Перейти к оплате');
     });
 
