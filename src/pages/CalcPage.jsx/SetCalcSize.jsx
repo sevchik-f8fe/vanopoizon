@@ -1,10 +1,11 @@
 import { Box, Typography, Button, TextField } from "@mui/material";
+import { hapticFeedback } from "@telegram-apps/sdk";
+
 import { useCalc } from "./store";
 import calcImg from "../../assets/calc_page_size.png";
 
 const SetCalcSize = () => {
     const { prevPage, size, setSize } = useCalc();
-    let tg = window.Telegram.WebApp;
 
     return (
         <Box
@@ -71,7 +72,7 @@ const SetCalcSize = () => {
                     <Button
                         onClick={() => {
                             if (size.length > 0 && /^[0-9.]+$/.test(size)) console.log('ура');
-                            else tg?.HapticFeedback?.error
+                            else hapticFeedback.notificationOccurred('warning');
                         }}
                         variant="outlined"
                         size="large"
