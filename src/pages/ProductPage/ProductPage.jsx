@@ -5,7 +5,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from "react-router-dom";
 
-import { goBackBtnHandle, showShineMainBtn } from "../../utils/utilFuncs";
+import { goBackBtnHandle, showShineMainBtn, showMainBtn } from "../../utils/utilFuncs";
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
@@ -15,6 +15,7 @@ const ProductPage = () => {
     const { setAccordion, accordion } = useProductPage();
     let tg = window.Telegram.WebApp;
     let mainBtn = tg?.MainButton;
+    showMainBtn();
 
     tg.onEvent('mainButtonClicked', function () {
         navigate('/product_buy')

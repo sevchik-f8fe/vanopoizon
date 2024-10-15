@@ -2,15 +2,16 @@ import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 
-import { showMainBtn } from "../../utils/utilFuncs";
+import { showMainBtn, goBackBtnHandle } from "../../utils/utilFuncs";
 
 const TableOfSizes = () => {
     let tg = window.Telegram.WebApp;
     const navigate = useNavigate();
 
     tg.onEvent('backButtonClicked', function () {
-        navigate(`/product`)
-        showMainBtn('Перейти к оплате')
+        // navigate(`/product`)
+        goBackBtnHandle();
+        // showMainBtn('Перейти к оплате')
     });
 
     const rows = [
