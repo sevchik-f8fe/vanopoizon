@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
-import ErrorPage from './pages/ErrorPage';
+// import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import PointsPage from './pages/PointsPage';
@@ -28,8 +28,8 @@ createRoot(document.getElementById('root')).render(
           <Route path='/referal' element={<ReferalPage />} />
           <Route path='/calc' element={<CalcPage />} />
           <Route path='/product' element={<ProductPage />} />
-          <Route path='/product/sizes' element={<TableOfSizes />} />
-          <Route path='/product/buy' element={<BuyProductPage />} />
+          <Route path='/sizes' element={<TableOfSizes />} />
+          <Route path='/product_buy' element={<BuyProductPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

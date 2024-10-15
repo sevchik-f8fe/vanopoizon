@@ -36,7 +36,7 @@ const CatalogElement = ({ picture, price, title }) => {
 
             <Link
                 onClick={() => {
-                    showMainBtn();
+                    showMainBtn('Перейти к оплате');
                     backBtn.show();
                 }}
                 to={`/product`}

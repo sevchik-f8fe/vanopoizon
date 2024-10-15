@@ -17,7 +17,7 @@ const ProductPage = () => {
     let mainBtn = tg?.MainButton;
 
     tg.onEvent('mainButtonClicked', function () {
-        navigate('/product/buy')
+        navigate('/product_buy')
         showShineMainBtn(12000);
     });
 
@@ -315,7 +315,7 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
-                        navigate('/product/sizes')
+                        navigate('/sizes')
                         mainBtn.hide();
                         backBtn.show();
                     }}
