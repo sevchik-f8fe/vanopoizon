@@ -73,7 +73,7 @@ const SetCalcLink = () => {
                     <Button
                         onClick={() => {
                             if (link.length > 0 && link.startsWith('https://dw4.co/')) nextPage();
-                            else hapticFeedback.notificationOccurred('warning');
+                            else hapticFeedback.notificationOccurred('error');
                         }}
                         variant="outlined"
                         size="large"
