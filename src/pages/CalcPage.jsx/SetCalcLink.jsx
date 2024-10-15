@@ -1,6 +1,7 @@
 import { Box, Typography, Button, TextField, Link } from "@mui/material";
-import { useCalc } from "./store";
+import { hapticFeedback } from "@telegram-apps/sdk";
 
+import { useCalc } from "./store";
 import calcImg from "../../assets/calc_page_link.png";
 
 const SetCalcLink = () => {
@@ -72,7 +73,9 @@ const SetCalcLink = () => {
                     <Button
                         onClick={() => {
                             if (link.length > 0 && link.startsWith('https://dw4.co/')) nextPage();
-                            else tg?.HapticFeedback?.error
+                            else {
+                                if (hapticFeedback.isSupported()) hapticFeedback.impactOccurred('medium');
+                            }
                         }}
                         variant="outlined"
                         size="large"
