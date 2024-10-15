@@ -1,10 +1,12 @@
-import { Box, Typography, Button, TextField } from "@mui/material";
+import { Box, Typography, Button, TextField, Link } from "@mui/material";
 import { useCalc } from "./store";
 
 import calcImg from "../../assets/calc_page_link.png";
 
 const SetCalcLink = () => {
-    const { page, nextPage } = useCalc()
+    let tg = window.Telegram.WebApp;
+    const { nextPage } = useCalc()
+
     return (
         <Box
             sx={{
@@ -32,7 +34,7 @@ const SetCalcLink = () => {
                     fontSize: '.75em'
                 }}
             >
-                Шаг 1 из 4. Нажмите на товаре в Poizon кнопку "поделиться". Скопируйте ссылку и вставьте сюда.
+                Шаг 1 из 3. Нажмите на товаре в Poizon кнопку "поделиться". Скопируйте ссылку и вставьте сюда. <Link sx={{ color: '#709ed9', textDecoration: 'none', cursor: 'pointer' }} onClick={() => { tg.openLink('http://www.smoltra.ru/klasific-tractora') }}>А как это сделать</Link>
             </Typography>
             <Box
                 sx={{

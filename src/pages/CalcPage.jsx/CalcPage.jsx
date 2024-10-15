@@ -3,18 +3,21 @@ import { useNavigate } from "react-router-dom";
 import CalcDescription from "./CalcDescription";
 import SetCalcSize from "./SetCalcSize";
 import SetCalcLink from "./SetCalcLink";
-// import SetCalcPrice from "./SetCalcPrice";
 import { useCalc } from "./store";
 
 const CalcPage = () => {
-    const { page, setPage } = useCalc()
+    const { page, prevPage } = useCalc()
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
 
     tg.onEvent('backButtonClicked', function () {
-        navigate('/');
-        backBtn.hide();
+        if (page > 0) {
+            prevPage();
+        } else {
+            navigate('/');
+            backBtn.hide();
+        }
     });
 
     return (
@@ -30,11 +33,9 @@ const CalcPage = () => {
                                     fontSize: '2em',
                                     margin: '1em'
                                 }}
-                                onClick={() => setPage(0)}
                             >тыкни</button>
                         </div>
                     )}
-            {/* <SetCalcPrice /> */}
         </>
     );
 }
