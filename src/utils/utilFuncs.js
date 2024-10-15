@@ -1,7 +1,7 @@
 let tg = window.Telegram.WebApp;
 
 export const goBackBtnHandle = () => {
-    history.back();
+    window.Telegram.history.back();
 }
 
 export const showShineMainBtn = (price) => {
