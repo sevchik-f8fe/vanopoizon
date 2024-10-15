@@ -6,21 +6,21 @@ import SetCalcLink from "./SetCalcLink";
 import { useCalc } from "./store";
 
 const CalcPage = () => {
-    const { page, prevPage } = useCalc()
-    const navigate = useNavigate();
-    let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
+    const { page } = useCalc()
+    // const navigate = useNavigate();
+    // let tg = window.Telegram.WebApp;
+    // let backBtn = tg?.BackButton;
 
-    tg.onEvent('backButtonClicked', function () {
-        if (page === 0) {
-            navigate('/');
-            backBtn.hide();
-        } else {
-            navigate('/calc');
-            backBtn.show();
-            prevPage();
-        }
-    });
+    // tg.onEvent('backButtonClicked', function () {
+    //     if (page === 0) {
+    //         navigate('/');
+    //         backBtn.hide();
+    //     } else {
+    //         navigate('/calc');
+    //         backBtn.show();
+    //         prevPage();
+    //     }
+    // });
 
     return (
         <>

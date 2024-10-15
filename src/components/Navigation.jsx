@@ -87,16 +87,16 @@ const ProfileBtn = () => {
 }
 
 const ShopBtn = () => {
-    return (
-        <a href="https://t.me/IVANOV_SHOP">
-            <Chip
-                sx={{ cursor: 'pointer' }}
-                avatar={<Avatar alt="Natacha"><img src={tgImg} /></Avatar>}
-                label='@vano_poizon'
-                variant="outlined"
-            />
-        </a>
+    let tg = window.Telegram.WebApp;
 
+    return (
+        <Chip
+            onClick={() => { tg.openTelegramLink('https://t.me/IVANOV_SHOP') }}
+            sx={{ cursor: 'pointer' }}
+            avatar={<Avatar alt="Natacha"><img src={tgImg} /></Avatar>}
+            label='@vano_poizon'
+            variant="outlined"
+        />
     );
 }
 
