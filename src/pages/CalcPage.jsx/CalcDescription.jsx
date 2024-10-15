@@ -1,21 +1,10 @@
 import { Box, Typography, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 import { useCalc } from "./store";
 import dewu_app_icon from '../../assets/dewu_app_icon.jpg';
 
 const CalcDescription = () => {
-    const { nextPage } = useCalc()
-    const navigate = useNavigate();
-    let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
-
-    tg.onEvent('backButtonClicked', function () {
-        if (page === 0) {
-            navigate('/');
-            backBtn.hide();
-        }
-    });
+    const { nextPage, prevPage } = useCalc()
 
     return (
         <Box

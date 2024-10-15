@@ -7,20 +7,14 @@ import { useCalc } from "./store";
 
 const CalcPage = () => {
     const { page } = useCalc()
-    // const navigate = useNavigate();
-    // let tg = window.Telegram.WebApp;
-    // let backBtn = tg?.BackButton;
+    const navigate = useNavigate();
+    let tg = window.Telegram.WebApp;
+    let backBtn = tg?.BackButton;
 
-    // tg.onEvent('backButtonClicked', function () {
-    //     if (page === 0) {
-    //         navigate('/');
-    //         backBtn.hide();
-    //     } else {
-    //         navigate('/calc');
-    //         backBtn.show();
-    //         prevPage();
-    //     }
-    // });
+    tg.onEvent('backButtonClicked', function () {
+        navigate('/');
+        backBtn.hide();
+    });
 
     return (
         <>

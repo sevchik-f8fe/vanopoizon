@@ -3,16 +3,7 @@ import { useCalc } from "./store";
 import calcImg from "../../assets/calc_page_size.png";
 
 const SetCalcSize = () => {
-    let tg = window.Telegram.WebApp;
-    const { prevPage } = useCalc()
-    let backBtn = tg?.BackButton;
-
-    tg.onEvent('backButtonClicked', function () {
-        if (page != 0) {
-            prevPage();
-            backBtn.show();
-        }
-    });
+    const { prevPage } = useCalc();
 
     return (
         <Box
@@ -67,10 +58,23 @@ const SetCalcSize = () => {
                     }}
                 >
                 </Box>
-                <Button
-                    variant="outlined"
-                    size="large"
-                >Далее</Button>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '.5em'
+                    }}
+                >
+                    <Button
+                        variant="outlined"
+                        size="large"
+                    >Далее</Button>
+                    <Button
+                        onClick={prevPage}
+                        variant="text"
+                        size="large"
+                    >Назад</Button>
+                </Box>
             </Box>
         </Box>
     );

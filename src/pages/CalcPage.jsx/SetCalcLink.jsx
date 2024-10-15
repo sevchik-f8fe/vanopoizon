@@ -5,15 +5,7 @@ import calcImg from "../../assets/calc_page_link.png";
 
 const SetCalcLink = () => {
     let tg = window.Telegram.WebApp;
-    const { prevPage, nextPage } = useCalc()
-    let backBtn = tg?.BackButton;
-
-    tg.onEvent('backButtonClicked', function () {
-        if (page != 0) {
-            prevPage();
-            backBtn.show();
-        }
-    });
+    const { nextPage, prevPage } = useCalc()
 
     return (
         <Box
@@ -68,11 +60,24 @@ const SetCalcLink = () => {
                     }}
                 >
                 </Box>
-                <Button
-                    onClick={nextPage}
-                    variant="outlined"
-                    size="large"
-                >Далее</Button>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '.5em'
+                    }}
+                >
+                    <Button
+                        onClick={nextPage}
+                        variant="outlined"
+                        size="large"
+                    >Далее</Button>
+                    <Button
+                        onClick={prevPage}
+                        variant="text"
+                        size="large"
+                    >Назад</Button>
+                </Box>
             </Box>
         </Box>
     );
