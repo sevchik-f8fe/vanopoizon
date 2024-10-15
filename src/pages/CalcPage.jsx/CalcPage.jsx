@@ -12,11 +12,13 @@ const CalcPage = () => {
     let backBtn = tg?.BackButton;
 
     tg.onEvent('backButtonClicked', function () {
-        if (page > 0) {
-            prevPage();
-        } else {
+        if (page === 0) {
             navigate('/');
             backBtn.hide();
+        } else {
+            navigate('/calc');
+            backBtn.show();
+            prevPage();
         }
     });
 
