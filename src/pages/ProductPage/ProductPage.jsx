@@ -11,6 +11,7 @@ import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
 
 const ProductPage = () => {
+    // console.log(window.history.state);
     const navigate = useNavigate();
     const { setAccordion, accordion } = useProductPage();
     let tg = window.Telegram.WebApp;
@@ -315,9 +316,10 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
-                        navigate('/sizes')
+                        navigate('/sizes', { replace: false })
                         mainBtn.hide();
                         backBtn.show();
+                        console.log(window.history.state)
                     }}
                     sx={{
                         cursor: 'pointer',

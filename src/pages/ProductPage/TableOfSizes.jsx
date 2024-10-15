@@ -7,7 +7,8 @@ const TableOfSizes = () => {
     let tg = window.Telegram.WebApp;
 
     tg.onEvent('backButtonClicked', function () {
-        goBackBtnHandle();
+        // goBackBtnHandle();
+        window.history.go(-1);
         showMainBtn('Перейти к оплате')
     });
 
@@ -37,6 +38,7 @@ const TableOfSizes = () => {
 
     return (
         <Box
+            // onClick={() => { window.history.go(-1) }}
             sx={{
                 p: '.5em'
             }}
