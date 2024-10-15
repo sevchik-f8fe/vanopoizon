@@ -79,7 +79,7 @@ const SetCalcLink = () => {
                         }}
                         variant="outlined"
                         size="large"
-                    >Далее</Button>
+                    >Далее {toString(hapticFeedback?.isSupported())}</Button>
                     <Button
                         onClick={prevPage}
                         variant="text"
