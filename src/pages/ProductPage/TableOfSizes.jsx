@@ -11,7 +11,7 @@ const TableOfSizes = () => {
 
     tg.onEvent('backButtonClicked', function () {
         navigate(`/${lastPathName}`)
-        showMainBtn('Перейти к оплате')
+        if (lastPathName == 'product') showMainBtn('Перейти к оплате')
     });
 
     const rows = [
@@ -40,7 +40,7 @@ const TableOfSizes = () => {
 
     return (
         <Box
-            // onClick={() => { window.history.go(-1) }}
+            onClick={() => { navigate(`/${lastPathName}`) }}
             sx={{
                 p: '.5em'
             }}

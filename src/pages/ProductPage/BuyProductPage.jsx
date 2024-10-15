@@ -10,7 +10,7 @@ const BuyProductPage = () => {
 
     tg.onEvent('backButtonClicked', function () {
         navigate(`/${lastPathName}`);
-        showMainBtn('Перейти к оплате');
+        if (lastPathName == 'product') showMainBtn('Перейти к оплате');
     });
 
     return (
