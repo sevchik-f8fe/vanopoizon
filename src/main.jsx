@@ -28,8 +28,8 @@ createRoot(document.getElementById('root')).render(
           <Route path='/referal' element={<ReferalPage />} />
           <Route path='/calc' element={<CalcPage />} />
           <Route path='/product' element={<ProductPage />} />
-          <Route path='/sizes/:lastPathName' element={<TableOfSizes />} />
-          <Route path='/product_buy/:lastPathName' element={<BuyProductPage />} />
+          <Route path='/sizes' element={<TableOfSizes />} />
+          <Route path='/product_buy' element={<BuyProductPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

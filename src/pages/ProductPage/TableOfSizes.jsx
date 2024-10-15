@@ -1,17 +1,16 @@
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
 import { nanoid } from "nanoid";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { showMainBtn } from "../../utils/utilFuncs";
 
 const TableOfSizes = () => {
     let tg = window.Telegram.WebApp;
-    let { lastPathName } = useParams();
     const navigate = useNavigate();
 
     tg.onEvent('backButtonClicked', function () {
-        navigate(`/${lastPathName}`)
-        if (lastPathName == 'product') showMainBtn('Перейти к оплате')
+        navigate(`/product`)
+        showMainBtn('Перейти к оплате')
     });
 
     const rows = [
@@ -40,7 +39,6 @@ const TableOfSizes = () => {
 
     return (
         <Box
-            onClick={() => { navigate(`/${lastPathName}`) }}
             sx={{
                 p: '.5em'
             }}
