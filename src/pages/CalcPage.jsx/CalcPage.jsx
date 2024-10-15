@@ -27,16 +27,7 @@ const CalcPage = () => {
             {(page === 0) ? <CalcDescription /> :
                 (page === 1) ? <SetCalcLink /> :
                     (page === 2) ? <SetCalcSize /> : (
-                        <div>
-                            <p style={{ color: "#fff" }}>ты уже слишком далеко зашёл</p>
-                            <button
-                                style={{
-                                    padding: '1em',
-                                    fontSize: '2em',
-                                    margin: '1em'
-                                }}
-                            >тыкни</button>
-                        </div>
+                        <>Ошибка</>
                     )}
         </>
     );

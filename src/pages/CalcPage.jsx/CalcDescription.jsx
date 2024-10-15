@@ -4,7 +4,7 @@ import { useCalc } from "./store";
 import dewu_app_icon from '../../assets/dewu_app_icon.jpg';
 
 const CalcDescription = () => {
-    const nextPage = useCalc(state => state.nextPage)
+    const { nextPage } = useCalc()
 
     return (
         <Box
