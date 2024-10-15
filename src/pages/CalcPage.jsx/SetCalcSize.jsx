@@ -72,7 +72,7 @@ const SetCalcSize = () => {
                     <Button
                         onClick={() => {
                             if (size.length > 0 && /^[0-9.]+$/.test(size)) console.log('ура');
-                            else hapticFeedback.notificationOccurred('success');
+                            else hapticFeedback.notificationOccurred('error');
                         }}
                         variant="outlined"
                         size="large"
