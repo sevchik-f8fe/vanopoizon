@@ -4,8 +4,8 @@ let tg = window.Telegram.WebApp;
 
 export const goBackBtnHandle = () => {
     const navigate = useNavigate();
-    history.back();
-    // navigate(-1);
+    // history.back();
+    navigate(-1);
 }
 
 export const showShineMainBtn = (price) => {
