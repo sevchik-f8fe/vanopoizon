@@ -52,6 +52,18 @@ export const theme = createTheme({
                 },
             },
         },
+        MuiIconButton: {
+            styleOverrides: {
+                root: {
+                    '&:hover': {
+                        backgroundColor: '#fff',
+                    },
+                    '&:active': {
+                        backgroundColor: '#fff6',
+                    },
+                },
+            },
+        },
         MuiChip: {
             styleOverrides: {
                 label: {
