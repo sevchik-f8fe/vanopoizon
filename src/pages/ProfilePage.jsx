@@ -17,7 +17,6 @@ const ProfilePage = () => {
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
-    // tg.onEvent('backButtonClicked', goBackBtnHandle);
     tg.onEvent('backButtonClicked', () => { navigate(-1) });
 
     return (
@@ -80,9 +79,7 @@ const ProfilePage = () => {
                     }}
                 >
 
-                    <IconButton
-                        onClick={() => navigate(-1)}
-                    >
+                    <IconButton>
                         <FavoriteIcon sx={{ color: '#F34213' }} />
                     </IconButton>
                     <IconButton

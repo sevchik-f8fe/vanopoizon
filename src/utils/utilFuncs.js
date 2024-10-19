@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 let tg = window.Telegram.WebApp;
 
-export const goBackBtnHandle = () => {
-    const navigate = useNavigate();
-    // history.back();
-    navigate(-1);
-}
+// export const goBackBtnHandle = () => {
+//     const navigate = useNavigate();
+//     // history.back();
+//     navigate(-1);
+// }
 
 export const showShineMainBtn = (price) => {
     tg.MainButton.show();
