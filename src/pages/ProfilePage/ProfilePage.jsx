@@ -1,8 +1,9 @@
-import { Box, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar } from "@mui/material";
+import { Box, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar, IconButton } from "@mui/material";
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { nanoid } from "nanoid";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
 import { useNotifications } from "./store";
 
@@ -64,51 +65,34 @@ const ProfilePage = () => {
                         color: '#fff',
                         fontSize: '1.8em',
                         fontWeight: '900',
-                        mb: '1em',
                     }}
                 >
                     {user_firstName} {user_secondName}
                 </Typography>
 
-                <LikedProductsContainer />
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: '1em'
+                    }}
+                >
+                    <IconButton>
+                        <FavoriteIcon
+                            sx={{ color: '#F34213' }}
+                        />
+                    </IconButton>
+                    <IconButton>
+                        <ShoppingCartIcon
+                            sx={{ color: '#F34213' }}
+                        />
+                    </IconButton>
+                </Box>
+
                 <NotificationsContainer />
                 <StatusContainer />
                 <DataContainer />
             </Box>
         </Box >
-    );
-}
-
-const LikedProductsContainer = () => {
-    return (
-        <Box
-            sx={{
-                cursor: 'pointer',
-                backgroundColor: '#e1bee7',
-                p: '.5em',
-                borderRadius: '.5em',
-                minWidth: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-                gap: '1em',
-                alignItems: 'center'
-            }}
-        >
-            <Typography
-                sx={{
-                    color: '#7b1fa2',
-                    fontSize: '1.4em',
-                    fontWeight: '900',
-                }}
-            >
-                Отмеченные товары
-            </Typography>
-
-            <ArrowOutwardIcon sx={{
-                color: '#7b1fa2',
-                fontSize: '1.8em'
-            }} />
-        </Box>
     );
 }
 

@@ -15,7 +15,7 @@ let tg = window.Telegram.WebApp;
 
 export const showShineMainBtn = (price) => {
     tg.MainButton.show();
-    tg.MainButton.text = `Купить за ${price} ${decodeURIComponent('&#8381;')}`;
+    tg.MainButton.text = `Купить за ${price} ${entityToChar('&#8381;')}`;
     tg.MainButton.color = '#fff';
     tg.MainButton.textColor = '#F34213';
     tg.MainButton.position = 'bottom';
@@ -39,4 +39,8 @@ export const copyOnCLickHandle = (text) => {
         .catch(err => {
             console.log(':((((', err)
         })
+}
+
+export const entityToChar = (ent) => {
+    return String.fromCharCode(ent.slice(2, -1));
 } 
