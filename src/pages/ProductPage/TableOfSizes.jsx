@@ -2,11 +2,16 @@ import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
+import { useEffect } from "react";
 
 import { useProductPage } from "./store";
 import { showShineMainBtn } from "../../utils/utilFuncs";
 
 const TableOfSizes = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const { setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
     const navigate = useNavigate();
