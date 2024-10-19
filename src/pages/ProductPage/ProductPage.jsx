@@ -1,5 +1,6 @@
 import { Box, Typography, IconButton, Button, Link } from "@mui/material";
 import { nanoid } from "nanoid";
+import { shareURL } from '@telegram-apps/sdk';
 import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -7,9 +8,9 @@ import { useNavigate } from "react-router-dom";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SendIcon from '@mui/icons-material/Send';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+// import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 
 import { useProductPage } from "./store";
@@ -65,7 +66,7 @@ const ProductPageContainer = () => {
                 >
                     <IconButton
                         onClick={() => {
-                            tg.switchInlineQuery('ааааа бля')
+                            shareURL('https://core.telegram.org', 'Оййй бляяя');
                         }}
                         sx={{
                             backgroundColor: '#fff'
