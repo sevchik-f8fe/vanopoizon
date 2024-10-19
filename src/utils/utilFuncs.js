@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-const navigate = useNavigate();
 let tg = window.Telegram.WebApp;
 
 export const goBackBtnHandle = () => {
+    const navigate = useNavigate();
     history.back();
     // navigate(-1);
 }

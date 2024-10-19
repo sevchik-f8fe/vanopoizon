@@ -17,7 +17,8 @@ const ProfilePage = () => {
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
-    tg.onEvent('backButtonClicked', () => { navigate(-1) });
+    tg.onEvent('backButtonClicked', goBackBtnHandle);
+    // tg.onEvent('backButtonClicked', () => { navigate(-1) });
 
     return (
         <Box
