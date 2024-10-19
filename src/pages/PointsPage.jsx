@@ -1,11 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
-
-import { goBackBtnHandle } from "../utils/utilFuncs";
+import { useNavigate } from "react-router-dom";
 
 const PointsPage = () => {
     let tg = window.Telegram.WebApp;
-    tg.onEvent('backButtonClicked', goBackBtnHandle);
+    tg.onEvent('backButtonClicked', () => { navigate(-1) });
 
     return (
         <Box

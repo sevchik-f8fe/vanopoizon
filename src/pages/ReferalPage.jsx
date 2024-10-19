@@ -3,8 +3,6 @@ import { nanoid } from "nanoid";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import { useNavigate } from "react-router-dom";
 
-import { goBackBtnHandle } from "../utils/utilFuncs";
-
 const ReferalPage = () => {
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;

@@ -5,7 +5,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from "react-router-dom";
 
-import { goBackBtnHandle, showShineMainBtn, showMainBtn } from "../../utils/utilFuncs";
+import { showShineMainBtn, showMainBtn } from "../../utils/utilFuncs";
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
@@ -23,7 +23,7 @@ const ProductPage = () => {
     });
 
     tg.onEvent('backButtonClicked', function () {
-        goBackBtnHandle();
+        navigate(-1);
         mainBtn.hide();
     });
 

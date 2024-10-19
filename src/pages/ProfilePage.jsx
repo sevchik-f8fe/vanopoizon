@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 import shapka from "../assets/shapka_png.png";
 import poizonLogo from "../assets/miniman.png"
-import { goBackBtnHandle } from "../utils/utilFuncs";
 
 const ProfilePage = () => {
     const navigate = useNavigate();

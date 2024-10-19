@@ -1,4 +1,3 @@
-import { goBackBtnHandle } from "../../utils/utilFuncs";
 import CalcDescription from "./CalcDescription";
 import SetCalcSize from "./SetCalcSize";
 import SetCalcLink from "./SetCalcLink";
@@ -8,7 +7,7 @@ const CalcPage = () => {
     const { page } = useCalc()
     let tg = window.Telegram.WebApp;
 
-    tg.onEvent('backButtonClicked', goBackBtnHandle);
+    tg.onEvent('backButtonClicked', () => { Navigate(-1) });
 
     return (
         <>
