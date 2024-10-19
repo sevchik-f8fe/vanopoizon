@@ -5,27 +5,291 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useNavigate } from "react-router-dom";
 
-import { showShineMainBtn, showMainBtn } from "../../utils/utilFuncs";
+import { showShineMainBtn } from "../../utils/utilFuncs";
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
+import TableOfSizes from "./TableOfSizes";
 
 const ProductPage = () => {
     const navigate = useNavigate();
-    const { setAccordion, accordion } = useProductPage();
+    const { currentPage, setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
     let mainBtn = tg?.MainButton;
-    showMainBtn();
-
-    tg.onEvent('mainButtonClicked', function () {
-        navigate('/product_buy')
-        showShineMainBtn(12000);
-    });
 
     tg.onEvent('backButtonClicked', function () {
         navigate(-1);
         mainBtn.hide();
     });
+
+    return (
+        <>
+            {currentPage == 'productPage' ? (
+                <ProductPageContainer />
+            ) : (
+                <TableOfSizes />
+            )}
+        </>
+    );
+    //     <Box>
+    //         <Box
+    //             sx={{
+    //                 backgroundColor: "#fff",
+    //                 minWidth: '100%',
+    //                 p: '.5em',
+    //             }}
+    //         >
+    //             <Box
+    //                 sx={{
+    //                     backgroundImage: `url(https://png.klev.club/uploads/posts/2024-03/png-klev-club-p-bober-png-1.png)`,
+    //                     backgroundSize: 'cover',
+    //                     backgroundPosition: 'center',
+    //                     backgroundRepeat: 'no-repeat',
+    //                     minWidth: 'calc(100%)',
+    //                     minHeight: '13em',
+    //                 }}
+    //             >
+    //             </Box>
+
+    //             <Typography
+    //                 sx={{
+    //                     mt: '.5em', mb: '1em',
+    //                     color: '#202029',
+    //                     fontSize: '1.5em',
+    //                     fontWeight: '900'
+    //                 }}
+    //             >
+    //                 Бобёр коричнеый б\у
+    //             </Typography>
+    //         </Box>
+
+    //         <Box
+    //             sx={{
+    //                 position: 'relative',
+    //                 top: '-1em',
+    //                 borderRadius: '1em',
+    //                 backgroundColor: '#2E2E3A',
+    //                 p: '.5em .8em',
+    //             }}
+    //         >
+    //             <Typography
+    //                 sx={{
+    //                     fontSize: '1.5em',
+    //                     fontWeight: '700',
+    //                     color: '#fff',
+    //                     borderBottom: '1px solid #ffffff60',
+    //                     pb: '.2em',
+    //                 }}
+    //             >
+    //                 12 000 &#8381;
+    //             </Typography>
+
+    //             <SizesContainer />
+    //             <SplitContainer />
+    //         </Box>
+
+    //         <ContestContainer />
+
+    //         <Box
+    //             sx={{
+    //                 p: '.5em .8em',
+    //                 m: '.5em 0',
+    //                 borderRadius: '.5em',
+    //                 backgroundColor: '#2E2E3A'
+    //             }}
+    //         >
+    //             <Typography
+    //                 sx={{
+    //                     color: '#fff',
+    //                     fontSize: '1em',
+    //                     fontWeight: '700',
+    //                     p: '.5em 0'
+    //                 }}
+    //             >
+    //                 Полезная информация
+    //             </Typography>
+    //             <ArcticleContainer />
+    //         </Box>
+
+    //         <Box
+    //             sx={{
+    //                 p: '.5em .8em',
+    //                 mb: '.5em',
+    //                 borderRadius: '.5em',
+    //                 backgroundColor: '#2E2E3A'
+    //             }}
+    //         >
+    //             <Box
+    //                 sx={{
+    //                     display: 'flex',
+    //                     justifyContent: 'space-between',
+    //                     alignItems: 'center',
+    //                 }}
+    //             >
+    //                 <Typography
+    //                     sx={{
+    //                         color: '#fff',
+    //                         fontSize: '1em',
+    //                         fontWeight: '700',
+    //                         p: '.5em 0'
+    //                     }}
+    //                 >
+    //                     Доставка
+    //                 </Typography>
+
+    //                 <IconButton
+    //                     onClick={() => setAccordion('delivery')}
+    //                 >
+    //                     {(accordion.delivery === true) ? (
+    //                         <ExpandLessIcon
+    //                             sx={{
+    //                                 color: '#fff',
+    //                             }}
+    //                         />
+    //                     ) : (
+    //                         <ExpandMoreIcon
+    //                             sx={{
+    //                                 color: '#fff'
+    //                             }}
+    //                         />
+    //                     )}
+    //                 </IconButton>
+    //             </Box>
+    //             {(accordion.delivery === true) && (
+    //                 <Typography
+    //                     sx={{
+    //                         color: '#fff',
+    //                         fontSize: '.9em',
+    //                         fontWeight: '500',
+    //                     }}
+    //                 >
+    //                     Среднее время доставки 20–25 дней. После оплаты вы сможете отслеживать статусы доставки и получать уведомления об их изменении.
+    //                 </Typography>
+    //             )}
+
+    //         </Box>
+
+    //         <Box
+    //             sx={{
+    //                 p: '.5em .8em',
+    //                 mb: '.5em',
+    //                 borderRadius: '.5em',
+    //                 backgroundColor: '#2E2E3A'
+    //             }}
+    //         >
+    //             <Box
+    //                 sx={{
+    //                     display: 'flex',
+    //                     justifyContent: 'space-between',
+    //                     alignItems: 'center',
+    //                 }}
+    //             >
+    //                 <Typography
+    //                     sx={{
+    //                         color: '#fff',
+    //                         fontSize: '1em',
+    //                         fontWeight: '700',
+    //                         p: '.5em 0'
+    //                     }}
+    //                 >
+    //                     Страховка и безопасность
+    //                 </Typography>
+    //                 <IconButton
+    //                     onClick={() => setAccordion('insurance')}
+    //                 >
+    //                     {(accordion.insurance === true) ? (
+    //                         <ExpandLessIcon
+    //                             sx={{
+    //                                 color: '#fff',
+    //                             }}
+    //                         />
+    //                     ) : (
+    //                         <ExpandMoreIcon
+    //                             sx={{
+    //                                 color: '#fff'
+    //                             }}
+    //                         />
+    //                     )}
+    //                 </IconButton>
+    //             </Box>
+
+    //             {(accordion.insurance === true) && (
+    //                 <Typography
+    //                     sx={{
+    //                         color: '#fff',
+    //                         fontSize: '.9em',
+    //                         fontWeight: '500',
+    //                     }}
+    //                 >
+    //                     В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности.
+    //                 </Typography>
+    //             )}
+    //         </Box>
+
+    //         <Box
+    //             sx={{
+    //                 p: '.5em .8em',
+    //                 mb: '.5em',
+    //                 borderRadius: '.5em',
+    //                 backgroundColor: '#2E2E3A'
+    //             }}
+    //         >
+    //             <Box
+    //                 sx={{
+    //                     display: 'flex',
+    //                     justifyContent: 'space-between',
+    //                     alignItems: 'center',
+    //                 }}
+    //             >
+    //                 <Typography
+    //                     sx={{
+    //                         color: '#fff',
+    //                         fontSize: '1em',
+    //                         fontWeight: '700',
+    //                         p: '.5em 0'
+    //                     }}
+    //                 >
+    //                     Строго оригинал
+    //                 </Typography>
+    //                 <IconButton
+    //                     onClick={() => setAccordion('original')}
+    //                 >
+    //                     {(accordion.original === true) ? (
+    //                         <ExpandLessIcon
+    //                             sx={{
+    //                                 color: '#fff',
+    //                             }}
+    //                         />
+    //                     ) : (
+    //                         <ExpandMoreIcon
+    //                             sx={{
+    //                                 color: '#fff'
+    //                             }}
+    //                         />
+    //                     )}
+    //                 </IconButton>
+    //             </Box>
+
+    //             {(accordion.original === true) && (
+    //                 <Typography
+    //                     sx={{
+    //                         color: '#fff',
+    //                         fontSize: '.9em',
+    //                         fontWeight: '500',
+    //                     }}
+    //                 >
+    //                     Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере.
+    //                 </Typography>
+    //             )}
+    //         </Box>
+
+    //         <ReviewContainer />
+    //     </Box>
+    // );
+};
+
+const ProductPageContainer = () => {
+    const { setAccordion, accordion } = useProductPage();
 
     return (
         <Box>
@@ -283,10 +547,10 @@ const ProductPage = () => {
             <ReviewContainer />
         </Box>
     );
-}
+};
 
 const SizesContainer = () => {
-    const navigate = useNavigate();
+    const { currentPage, setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
     let mainBtn = tg?.MainButton;
@@ -316,7 +580,7 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
-                        navigate('/sizes')
+                        setCurrentPage('sizes')
                         mainBtn.hide();
                         backBtn.show();
                     }}
@@ -341,7 +605,7 @@ const SizesContainer = () => {
             </Box>
         </Box>
     );
-}
+};
 
 const SizesElement = ({ size, price }) => {
     const { currentSize, setCurrentSize } = useProductPage();
@@ -393,7 +657,7 @@ const SizesElement = ({ size, price }) => {
             >{price} &#8381;</Typography>
         </Box>
     );
-}
+};
 
 const SplitContainer = () => {
     return (

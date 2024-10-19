@@ -1,8 +1,13 @@
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton } from "@mui/material";
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
+import CloseIcon from '@mui/icons-material/Close';
+
+import { useProductPage } from "./store";
+import { showShineMainBtn } from "../../utils/utilFuncs";
 
 const TableOfSizes = () => {
+    const { setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
     const navigate = useNavigate();
 
@@ -38,16 +43,40 @@ const TableOfSizes = () => {
                 p: '.5em'
             }}
         >
-            <Typography
+            <Box
                 sx={{
-                    p: '.5em',
-                    fontSize: '1.5em',
-                    color: '#ffffff',
-                    fontWeight: '900',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '1em',
+                    alignItems: 'center',
                 }}
             >
-                Таблица размеров
-            </Typography>
+                <Typography
+                    sx={{
+                        p: '.5em',
+                        fontSize: '1.5em',
+                        color: '#ffffff',
+                        fontWeight: '900',
+                    }}
+                >
+                    Таблица размеров
+                </Typography>
+
+                <IconButton
+                    onClick={() => {
+                        setCurrentPage('productPage');
+                        showShineMainBtn(12000);
+                    }}
+                >
+                    <CloseIcon sx={{
+                        color: '#ffffff60',
+                        fontSize: '1.3em',
+                        borderRadius: '50%',
+                        border: '1px solid #ffffff60',
+                        p: '.1em'
+                    }} />
+                </IconButton>
+            </Box>
 
             <TableContainer
                 component={Box}

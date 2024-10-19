@@ -7,6 +7,7 @@ export const useProductPage = create((set) => ({
         'insurance': true,
         'original': true,
     },
+    currentPage: 'productPage',
     setAccordion: (type) => set(state => {
         console.log(1);
         return {
@@ -18,5 +19,8 @@ export const useProductPage = create((set) => ({
     }),
     setCurrentSize: (value) => set(state => {
         return { currentSize: value };
+    }),
+    setCurrentPage: (value) => set(state => {
+        return { currentPage: value };
     }),
 }));

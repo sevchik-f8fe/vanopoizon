@@ -11,8 +11,9 @@ import PointsPage from './pages/PointsPage';
 import ReferalPage from './pages/ReferalPage';
 import CalcPage from './pages/CalcPage.jsx/CalcPage';
 import ProductPage from './pages/ProductPage/ProductPage';
-import TableOfSizes from './pages/ProductPage/TableOfSizes';
-import BuyProductPage from './pages/ProductPage/BuyProductPage';
+// import TableOfSizes from './pages/ProductPage/TableOfSizes';
+
+import { ScrollToTop } from './utils/utilFuncs';
 import './index.css'
 import { theme } from './utils/theme';
 
@@ -21,6 +22,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider theme={theme}>
       <BrowserRouter basename={'/vanopoizon'}>
+        <ScrollToTop />
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/profile' element={<ProfilePage />} />
@@ -28,8 +30,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/referal' element={<ReferalPage />} />
           <Route path='/calc' element={<CalcPage />} />
           <Route path='/product' element={<ProductPage />} />
-          <Route path='/sizes' element={<TableOfSizes />} />
-          <Route path='/product_buy' element={<BuyProductPage />} />
+          {/* <Route path='/sizes' element={<TableOfSizes />} /> */}
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

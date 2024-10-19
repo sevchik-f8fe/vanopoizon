@@ -1,16 +1,21 @@
-// import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+export const ScrollToTop = () => {
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
+
+    return null;
+}
 
 let tg = window.Telegram.WebApp;
 
-// export const goBackBtnHandle = () => {
-//     const navigate = useNavigate();
-//     // history.back();
-//     navigate(-1);
-// }
-
 export const showShineMainBtn = (price) => {
     tg.MainButton.show();
-    tg.MainButton.text = `Купить за ${price} ${'&#8381;'}`;
+    tg.MainButton.text = `Купить за ${price} ${decodeURIComponent('&#8381;')}`;
     tg.MainButton.color = '#fff';
     tg.MainButton.textColor = '#F34213';
     tg.MainButton.position = 'bottom';
