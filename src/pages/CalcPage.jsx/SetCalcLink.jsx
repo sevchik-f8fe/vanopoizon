@@ -18,6 +18,7 @@ const SetCalcLink = () => {
             }}
         >
             <TextField
+                autoFocus
                 label="Ссылка на товар в Poizon"
                 variant="filled"
                 size="small"

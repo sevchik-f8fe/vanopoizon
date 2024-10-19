@@ -1,4 +1,4 @@
-import { Padding } from "@mui/icons-material";
+import { deepOrange } from '@mui/material/colors';
 import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
@@ -6,6 +6,11 @@ export const theme = createTheme({
         fontFamily: '"Inter", sans-serif'
     },
     components: {
+        palette: {
+            secondary: {
+                main: '#F34213',
+            },
+        },
         MuiButton: {
             styleOverrides: {
                 root: {

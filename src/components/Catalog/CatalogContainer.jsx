@@ -1,8 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import TuneIcon from '@mui/icons-material/Tune';
 import { nanoid } from "nanoid";
 
-import SearchField from "../SearchField";
+import SearchField from "../SearchField/SearchField";
 import CatalogElement from "./CatalogElement";
 
 const CatalogContainer = () => {
@@ -56,18 +56,14 @@ const CatalogHeader = () => {
                         gap: '.5em'
                     }}
                 >
-                    {/* <SearchIcon
-                    sx={{
-                        color: '#fff',
-                        fontSize: '1.6em',
-                    }}
-                /> */}
-                    <TuneIcon
-                        sx={{
-                            color: '#fff',
-                            fontSize: '1.6em',
-                        }}
-                    />
+                    <IconButton>
+                        <TuneIcon
+                            sx={{
+                                color: '#fff',
+                                fontSize: '1.2em',
+                            }}
+                        />
+                    </IconButton>
                 </Box>
             </Box>
 

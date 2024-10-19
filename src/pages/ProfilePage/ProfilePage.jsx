@@ -1,13 +1,13 @@
-import { Box, IconButton, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar } from "@mui/material";
+import { Box, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar } from "@mui/material";
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { styled } from '@mui/material/styles';
 import { nanoid } from "nanoid";
 import { useNavigate } from "react-router-dom";
+import { useNotifications } from "./store";
 
-import shapka from "../assets/shapka_png.png";
-import poizonLogo from "../assets/miniman.png"
+import shapka from "../../assets/shapka_png.png";
+import poizonLogo from "../../assets/miniman.png"
 
 const ProfilePage = () => {
     const navigate = useNavigate();
@@ -63,77 +63,57 @@ const ProfilePage = () => {
                     sx={{
                         color: '#fff',
                         fontSize: '1.8em',
-                        fontWeight: '900'
+                        fontWeight: '900',
+                        mb: '1em',
                     }}
                 >
                     {user_firstName} {user_secondName}
                 </Typography>
 
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        gap: '1em',
-                    }}
-                >
-
-                    <IconButton>
-                        <FavoriteIcon sx={{ color: '#F34213' }} />
-                    </IconButton>
-                    <IconButton
-                        variant="outlined"
-                    >
-                        <ShoppingCartIcon sx={{ color: '#F34213' }} />
-                    </IconButton>
-                </Box>
-
+                <LikedProductsContainer />
                 <NotificationsContainer />
-
                 <StatusContainer />
-
                 <DataContainer />
             </Box>
         </Box >
     );
 }
 
+const LikedProductsContainer = () => {
+    return (
+        <Box
+            sx={{
+                cursor: 'pointer',
+                backgroundColor: '#e1bee7',
+                p: '.5em',
+                borderRadius: '.5em',
+                minWidth: '100%',
+                display: 'flex',
+                justifyContent: 'space-between',
+                gap: '1em',
+                alignItems: 'center'
+            }}
+        >
+            <Typography
+                sx={{
+                    color: '#7b1fa2',
+                    fontSize: '1.4em',
+                    fontWeight: '900',
+                }}
+            >
+                Отмеченные товары
+            </Typography>
+
+            <ArrowOutwardIcon sx={{
+                color: '#7b1fa2',
+                fontSize: '1.8em'
+            }} />
+        </Box>
+    );
+}
+
 const NotificationsContainer = () => {
-    const AntSwitch = styled(Switch)(({ theme }) => ({
-        width: 34,
-        height: 24,
-        padding: '4px 2px',
-        display: 'flex',
-        '& .MuiSwitch-switchBase': {
-            padding: '3px 0',
-            '&.Mui-checked': {
-                transform: 'translateX(14px)',
-                color: '#fff',
-                '& + .MuiSwitch-track': {
-                    opacity: 1,
-                    backgroundColor: '#F34213',
-                },
-            },
-        },
-        '& .MuiSwitch-thumb': {
-            boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
-            width: 18,
-            height: 18,
-            borderRadius: '50%',
-            transition: theme.transitions.create(['width'], {
-                duration: 200,
-            }),
-        },
-        '& .MuiSwitch-track': {
-            borderRadius: 25 / 2,
-            opacity: 1,
-            backgroundColor: 'rgba(0,0,0,.25)',
-            boxSizing: 'border-box',
-            ...theme.applyStyles('dark', {
-                backgroundColor: 'rgba(255,255,255,.35)',
-            }),
-        },
-    }));
+    const { notificationsActive, setNotificationsActive } = useNotifications()
 
     return (
         <Box
@@ -195,7 +175,11 @@ const NotificationsContainer = () => {
                     </Box>
                 </Box>
 
-                <AntSwitch />
+                <Switch
+                    color="warning"
+                    checked={notificationsActive}
+                    onChange={(e) => setNotificationsActive(e.target.checked)}
+                />
             </Box>
         </Box>
     );

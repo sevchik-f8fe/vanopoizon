@@ -30,3 +30,13 @@ export const showMainBtn = (textBtn) => {
     tg.MainButton.position = 'bottom';
     tg.MainButton.hasShineEffect = false;
 }
+
+export const copyOnCLickHandle = (text) => {
+    text && navigator.clipboard.writeText(text)
+        .then(() => {
+            console.log('!!!')
+        })
+        .catch(err => {
+            console.log(':((((', err)
+        })
+} 

@@ -1,7 +1,10 @@
 import { TextField, InputAdornment, Box } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+import { useSearchField } from "./store";
 
 const SearchField = () => {
+    const { fieldValue, setFieldValue } = useSearchField();
+
     return (
         <Box
             sx={{
@@ -11,7 +14,6 @@ const SearchField = () => {
             }}
         >
             <TextField
-
                 slotProps={{
                     input: {
                         startAdornment: (
@@ -24,6 +26,8 @@ const SearchField = () => {
                 sx={{
                     flex: '1'
                 }}
+                onChange={(e) => { setFieldValue(e.target.value) }}
+                value={fieldValue}
                 placeholder="Nike Air Zoom"
                 size="small"
                 variant="outlined"

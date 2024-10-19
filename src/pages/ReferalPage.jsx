@@ -1,9 +1,12 @@
-import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
+import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from "@mui/material";
 import { nanoid } from "nanoid";
+import { useRef } from "react";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import { useNavigate } from "react-router-dom";
+import { copyOnCLickHandle } from "../utils/utilFuncs";
 
 const ReferalPage = () => {
+    const inputRef = useRef(null);
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     tg.onEvent('backButtonClicked', () => { navigate(-1) });
@@ -121,16 +124,16 @@ const ReferalPage = () => {
                         Твоя ссылка на приглашение
                     </Typography>
                     <Typography
+                        ref={inputRef}
                         sx={{
                             color: '#709ed9',
-                            fontSize: '1em',
-                            fontWeight: '700'
+                            fontWeight: '700',
+                            fontSize: '1em'
                         }}
-                    >
-                        https://t.me/
-                    </Typography>
+                    > https://t.me/</Typography>
 
                     <Button
+                        onClick={() => { copyOnCLickHandle(inputRef.current.textContent) }}
                         variant="outlined"
                         size="large"
                     >
@@ -186,7 +189,7 @@ const ReferalPage = () => {
                     </TableContainer>
                 </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
 

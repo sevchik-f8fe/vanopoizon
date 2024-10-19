@@ -17,6 +17,7 @@ const SetCalcSize = () => {
             }}
         >
             <TextField
+                autoFocus
                 label="Размер"
                 value={size}
                 onChange={(e) => { setSize(e.target.value) }}

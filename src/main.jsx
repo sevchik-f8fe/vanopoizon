@@ -6,7 +6,7 @@ import { ThemeProvider } from '@mui/material';
 
 // import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
-import ProfilePage from './pages/ProfilePage';
+import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PointsPage from './pages/PointsPage';
 import ReferalPage from './pages/ReferalPage';
 import CalcPage from './pages/CalcPage.jsx/CalcPage';
