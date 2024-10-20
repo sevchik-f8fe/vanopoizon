@@ -18,12 +18,6 @@ const ProfilePage = () => {
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
-    // useEffect(() => {
-    //     tg.onEvent('backButtonClicked', () => { navigate(-1) });
-    //     return () => {
-    //         tg.offEvent('backButtonClicked', () => { navigate(-1) });
-    //     }
-    // }, []);
 
     return (
         <Box

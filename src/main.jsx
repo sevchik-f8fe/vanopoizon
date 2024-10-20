@@ -11,7 +11,7 @@ import PointsPage from './pages/PointsPage';
 import ReferalPage from './pages/ReferalPage';
 import CalcPage from './pages/CalcPage.jsx/CalcPage';
 import ProductPage from './pages/ProductPage/ProductPage';
-// import TableOfSizes from './pages/ProductPage/TableOfSizes';
+import TableOfSizes from './pages/ProductPage/TableOfSizes';
 
 import { ScrollToTop } from './utils/utilFuncs';
 import { BackBtnHandle } from './utils/utilFuncs';
@@ -32,7 +32,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/referal' element={<ReferalPage />} />
           <Route path='/calc' element={<CalcPage />} />
           <Route path='/product' element={<ProductPage />} />
-          {/* <Route path='/sizes' element={<TableOfSizes />} /> */}
+          <Route path='/sizes' element={<TableOfSizes />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

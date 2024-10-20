@@ -1,22 +1,18 @@
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton } from "@mui/material";
 import { nanoid } from "nanoid";
-import { useNavigate } from "react-router-dom";
-import CloseIcon from '@mui/icons-material/Close';
-import { useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import CloseIcon from '@mui/icons-material/Close';
+// import { useEffect } from "react";
 
-import { useProductPage } from "./store";
-import { showShineMainBtn } from "../../utils/utilFuncs";
+// import { useProductPage } from "./store";
+// import { showShineMainBtn } from "../../utils/utilFuncs";
 
 const TableOfSizes = () => {
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, []);
 
-    const { setCurrentPage } = useProductPage();
-    let tg = window.Telegram.WebApp;
-    const navigate = useNavigate();
-
-    tg.onEvent('backButtonClicked', () => { navigate(-1) });
+    // const { setCurrentPage } = useProductPage();
 
     const rows = [
         { EU: '35', MM: '220', US: 'M3/W4.5', UK: '2.5', RU: '-' },
@@ -67,7 +63,7 @@ const TableOfSizes = () => {
                     Таблица размеров
                 </Typography>
 
-                <IconButton
+                {/* <IconButton
                     onClick={() => {
                         setCurrentPage('productPage');
                         showShineMainBtn(12000);
@@ -80,7 +76,7 @@ const TableOfSizes = () => {
                         border: '1px solid #ffffff60',
                         p: '.1em'
                     }} />
-                </IconButton>
+                </IconButton> */}
             </Box>
 
             <TableContainer

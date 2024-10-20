@@ -4,7 +4,6 @@ import { shareURL } from '@telegram-apps/sdk';
 import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useNavigate } from "react-router-dom";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SendIcon from '@mui/icons-material/Send';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -12,6 +11,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import { useNavigate } from "react-router-dom";
 
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
@@ -19,15 +19,7 @@ import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
 import TableOfSizes from "./TableOfSizes";
 
 const ProductPage = () => {
-    const navigate = useNavigate();
     const { currentPage } = useProductPage();
-    let tg = window.Telegram.WebApp;
-    let mainBtn = tg?.MainButton;
-
-    tg.onEvent('backButtonClicked', function () {
-        navigate(-1);
-        mainBtn.hide();
-    });
 
     return (
         <>
@@ -381,6 +373,7 @@ const ProductPageContainer = () => {
 };
 
 const SizesContainer = () => {
+    const navigate = useNavigate();
     const { setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
@@ -411,8 +404,9 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
-                        setCurrentPage('sizes')
+                        // setCurrentPage('sizes')
                         mainBtn.hide();
+                        navigate('/sizes');
                         backBtn.show();
                     }}
                     sx={{
