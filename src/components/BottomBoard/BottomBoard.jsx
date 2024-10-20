@@ -16,7 +16,7 @@ const BottomBoard = () => {
                     sx={{
                         display: 'flex',
                         gap: '1em',
-                        p: '.1em .5em .5em .1em',
+                        p: '.2em .5em .5em .5em',
                         justifyContent: 'space-around',
                         alignItems: 'center',
                         position: 'fixed',
