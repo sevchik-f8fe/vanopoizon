@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import { useEffect } from "react";
 import SearchIcon from '@mui/icons-material/Search';
 import { HashLink } from 'react-router-hash-link';
-import { useNavigate } from "react-router-dom";
 
 import Navigation from "../components/Navigation";
 import ArcticleContainer from "../components/Arcticles/ArticleContainer";
@@ -10,13 +10,15 @@ import ContestContainer from "../components/ContestContainer";
 import CatalogContainer from "../components/Catalog/CatalogContainer";
 
 const HomePage = () => {
-    const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
+
+    useEffect(() => {
+        tg.ready();
+    }, []);
+
     tg.BackButton.hide();
     tg.MainButton.hide();
     tg.expand();
-
-    tg.onEvent('backButtonClicked', () => { navigate(-1) });
 
     return (
         <Box

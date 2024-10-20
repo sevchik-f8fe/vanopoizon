@@ -14,6 +14,7 @@ import ProductPage from './pages/ProductPage/ProductPage';
 // import TableOfSizes from './pages/ProductPage/TableOfSizes';
 
 import { ScrollToTop } from './utils/utilFuncs';
+import { BackBtnHandle } from './utils/utilFuncs';
 import './index.css'
 import { theme } from './utils/theme';
 
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')).render(
     <ThemeProvider theme={theme}>
       <BrowserRouter basename={'/vanopoizon'}>
         <ScrollToTop />
+        <BackBtnHandle />
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/profile' element={<ProfilePage />} />

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Box, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar, IconButton } from "@mui/material";
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
@@ -17,7 +18,12 @@ const ProfilePage = () => {
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
 
-    tg.onEvent('backButtonClicked', () => { navigate(-1) });
+    // useEffect(() => {
+    //     tg.onEvent('backButtonClicked', () => { navigate(-1) });
+    //     return () => {
+    //         tg.offEvent('backButtonClicked', () => { navigate(-1) });
+    //     }
+    // }, []);
 
     return (
         <Box

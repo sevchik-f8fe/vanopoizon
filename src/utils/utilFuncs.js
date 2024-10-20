@@ -13,6 +13,22 @@ export const ScrollToTop = () => {
 
 let tg = window.Telegram.WebApp;
 
+export const BackBtnHandle = () => {
+    const { pathname } = useLocation();
+    const backBtn = () => {
+        window.history.back();
+    }
+
+    useEffect(() => {
+        tg.onEvent('backButtonClicked', backBtn);
+        return () => {
+            tg.offEvent('backButtonClicked', backBtn);
+        }
+    }, [pathname]);
+
+    return null;
+}
+
 export const showShineMainBtn = (price) => {
     tg.MainButton.show();
     tg.MainButton.text = `Купить за ${price} ${entityToChar('&#8381;')}`;
