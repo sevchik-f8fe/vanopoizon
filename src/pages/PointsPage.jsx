@@ -1,7 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
+import { useEffect } from "react";
+import { useBottomBoard } from "../components/BottomBoard/store";
 
 const PointsPage = () => {
+    let tg = window.Telegram.WebApp;
+    const { setCurrentPage } = useBottomBoard();
+
+    useEffect(() => {
+        tg.BackButton.show();
+        tg.MainButton.hide();
+        setCurrentPage('home');
+    }, [])
+
     return (
         <Box
             sx={{

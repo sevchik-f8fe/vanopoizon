@@ -12,6 +12,7 @@ import ReferalPage from './pages/ReferalPage';
 import CalcPage from './pages/CalcPage.jsx/CalcPage';
 import ProductPage from './pages/ProductPage/ProductPage';
 import TableOfSizes from './pages/ProductPage/TableOfSizes';
+import BottomBoard from './components/BottomBoard/BottomBoard';
 
 import { ScrollToTop } from './utils/utilFuncs';
 import { BackBtnHandle } from './utils/utilFuncs';
@@ -34,6 +35,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/product' element={<ProductPage />} />
           <Route path='/sizes' element={<TableOfSizes />} />
         </Routes>
+        <BottomBoard />
       </BrowserRouter>
     </ThemeProvider>
   </StrictMode>,

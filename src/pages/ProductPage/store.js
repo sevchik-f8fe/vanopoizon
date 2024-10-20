@@ -8,7 +8,6 @@ export const useProductPage = create((set) => ({
         'original': true,
     },
     isSplit: false,
-    currentPage: 'productPage',
     setAccordion: (type) => set(state => {
         console.log(1);
         return {
@@ -20,9 +19,6 @@ export const useProductPage = create((set) => ({
     }),
     setCurrentSize: (value) => set(state => {
         return { currentSize: value };
-    }),
-    setCurrentPage: (value) => set(state => {
-        return { currentPage: value };
     }),
     setSplit: (value) => set(state => {
         return { isSplit: value };

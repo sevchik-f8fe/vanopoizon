@@ -6,9 +6,6 @@ import { Link } from "react-router-dom";
 import { useCalc } from "../../pages/CalcPage.jsx/store";
 
 const CalculateBlock = () => {
-    let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
-
     const { setPage } = useCalc();
 
     return (
@@ -16,7 +13,6 @@ const CalculateBlock = () => {
             to={`/calc`}
             onClick={() => {
                 setPage(0);
-                backBtn.show();
             }}
         >
             <Box

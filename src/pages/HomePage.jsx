@@ -7,18 +7,20 @@ import Navigation from "../components/Navigation";
 import ArcticleContainer from "../components/Arcticles/ArticleContainer";
 import BlocksContainer from "../components/HomePageBlocks/BlocksContainer";
 import ContestContainer from "../components/ContestContainer";
+import { useBottomBoard } from "../components/BottomBoard/store";
 import CatalogContainer from "../components/Catalog/CatalogContainer";
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
+    const { setCurrentPage } = useBottomBoard();
 
     useEffect(() => {
         tg.ready();
+        tg.BackButton.hide();
+        tg.MainButton.hide();
+        setCurrentPage('home');
+        tg.expand();
     }, []);
-
-    tg.BackButton.hide();
-    tg.MainButton.hide();
-    tg.expand();
 
     return (
         <Box

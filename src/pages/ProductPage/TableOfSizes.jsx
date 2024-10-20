@@ -1,18 +1,18 @@
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton } from "@mui/material";
 import { nanoid } from "nanoid";
-// import { useNavigate } from "react-router-dom";
-// import CloseIcon from '@mui/icons-material/Close';
-// import { useEffect } from "react";
-
-// import { useProductPage } from "./store";
-// import { showShineMainBtn } from "../../utils/utilFuncs";
+import { useEffect } from "react";
+import { useBottomBoard } from "../../components/BottomBoard/store";
 
 const TableOfSizes = () => {
-    // useEffect(() => {
-    //     window.scrollTo(0, 0);
-    // }, []);
+    let tg = window.Telegram.WebApp;
+    const { setCurrentPage } = useBottomBoard();
 
-    // const { setCurrentPage } = useProductPage();
+    useEffect(() => {
+        tg.BackButton.show();
+        tg.MainButton.hide();
+        setCurrentPage('home');
+    }, []);
+
 
     const rows = [
         { EU: '35', MM: '220', US: 'M3/W4.5', UK: '2.5', RU: '-' },
@@ -62,21 +62,6 @@ const TableOfSizes = () => {
                 >
                     Таблица размеров
                 </Typography>
-
-                {/* <IconButton
-                    onClick={() => {
-                        setCurrentPage('productPage');
-                        showShineMainBtn(12000);
-                    }}
-                >
-                    <CloseIcon sx={{
-                        color: '#ffffff60',
-                        fontSize: '1.3em',
-                        borderRadius: '50%',
-                        border: '1px solid #ffffff60',
-                        p: '.1em'
-                    }} />
-                </IconButton> */}
             </Box>
 
             <TableContainer

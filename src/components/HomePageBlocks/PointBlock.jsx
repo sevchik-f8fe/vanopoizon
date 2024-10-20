@@ -4,18 +4,12 @@ import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { Link } from "react-router-dom";
 
 const PointBlock = ({ points }) => {
-    let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
-
     return (
         <Link
             sx={{
                 textDecoration: 'none'
             }}
             to={`/points`}
-            onClick={() => {
-                backBtn.show();
-            }}
         >
             <Box
                 sx={{

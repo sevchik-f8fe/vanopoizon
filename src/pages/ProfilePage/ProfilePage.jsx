@@ -5,18 +5,26 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { nanoid } from "nanoid";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { useNotifications } from "./store";
 
 import shapka from "../../assets/shapka_png.png";
 import poizonLogo from "../../assets/miniman.png"
+import { useBottomBoard } from "../../components/BottomBoard/store";
 
 const ProfilePage = () => {
-    const navigate = useNavigate();
+    const { setCurrentPage } = useBottomBoard();
+    // const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
+
+    useEffect(() => {
+        tg.BackButton.show();
+        tg.MainButton.hide();
+        setCurrentPage('profile');
+    }, [])
 
 
     return (

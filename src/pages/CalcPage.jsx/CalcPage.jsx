@@ -2,12 +2,19 @@ import CalcDescription from "./CalcDescription";
 import SetCalcSize from "./SetCalcSize";
 import SetCalcLink from "./SetCalcLink";
 import { useCalc } from "./store";
+import { useBottomBoard } from "../../components/BottomBoard/store";
+import { useEffect } from "react";
 
 const CalcPage = () => {
-    const { page } = useCalc()
+    const { page } = useCalc();
+    const { setCurrentPage } = useBottomBoard();
     let tg = window.Telegram.WebApp;
 
-    tg.onEvent('backButtonClicked', () => { Navigate(-1) });
+    useEffect(() => {
+        tg.BackButton.show();
+        tg.MainButton.hide();
+        setCurrentPage('home');
+    }, []);
 
     return (
         <>

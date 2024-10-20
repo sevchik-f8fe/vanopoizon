@@ -1,6 +1,7 @@
 import { Box, Typography, IconButton, Button, Link } from "@mui/material";
 import { nanoid } from "nanoid";
 import { shareURL } from '@telegram-apps/sdk';
+import { useEffect } from "react";
 import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -13,28 +14,22 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from "react-router-dom";
 
+import { useBottomBoard } from "../../components/BottomBoard/store";
 import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
-import TableOfSizes from "./TableOfSizes";
+import { showShineMainBtn } from "../../utils/utilFuncs";
 
 const ProductPage = () => {
-    const { currentPage } = useProductPage();
-
-    return (
-        <>
-            {currentPage == 'productPage' ? (
-                <ProductPageContainer />
-            ) : (
-                <TableOfSizes />
-            )}
-        </>
-    );
-};
-
-const ProductPageContainer = () => {
     const { setAccordion, accordion } = useProductPage();
+    const { setCurrentPage } = useBottomBoard();
     let tg = window.Telegram.WebApp;
+
+    useEffect(() => {
+        tg.BackButton.show();
+        showShineMainBtn(12000);
+        setCurrentPage('home');
+    }, [])
 
     return (
         <Box>

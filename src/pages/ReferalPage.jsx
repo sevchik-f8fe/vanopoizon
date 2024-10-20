@@ -1,11 +1,20 @@
 import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableRow, TextField } from "@mui/material";
 import { nanoid } from "nanoid";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import { copyOnCLickHandle } from "../utils/utilFuncs";
+import { useBottomBoard } from "../components/BottomBoard/store";
 
 const ReferalPage = () => {
     const inputRef = useRef(null);
+    let tg = window.Telegram.WebApp;
+    const { setCurrentPage } = useBottomBoard();
+
+    useEffect(() => {
+        tg.BackButton.show();
+        tg.MainButton.hide();
+        setCurrentPage('home');
+    }, [])
 
     const rows = [
         { title: 'Переходов по ссылке', value: '0' },

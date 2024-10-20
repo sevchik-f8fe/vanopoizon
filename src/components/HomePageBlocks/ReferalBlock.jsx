@@ -5,17 +5,13 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from "react-router-dom";
 
 const ReferalBlock = () => {
-    let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
 
     return (
-
         <Link
             sx={{
                 textDecoration: 'none'
             }}
             to={`/referal`}
-            onClick={() => backBtn.show()}
         >
             <Box
                 sx={{

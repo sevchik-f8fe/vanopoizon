@@ -5,10 +5,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
 
 import { showShineMainBtn } from "../../utils/utilFuncs";
-import { useProductPage } from "../../pages/ProductPage/store";
 
 const CatalogElement = ({ picture, price, title }) => {
-    const { setCurrentPage } = useProductPage();
     let tg = window.Telegram.WebApp;
     let backBtn = tg?.BackButton;
 
@@ -26,7 +24,12 @@ const CatalogElement = ({ picture, price, title }) => {
             <IconButton
                 size="small"
                 sx={{
-                    // backgroundColor: '#fff',
+                    '&:hover': {
+                        backgroundColor: '#fff',
+                    },
+                    '&:active': {
+                        backgroundColor: '#fff6',
+                    },
                     top: '0',
                     right: '0',
                     position: 'absolute',
@@ -36,13 +39,7 @@ const CatalogElement = ({ picture, price, title }) => {
                 <FavoriteBorderIcon sx={{ color: '#F34213' }} />
             </IconButton>
 
-            <Link
-                onClick={() => {
-                    showShineMainBtn(12000);
-                    setCurrentPage('productPage');
-                    backBtn.show();
-                }}
-                to={`/product`}
+            <Link to={`/product`}
             >
                 <Box
                     sx={{
