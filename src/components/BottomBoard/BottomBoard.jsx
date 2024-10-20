@@ -32,6 +32,7 @@ const BottomBoard = () => {
                             navigate('/');
                         }}
                         size="small"
+                        disabled={currentPage == 'home'}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'transparent',
@@ -58,6 +59,7 @@ const BottomBoard = () => {
                         />
                     </IconButton>
                     <IconButton
+                        disabled={currentPage == 'cart'}
                         onClick={() => {
                             setCurrentPage('cart');
                             navigate('/cart');
@@ -89,6 +91,7 @@ const BottomBoard = () => {
                         />
                     </IconButton>
                     <IconButton
+                        disabled={currentPage == 'profile'}
                         sx={{
                             '&:hover': {
                                 backgroundColor: 'transparent',

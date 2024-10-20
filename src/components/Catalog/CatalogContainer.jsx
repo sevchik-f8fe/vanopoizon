@@ -29,7 +29,8 @@ const CatalogHeader = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1em'
+                gap: '1em',
+                mb: '1em'
             }}
         >
             <Box
