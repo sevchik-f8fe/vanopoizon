@@ -29,6 +29,7 @@ const ReferalPage = () => {
                 w: '100%',
                 display: 'flex',
                 flexDirection: 'column',
+                mb: '2em',
                 gap: '.5em',
             }}
         >

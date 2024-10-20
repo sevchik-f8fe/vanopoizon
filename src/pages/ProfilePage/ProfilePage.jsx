@@ -35,6 +35,7 @@ const ProfilePage = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
+                mb: '2em'
             }}
         >
             <Box

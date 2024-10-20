@@ -26,7 +26,7 @@ const ProductPage = () => {
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
-        setVisible(true);
+        setVisible(false);
         tg.BackButton.show();
         showShineMainBtn(12000);
         setCurrentPage('home');

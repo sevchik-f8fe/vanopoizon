@@ -16,14 +16,13 @@ const BottomBoard = () => {
                     sx={{
                         display: 'flex',
                         gap: '1em',
-                        p: '.1em .5em',
+                        p: '.1em .5em .5em .1em',
                         justifyContent: 'space-around',
                         alignItems: 'center',
                         position: 'fixed',
                         bottom: 0,
                         left: 0,
-                        backgroundColor: '#2E2E3A',
-                        borderRadius: '.5em .5em 0 0',
+                        backgroundColor: '#202029',
                         minWidth: '100%',
                         zIndex: 100,
                     }}

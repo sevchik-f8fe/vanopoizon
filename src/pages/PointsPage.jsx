@@ -1,7 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Link } from "@mui/material";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { useEffect } from "react";
 import { useBottomBoard } from "../components/BottomBoard/store";
+import { useNavigate } from "react-router-dom";
 
 const PointsPage = () => {
     let tg = window.Telegram.WebApp;
@@ -18,6 +19,7 @@ const PointsPage = () => {
         <Box
             sx={{
                 p: '1em',
+                mb: '2em',
                 w: '100%',
                 display: 'flex',
                 flexDirection: 'column',
@@ -88,6 +90,8 @@ const PointsContainer = () => {
 }
 
 const DescriptionContainer = () => {
+    const navigate = useNavigate()
+
     return (
         <Box
             sx={{
@@ -105,7 +109,14 @@ const DescriptionContainer = () => {
                 }}
             >
                 Дальше ты будешь получать
-                <span style={{ color: '#F34213' }}> +50 баллов</span> за каждый завершенный заказ.
+                <span style={{ color: '#F34213' }}> +50 баллов</span> за каждый завершенный заказ. Подробная информация в <Link
+                    sx={{
+                        color: '#709ed9',
+                        textDecoration: 'none',
+                        cursor: 'pointer'
+                    }}
+                    onClick={() => navigate('/profile')}
+                >твоём профиле</Link>.
             </Typography>
             <Typography
                 sx={{
