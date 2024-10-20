@@ -8,6 +8,8 @@ export const useProductPage = create((set) => ({
         'original': true,
     },
     isSplit: false,
+    usePoints: true,
+    useExpressDelivery: false,
     setAccordion: (type) => set(state => {
         console.log(1);
         return {
@@ -19,6 +21,12 @@ export const useProductPage = create((set) => ({
     }),
     setCurrentSize: (value) => set(state => {
         return { currentSize: value };
+    }),
+    setUsePoints: (value) => set(state => {
+        return { usePoints: value };
+    }),
+    setUseExpressDelivery: (value) => set(state => {
+        return { useExpressDelivery: value };
     }),
     setSplit: (value) => set(state => {
         return { isSplit: value };

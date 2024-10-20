@@ -42,12 +42,9 @@ export const theme = createTheme({
                     borderRadius: '1em',
                     fontWeight: '600',
                     backgroundColor: '#F34213',
-                    // borderColor: '#fff',
                     color: '#fff',
                     '&:hover': {
-                        // borderColor: '#fff',
                         backgroundColor: '#F34213',
-                        // opacity: 0.8, // Непрозрачность при наведении
                     },
                 },
             },
@@ -56,10 +53,10 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     '&:hover': {
-                        backgroundColor: '#fff',
+                        backgroundColor: 'transparent',
                     },
                     '&:active': {
-                        backgroundColor: '#fff6',
+                        backgroundColor: '#fff1',
                     },
                 },
             },

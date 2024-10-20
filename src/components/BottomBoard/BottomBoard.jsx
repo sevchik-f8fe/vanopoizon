@@ -33,14 +33,7 @@ const BottomBoard = () => {
                         }}
                         size="small"
                         disabled={currentPage == 'home'}
-                        sx={{
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                            },
-                            '&:active': {
-                                backgroundColor: '#fff4',
-                            },
-                        }}
+
                     >
                         <HomeIcon
                             sx={
@@ -65,14 +58,7 @@ const BottomBoard = () => {
                             navigate('/cart');
                         }}
                         size="small"
-                        sx={{
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                            },
-                            '&:active': {
-                                backgroundColor: '#fff4',
-                            },
-                        }}
+
                     >
                         <ShoppingCartIcon
                             sx={
@@ -92,14 +78,7 @@ const BottomBoard = () => {
                     </IconButton>
                     <IconButton
                         disabled={currentPage == 'profile'}
-                        sx={{
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                            },
-                            '&:active': {
-                                backgroundColor: '#fff4',
-                            },
-                        }}
+
                         onClick={() => {
                             navigate('/profile');
                         }}

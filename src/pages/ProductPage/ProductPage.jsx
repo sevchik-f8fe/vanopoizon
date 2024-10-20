@@ -1,4 +1,4 @@
-import { Box, Typography, IconButton, Button, Link } from "@mui/material";
+import { Box, Typography, IconButton, Button, Link, Switch } from "@mui/material";
 import { nanoid } from "nanoid";
 import { shareURL } from '@telegram-apps/sdk';
 import { useEffect } from "react";
@@ -19,9 +19,10 @@ import { useProductPage } from "./store";
 import ContestContainer from "../../components/ContestContainer";
 import ArcticleContainer from "../../components/Arcticles/ArticleContainer";
 import { showShineMainBtn } from "../../utils/utilFuncs";
+import gliffIcon from "../../assets/high-voltage_icon.png";
 
 const ProductPage = () => {
-    const { setAccordion, accordion } = useProductPage();
+    const { setAccordion, accordion, isSplit, useExpressDelivery, setUseExpressDelivery } = useProductPage();
     const { setCurrentPage, setVisible } = useBottomBoard();
     let tg = window.Telegram.WebApp;
 
@@ -39,7 +40,7 @@ const ProductPage = () => {
                     position: 'relative',
                     backgroundColor: "#fff",
                     minWidth: '100%',
-                    p: '.5em',
+                    // p: '.2em',
                 }}
             >
                 <Box
@@ -57,34 +58,63 @@ const ProductPage = () => {
                             shareURL('https://core.telegram.org', 'Оййй бляяя');
                         }}
                         sx={{
-                            backgroundColor: '#fff'
+                            backgroundColor: '#fff',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                            },
+                            '&:active': {
+                                backgroundColor: '#fff9',
+                            },
+                            maxWidth: '1.5em',
+                            maxHeight: '1.5em'
                         }}
                     >
                         <ShareIcon
                             sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
                                 color: '#F34213',
-
                             }}
                         />
                     </IconButton>
                     <IconButton
                         sx={{
-                            backgroundColor: '#fff'
+                            backgroundColor: '#fff',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                            },
+                            '&:active': {
+                                backgroundColor: '#fff9',
+                            },
+                            maxWidth: '1.5em',
+                            maxHeight: '1.5em'
                         }}
                     >
                         <FavoriteBorderIcon
                             sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
                                 color: '#F34213'
                             }}
                         />
                     </IconButton>
                     <IconButton
                         sx={{
-                            backgroundColor: '#fff'
+                            backgroundColor: '#fff',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                            },
+                            '&:active': {
+                                backgroundColor: '#fff9',
+                            },
+                            maxWidth: '1.5em',
+                            maxHeight: '1.5em'
                         }}
                     >
                         <AddShoppingCartIcon
                             sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
                                 color: '#F34213'
                             }}
                         />
@@ -110,6 +140,7 @@ const ProductPage = () => {
                         fontSize: '1.6em',
                         fontWeight: '900',
                         lineHeight: '1.2',
+                        p: '.5em',
                     }}
                 >
                     Бобёр коричнеый б\у <br />
@@ -135,11 +166,22 @@ const ProductPage = () => {
                     }}
                 >
                     <Typography
-                        sx={{
-                            fontSize: '1.8em',
-                            fontWeight: '900',
-                            color: '#fff',
-                        }}
+                        sx={
+                            !isSplit ? (
+                                {
+                                    color: '#ffffff',
+                                    fontSize: '1.8em',
+                                    transition: '.3s ease',
+                                    fontWeight: '900',
+                                }
+                            ) : (
+                                {
+                                    color: '#ffffff60',
+                                    fontSize: '1.8em',
+                                    transition: '.3s ease',
+                                    fontWeight: '900',
+                                }
+                            )}
                     >
                         12 000 &#8381;
                     </Typography>
@@ -164,6 +206,7 @@ const ProductPage = () => {
 
                 <SizesContainer />
                 <SplitContainer />
+                <UsePointsContainer />
             </Box>
 
             <ContestContainer />
@@ -234,15 +277,92 @@ const ProductPage = () => {
                     </IconButton>
                 </Box>
                 {(accordion.delivery === true) && (
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '500',
-                        }}
-                    >
-                        Среднее время доставки 20–25 дней. После оплаты вы сможете отслеживать статусы доставки и получать уведомления об их изменении.
-                    </Typography>
+                    <>
+                        <Typography
+                            sx={{
+                                color: '#fff',
+                                fontSize: '.9em',
+                                fontWeight: '500',
+                            }}
+                        >
+                            Среднее время доставки 20–25 дней. После оплаты вы сможете отслеживать статусы доставки и получать уведомления об их изменении.
+                        </Typography>
+
+                        <Box
+                            sx={{
+                                backgroundColor: '#202029',
+                                borderRadius: '.5em',
+                                p: '.5em',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '.5em',
+                                mt: '.5em'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: '.2em',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <Box
+                                        sx={{
+                                            backgroundImage: `url(${gliffIcon})`,
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            backgroundRepeat: 'no-repeat',
+                                            minWidth: '1.4em',
+                                            minHeight: '1.4em',
+                                            maxWidth: '1.4em',
+                                            maxHeight: '1.4em',
+                                        }}
+                                    ></Box>
+
+                                    <Typography
+                                        sx={{
+                                            color: '#fff',
+                                            fontWeight: '700',
+                                            fontSize: '.9em'
+                                        }}
+                                    >
+                                        Экспресс-доставка
+                                    </Typography>
+                                    <IconButton
+                                        size="small"
+                                    >
+                                        <InfoIcon
+                                            sx={{
+                                                fontSize: '1.2em',
+                                                color: '#709ed9'
+                                            }}
+                                        />
+                                    </IconButton>
+                                </Box>
+                                <Switch
+                                    checked={useExpressDelivery}
+                                    onChange={(e) => setUseExpressDelivery(e.target.checked)}
+                                />
+                            </Box>
+                            <Typography
+                                sx={{
+                                    pl: '1em',
+                                    color: '#fff',
+                                    fontWeight: '500',
+                                    fontSize: '.9em'
+                                }}
+                            >
+                                Доставка за 9-12 дней <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
+                            </Typography>
+                        </Box>
+                    </>
                 )}
 
             </Box>
@@ -370,10 +490,6 @@ const ProductPage = () => {
 
 const SizesContainer = () => {
     const navigate = useNavigate();
-    const { setCurrentPage } = useProductPage();
-    let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
-    let mainBtn = tg?.MainButton;
 
     return (
         <Box
@@ -400,10 +516,7 @@ const SizesContainer = () => {
                 >Размер (EU)</Typography>
                 <Typography
                     onClick={() => {
-                        // setCurrentPage('sizes')
-                        mainBtn.hide();
                         navigate('/sizes');
-                        backBtn.show();
                     }}
                     sx={{
                         cursor: 'pointer',
@@ -482,10 +595,12 @@ const SizesElement = ({ size, price }) => {
 
 const SplitContainer = () => {
     let tg = window.Telegram.WebApp;
+    const { setSplit, isSplit } = useProductPage();
 
     return (
         <Box
             sx={{
+                borderBottom: '1px solid #ffffff60',
                 p: '.5em 0',
             }}
         >
@@ -497,23 +612,46 @@ const SplitContainer = () => {
                     alignItems: 'center'
                 }}
             >
-                <Typography
+                <Box
                     sx={{
-                        color: '#fff',
-                        fontSize: '1em',
-                        fontWeight: '700',
-                        pb: '.5em'
+                        display: 'flex',
+                        gap: '.5em',
+                        alignItems: 'start',
+                        justifyContent: 'start'
                     }}
-                >Можно оплатить в сплит</Typography>
-                <IconButton
-                    onClick={() => tg.openLink('https://mui.com/')}
-                    size="small"
                 >
-                    <InfoIcon sx={{
-                        color: '#709ed9',
-                        fontSize: '1em'
-                    }} />
-                </IconButton>
+                    <Typography
+                        sx={{
+                            color: '#fff',
+                            fontSize: '1em',
+                            fontWeight: '700',
+                        }}
+                    >Оплатить в сплит</Typography>
+
+                    <IconButton
+                        onClick={() => tg.openLink('https://mui.com/')}
+                        size="small"
+                        sx={{
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                            },
+                            '&:active': {
+                                backgroundColor: 'transparent',
+                            },
+                        }}
+                    >
+                        <InfoIcon sx={{
+                            color: '#709ed9',
+                            fontSize: '1em'
+                        }} />
+                    </IconButton>
+                </Box>
+
+                <Switch
+                    checked={isSplit}
+                    onChange={(e) => setSplit(e.target.checked)}
+                />
+
             </Box>
             <Box
                 sx={{
@@ -531,11 +669,22 @@ const SplitContainer = () => {
                         }}
                     >Сейчас</Typography>
                     <Typography
-                        sx={{
-                            color: '#ffffff',
-                            fontSize: '1.5em',
-                            fontWeight: '700',
-                        }}
+                        sx={
+                            isSplit ? (
+                                {
+                                    color: '#ffffff',
+                                    fontSize: '1.5em',
+                                    transition: '.3s ease',
+                                    fontWeight: '900',
+                                }
+                            ) : (
+                                {
+                                    color: '#ffffff60',
+                                    fontSize: '1.5em',
+                                    transition: '.3s ease',
+                                    fontWeight: '900',
+                                }
+                            )}
                     >6 000 &#8381;</Typography>
                 </Box>
                 <Box>
@@ -547,15 +696,139 @@ const SplitContainer = () => {
                         }}
                     >Через 3 недели</Typography>
                     <Typography
-                        sx={{
-                            color: '#ffffff',
-                            fontSize: '1.5em',
-                            fontWeight: '700',
-                        }}
+                        sx={
+                            isSplit ? (
+                                {
+                                    color: '#ffffff',
+                                    fontSize: '1.5em',
+                                    fontWeight: '900',
+                                    transition: '.3s ease',
+                                }
+                            ) : (
+                                {
+                                    color: '#ffffff60',
+                                    fontSize: '1.5em',
+                                    transition: '.3s ease',
+                                    fontWeight: '900',
+                                }
+                            )}
                     >6 000 &#8381;</Typography>
                 </Box>
             </Box>
         </Box>
+    );
+}
+
+const UsePointsContainer = () => {
+    const { setUsePoints, usePoints } = useProductPage();
+
+    return (
+        <Box
+            sx={{
+                p: '.5em 0',
+            }}
+        >
+            <Typography
+                sx={{
+                    color: '#F34213',
+                    fontSize: '1em',
+                    fontWeight: '700',
+                }}
+            >
+                Баллы PoizonShop
+            </Typography>
+
+            <Box
+                sx={{
+                    p: '2px',
+                    mt: '.5em',
+                    backgroundColor: '#202029',
+                    borderRadius: '.5em',
+                    display: 'flex',
+                    alignItems: 'center',
+                    maxWidth: 'fit-content',
+                    gap: '1em',
+                }}
+            >
+                <Box
+                    onClick={() => setUsePoints(true)}
+                    sx={(usePoints) ? (
+                        {
+                            transition: '.3s ease',
+                            cursor: 'pointer',
+                            p: '.5em .8em',
+                            borderRadius: '.5em',
+                            backgroundColor: '#2E2E3A',
+                        }
+                    ) : (
+                        {
+                            transition: '.3s ease',
+                            cursor: 'pointer',
+                            p: '.5em .8em',
+                            borderRadius: '.5em',
+                            backgroundColor: 'transparent',
+                        }
+                    )}
+                >
+                    <Typography
+                        sx={usePoints ? (
+                            {
+                                transition: '.3s ease',
+                                color: '#fff',
+                                fontSize: '.9em',
+                                fontWeight: '700'
+                            }
+                        ) : (
+                            {
+                                transition: '.3s ease',
+                                color: '#fff6',
+                                fontSize: '.9em',
+                                fontWeight: '700'
+                            }
+                        )}
+                    >Начислить <span style={usePoints ? { color: '#F34213' } : { color: '#Fff6' }} > 50</span></Typography>
+                </Box>
+
+                <Box
+                    onClick={() => setUsePoints(false)}
+                    sx={(!usePoints) ? (
+                        {
+                            transition: '.3s ease',
+                            cursor: 'pointer',
+                            p: '.5em .8em',
+                            borderRadius: '.5em',
+                            backgroundColor: '#2E2E3A',
+                        }
+                    ) : (
+                        {
+                            transition: '.3s ease',
+                            cursor: 'pointer',
+                            p: '.5em .8em',
+                            borderRadius: '.5em',
+                            backgroundColor: 'transparent',
+                        }
+                    )}
+                >
+                    <Typography
+                        sx={!usePoints ? (
+                            {
+                                transition: '.3s ease',
+                                color: '#fff',
+                                fontSize: '.9em',
+                                fontWeight: '700'
+                            }
+                        ) : (
+                            {
+                                transition: '.3s ease',
+                                color: '#fff6',
+                                fontSize: '.9em',
+                                fontWeight: '700'
+                            }
+                        )}
+                    >Списать <span style={!usePoints ? { color: '#F34213' } : { color: '#Fff6' }}>0</span></Typography>
+                </Box>
+            </Box>
+        </Box >
     );
 }
 

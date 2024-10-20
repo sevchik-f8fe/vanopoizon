@@ -28,7 +28,7 @@ const CatalogElement = ({ picture, price, title }) => {
                         backgroundColor: '#fff',
                     },
                     '&:active': {
-                        backgroundColor: '#fff6',
+                        backgroundColor: '#fff9',
                     },
                     top: '0',
                     right: '0',
