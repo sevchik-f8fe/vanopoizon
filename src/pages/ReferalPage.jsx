@@ -9,7 +9,7 @@ const ReferalPage = () => {
     const inputRef = useRef(null);
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
-    tg.onEvent('backButtonClicked', () => { navigate(-1) });
+    // tg.onEvent('backButtonClicked', () => { navigate(-1) });
 
     const rows = [
         { title: 'Переходов по ссылке', value: '0' },
