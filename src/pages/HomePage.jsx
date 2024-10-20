@@ -12,10 +12,11 @@ import CatalogContainer from "../components/Catalog/CatalogContainer";
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
-    const { setCurrentPage } = useBottomBoard();
+    const { setCurrentPage, setVisible } = useBottomBoard();
 
     useEffect(() => {
         tg.ready();
+        setVisible(true);
         tg.BackButton.hide();
         tg.MainButton.hide();
         setCurrentPage('home');

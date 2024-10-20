@@ -5,9 +5,10 @@ import { useBottomBoard } from "../components/BottomBoard/store";
 
 const PointsPage = () => {
     let tg = window.Telegram.WebApp;
-    const { setCurrentPage } = useBottomBoard();
+    const { setCurrentPage, setVisible } = useBottomBoard();
 
     useEffect(() => {
+        setVisible(true);
         tg.BackButton.show();
         tg.MainButton.hide();
         setCurrentPage('home');

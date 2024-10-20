@@ -22,10 +22,11 @@ import { showShineMainBtn } from "../../utils/utilFuncs";
 
 const ProductPage = () => {
     const { setAccordion, accordion } = useProductPage();
-    const { setCurrentPage } = useBottomBoard();
+    const { setCurrentPage, setVisible } = useBottomBoard();
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
+        setVisible(true);
         tg.BackButton.show();
         showShineMainBtn(12000);
         setCurrentPage('home');

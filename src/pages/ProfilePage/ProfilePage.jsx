@@ -13,7 +13,7 @@ import poizonLogo from "../../assets/miniman.png"
 import { useBottomBoard } from "../../components/BottomBoard/store";
 
 const ProfilePage = () => {
-    const { setCurrentPage } = useBottomBoard();
+    const { setCurrentPage, setVisible } = useBottomBoard();
     // const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
@@ -22,6 +22,7 @@ const ProfilePage = () => {
 
     useEffect(() => {
         tg.BackButton.show();
+        setVisible(true);
         tg.MainButton.hide();
         setCurrentPage('profile');
     }, [])

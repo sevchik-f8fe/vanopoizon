@@ -3,17 +3,10 @@ import CalculateIcon from '@mui/icons-material/Calculate';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { Link } from "react-router-dom";
 
-import { useCalc } from "../../pages/CalcPage.jsx/store";
-
 const CalculateBlock = () => {
-    const { setPage } = useCalc();
-
     return (
         <Link
             to={`/calc`}
-            onClick={() => {
-                setPage(0);
-            }}
         >
             <Box
                 sx={{

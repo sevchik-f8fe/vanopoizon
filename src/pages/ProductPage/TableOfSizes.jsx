@@ -5,9 +5,10 @@ import { useBottomBoard } from "../../components/BottomBoard/store";
 
 const TableOfSizes = () => {
     let tg = window.Telegram.WebApp;
-    const { setCurrentPage } = useBottomBoard();
+    const { setCurrentPage, setVisible } = useBottomBoard();
 
     useEffect(() => {
+        setVisible(false);
         tg.BackButton.show();
         tg.MainButton.hide();
         setCurrentPage('home');

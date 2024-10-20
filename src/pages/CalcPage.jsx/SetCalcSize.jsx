@@ -1,11 +1,24 @@
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Box, Typography, Button, TextField } from "@mui/material";
 import { hapticFeedback } from "@telegram-apps/sdk";
+import { useBottomBoard } from "../../components/BottomBoard/store";
 
 import { useCalc } from "./store";
 import calcImg from "../../assets/calc_page_size.png";
 
 const SetCalcSize = () => {
-    const { prevPage, size, setSize } = useCalc();
+    const { size, setSize } = useCalc();
+    const navigate = useNavigate();
+    const { setCurrentPage, setVisible } = useBottomBoard();
+    let tg = window.Telegram.WebApp;
+
+    useEffect(() => {
+        setVisible(false);
+        tg.BackButton.show();
+        tg.MainButton.hide();
+        setCurrentPage('home');
+    }, []);
 
     return (
         <Box
@@ -63,27 +76,14 @@ const SetCalcSize = () => {
                     }}
                 >
                 </Box>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: '.5em'
+                <Button
+                    onClick={() => {
+                        if (size.length > 0 && /^[0-9.]+$/.test(size)) navigate('/product');
+                        else hapticFeedback.notificationOccurred('error');
                     }}
-                >
-                    <Button
-                        onClick={() => {
-                            if (size.length > 0 && /^[0-9.]+$/.test(size)) console.log('ура');
-                            else hapticFeedback.notificationOccurred('error');
-                        }}
-                        variant="outlined"
-                        size="large"
-                    >Далее</Button>
-                    <Button
-                        onClick={prevPage}
-                        variant="text"
-                        size="large"
-                    >Назад</Button>
-                </Box>
+                    variant="outlined"
+                    size="large"
+                >Далее</Button>
             </Box>
         </Box>
     );

@@ -1,10 +1,21 @@
 import { Box, Typography, Button } from "@mui/material";
+import { useEffect } from "react";
 
-import { useCalc } from "./store";
 import dewu_app_icon from '../../assets/dewu_app_icon.jpg';
+import { useNavigate } from "react-router-dom";
+import { useBottomBoard } from "../../components/BottomBoard/store";
 
 const CalcDescription = () => {
-    const { nextPage, prevPage } = useCalc()
+    const navigate = useNavigate();
+    const { setCurrentPage, setVisible } = useBottomBoard();
+    let tg = window.Telegram.WebApp;
+
+    useEffect(() => {
+        setVisible(false);
+        tg.BackButton.show();
+        tg.MainButton.hide();
+        setCurrentPage('home');
+    }, []);
 
     return (
         <Box
@@ -120,7 +131,7 @@ const CalcDescription = () => {
                     А если не хочешь заморачиваться — пиши в чат, какие кроссы или одежду хочешь. Можешь вообще просто скинуть фотку кроссовок, а мы сами все найдем, заполним и рассчитаем.
                 </Typography>
                 <Button
-                    onClick={nextPage}
+                    onClick={() => navigate('/calcLink')}
                     variant="outlined"
                     size="large"
                 >Начать</Button>
