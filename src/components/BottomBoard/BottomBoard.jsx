@@ -14,103 +14,97 @@ const BottomBoard = () => {
             {isVisible ? (
                 <Box
                     sx={{
-
-                        p: '.2em .5em 0em .5em',
-
+                        p: '0 .5em',
                         position: 'fixed',
                         bottom: 0,
                         left: 0,
                         backgroundColor: '#202029',
                         minWidth: '100%',
                         zIndex: 100,
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        gap: '1em',
                     }}
                 >
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-around',
-                            alignItems: 'center',
-                            gap: '1em',
-                            mb: '.5em'
+                    <IconButton
+                        onClick={() => {
+                            navigate('/');
                         }}
+                        size="small"
+                        disabled={currentPage == 'home'}
+
                     >
-                        <IconButton
-                            onClick={() => {
-                                navigate('/');
-                            }}
-                            size="small"
-                            disabled={currentPage == 'home'}
+                        <HomeIcon
+                            sx={
+                                (currentPage == 'home') ? (
+                                    {
+                                        fontSize: '1.3em',
+                                        color: '#F34213',
+                                    }
+                                ) : (
+                                    {
+                                        fontSize: '1.3em',
+                                        color: '#fff5',
+                                    }
+                                )
+                            }
+                        />
+                    </IconButton>
 
-                        >
-                            <HomeIcon
-                                sx={
-                                    (currentPage == 'home') ? (
-                                        {
-                                            fontSize: '1.3em',
-                                            color: '#F34213',
-                                        }
-                                    ) : (
-                                        {
-                                            fontSize: '1.3em',
-                                            color: '#fff5',
-                                        }
-                                    )
-                                }
-                            />
-                        </IconButton>
+                    <IconButton
+                        disabled={currentPage == 'cart'}
+                        onClick={() => {
+                            setCurrentPage('cart');
+                            navigate('/cart');
+                        }}
+                        size="small"
 
-                        <IconButton
-                            disabled={currentPage == 'cart'}
-                            onClick={() => {
-                                setCurrentPage('cart');
-                                navigate('/cart');
-                            }}
-                            size="small"
+                    >
+                        <ShoppingCartIcon
+                            sx={
+                                (currentPage == 'cart') ? (
+                                    {
+                                        fontSize: '1.3em',
+                                        color: '#F34213',
+                                    }
+                                ) : (
+                                    {
+                                        fontSize: '1.3em',
+                                        color: '#fff5',
+                                    }
+                                )
+                            }
+                        />
+                    </IconButton>
 
-                        >
-                            <ShoppingCartIcon
-                                sx={
-                                    (currentPage == 'cart') ? (
-                                        {
-                                            fontSize: '1.3em',
-                                            color: '#F34213',
-                                        }
-                                    ) : (
-                                        {
-                                            fontSize: '1.3em',
-                                            color: '#fff5',
-                                        }
-                                    )
-                                }
-                            />
-                        </IconButton>
+                    <IconButton
+                        disabled={currentPage == 'profile'}
 
-                        <IconButton
-                            disabled={currentPage == 'profile'}
-
-                            onClick={() => {
-                                navigate('/profile');
-                            }}
-                            size="small"
-                        >
-                            <PersonIcon
-                                sx={
-                                    (currentPage == 'profile') ? (
-                                        {
-                                            fontSize: '1.3em',
-                                            color: '#F34213',
-                                        }
-                                    ) : (
-                                        {
-                                            fontSize: '1.3em',
-                                            color: '#fff5',
-                                        }
-                                    )
-                                }
-                            />
-                        </IconButton>
-
-                    </Box>
+                        sx={{
+                            my: '.5em'
+                        }}
+                        onClick={() => {
+                            navigate('/profile');
+                        }}
+                        size="small"
+                    >
+                        <PersonIcon
+                            sx={
+                                (currentPage == 'profile') ? (
+                                    {
+                                        fontSize: '1.3em',
+                                        color: '#F34213',
+                                    }
+                                ) : (
+                                    {
+                                        fontSize: '1.3em',
+                                        color: '#fff5',
+                                    }
+                                )
+                            }
+                        />
+                    </IconButton>
                 </Box>
 
             ) : (
