@@ -14,7 +14,7 @@ const BottomBoard = () => {
             {isVisible ? (
                 <Box
                     sx={{
-                        p: '.3em .5em 0 .5em',
+                        p: '.5em .5em 0 .5em',
                         position: 'fixed',
                         bottom: 0,
                         left: 0,
@@ -31,14 +31,14 @@ const BottomBoard = () => {
                             justifyContent: 'space-around',
                             alignItems: 'center',
                             gap: '1em',
-                            pb: '.5em'
+                            mb: '.5em'
                         }}
                     >
                         <IconButton
                             onClick={() => {
                                 navigate('/');
                             }}
-                            size="small"
+                            // size="small"
                             disabled={currentPage == 'home'}
 
                         >
@@ -65,7 +65,7 @@ const BottomBoard = () => {
                                 setCurrentPage('cart');
                                 navigate('/cart');
                             }}
-                            size="small"
+                        // size="small"
 
                         >
                             <ShoppingCartIcon
@@ -91,7 +91,7 @@ const BottomBoard = () => {
                             onClick={() => {
                                 navigate('/profile');
                             }}
-                            size="small"
+                        // size="small"
                         >
                             <PersonIcon
                                 sx={
