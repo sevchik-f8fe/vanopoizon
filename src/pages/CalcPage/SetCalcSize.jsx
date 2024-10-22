@@ -1,17 +1,17 @@
 import { useEffect } from "react";
-import { Box, Typography, Button, TextField, Link } from "@mui/material";
-import { hapticFeedback } from "@telegram-apps/sdk";
 import { useNavigate } from "react-router-dom";
-
+import { Box, Typography, Button, TextField } from "@mui/material";
+import { hapticFeedback } from "@telegram-apps/sdk";
 import { useBottomBoard } from "../../components/BottomBoard/store";
-import { useCalc } from "./store";
-import calcImg from "../../assets/calc_page_link.png";
 
-const SetCalcLink = () => {
+import { useCalc } from "./store";
+import calcImg from "../../assets/calc_page_size.png";
+
+const SetCalcSize = () => {
+    const { size, setSize } = useCalc();
     const navigate = useNavigate();
     const { setCurrentPage, setVisible } = useBottomBoard();
     let tg = window.Telegram.WebApp;
-    const { setLink, link } = useCalc()
 
     useEffect(() => {
         setVisible(false);
@@ -31,11 +31,11 @@ const SetCalcLink = () => {
         >
             <TextField
                 autoFocus
-                label="Ссылка на товар в Poizon"
+                label="Размер"
+                value={size.value}
+                onChange={(e) => { setSize(e.target.value) }}
                 variant="filled"
                 size="small"
-                value={link}
-                onChange={(e) => { setLink(e.target.value) }}
                 InputLabelProps={{
                     style: { color: '#ffffff60' },
                 }}
@@ -50,7 +50,7 @@ const SetCalcLink = () => {
                     fontSize: '.75em'
                 }}
             >
-                Шаг 1 из 3. Нажмите на товаре в Poizon кнопку "поделиться". Скопируйте ссылку и вставьте сюда. <Link sx={{ color: '#709ed9', textDecoration: 'none', cursor: 'pointer' }} onClick={() => { tg.openLink('http://www.smoltra.ru/klasific-tractora') }}>А как это сделать</Link>
+                Шаг 2 из 3: Выберите размер (EU). Чтобы подобрать правильный, загляните в размерную сетку.
             </Typography>
             <Box
                 sx={{
@@ -78,7 +78,7 @@ const SetCalcLink = () => {
                 </Box>
                 <Button
                     onClick={() => {
-                        if (link.length > 0 && link.startsWith('https://dw4.co/')) navigate('/calcSize');
+                        if (size.length > 0 && /^[0-9.]+$/.test(size)) navigate('/product');
                         else hapticFeedback.notificationOccurred('error');
                     }}
                     variant="outlined"
@@ -89,4 +89,4 @@ const SetCalcLink = () => {
     );
 }
 
-export default SetCalcLink;
+export default SetCalcSize;

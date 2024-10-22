@@ -5,7 +5,7 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { nanoid } from "nanoid";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useNotifications } from "./store";
 
 import shapka from "../../assets/shapka_png.png";
@@ -14,7 +14,6 @@ import { useBottomBoard } from "../../components/BottomBoard/store";
 
 const ProfilePage = () => {
     const { setCurrentPage, setVisible } = useBottomBoard();
-    // const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
@@ -343,6 +342,8 @@ const StatusContainer = () => {
 }
 
 const DataContainer = () => {
+    const navigate = useNavigate();
+
     const rows = [
         { title: 'Город', data: 'Не указано' },
         { title: 'ФИО', data: 'Не указано' },
@@ -427,6 +428,7 @@ const DataContainer = () => {
             </TableContainer>
 
             <Button
+                onClick={() => navigate('/deliveryData')}
                 sx={{
                     mt: '1em',
                     minWidth: '100%'

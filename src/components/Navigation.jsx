@@ -92,7 +92,7 @@ const ShopBtn = () => {
         <Chip
             onClick={() => { tg.openTelegramLink('https://t.me/IVANOV_SHOP') }}
             sx={{ cursor: 'pointer' }}
-            avatar={<Avatar alt="Natacha"><img src={tgImg} /></Avatar>}
+            avatar={<Avatar><img src={tgImg} /></Avatar>}
             label='@vano_poizon'
             variant="outlined"
         />
