@@ -38,7 +38,7 @@ const BottomBoard = () => {
                             onClick={() => {
                                 navigate('/');
                             }}
-                            // size="small"
+                            size="small"
                             disabled={currentPage == 'home'}
 
                         >
@@ -65,7 +65,7 @@ const BottomBoard = () => {
                                 setCurrentPage('cart');
                                 navigate('/cart');
                             }}
-                        // size="small"
+                            size="small"
 
                         >
                             <ShoppingCartIcon
@@ -91,7 +91,7 @@ const BottomBoard = () => {
                             onClick={() => {
                                 navigate('/profile');
                             }}
-                        // size="small"
+                            size="small"
                         >
                             <PersonIcon
                                 sx={
@@ -113,9 +113,10 @@ const BottomBoard = () => {
                     <Typography
                         sx={{
                             color: 'transparent',
-                            lineHeight: '.3'
+                            lineHeight: '.5',
+                            fontSize: '1em'
                         }}
-                    >.</Typography>
+                    >a</Typography>
                 </Box>
 
             ) : (
