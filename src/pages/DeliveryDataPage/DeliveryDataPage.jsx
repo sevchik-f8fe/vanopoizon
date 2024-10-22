@@ -150,7 +150,9 @@ const DeliveryDataPage = () => {
                         borderColor: '#a5d6a7',
                     },
                 }}
-                onClick={() => { navigate('/profile') }}
+                onClick={() => {
+                    window.history.back();
+                }}
             >Сохранить</Button>
         </Box>
     );
