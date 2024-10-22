@@ -155,6 +155,8 @@ const DeliveryDataPage = () => {
 }
 
 const PickupBlock = () => {
+    const { city, cdekAddress, setSimpleFieldValue } = useDeliveryData();
+
     const pickupData = [
         {
             value: '1',
@@ -184,6 +186,8 @@ const PickupBlock = () => {
             }}
         >
             <TextField
+                value={city}
+                onChange={(e) => { setSimpleFieldValue('city', e.target.value) }}
                 sx={{
                     '& .MuiInput-root': {
                         color: '#fff',
@@ -208,6 +212,11 @@ const PickupBlock = () => {
             </TextField>
 
             <TextField
+                value={cdekAddress}
+                onChange={(e) => { setSimpleFieldValue('cdekAddress', e.target.value) }}
+                variant="standard"
+                select
+                label="Пункт выдачи заказов"
                 sx={{
                     '& .MuiInput-root': {
                         color: '#fff',
@@ -220,9 +229,6 @@ const PickupBlock = () => {
                         fontWeight: '400',
                     },
                 }}
-                variant="standard"
-                select
-                label="Пункт выдачи заказов"
             >
                 {pickupData.map((elem) => (
                     <MenuItem key={nanoid()} value={elem.value}>
@@ -235,6 +241,8 @@ const PickupBlock = () => {
 }
 
 const DeliveryBlock = () => {
+    const { city, address, setSimpleFieldValue } = useDeliveryData();
+
     const pickupData = [
         {
             value: '1',
@@ -276,6 +284,8 @@ const DeliveryBlock = () => {
                         fontWeight: '400',
                     },
                 }}
+                value={city}
+                onChange={(e) => { setSimpleFieldValue('city', e.target.value) }}
                 select
                 variant="standard"
                 label="Город"
@@ -288,6 +298,8 @@ const DeliveryBlock = () => {
             </TextField>
 
             <TextField
+                value={address}
+                onChange={(e) => { setSimpleFieldValue('address', e.target.value) }}
                 sx={{
                     '& .MuiInput-root': {
                         color: '#fff',

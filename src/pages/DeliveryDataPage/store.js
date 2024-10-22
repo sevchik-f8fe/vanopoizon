@@ -9,6 +9,9 @@ export const useDeliveryData = create((set) => ({
         value: '',
         error: null,
     },
+    'address': '',
+    'city': '',
+    'cdekAddress': '',
     activeDeliveryType: 'pickup',
     setDeliveryType: (value) => set((state) => {
         return { activeDeliveryType: value }
@@ -18,5 +21,8 @@ export const useDeliveryData = create((set) => ({
     }),
     setFieldError: (field, error) => set((state) => {
         return { [field]: { error } }
-    })
+    }),
+    setSimpleFieldValue: (field, value) => set((state) => {
+        return { [field]: value }
+    }),
 }))
