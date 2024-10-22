@@ -14,7 +14,7 @@ const BottomBoard = () => {
             {isVisible ? (
                 <Box
                     sx={{
-                        p: '.2em .5em',
+                        p: '.3em .5em 0 .5em',
                         position: 'fixed',
                         bottom: 0,
                         left: 0,
@@ -31,6 +31,7 @@ const BottomBoard = () => {
                             justifyContent: 'space-around',
                             alignItems: 'center',
                             gap: '1em',
+                            pb: '.5em'
                         }}
                     >
                         <IconButton
@@ -112,7 +113,7 @@ const BottomBoard = () => {
                     <Typography
                         sx={{
                             color: 'transparent',
-                            lineHeight: '.5'
+                            lineHeight: '.3'
                         }}
                     >.</Typography>
                 </Box>
