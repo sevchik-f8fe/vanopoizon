@@ -14,7 +14,7 @@ const BottomBoard = () => {
             {isVisible ? (
                 <Box
                     sx={{
-                        p: '0 .5em',
+                        p: '.2em .5em',
                         position: 'fixed',
                         bottom: 0,
                         left: 0,
@@ -25,6 +25,7 @@ const BottomBoard = () => {
                         justifyContent: 'space-around',
                         alignItems: 'center',
                         gap: '1em',
+                        WebkitTransform: 'translateZ(0)'
                     }}
                 >
                     <IconButton
@@ -81,9 +82,6 @@ const BottomBoard = () => {
                     <IconButton
                         disabled={currentPage == 'profile'}
 
-                        sx={{
-                            my: '.5em'
-                        }}
                         onClick={() => {
                             navigate('/profile');
                         }}
