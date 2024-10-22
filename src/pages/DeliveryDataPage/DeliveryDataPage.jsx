@@ -2,6 +2,8 @@ import { Box, TextField, Button, Typography, MenuItem } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
+import InputMask from "react-input-mask";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import { useBottomBoard } from "../../components/BottomBoard/store";
 import { useDeliveryData } from "./store";
@@ -11,7 +13,7 @@ const DeliveryDataPage = () => {
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     const { setCurrentPage, setVisible } = useBottomBoard();
-    const { phoneNumber, setFieldValue, name, activeDeliveryType, setFieldError } = useDeliveryData();
+    const { phoneNumber, setFieldValue, name, activeDeliveryType } = useDeliveryData();
 
     useEffect(() => {
         setVisible(false);
@@ -115,7 +117,7 @@ const DeliveryDataPage = () => {
                         label="Фамилия, имя и отчество"
                     />
 
-                    <TextField
+                    <Input
                         value={phoneNumber.value}
                         error={phoneNumber.error}
                         onChange={(e) => setFieldValue('phoneNumber', e.target.value)}
@@ -155,7 +157,8 @@ const DeliveryDataPage = () => {
 }
 
 const PickupBlock = () => {
-    const { city, cdekAddress, setSimpleFieldValue } = useDeliveryData();
+    const { city, cdekAddress } = useDeliveryData();
+    const navigate = useNavigate();
 
     const pickupData = [
         {
@@ -182,66 +185,94 @@ const PickupBlock = () => {
                 minWidth: 'calc(100% - 1em)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '.5em'
+                gap: '1em'
             }}
         >
-            <TextField
-                value={city}
-                onChange={(e) => { setSimpleFieldValue('city', e.target.value) }}
-                sx={{
-                    '& .MuiInput-root': {
-                        color: '#fff',
-                        fontWeight: '400',
-                        fontSize: '.9em',
-                    },
-                    '& .MuiInputLabel-root': {
-                        color: '#fff5',
-                        fontSize: '.9em',
-                        fontWeight: '400',
-                    },
+            <Box
+                onClick={() => {
+                    navigate('/select', {
+                        state: {
+                            data: pickupData,
+                            label: 'Город',
+                            prevPathName: 'deliveryData',
+                            field: 'city',
+                        }
+                    })
                 }}
-                select
-                variant="standard"
-                label="Город"
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottom: '1px solid #000',
+                    cursor: 'pointer'
+                }}
             >
-                {pickupData.map((elem) => (
-                    <MenuItem key={nanoid()} value={elem.value}>
-                        {elem.label}
-                    </MenuItem>
-                ))}
-            </TextField>
+                <Typography
+                    sx={(city.length == 0) ? (
+                        {
+                            color: '#fff5',
+                            fontSize: '.9em',
+                            fontWeight: '400',
+                            p: '.4em 0'
+                        }
+                    ) : (
+                        {
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '400',
+                            p: '.4em 0'
+                        }
+                    )}
+                >{city.length == 0 ? 'Город' : city}</Typography>
+                <ExpandMoreIcon />
+            </Box>
 
-            <TextField
-                value={cdekAddress}
-                onChange={(e) => { setSimpleFieldValue('cdekAddress', e.target.value) }}
-                variant="standard"
-                select
-                label="Пункт выдачи заказов"
+            <Box
+                onClick={() => {
+                    navigate('/select', {
+                        state: {
+                            data: pickupData,
+                            label: 'Пункт выдачи заказов',
+                            prevPathName: 'deliveryData',
+                            field: 'cdekAddress',
+                        }
+                    })
+                }}
                 sx={{
-                    '& .MuiInput-root': {
-                        color: '#fff',
-                        fontWeight: '400',
-                        fontSize: '.9em',
-                    },
-                    '& .MuiInputLabel-root': {
-                        color: '#fff5',
-                        fontSize: '.9em',
-                        fontWeight: '400',
-                    },
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottom: '1px solid #000',
+                    cursor: 'pointer'
                 }}
             >
-                {pickupData.map((elem) => (
-                    <MenuItem key={nanoid()} value={elem.value}>
-                        {elem.label}
-                    </MenuItem>
-                ))}
-            </TextField>
+                <Typography
+                    sx={(cdekAddress.length == 0) ? (
+                        {
+                            color: '#fff5',
+                            fontSize: '.9em',
+                            fontWeight: '400',
+                            p: '.4em 0'
+                        }
+                    ) : (
+                        {
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '400',
+                            p: '.4em 0'
+                        }
+                    )}
+                >{cdekAddress.length == 0 ? 'Пункт выдачи заказов' : cdekAddress}</Typography>
+
+                <ExpandMoreIcon />
+            </Box>
         </Box>
     );
 }
 
 const DeliveryBlock = () => {
     const { city, address, setSimpleFieldValue } = useDeliveryData();
+    const navigate = useNavigate();
 
     const pickupData = [
         {
@@ -271,31 +302,44 @@ const DeliveryBlock = () => {
                 gap: '.5em'
             }}
         >
-            <TextField
-                sx={{
-                    '& .MuiInput-root': {
-                        color: '#fff',
-                        fontWeight: '400',
-                        fontSize: '.9em',
-                    },
-                    '& .MuiInputLabel-root': {
-                        color: '#fff5',
-                        fontSize: '.9em',
-                        fontWeight: '400',
-                    },
+            <Box
+                onClick={() => {
+                    navigate('/select', {
+                        state: {
+                            data: pickupData,
+                            label: 'Город',
+                            prevPathName: 'deliveryData',
+                            field: 'city',
+                        }
+                    })
                 }}
-                value={city}
-                onChange={(e) => { setSimpleFieldValue('city', e.target.value) }}
-                select
-                variant="standard"
-                label="Город"
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottom: '1px solid #000',
+                    cursor: 'pointer'
+                }}
             >
-                {pickupData.map((elem) => (
-                    <MenuItem key={nanoid()} value={elem.value}>
-                        {elem.label}
-                    </MenuItem>
-                ))}
-            </TextField>
+                <Typography
+                    sx={(city.length == 0) ? (
+                        {
+                            color: '#fff5',
+                            fontSize: '.9em',
+                            fontWeight: '400',
+                            p: '.4em 0'
+                        }
+                    ) : (
+                        {
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '400',
+                            p: '.4em 0'
+                        }
+                    )}
+                >{city.length == 0 ? 'Город' : city}</Typography>
+                <ExpandMoreIcon />
+            </Box>
 
             <TextField
                 value={address}
@@ -365,5 +409,16 @@ const PickDeliveryBlock = ({ img, type }) => {
         </Box>
     );
 }
+
+const Input = (props) => (
+    <InputMask
+        mask="+7 999 999 99 99"
+        maskChar={''}
+        value={props.value}
+        onChange={props.onChange}
+    >
+        {() => <TextField sx={props.sx} variant={props.variant} label={props.label} type="tel" />}
+    </InputMask>
+);
 
 export default DeliveryDataPage;

@@ -17,6 +17,7 @@ export const useDeliveryData = create((set) => ({
         return { activeDeliveryType: value }
     }),
     setFieldValue: (field, value) => set((state) => {
+        console.log(state[field].value)
         return { [field]: { value } }
     }),
     setFieldError: (field, error) => set((state) => {
