@@ -13,6 +13,7 @@ import poizonLogo from "../../assets/miniman.png"
 import { useBottomBoard } from "../../components/BottomBoard/store";
 
 const ProfilePage = () => {
+    const navigate = useNavigate()
     const { setCurrentPage, setVisible } = useBottomBoard();
     let tg = window.Telegram.WebApp;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
@@ -34,7 +35,8 @@ const ProfilePage = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                mb: '2em'
+                mb: '1em',
+                pb: '1em',
             }}
         >
             <Box
@@ -90,7 +92,9 @@ const ProfilePage = () => {
                             sx={{ color: '#F34213' }}
                         />
                     </IconButton>
-                    <IconButton>
+                    <IconButton
+                        onClick={() => navigate('/cart')}
+                    >
                         <ShoppingCartIcon
                             sx={{ color: '#F34213' }}
                         />

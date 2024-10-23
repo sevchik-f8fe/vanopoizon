@@ -15,6 +15,7 @@ import CalcDescription from './pages/CalcPage/CalcDescription';
 import ProductPage from './pages/ProductPage/ProductPage';
 import TableOfSizes from './pages/ProductPage/TableOfSizes';
 import BottomBoard from './components/BottomBoard/BottomBoard';
+import CartPage from './pages/CartPage/CartPage';
 import DeliveryDataPage from './pages/DeliveryDataPage/DeliveryDataPage';
 
 import { ScrollToTop } from './utils/utilFuncs';
@@ -42,6 +43,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/product' element={<ProductPage />} />
           <Route path='/sizes' element={<TableOfSizes />} />
           <Route path='/select' element={<SelectPage />} />
+          <Route path='/cart' element={<CartPage />} />
         </Routes>
         <BottomBoard />
       </BrowserRouter>

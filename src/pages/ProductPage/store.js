@@ -11,7 +11,6 @@ export const useProductPage = create((set) => ({
     usePoints: true,
     useExpressDelivery: false,
     setAccordion: (type) => set(state => {
-        console.log(1);
         return {
             accordion: {
                 ...state.accordion,
