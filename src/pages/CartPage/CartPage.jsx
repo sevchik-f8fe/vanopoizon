@@ -297,7 +297,9 @@ const SplitBlock = ({ price }) => {
             }}
         >
             <Box
-                onClick={toggleUseSplit}
+                onClick={() => {
+                    if (useSplit) toggleUseSplit();
+                }}
                 sx={{
                     width: '50%',
                     cursor: 'pointer',
@@ -354,7 +356,9 @@ const SplitBlock = ({ price }) => {
             </Box>
 
             <Box
-                onClick={toggleUseSplit}
+                onClick={() => {
+                    if (!useSplit) toggleUseSplit()
+                }}
                 sx={{
                     width: '50%',
                     cursor: 'pointer',
