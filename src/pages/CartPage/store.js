@@ -31,6 +31,14 @@ export const useCart = create((set) => ({
             size: 33,
         },
     ],
+    useSplit: false,
+    isFastDelivery: false,
+    toggleUseSplit: () => set(state => {
+        return { useSplit: !state.useSplit }
+    }),
+    setFastDelivery: (value) => set(state => {
+        return { isFastDelivery: value }
+    }),
     removeElementFromCart: (elemId) => set(state => {
         return {
             products: [
@@ -50,4 +58,5 @@ export const useCart = create((set) => ({
             product.id === elemId ? { ...product, count: product.count - 1 } : product
         )
     })),
+
 }));

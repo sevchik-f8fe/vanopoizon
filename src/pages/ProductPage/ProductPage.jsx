@@ -7,6 +7,7 @@ import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SendIcon from '@mui/icons-material/Send';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 // import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -22,7 +23,7 @@ import { showShineMainBtn } from "../../utils/utilFuncs";
 import gliffIcon from "../../assets/high-voltage_icon.png";
 
 const ProductPage = () => {
-    const { setAccordion, accordion, isSplit, useExpressDelivery, setUseExpressDelivery } = useProductPage();
+    const { setAccordion, accordion, isSplit, useExpressDelivery, setUseExpressDelivery, useInsurance, setUseInsurance } = useProductPage();
     const { setCurrentPage, setVisible } = useBottomBoard();
     let tg = window.Telegram.WebApp;
 
@@ -254,9 +255,7 @@ const ProductPage = () => {
                             fontWeight: '700',
                             p: '.5em 0'
                         }}
-                    >
-                        Доставка
-                    </Typography>
+                    >Доставка</Typography>
 
                     <IconButton
                         onClick={() => setAccordion('delivery')}
@@ -382,16 +381,19 @@ const ProductPage = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '1em',
-                            fontWeight: '700',
-                            p: '.5em 0'
-                        }}
-                    >
-                        Страховка и безопасность
-                    </Typography>
+                    <Box>
+                        <Typography
+                            sx={{
+                                color: '#fff',
+                                fontSize: '1em',
+                                fontWeight: '700',
+                                p: '.5em 0'
+                            }}
+                        >
+                            Страховка и безопасность
+                        </Typography>
+                    </Box>
+
                     <IconButton
                         onClick={() => setAccordion('insurance')}
                     >
@@ -412,15 +414,85 @@ const ProductPage = () => {
                 </Box>
 
                 {(accordion.insurance === true) && (
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '500',
-                        }}
-                    >
-                        В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности.
-                    </Typography>
+                    <>
+                        <Typography
+                            sx={{
+                                color: '#fff',
+                                fontSize: '.9em',
+                                fontWeight: '500',
+                            }}
+                        >
+                            В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности.
+                        </Typography>
+
+                        <Box
+                            sx={{
+                                backgroundColor: '#202029',
+                                borderRadius: '.5em',
+                                p: '.5em',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '.5em',
+                                mt: '.5em'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: '.2em',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <HealthAndSafetyIcon
+                                        sx={{
+                                            fontSize: '1.5em',
+                                            color: '#fff'
+                                        }}
+                                    />
+                                    <Typography
+                                        sx={{
+                                            color: '#fff',
+                                            fontWeight: '700',
+                                            fontSize: '.9em'
+                                        }}
+                                    >
+                                        Страховка
+                                    </Typography>
+                                    <IconButton
+                                        size="small"
+                                    >
+                                        <InfoIcon
+                                            sx={{
+                                                fontSize: '1.2em',
+                                                color: '#709ed9'
+                                            }}
+                                        />
+                                    </IconButton>
+                                </Box>
+                                <Switch
+                                    checked={useInsurance}
+                                    onChange={(e) => setUseInsurance(e.target.checked)}
+                                />
+                            </Box>
+                            <Typography
+                                sx={{
+                                    pl: '1em',
+                                    color: '#fff',
+                                    fontWeight: '500',
+                                    fontSize: '.9em'
+                                }}
+                            >
+                                Если пиздец <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
+                            </Typography>
+                        </Box>
+                    </>
                 )}
             </Box>
 

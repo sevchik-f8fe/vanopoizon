@@ -10,6 +10,7 @@ export const useProductPage = create((set) => ({
     isSplit: false,
     usePoints: true,
     useExpressDelivery: false,
+    useInsurance: false,
     setAccordion: (type) => set(state => {
         return {
             accordion: {
@@ -26,6 +27,9 @@ export const useProductPage = create((set) => ({
     }),
     setUseExpressDelivery: (value) => set(state => {
         return { useExpressDelivery: value };
+    }),
+    setUseInsurance: (value) => set(state => {
+        return { useInsurance: value };
     }),
     setSplit: (value) => set(state => {
         return { isSplit: value };
