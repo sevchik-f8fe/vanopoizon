@@ -41,7 +41,6 @@ const ProductPage = () => {
                     position: 'relative',
                     backgroundColor: "#fff",
                     minWidth: '100%',
-                    // p: '.2em',
                 }}
             >
                 <Box

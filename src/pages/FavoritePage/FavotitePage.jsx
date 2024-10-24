@@ -1,10 +1,91 @@
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { Box, Typography, IconButton } from "@mui/material";
-import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Link } from "react-router-dom";
+import { nanoid } from "nanoid";
 
-const CatalogElement = ({ picture, price, title, link }) => {
+import { useFavorites } from "./store";
+import { useBottomBoard } from "../../components/BottomBoard/store";
+
+const FavoritePage = () => {
+    // const navigate = useNavigate()
+    const { setCurrentPage, setVisible } = useBottomBoard();
+    const { products } = useFavorites();
+    let tg = window.Telegram.WebApp;
+
+    useEffect(() => {
+        tg.BackButton.show();
+        setVisible(true);
+        tg.MainButton.hide();
+        setCurrentPage('profile');
+    }, [])
+
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1em',
+                pb: '3em',
+            }}
+        >
+            <Box
+                sx={{
+                    p: '.5em',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontSize: '.9em',
+                        color: '#fff',
+                        pb: '.5em',
+                        fontWeight: '900'
+                    }}
+                >Избранные</Typography>
+            </Box>
+
+            {products.length <= 0 ? (
+                <Box
+                    sx={{
+                        p: '.5em',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minHeight: '20vh'
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: '#fff6',
+                            fontSize: '.9em',
+                            fontWeight: '500'
+                        }}
+                    >У вас нет избранных товаров ;(</Typography>
+                </Box>
+            ) : (
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '.5em',
+                        p: '.5em',
+                        borderRadius: '1em 1em 0 0',
+                    }}
+                >
+                    {products.map((product) => <FavoriteElement key={nanoid()} id={product.id} picture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljwOll9YYO3ZIeoRk-aDUZb7wwu8iHAbo1g&s' price={product.price} title={product.title} link='/product' size={product.size} />)}
+                </Box>
+            )
+            }
+        </Box >
+    );
+}
+
+const FavoriteElement = ({ picture, price, title, link, id }) => {
+    const { removeElementFromFavorites } = useFavorites();
+
     return (
         <Box
             sx={{
@@ -18,6 +99,7 @@ const CatalogElement = ({ picture, price, title, link }) => {
         >
             <IconButton
                 size="small"
+                onClick={() => { removeElementFromFavorites(id) }}
                 sx={{
                     '&:hover': {
                         backgroundColor: '#fff',
@@ -30,7 +112,7 @@ const CatalogElement = ({ picture, price, title, link }) => {
                     position: 'absolute',
                 }}
             >
-                <FavoriteBorderIcon sx={{ color: '#F34213' }} />
+                <FavoriteIcon sx={{ color: '#F34213' }} />
             </IconButton>
 
             <Link to={link}
@@ -118,4 +200,4 @@ const CustomButton = ({ children, onClick, isDisabled }) => {
     );
 }
 
-export default CatalogElement;
+export default FavoritePage;

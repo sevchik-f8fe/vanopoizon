@@ -23,7 +23,7 @@ import { BackBtnHandle } from './utils/utilFuncs';
 import './index.css'
 import { theme } from './utils/theme';
 import SelectPage from './pages/SelectPage/SelectPage';
-
+import FavoritePage from './pages/FavoritePage/FavotitePage';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -44,6 +44,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/sizes' element={<TableOfSizes />} />
           <Route path='/select' element={<SelectPage />} />
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/favorite' element={<FavoritePage />} />
         </Routes>
         <BottomBoard />
       </BrowserRouter>

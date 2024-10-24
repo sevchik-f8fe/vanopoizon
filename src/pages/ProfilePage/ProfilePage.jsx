@@ -27,7 +27,6 @@ const ProfilePage = () => {
         setCurrentPage('profile');
     }, [])
 
-
     return (
         <Box
             sx={{
@@ -35,8 +34,7 @@ const ProfilePage = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                mb: '1em',
-                pb: '1em',
+                pb: '3em',
             }}
         >
             <Box
@@ -87,7 +85,9 @@ const ProfilePage = () => {
                         gap: '1em'
                     }}
                 >
-                    <IconButton>
+                    <IconButton
+                        onClick={() => navigate('/favorite')}
+                    >
                         <FavoriteIcon
                             sx={{ color: '#F34213' }}
                         />

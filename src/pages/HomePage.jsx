@@ -27,7 +27,7 @@ const HomePage = () => {
         <Box
             sx={{
                 w: '100%', p: '.5em',
-                mb: '2em',
+                pb: '3em',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',

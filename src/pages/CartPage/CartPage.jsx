@@ -25,7 +25,6 @@ const CartPage = () => {
     useEffect(() => {
         tg.BackButton.show();
         setVisible(false);
-        // tg.MainButton.show();
         showShineMainBtn(12000);
         setCurrentPage('cart');
     }, [])
@@ -742,33 +741,23 @@ const CustomButton = ({ children, onClick, isDisabled }) => {
             <button
                 disabled={isDisabled}
                 onClick={onClick}
-                style={(isDisabled) ? (
-                    {
-                        cursor: 'pointer',
-                        border: '0',
-                        borderRadius: '.5em',
-                        backgroundColor: '#F3421310',
-                        minWidth: '2em',
-                        minHeight: '2em',
-                        textAlign: 'center',
+                style={{
+                    cursor: 'pointer',
+                    border: '0',
+                    borderRadius: '.5em',
+                    minWidth: '2em',
+                    minHeight: '2em',
+                    textAlign: 'center',
+                    fontSize: '.9em',
+                    backgroundColor: '#F3421310',
+                    fontWeight: '500',
+                    ...(isDisabled && {
                         color: '#F3421350',
-                        fontSize: '.9em',
-                        fontWeight: '500',
-                    }
-                ) : (
-                    {
-                        cursor: 'pointer',
-                        border: '0',
-                        borderRadius: '.5em',
-                        backgroundColor: '#F3421320',
-                        minWidth: '2em',
-                        minHeight: '2em',
-                        textAlign: 'center',
+                    }),
+                    ...(!isDisabled && {
                         color: '#F34213',
-                        fontSize: '.9em',
-                        fontWeight: '500',
-                    }
-                )}
+                    }),
+                }}
             >
                 {children}
             </button >

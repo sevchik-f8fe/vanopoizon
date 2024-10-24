@@ -19,7 +19,7 @@ const PointsPage = () => {
         <Box
             sx={{
                 p: '1em',
-                mb: '2em',
+                pb: '3em',
                 w: '100%',
                 display: 'flex',
                 flexDirection: 'column',

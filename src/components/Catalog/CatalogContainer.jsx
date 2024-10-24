@@ -85,7 +85,7 @@ const CatalogContent = () => {
                 gap: '.5em'
             }}
         >
-            {[1, 2, 3, 4, 5, 6, 7].map((elem) => <CatalogElement key={nanoid()} price='12 000' title='Бобёр коричнеый б/у' picture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljwOll9YYO3ZIeoRk-aDUZb7wwu8iHAbo1g&s' />)}
+            {[1, 2, 3, 4, 5, 6, 7].map((elem) => <CatalogElement key={nanoid()} price='12 000' link={'/product'} title='Бобёр коричнеый б/у' picture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljwOll9YYO3ZIeoRk-aDUZb7wwu8iHAbo1g&s' />)}
         </Box>
     );
 }
