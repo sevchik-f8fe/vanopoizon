@@ -4,11 +4,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { Link } from "react-router-dom";
 
-import { showShineMainBtn } from "../../utils/utilFuncs";
-
 const CatalogElement = ({ picture, price, title }) => {
     let tg = window.Telegram.WebApp;
-    let backBtn = tg?.BackButton;
 
     return (
         <Box

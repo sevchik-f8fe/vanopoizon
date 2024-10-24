@@ -163,26 +163,22 @@ const ProductPage = () => {
                 <Box
                     sx={{
                         pb: '.5em',
-                        borderBottom: '1px solid #ffffff60',
+                        borderBottom: '1px solid #ffffff30',
                     }}
                 >
                     <Typography
-                        sx={
-                            !isSplit ? (
-                                {
-                                    color: '#ffffff',
-                                    fontSize: '1.8em',
-                                    transition: '.3s ease',
-                                    fontWeight: '900',
-                                }
-                            ) : (
-                                {
-                                    color: '#ffffff60',
-                                    fontSize: '1.8em',
-                                    transition: '.3s ease',
-                                    fontWeight: '900',
-                                }
-                            )}
+                        sx={{
+                            color: '#ffffff',
+                            fontSize: '1.8em',
+                            transition: '.3s ease',
+                            fontWeight: '900',
+                            ...(!isSplit && {
+                                color: '#ffffff',
+                            }),
+                            ...(isSplit && {
+                                color: '#ffffff50',
+                            }),
+                        }}
                     >
                         12 000 &#8381;
                     </Typography>
@@ -191,7 +187,7 @@ const ProductPage = () => {
                         sx={{
                             fontSize: '.75em',
                             fontWeight: '500',
-                            color: '#ffffff60',
+                            color: '#ffffff50',
                         }}
                     >
                         Оплачивая заказ, вы соглашаетесь с условиями <Link
@@ -567,7 +563,7 @@ const SizesContainer = () => {
         <Box
             sx={{
                 p: '.5em 0',
-                borderBottom: '1px solid #ffffff60'
+                borderBottom: '1px solid #ffffff30'
             }}
         >
             <Box
@@ -619,33 +615,22 @@ const SizesElement = ({ size, price }) => {
     return (
         <Box
             onClick={() => { setCurrentSize(size) }}
-            sx={
-                (currentSize == size) ? (
-                    {
-                        display: 'flex',
-                        cursor: 'pointer',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        p: '.5em',
-                        alignItems: 'center',
-                        borderRadius: '.5em',
-                        minWidth: 'fit-content',
-                        border: '1px solid #fff',
-                    }
-                ) : (
-                    {
-                        cursor: 'pointer',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        p: '.5em',
-                        alignItems: 'center',
-                        borderRadius: '.5em',
-                        minWidth: 'fit-content',
-                        border: '1px solid #ffffff20',
-                    }
-                )
-            }
+            sx={{
+                display: 'flex',
+                cursor: 'pointer',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                p: '.5em',
+                alignItems: 'center',
+                borderRadius: '.5em',
+                minWidth: 'fit-content',
+                ...(currentSize == size && {
+                    border: '1px solid #fff',
+                }),
+                ...(currentSize != size && {
+                    border: '1px solid #ffffff30',
+                }),
+            }}
         >
             <Typography
                 sx={{
@@ -672,7 +657,7 @@ const SplitContainer = () => {
     return (
         <Box
             sx={{
-                borderBottom: '1px solid #ffffff60',
+                borderBottom: '1px solid #ffffff30',
                 p: '.5em 0',
             }}
         >
@@ -735,55 +720,46 @@ const SplitContainer = () => {
                 <Box>
                     <Typography
                         sx={{
-                            color: '#ffffff60',
+                            color: '#ffffff50',
                             fontSize: '.9em',
                             fontWeight: '500',
                         }}
                     >Сейчас</Typography>
                     <Typography
-                        sx={
-                            isSplit ? (
-                                {
-                                    color: '#ffffff',
-                                    fontSize: '1.5em',
-                                    transition: '.3s ease',
-                                    fontWeight: '900',
-                                }
-                            ) : (
-                                {
-                                    color: '#ffffff60',
-                                    fontSize: '1.5em',
-                                    transition: '.3s ease',
-                                    fontWeight: '900',
-                                }
-                            )}
+                        sx={{
+                            fontSize: '1.5em',
+                            transition: '.3s ease',
+                            fontWeight: '900',
+                            ...(isSplit && {
+                                color: '#ffffff',
+                            }),
+                            ...(!isSplit && {
+                                color: '#ffffff50',
+                            }),
+                        }}
                     >6 000 &#8381;</Typography>
                 </Box>
                 <Box>
                     <Typography
                         sx={{
-                            color: '#ffffff60',
+                            color: '#ffffff50',
                             fontSize: '.9em',
                             fontWeight: '500',
                         }}
                     >Через 3 недели</Typography>
                     <Typography
-                        sx={
-                            isSplit ? (
-                                {
-                                    color: '#ffffff',
-                                    fontSize: '1.5em',
-                                    fontWeight: '900',
-                                    transition: '.3s ease',
-                                }
-                            ) : (
-                                {
-                                    color: '#ffffff60',
-                                    fontSize: '1.5em',
-                                    transition: '.3s ease',
-                                    fontWeight: '900',
-                                }
-                            )}
+                        sx={{
+                            color: '#ffffff',
+                            fontSize: '1.5em',
+                            fontWeight: '900',
+                            transition: '.3s ease',
+                            ...(isSplit && {
+                                color: '#ffffff',
+                            }),
+                            ...(!isSplit && {
+                                color: '#ffffff50',
+                            }),
+                        }}
                     >6 000 &#8381;</Typography>
                 </Box>
             </Box>
@@ -824,80 +800,62 @@ const UsePointsContainer = () => {
             >
                 <Box
                     onClick={() => setUsePoints(true)}
-                    sx={(usePoints) ? (
-                        {
-                            transition: '.3s ease',
-                            cursor: 'pointer',
-                            p: '.5em .8em',
-                            borderRadius: '.5em',
+                    sx={{
+                        transition: '.3s ease',
+                        cursor: 'pointer',
+                        p: '.5em .8em',
+                        borderRadius: '.5em',
+                        ...(usePoints && {
                             backgroundColor: '#2E2E3A',
-                        }
-                    ) : (
-                        {
-                            transition: '.3s ease',
-                            cursor: 'pointer',
-                            p: '.5em .8em',
-                            borderRadius: '.5em',
+                        }),
+                        ...(!usePoints && {
                             backgroundColor: 'transparent',
-                        }
-                    )}
+                        }),
+                    }}
                 >
                     <Typography
-                        sx={usePoints ? (
-                            {
-                                transition: '.3s ease',
+                        sx={{
+                            transition: '.3s ease',
+                            fontSize: '.9em',
+                            fontWeight: '700',
+                            ...(usePoints && {
                                 color: '#fff',
-                                fontSize: '.9em',
-                                fontWeight: '700'
-                            }
-                        ) : (
-                            {
-                                transition: '.3s ease',
-                                color: '#fff6',
-                                fontSize: '.9em',
-                                fontWeight: '700'
-                            }
-                        )}
-                    >Начислить <span style={usePoints ? { color: '#F34213' } : { color: '#Fff6' }} > 50</span></Typography>
+                            }),
+                            ...(!usePoints && {
+                                color: '#fff5',
+                            }),
+                        }}
+                    >Начислить <span style={usePoints ? { color: '#F34213' } : { color: '#Fff5' }} > 50</span></Typography>
                 </Box>
 
                 <Box
                     onClick={() => setUsePoints(false)}
-                    sx={(!usePoints) ? (
-                        {
-                            transition: '.3s ease',
-                            cursor: 'pointer',
-                            p: '.5em .8em',
-                            borderRadius: '.5em',
+                    sx={{
+                        transition: '.3s ease',
+                        cursor: 'pointer',
+                        p: '.5em .8em',
+                        borderRadius: '.5em',
+                        ...(!usePoints && {
                             backgroundColor: '#2E2E3A',
-                        }
-                    ) : (
-                        {
-                            transition: '.3s ease',
-                            cursor: 'pointer',
-                            p: '.5em .8em',
-                            borderRadius: '.5em',
+                        }),
+                        ...(usePoints && {
                             backgroundColor: 'transparent',
-                        }
-                    )}
+                        }),
+                    }}
                 >
                     <Typography
-                        sx={!usePoints ? (
-                            {
-                                transition: '.3s ease',
+                        sx={{
+                            transition: '.3s ease',
+                            fontSize: '.9em',
+                            fontWeight: '700',
+                            ...(!usePoints && {
                                 color: '#fff',
-                                fontSize: '.9em',
-                                fontWeight: '700'
-                            }
-                        ) : (
-                            {
-                                transition: '.3s ease',
-                                color: '#fff6',
-                                fontSize: '.9em',
-                                fontWeight: '700'
-                            }
-                        )}
-                    >Списать <span style={!usePoints ? { color: '#F34213' } : { color: '#Fff6' }}>0</span></Typography>
+                            }),
+                            ...(usePoints && {
+                                color: '#fff5',
+                            }),
+                        }}
+                    >Списать <span style={!usePoints ? { color: '#F34213' } : { color: '#fff5' }}>0</span></Typography>
                 </Box>
             </Box>
         </Box >
@@ -987,7 +945,7 @@ const AddOnsContainer = ({ linkPoizon }) => {
                     p: '1em 0',
                     display: 'flex',
                     gap: '.5em',
-                    alignItems: 'end', borderBottom: '1px solid #ffffff60',
+                    alignItems: 'end', borderBottom: '1px solid #ffffff30',
                     pb: '.5em',
                 }}
             >
@@ -1012,7 +970,7 @@ const AddOnsContainer = ({ linkPoizon }) => {
                 }}
                 sx={{
                     cursor: 'pointer',
-                    borderBottom: '1px solid #ffffff60',
+                    borderBottom: '1px solid #ffffff30',
                     pb: '.5em',
                     display: 'flex',
                     gap: '.5em',

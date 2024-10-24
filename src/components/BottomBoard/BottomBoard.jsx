@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -6,7 +6,7 @@ import { useBottomBoard } from "./store";
 import { useNavigate } from "react-router-dom";
 
 const BottomBoard = () => {
-    const { setCurrentPage, currentPage, isVisible } = useBottomBoard();
+    const { currentPage, isVisible } = useBottomBoard();
     const navigate = useNavigate();
 
     return (
@@ -38,19 +38,16 @@ const BottomBoard = () => {
 
                     >
                         <HomeIcon
-                            sx={
-                                (currentPage == 'home') ? (
-                                    {
-                                        fontSize: '1.3em',
-                                        color: '#F34213',
-                                    }
-                                ) : (
-                                    {
-                                        fontSize: '1.3em',
-                                        color: '#fff5',
-                                    }
-                                )
-                            }
+                            sx={{
+                                fontSize: '1.3em',
+                                color: '#F34213',
+                                ...(currentPage == 'home' && {
+                                    color: '#F34213',
+                                }),
+                                ...(currentPage != 'home' && {
+                                    color: '#fff5',
+                                }),
+                            }}
                         />
                     </IconButton>
 
@@ -63,19 +60,15 @@ const BottomBoard = () => {
 
                     >
                         <ShoppingCartIcon
-                            sx={
-                                (currentPage == 'cart') ? (
-                                    {
-                                        fontSize: '1.3em',
-                                        color: '#F34213',
-                                    }
-                                ) : (
-                                    {
-                                        fontSize: '1.3em',
-                                        color: '#fff5',
-                                    }
-                                )
-                            }
+                            sx={{
+                                fontSize: '1.3em',
+                                ...(currentPage == 'cart' && {
+                                    color: '#F34213',
+                                }),
+                                ...(currentPage != 'cart' && {
+                                    color: '#fff5',
+                                }),
+                            }}
                         />
                     </IconButton>
 
@@ -88,19 +81,15 @@ const BottomBoard = () => {
                         size="small"
                     >
                         <PersonIcon
-                            sx={
-                                (currentPage == 'profile') ? (
-                                    {
-                                        fontSize: '1.3em',
-                                        color: '#F34213',
-                                    }
-                                ) : (
-                                    {
-                                        fontSize: '1.3em',
-                                        color: '#fff5',
-                                    }
-                                )
-                            }
+                            sx={{
+                                fontSize: '1.3em',
+                                ...(currentPage == 'profile' && {
+                                    color: '#F34213',
+                                }),
+                                ...(currentPage != 'profile' && {
+                                    color: '#fff5',
+                                }),
+                            }}
                         />
                     </IconButton>
                 </Box>

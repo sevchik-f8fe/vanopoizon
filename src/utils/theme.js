@@ -92,7 +92,7 @@ export const theme = createTheme({
                         '&.Mui-focused': {
                             backgroundColor: '#2E2E3A',
                             '& .MuiFilledInput-notchedOutline': {
-                                borderColor: '#ffffff60', // Используем цвет из темы
+                                borderColor: '#ffffff50', // Используем цвет из темы
                                 borderWidth: '1px',
                             },
                         },
@@ -100,11 +100,11 @@ export const theme = createTheme({
                             backgroundColor: '#2E2E3A',
                         },
                         '&:after': {
-                            borderColor: '#ffffff60',
+                            borderColor: '#ffffff50',
                         },
                     },
                     '& .MuiInputLabel-root': {
-                        color: '#ffffff60',
+                        color: '#ffffff50',
                     },
                 },
             },

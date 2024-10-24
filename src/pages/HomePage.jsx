@@ -49,13 +49,13 @@ const HomePage = () => {
                 >
                     <SearchIcon
                         sx={{
-                            color: '#ffffff60',
+                            color: '#ffffff50',
                         }}
                     />
 
                     <Typography
                         sx={{
-                            color: '#ffffff60',
+                            color: '#ffffff50',
                             fontSize: '1em',
                             fontWeight: '500',
                         }}

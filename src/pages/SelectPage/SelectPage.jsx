@@ -41,7 +41,7 @@ const SelectPage = () => {
                 value={value}
                 variant="filled"
                 InputLabelProps={{
-                    style: { color: '#ffffff60' },
+                    style: { color: '#ffffff50' },
                 }}
                 autoFocus
                 sx={{
@@ -63,11 +63,8 @@ const SelectElement = ({ text, onSelect }) => {
             sx={{
                 cursor: 'pointer',
                 transition: '.1s ease',
-                '&:hover': {
-                    backgroundColor: '#fff1'
-                },
                 p: '.8em .5em',
-                borderBottom: '2px solid #fff6'
+                borderBottom: '2px solid #fff3'
             }}
         >
             <Typography

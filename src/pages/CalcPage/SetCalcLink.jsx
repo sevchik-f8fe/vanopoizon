@@ -37,7 +37,7 @@ const SetCalcLink = () => {
                 value={link.value}
                 onChange={(e) => { setLink(e.target.value) }}
                 InputLabelProps={{
-                    style: { color: '#ffffff60' },
+                    style: { color: '#ffffff50' },
                 }}
                 sx={{
                     fontSize: '.9em',

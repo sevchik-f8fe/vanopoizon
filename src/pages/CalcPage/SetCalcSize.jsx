@@ -37,7 +37,7 @@ const SetCalcSize = () => {
                 variant="filled"
                 size="small"
                 InputLabelProps={{
-                    style: { color: '#ffffff60' },
+                    style: { color: '#ffffff50' },
                 }}
                 sx={{
                     fontSize: '.9em',

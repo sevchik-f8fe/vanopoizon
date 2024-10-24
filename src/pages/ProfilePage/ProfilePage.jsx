@@ -165,7 +165,7 @@ const NotificationsContainer = () => {
                         <Typography
                             sx={{
                                 fontSize: '.75em',
-                                color: '#ffffff70',
+                                color: '#ffffff50',
                                 fontWeight: '500',
                             }}
                         >Розыгрыши и бонусы</Typography>

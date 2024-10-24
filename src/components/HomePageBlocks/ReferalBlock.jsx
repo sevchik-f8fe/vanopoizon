@@ -51,7 +51,7 @@ const ReferalBlock = () => {
                     <Typography
                         sx={{
                             fontSize: '.75em',
-                            color: '#ffffff70',
+                            color: '#ffffff50',
                             fontWeight: '600',
                         }}
                     >Дарим по <span style={{ color: '#F34213' }}>500</span><CurrencyRubleIcon sx={{ fontSize: '.9em', color: '#F34213', }} /> - тебе и приведенному другу</Typography>

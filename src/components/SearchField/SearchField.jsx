@@ -18,7 +18,7 @@ const SearchField = () => {
                     input: {
                         startAdornment: (
                             <InputAdornment position="start">
-                                <SearchIcon sx={{ color: '#ffffff60' }} />
+                                <SearchIcon sx={{ color: '#ffffff50' }} />
                             </InputAdornment>
                         ),
                     },

@@ -1,4 +1,4 @@
-import { Box, TextField, Button, Typography, MenuItem } from "@mui/material";
+import { Box, TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
@@ -10,7 +10,6 @@ import { useDeliveryData } from "./store";
 import cdekImg from "../../assets/cdek.png";
 
 const DeliveryDataPage = () => {
-    const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     const { setCurrentPage, setVisible } = useBottomBoard();
     const { phoneNumber, setFieldValue, name, activeDeliveryType } = useDeliveryData();
@@ -210,21 +209,17 @@ const PickupBlock = () => {
                 }}
             >
                 <Typography
-                    sx={(city.length == 0) ? (
-                        {
+                    sx={{
+                        fontSize: '.9em',
+                        fontWeight: '400',
+                        p: '.4em 0',
+                        ...(city.length == 0 && {
                             color: '#fff5',
-                            fontSize: '.9em',
-                            fontWeight: '400',
-                            p: '.4em 0'
-                        }
-                    ) : (
-                        {
+                        }),
+                        ...(city.length != 0 && {
                             color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '400',
-                            p: '.4em 0'
-                        }
-                    )}
+                        })
+                    }}
                 >{city.length == 0 ? 'Город' : city}</Typography>
                 <ExpandMoreIcon />
             </Box>
@@ -249,21 +244,17 @@ const PickupBlock = () => {
                 }}
             >
                 <Typography
-                    sx={(cdekAddress.length == 0) ? (
-                        {
+                    sx={{
+                        fontSize: '.9em',
+                        fontWeight: '400',
+                        p: '.4em 0',
+                        ...(cdekAddress.length == 0 && {
                             color: '#fff5',
-                            fontSize: '.9em',
-                            fontWeight: '400',
-                            p: '.4em 0'
-                        }
-                    ) : (
-                        {
+                        }),
+                        ...(cdekAddress.length != 0 && {
                             color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '400',
-                            p: '.4em 0'
-                        }
-                    )}
+                        })
+                    }}
                 >{cdekAddress.length == 0 ? 'Пункт выдачи заказов' : cdekAddress}</Typography>
 
                 <ExpandMoreIcon />
@@ -324,21 +315,18 @@ const DeliveryBlock = () => {
                 }}
             >
                 <Typography
-                    sx={(city.length == 0) ? (
-                        {
+                    sx={{
+                        color: '#fff5',
+                        fontSize: '.9em',
+                        fontWeight: '400',
+                        p: '.4em 0',
+                        ...(city.length == 0 && {
                             color: '#fff5',
-                            fontSize: '.9em',
-                            fontWeight: '400',
-                            p: '.4em 0'
-                        }
-                    ) : (
-                        {
+                        }),
+                        ...(city.length != 0 && {
                             color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '400',
-                            p: '.4em 0'
-                        }
-                    )}
+                        })
+                    }}
                 >{city.length == 0 ? 'Город' : city}</Typography>
                 <ExpandMoreIcon />
             </Box>
@@ -372,27 +360,20 @@ const PickDeliveryBlock = ({ img, type }) => {
     return (
         <Box
             onClick={() => setDeliveryType(type)}
-            sx={(activeDeliveryType == type) ? (
-                {
-                    borderRadius: '1em',
-                    p: '.1em',
-                    transition: '.3s ease',
-                    '&:active': {
-                        transform: 'scale(.96)'
-                    },
-                    border: '2px solid #F34213'
-                }
-            ) : (
-                {
-                    borderRadius: '1em',
-                    p: '.1em',
-                    transition: '.3s ease',
-                    '&:active': {
-                        transform: 'scale(.96)'
-                    },
+            sx={{
+                borderRadius: '1em',
+                p: '.1em',
+                transition: '.3s ease',
+                '&:active': {
+                    transform: 'scale(.96)',
+                },
+                ...(activeDeliveryType == type && {
+                    border: '2px solid #F34213',
+                }),
+                ...(activeDeliveryType != type && {
                     border: '2px solid transparent'
-                }
-            )}
+                })
+            }}
         >
             <Box
                 sx={{
