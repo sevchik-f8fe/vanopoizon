@@ -1,9 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { Box, Typography, Button, IconButton, TextField } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { nanoid } from "nanoid";
+import FlightIcon from '@mui/icons-material/Flight';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -31,7 +35,7 @@ const CartPage = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '.5em',
+                gap: '1em',
             }}
         >
             <Box
@@ -120,6 +124,14 @@ const CartPage = () => {
                     </Box>
 
                     <SplitBlock price={12000} />
+
+                    <UsePointsBlock />
+
+                    <ExpressDeliveryBlock />
+
+                    <InsuranceBlock />
+
+                    <TotalPriceBlock />
                 </>
             )
             }
@@ -274,12 +286,261 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
     );
 }
 
-const FastDeliveryBlock = () => {
+const ExpressDeliveryBlock = () => {
+    const { useExpressDelivery, toggleUseExpressDelivery } = useCart();
 
+    return (
+        <Box
+            onClick={toggleUseExpressDelivery}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+                cursor: 'pointer',
+                p: '.5em',
+                mx: '.5em',
+                borderRadius: '1em',
+                transition: '.1s ease',
+                ...(!useExpressDelivery && {
+                    border: '1px solid #fff5',
+                }),
+                ...(useExpressDelivery && {
+                    border: '1px solid #fff',
+                }),
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '.5em',
+                    alignItems: 'center'
+                }}
+            >
+
+                <FlightIcon
+                    sx={{
+                        transition: '.1s ease',
+                        ...(!useExpressDelivery && {
+                            color: '#fff5',
+                        }),
+                        ...(useExpressDelivery && {
+                            color: '#fff',
+                        }),
+                    }}
+                />
+
+                <Typography
+                    sx={{
+                        fontSize: '.9em',
+                        transition: '.1s ease',
+                        fontWeight: '700',
+                        ...(!useExpressDelivery && {
+                            color: '#fff5',
+                        }),
+                        ...(useExpressDelivery && {
+                            color: '#fff',
+                        }),
+                    }}
+                >Express доставка</Typography>
+            </Box>
+
+            <Typography
+                sx={{
+                    fontSize: '.75em',
+                    color: '#fff5',
+                    fontWeight: '500',
+                }}
+            >Доставка будет длиться 9-12 дней.</Typography>
+        </Box>
+    );
 }
 
 const InsuranceBlock = () => {
+    const { useInsurance, toggleUseInsurance } = useCart();
 
+    return (
+        <Box
+            onClick={toggleUseInsurance}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+                cursor: 'pointer',
+                p: '.5em',
+                mx: '.5em',
+                borderRadius: '1em',
+                transition: '.1s ease',
+                ...(!useInsurance && {
+                    border: '1px solid #fff5',
+                }),
+                ...(useInsurance && {
+                    border: '1px solid #fff',
+                }),
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '.5em',
+                    alignItems: 'center'
+                }}
+            >
+
+                <HealthAndSafetyIcon
+                    sx={{
+                        transition: '.1s ease',
+                        ...(!useInsurance && {
+                            color: '#fff5',
+                        }),
+                        ...(useInsurance && {
+                            color: '#fff',
+                        }),
+                    }}
+                />
+
+                <Typography
+                    sx={{
+                        fontSize: '.9em',
+                        transition: '.1s ease',
+                        fontWeight: '700',
+                        ...(!useInsurance && {
+                            color: '#fff5',
+                        }),
+                        ...(useInsurance && {
+                            color: '#fff',
+                        }),
+                    }}
+                >Страховка</Typography>
+            </Box>
+
+            <Typography
+                sx={{
+                    fontSize: '.75em',
+                    color: '#fff5',
+                    fontWeight: '500',
+                }}
+            >При получении не оригинала или потере при доставке, мы возместим всю стоимость товара в тройном размере.</Typography>
+        </Box>
+    );
+}
+
+const UsePointsBlock = () => {
+    const { toggleUsePoints, usePoints } = useCart();
+
+    return (
+        <Box
+            sx={{
+                p: '.5em', mx: '.5em',
+                borderRadius: '1em',
+                backgroundColor: '#2E2E3A',
+                border: '1px solid #F34213',
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '.5em'
+                }}
+            >
+                <LoyaltyIcon
+                    sx={{
+                        color: '#F34213',
+                    }}
+                />
+
+                <Typography
+                    sx={{
+                        color: '#F34213',
+                        fontSize: '1em',
+                        fontWeight: '700',
+                    }}
+                >
+                    Баллы PoizonShop
+                </Typography>
+            </Box>
+
+            <Box
+                sx={{
+                    p: '2px',
+                    mt: '.5em',
+                    backgroundColor: '#202029',
+                    borderRadius: '.5em',
+                    display: 'flex',
+                    // justifyContent: 'space-between',
+                    maxWidth: 'fit-content',
+                    alignItems: 'center',
+                    gap: '1em',
+                }}
+            >
+                <Box
+                    onClick={() => {
+                        if (usePoints) toggleUsePoints();
+                    }}
+                    sx={{
+                        transition: '.3s ease',
+                        cursor: 'pointer',
+                        p: '.5em .8em',
+                        borderRadius: '.5em',
+                        ...(!usePoints && {
+                            backgroundColor: '#2E2E3A',
+                        }),
+                        ...(usePoints && {
+                            backgroundColor: 'transparent',
+                        }),
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            transition: '.3s ease',
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '700',
+                            ...(!usePoints && {
+                                color: '#fff',
+                            }),
+                            ...(usePoints && {
+                                color: '#fff5',
+                            }),
+                        }}
+                    >Начислить <span style={!usePoints ? { color: '#F34213' } : { color: '#Fff5' }} > 50</span></Typography>
+                </Box>
+
+                <Box
+                    onClick={() => {
+                        if (!usePoints) toggleUsePoints();
+                    }}
+                    sx={{
+                        transition: '.3s ease',
+                        cursor: 'pointer',
+                        p: '.5em .8em',
+                        borderRadius: '.5em',
+                        ...(usePoints && {
+                            backgroundColor: '#2E2E3A',
+                        }),
+                        ...(!usePoints && {
+                            backgroundColor: 'transparent',
+                        }),
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            transition: '.3s ease',
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '700',
+                            ...(usePoints && {
+                                color: '#fff',
+                            }),
+                            ...(!usePoints && {
+                                color: '#fff5',
+                            }),
+                        }}
+                    >Списать <span style={usePoints ? { color: '#F34213' } : { color: '#Fff5' }}>0</span></Typography>
+                </Box>
+            </Box>
+        </Box >
+    );
 }
 
 const SplitBlock = ({ price }) => {
@@ -288,12 +549,11 @@ const SplitBlock = ({ price }) => {
     return (
         <Box
             sx={{
-                p: '.5em',
+                px: '.5em',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'stretch',
                 gap: '.5em',
-
             }}
         >
             <Box
@@ -309,8 +569,9 @@ const SplitBlock = ({ price }) => {
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '.5em',
+                    transition: '.1s ease',
                     ...(useSplit && {
-                        border: '1px solid #fff3',
+                        border: '1px solid #fff5',
                     }),
                     ...(!useSplit && {
                         border: '1px solid #fff',
@@ -322,10 +583,11 @@ const SplitBlock = ({ price }) => {
                     trabsition: '.1s ease',
                     right: '.5em',
                     top: '.5em',
+                    transition: '.1s ease',
                     borderRadius: '50%',
                     ...(useSplit && {
                         color: 'transparent',
-                        border: '1px solid #fff3'
+                        border: '1px solid #fff5'
                     }),
                     ...(!useSplit && {
                         color: '#fff',
@@ -366,10 +628,11 @@ const SplitBlock = ({ price }) => {
                     borderRadius: '1em',
                     position: 'relative',
                     display: 'flex',
+                    transition: '.1s ease',
                     flexDirection: 'column',
                     gap: '.5em',
                     ...(!useSplit && {
-                        border: '1px solid #fff3',
+                        border: '1px solid #fff5',
                     }),
                     ...(useSplit && {
                         border: '1px solid #fff',
@@ -378,13 +641,13 @@ const SplitBlock = ({ price }) => {
             >
                 <CheckCircleIcon sx={{
                     position: 'absolute',
-                    trabsition: '.1s ease',
+                    transition: '.1s ease',
                     right: '.5em',
                     top: '.5em',
                     borderRadius: '50%',
                     ...(!useSplit && {
                         color: 'transparent',
-                        border: '1px solid #fff3'
+                        border: '1px solid #fff5'
                     }),
                     ...(useSplit && {
                         color: '#fff',
@@ -418,7 +681,60 @@ const SplitBlock = ({ price }) => {
 }
 
 const TotalPriceBlock = () => {
+    const { usePoints, useInsurance, useExpressDelivery } = useCart();
 
+    return (
+        <Box
+            sx={{
+                p: '.5em',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+            }}
+        >
+            <TotalPriceElement label='Стоимость товаров' price='12 000' isTotal={false} />
+            {useExpressDelivery && <TotalPriceElement label='Express доставка' price='12 000' isTotal={false} />}
+            {useInsurance && <TotalPriceElement label='Страховка' price='12 000' isTotal={false} />}
+            <TotalPriceElement label='Комиссия' price='12 000' isTotal={false} />
+            {usePoints && <TotalPriceElement label='Скидка' price='12 000' isTotal={false} />}
+            <TotalPriceElement label='Итого' price='12 000' isTotal={true} />
+        </Box>
+    );
+}
+
+const TotalPriceElement = ({ label, price, isTotal }) => {
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderBottom: '1px solid #fff3',
+                pb: '.2em'
+            }}
+        >
+            <Typography
+                sx={{
+                    fontSize: '.75em',
+                    fontWeight: '500',
+                    color: '#fff5',
+                }}
+            >{label}</Typography>
+            <Typography
+                sx={{
+                    fontSize: '.9em',
+                    fontWeight: '500',
+                    color: '#fff',
+                    ...(isTotal && {
+                        fontSize: '1.2em',
+                    }),
+                    ...(!isTotal && {
+                        fontSize: '.9em',
+                    }),
+                }}
+            >{price} &#8381;</Typography>
+        </Box>
+    );
 }
 
 const CustomButton = ({ children, onClick, isDisabled }) => {

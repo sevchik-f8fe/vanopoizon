@@ -32,12 +32,20 @@ export const useCart = create((set) => ({
         },
     ],
     useSplit: false,
-    isFastDelivery: false,
+    usePoints: false,
+    useInsurance: false,
+    useExpressDelivery: false,
+    toggleUseExpressDelivery: () => set(state => {
+        return { useExpressDelivery: !state.useExpressDelivery }
+    }),
     toggleUseSplit: () => set(state => {
         return { useSplit: !state.useSplit }
     }),
-    setFastDelivery: (value) => set(state => {
-        return { isFastDelivery: value }
+    toggleUseInsurance: () => set(state => {
+        return { useInsurance: !state.useInsurance }
+    }),
+    toggleUsePoints: () => set(state => {
+        return { usePoints: !state.usePoints }
     }),
     removeElementFromCart: (elemId) => set(state => {
         return {
