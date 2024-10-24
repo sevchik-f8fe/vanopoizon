@@ -136,7 +136,6 @@ const ProductPage = () => {
 
                 <Typography
                     sx={{
-                        mt: '.5em', mb: '1em',
                         color: '#202029',
                         fontSize: '1.6em',
                         fontWeight: '900',
@@ -151,7 +150,7 @@ const ProductPage = () => {
             <Box
                 sx={{
                     position: 'relative',
-                    top: '-1em',
+                    top: '-.5em',
                     borderRadius: '1em',
                     backgroundColor: '#2E2E3A',
                     p: '.5em .8em',
