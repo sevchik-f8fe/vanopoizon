@@ -695,7 +695,6 @@ const TotalPriceBlock = () => {
             <TotalPriceElement label='Стоимость товаров' price='12 000' isTotal={false} />
             {useExpressDelivery && <TotalPriceElement label='Express доставка' price='12 000' isTotal={false} />}
             {useInsurance && <TotalPriceElement label='Страховка' price='12 000' isTotal={false} />}
-            <TotalPriceElement label='Комиссия' price='12 000' isTotal={false} />
             {usePoints && <TotalPriceElement label='Скидка' price='12 000' isTotal={false} />}
             <TotalPriceElement label='Итого' price='12 000' isTotal={true} />
         </Box>
