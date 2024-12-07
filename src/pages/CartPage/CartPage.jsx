@@ -1,0 +1,764 @@
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { Box, Typography, IconButton } from "@mui/material";
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import { nanoid } from "nanoid";
+import FlightIcon from '@mui/icons-material/Flight';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
+import LoyaltyIcon from '@mui/icons-material/Loyalty';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+import { showShineMainBtn } from "../../utils/utilFuncs";
+import { useCart } from "./store";
+
+const CartPage = () => {
+    const { products } = useCart();
+    const navigate = useNavigate();
+    let tg = window.Telegram.WebApp;
+
+    useEffect(() => {
+        tg.BackButton.show();
+        showShineMainBtn(12000);
+    }, [])
+
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '1em',
+                pt: '2em'
+            }}
+        >
+            <Box
+                sx={{
+                    p: '.5em',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }}
+            >
+                <Typography
+                    sx={{
+                        fontSize: '.9em',
+                        color: '#fff',
+                        pb: '.5em',
+                        fontWeight: '900'
+                    }}
+                >Корзина</Typography>
+
+            </Box>
+
+            <Box
+                sx={{
+                    border: '1px solid #fff5',
+                    p: '.5em',
+                    mx: '.5em',
+                    borderRadius: '1em'
+                }}
+            >
+                <Box
+                    onClick={() => navigate('/deliveryData')}
+                    sx={{
+                        minWidth: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '1em',
+                        cursor: 'pointer',
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            fontSize: '.9em',
+                            color: '#fff',
+                            fontWeight: '500'
+                        }}
+                    >Пункт CDEK: шашлычка</Typography>
+
+                    <ArrowOutwardIcon sx={{ color: '#F34213', fontSize: '1.2em' }} />
+                </Box>
+            </Box>
+
+            {products.length <= 0 ? (
+                <>
+                    <Box
+                        sx={{
+                            p: '.5em',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            minHeight: '20vh'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#fff6',
+                                fontSize: '.9em',
+                                fontWeight: '500'
+                            }}
+                        >В вашей корзине пусто ;(</Typography>
+                    </Box>
+                </>
+            ) : (
+                <>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '.5em',
+                            p: '.5em',
+                            // backgroundColor: '#2E2E3A',
+                            borderRadius: '1em 1em 0 0',
+                        }}
+                    >
+                        {products.map((product) => <CartElement key={nanoid()} id={product.id} picture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljwOll9YYO3ZIeoRk-aDUZb7wwu8iHAbo1g&s' price={product.price} title={product.title} link='/product' size={product.size} count={product.count} />)}
+                    </Box>
+
+                    {/* <SplitBlock price={12000} /> */}
+
+                    <UsePointsBlock />
+
+                    {/* <ExpressDeliveryBlock /> */}
+
+                    <InsuranceBlock />
+
+                    <TotalPriceBlock />
+                </>
+            )
+            }
+        </Box >
+    );
+}
+
+const CartElement = ({ picture, price, size, title, link, id, count }) => {
+    const { removeElementFromCart, incProductCount, decProductCount } = useCart()
+
+    return (
+        <Box
+            sx={{
+                py: '.2em'
+            }}
+        >
+            <Link to={link}>
+                <Box
+                    sx={{
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'start',
+                        gap: '.5em',
+                    }}
+                >
+                    <Box
+                        sx={{
+                            backgroundImage: `url(${picture})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                            minWidth: 'calc(40% - .5em)',
+                            borderRadius: '.5em',
+                            minHeight: '5em',
+                        }}
+                    ></Box>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '.2em',
+                            p: '.2em 0'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#fff',
+                                fontSize: '1em',
+                                fontWeight: '500'
+                            }}
+                        >{title}</Typography>
+                        <Typography
+                            sx={{
+                                color: '#fff6',
+                                fontSize: '.9em',
+                                fontWeight: '500'
+                            }}
+                        >{price} &#8381;</Typography>
+                        <Typography
+                            sx={{
+                                color: '#fff6',
+                                fontSize: '.9em',
+                                fontWeight: '500'
+                            }}
+                        >размер {size} (EU)</Typography>
+                    </Box>
+                </Box>
+            </Link>
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: '1em',
+                    alignItems: 'center',
+                    p: '.5em 0',
+                }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: '.5em',
+                        alignItems: 'center',
+                    }}
+                >
+                    <IconButton
+                        size="small"
+                    >
+                        <FavoriteBorderIcon
+                            sx={{
+                                fontSize: '1.2em',
+                                color: '#F34213'
+                            }}
+                        />
+                    </IconButton>
+                    <IconButton
+                        onClick={() => removeElementFromCart(id)}
+                        size="small"
+                    >
+                        <DeleteIcon
+                            sx={{
+                                fontSize: '1.2em',
+                                color: '#fff5'
+                            }}
+                        />
+                    </IconButton>
+
+                </Box>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: '.5em',
+                        alignItems: 'center',
+                    }}
+                >
+                    <CustomButton
+                        isDisabled={count <= 1}
+                        onClick={() => decProductCount(id)}
+                    >
+                        -
+                    </CustomButton>
+                    <Box
+                        sx={{
+                            borderRadius: '.5em',
+                            backgroundColor: '#fffffe10',
+                            minWidth: '2.2em',
+                            minHeight: '2.2em',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}
+                    >
+                        <Typography
+                            sx={{
+                                color: '#fffffE',
+                                fontSize: '.9em',
+                                fontWeight: '500',
+
+                            }}
+                        >{count}</Typography>
+                    </Box>
+                    <CustomButton
+                        isDisabled={false}
+                        onClick={() => incProductCount(id)}
+                    >
+                        +
+                    </CustomButton>
+                </Box>
+            </Box>
+        </Box>
+    );
+}
+
+// const ExpressDeliveryBlock = () => {
+//     const { useExpressDelivery, toggleUseExpressDelivery } = useCart();
+
+//     return (
+//         <Box
+//             onClick={toggleUseExpressDelivery}
+//             sx={{
+//                 display: 'flex',
+//                 flexDirection: 'column',
+//                 gap: '.5em',
+//                 cursor: 'pointer',
+//                 p: '.5em',
+//                 mx: '.5em',
+//                 borderRadius: '1em',
+//                 transition: '.1s ease',
+//                 ...(!useExpressDelivery && {
+//                     border: '1px solid #fff5',
+//                 }),
+//                 ...(useExpressDelivery && {
+//                     border: '1px solid #fff',
+//                 }),
+//             }}
+//         >
+//             <Box
+//                 sx={{
+//                     display: 'flex',
+//                     gap: '.5em',
+//                     alignItems: 'center'
+//                 }}
+//             >
+
+//                 <FlightIcon
+//                     sx={{
+//                         transition: '.1s ease',
+//                         ...(!useExpressDelivery && {
+//                             color: '#fff5',
+//                         }),
+//                         ...(useExpressDelivery && {
+//                             color: '#fff',
+//                         }),
+//                     }}
+//                 />
+
+//                 <Typography
+//                     sx={{
+//                         fontSize: '.9em',
+//                         transition: '.1s ease',
+//                         fontWeight: '700',
+//                         ...(!useExpressDelivery && {
+//                             color: '#fff5',
+//                         }),
+//                         ...(useExpressDelivery && {
+//                             color: '#fff',
+//                         }),
+//                     }}
+//                 >Express доставка</Typography>
+//             </Box>
+
+//             <Typography
+//                 sx={{
+//                     fontSize: '.75em',
+//                     color: '#fff5',
+//                     fontWeight: '500',
+//                 }}
+//             >Доставка будет длиться 9-12 дней.</Typography>
+//         </Box>
+//     );
+// }
+
+const InsuranceBlock = () => {
+    const { useInsurance, toggleUseInsurance } = useCart();
+
+    return (
+        <Box
+            onClick={toggleUseInsurance}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+                cursor: 'pointer',
+                p: '.5em',
+                mx: '.5em',
+                borderRadius: '1em',
+                transition: '.1s ease',
+                ...(!useInsurance && {
+                    border: '1px solid #fff5',
+                }),
+                ...(useInsurance && {
+                    border: '1px solid #fff',
+                }),
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '.5em',
+                    alignItems: 'center'
+                }}
+            >
+
+                <HealthAndSafetyIcon
+                    sx={{
+                        transition: '.1s ease',
+                        ...(!useInsurance && {
+                            color: '#fff5',
+                        }),
+                        ...(useInsurance && {
+                            color: '#fff',
+                        }),
+                    }}
+                />
+
+                <Typography
+                    sx={{
+                        fontSize: '.9em',
+                        transition: '.1s ease',
+                        fontWeight: '700',
+                        ...(!useInsurance && {
+                            color: '#fff5',
+                        }),
+                        ...(useInsurance && {
+                            color: '#fff',
+                        }),
+                    }}
+                >Страховка</Typography>
+            </Box>
+
+            <Typography
+                sx={{
+                    fontSize: '.75em',
+                    color: '#fff5',
+                    fontWeight: '500',
+                }}
+            >При получении не оригинала или потере при доставке, мы возместим всю стоимость товара в тройном размере.</Typography>
+        </Box>
+    );
+}
+
+const UsePointsBlock = () => {
+    const { toggleUsePoints, usePoints } = useCart();
+
+    return (
+        <Box
+            sx={{
+                p: '.5em', mx: '.5em',
+                borderRadius: '1em',
+                backgroundColor: '#2E2E3A',
+                border: '1px solid #F34213',
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '.5em'
+                }}
+            >
+                <LoyaltyIcon
+                    sx={{
+                        color: '#F34213',
+                    }}
+                />
+
+                <Typography
+                    sx={{
+                        color: '#F34213',
+                        fontSize: '1em',
+                        fontWeight: '700',
+                    }}
+                >
+                    Баллы PoizonShop
+                </Typography>
+            </Box>
+
+            <Box
+                sx={{
+                    p: '2px',
+                    mt: '.5em',
+                    backgroundColor: '#202029',
+                    borderRadius: '.5em',
+                    display: 'flex',
+                    // justifyContent: 'space-between',
+                    maxWidth: 'fit-content',
+                    alignItems: 'center',
+                    gap: '1em',
+                }}
+            >
+                <Box
+                    onClick={() => {
+                        if (usePoints) toggleUsePoints();
+                    }}
+                    sx={{
+                        transition: '.3s ease',
+                        cursor: 'pointer',
+                        p: '.5em .8em',
+                        borderRadius: '.5em',
+                        ...(!usePoints && {
+                            backgroundColor: '#2E2E3A',
+                        }),
+                        ...(usePoints && {
+                            backgroundColor: 'transparent',
+                        }),
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            transition: '.3s ease',
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '700',
+                            ...(!usePoints && {
+                                color: '#fff',
+                            }),
+                            ...(usePoints && {
+                                color: '#fff5',
+                            }),
+                        }}
+                    >Начислить <span style={!usePoints ? { color: '#F34213' } : { color: '#Fff5' }} > 50</span></Typography>
+                </Box>
+
+                <Box
+                    onClick={() => {
+                        if (!usePoints) toggleUsePoints();
+                    }}
+                    sx={{
+                        transition: '.3s ease',
+                        cursor: 'pointer',
+                        p: '.5em .8em',
+                        borderRadius: '.5em',
+                        ...(usePoints && {
+                            backgroundColor: '#2E2E3A',
+                        }),
+                        ...(!usePoints && {
+                            backgroundColor: 'transparent',
+                        }),
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            transition: '.3s ease',
+                            color: '#fff',
+                            fontSize: '.9em',
+                            fontWeight: '700',
+                            ...(usePoints && {
+                                color: '#fff',
+                            }),
+                            ...(!usePoints && {
+                                color: '#fff5',
+                            }),
+                        }}
+                    >Списать <span style={usePoints ? { color: '#F34213' } : { color: '#Fff5' }}>0</span></Typography>
+                </Box>
+            </Box>
+        </Box >
+    );
+}
+
+// const SplitBlock = ({ price }) => {
+//     const { useSplit, toggleUseSplit } = useCart();
+
+//     return (
+//         <Box
+//             sx={{
+//                 px: '.5em',
+//                 display: 'flex',
+//                 justifyContent: 'space-between',
+//                 alignItems: 'stretch',
+//                 gap: '.5em',
+//             }}
+//         >
+//             <Box
+//                 onClick={() => {
+//                     if (useSplit) toggleUseSplit();
+//                 }}
+//                 sx={{
+//                     width: '50%',
+//                     cursor: 'pointer',
+//                     p: '.5em',
+//                     borderRadius: '1em',
+//                     position: 'relative',
+//                     display: 'flex',
+//                     flexDirection: 'column',
+//                     gap: '.5em',
+//                     transition: '.1s ease',
+//                     ...(useSplit && {
+//                         border: '1px solid #fff5',
+//                     }),
+//                     ...(!useSplit && {
+//                         border: '1px solid #fff',
+//                     }),
+//                 }}
+//             >
+//                 <CheckCircleIcon sx={{
+//                     position: 'absolute',
+//                     trabsition: '.1s ease',
+//                     right: '.5em',
+//                     top: '.5em',
+//                     transition: '.1s ease',
+//                     borderRadius: '50%',
+//                     ...(useSplit && {
+//                         color: 'transparent',
+//                         border: '1px solid #fff5'
+//                     }),
+//                     ...(!useSplit && {
+//                         color: '#fff',
+//                     }),
+//                 }} />
+
+//                 <Typography
+//                     sx={{
+//                         color: '#fff',
+//                         fontSize: '1.2em',
+//                         fontWeight: '700',
+//                     }}
+//                 >Не в сплит</Typography>
+//                 <Typography
+//                     sx={{
+//                         color: '#fff',
+//                         fontSize: '.9em',
+//                         fontWeight: '700',
+//                     }}
+//                 >{price} &#8381;</Typography>
+//                 <Typography
+//                     sx={{
+//                         color: '#fff6',
+//                         fontSize: '.75em',
+//                         fontWeight: '500',
+//                     }}
+//                 >Вы оплатите сразу всю стоимость товаров</Typography>
+//             </Box>
+
+//             <Box
+//                 onClick={() => {
+//                     if (!useSplit) toggleUseSplit()
+//                 }}
+//                 sx={{
+//                     width: '50%',
+//                     cursor: 'pointer',
+//                     p: '.5em',
+//                     borderRadius: '1em',
+//                     position: 'relative',
+//                     display: 'flex',
+//                     transition: '.1s ease',
+//                     flexDirection: 'column',
+//                     gap: '.5em',
+//                     ...(!useSplit && {
+//                         border: '1px solid #fff5',
+//                     }),
+//                     ...(useSplit && {
+//                         border: '1px solid #fff',
+//                     }),
+//                 }}
+//             >
+//                 <CheckCircleIcon sx={{
+//                     position: 'absolute',
+//                     transition: '.1s ease',
+//                     right: '.5em',
+//                     top: '.5em',
+//                     borderRadius: '50%',
+//                     ...(!useSplit && {
+//                         color: 'transparent',
+//                         border: '1px solid #fff5'
+//                     }),
+//                     ...(useSplit && {
+//                         color: '#fff',
+//                     }),
+//                 }} />
+
+//                 <Typography
+//                     sx={{
+//                         color: '#fff',
+//                         fontSize: '1.2em',
+//                         fontWeight: '700',
+//                     }}
+//                 >В сплит</Typography>
+//                 <Typography
+//                     sx={{
+//                         color: '#fff',
+//                         fontSize: '.9em',
+//                         fontWeight: '700',
+//                     }}
+//                 >Сейчас: {price / 2} &#8381;</Typography>
+//                 <Typography
+//                     sx={{
+//                         color: '#fff6',
+//                         fontSize: '.75em',
+//                         fontWeight: '500',
+//                     }}
+//                 >Вы оплатите сразу только половину стоимости товаров</Typography>
+//             </Box>
+//         </Box>
+//     );
+// }
+
+const TotalPriceBlock = () => {
+    const { usePoints, useInsurance, useExpressDelivery } = useCart();
+
+    return (
+        <Box
+            sx={{
+                p: '.5em',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
+            }}
+        >
+            <TotalPriceElement label='Стоимость товаров' price='12 000' isTotal={false} />
+            {useExpressDelivery && <TotalPriceElement label='Express доставка' price='12 000' isTotal={false} />}
+            {useInsurance && <TotalPriceElement label='Страховка' price='12 000' isTotal={false} />}
+            {usePoints && <TotalPriceElement label='Скидка' price='12 000' isTotal={false} />}
+            <TotalPriceElement label='Итого' price='12 000' isTotal={true} />
+        </Box>
+    );
+}
+
+const TotalPriceElement = ({ label, price, isTotal }) => {
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                borderBottom: '1px solid #fff3',
+                pb: '.2em'
+            }}
+        >
+            <Typography
+                sx={{
+                    fontSize: '.75em',
+                    fontWeight: '500',
+                    color: '#fff5',
+                }}
+            >{label}</Typography>
+            <Typography
+                sx={{
+                    fontSize: '.9em',
+                    fontWeight: '500',
+                    color: '#fff',
+                    ...(isTotal && {
+                        fontSize: '1.2em',
+                    }),
+                    ...(!isTotal && {
+                        fontSize: '.9em',
+                    }),
+                }}
+            >{price} &#8381;</Typography>
+        </Box>
+    );
+}
+
+const CustomButton = ({ children, onClick, isDisabled }) => {
+    return (
+        <>
+            <button
+                disabled={isDisabled}
+                onClick={onClick}
+                style={{
+                    cursor: 'pointer',
+                    border: '0',
+                    borderRadius: '.5em',
+                    minWidth: '2em',
+                    minHeight: '2em',
+                    textAlign: 'center',
+                    fontSize: '.9em',
+                    backgroundColor: '#F3421310',
+                    fontWeight: '500',
+                    ...(isDisabled && {
+                        color: '#F3421350',
+                    }),
+                    ...(!isDisabled && {
+                        color: '#F34213',
+                    }),
+                }}
+            >
+                {children}
+            </button >
+        </>
+    );
+}
+
+export default CartPage;
