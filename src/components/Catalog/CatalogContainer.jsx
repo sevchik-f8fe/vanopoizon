@@ -94,6 +94,7 @@ const CatalogContent = () => {
             axios.post('https://ns56.hosting.reg.ru/vanopoizonserver.com/vanopoizon/api/getProducts', { page }, {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': import.meta.env.VITE_SERVER_TOKEN,
                 }
             })
                 .then(response => {
