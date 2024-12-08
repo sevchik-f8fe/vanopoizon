@@ -91,7 +91,11 @@ const CatalogContent = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            axios.post('http://localhost:3000/vanopoizon/api/getProducts', { page }, {
+            axios.post('https://vanopoizonserver.com', { page }, {
+                hostname: 'ns5.hosting.reg.ru',
+                port: 2006,
+                path: '/vanopoizon/api/getProducts',
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 }
