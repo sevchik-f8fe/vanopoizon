@@ -20,7 +20,6 @@ const GeoSelectPage = () => {
             const pvzs = await axios.post('http://localhost:3000/vanopoizon/api/getPvzs', { code: location.state.cityCode }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
                 }
             })
                 .catch(error => console.error('Ошибка: ', error))

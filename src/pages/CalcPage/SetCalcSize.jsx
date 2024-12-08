@@ -87,7 +87,6 @@ const SetCalcSize = () => {
                             axios.post('http://localhost:3000/vanopoizon/api/getSpuByLink', { link: link.value }, {
                                 headers: {
                                     'Content-Type': 'application/json',
-                                    'Access-Control-Allow-Origin': '*'
                                 }
                             })
                                 .then(response => {

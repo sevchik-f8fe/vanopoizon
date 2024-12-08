@@ -94,7 +94,6 @@ const CatalogContent = () => {
             axios.post('http://localhost:3000/vanopoizon/api/getProducts', { page }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
                 }
             })
                 .then(response => {
@@ -110,7 +109,6 @@ const CatalogContent = () => {
             axios.post('http://localhost:3000/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
                 }
             })
                 .then(response => {

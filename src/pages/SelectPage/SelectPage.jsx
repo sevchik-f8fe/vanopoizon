@@ -19,7 +19,6 @@ const SelectPage = () => {
             axios.get('http://localhost:3000/vanopoizon/api/getCities', {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
                 }
             })
                 .then(response => {

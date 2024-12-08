@@ -25,7 +25,6 @@ const SearchField = () => {
                 const response = await axios.post('http://localhost:3000/vanopoizon/api/getMiniProductList', { props: fieldValue }, {
                     headers: {
                         'Content-Type': 'application/json',
-                        'Access-Control-Allow-Origin': '*'
                     }
                 });
                 setMiniProductList(response?.data?.products);

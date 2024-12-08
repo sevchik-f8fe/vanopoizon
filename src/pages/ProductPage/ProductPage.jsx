@@ -104,7 +104,6 @@ const ProductPage = () => {
             axios.post('http://localhost:3000/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
                 }
             })
                 .then(response => {
