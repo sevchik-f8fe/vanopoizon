@@ -30,8 +30,7 @@ const ProfilePage = () => {
                 w: '100%',
                 display: 'flex',
                 flexDirection: 'column',
-                pt: '2em',
-                pb: '3.5em',
+                py: '2em',
             }}
         >
             <Box

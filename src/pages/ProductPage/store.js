@@ -1,6 +1,4 @@
 import { create } from "zustand";
-// import { productData } from "../../utils/json/productData";
-// import { priceData } from "../../utils/json/priceData";
 
 export const useProductPage = create((set, get) => ({
     product: null,

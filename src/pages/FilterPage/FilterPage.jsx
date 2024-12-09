@@ -19,7 +19,7 @@ const FilterPage = () => {
             sx={{
                 w: '100%', p: '.5em',
                 pt: '2.5em',
-                pb: '3em',
+                pb: '2em',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',

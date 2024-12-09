@@ -82,6 +82,7 @@ const BottomBoard = () => {
             </Box>
 
             <Box
+                onClick={() => navigate('/cart')}
                 sx={{
                     cursor: 'pointer',
                     backgroundColor: '#F34213',

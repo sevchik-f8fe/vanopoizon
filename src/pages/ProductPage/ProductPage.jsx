@@ -26,7 +26,7 @@ import { toRub } from "../../utils/utilFuncs";
 import { sliceChn, toNormalPrice, imagesForCurrentColor } from "../../utils/utilFuncs";
 
 const ProductPage = () => {
-    const { setAccordion, setVariations, storeSpuId, setStoreSpuId, accordion, isSplit, useExpressDelivery, setUseExpressDelivery, useInsurance, setUseInsurance, setProduct, setPrices, product, currentProduct, setCurrentProductField } = useProductPage();
+    const { setAccordion, setVariations, storeSpuId, setStoreSpuId, accordion, isSplit, useInsurance, setUseInsurance, setProduct, setPrices, product, currentProduct, setCurrentProductField } = useProductPage();
     let tg = window.Telegram.WebApp;
     const location = useLocation();
 
@@ -101,7 +101,7 @@ const ProductPage = () => {
                 }
             }
 
-            axios.post('http://localhost:3000/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
+            axios.post('http://89.104.69.92:3000/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

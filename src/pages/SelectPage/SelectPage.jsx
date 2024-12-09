@@ -16,7 +16,7 @@ const SelectPage = () => {
 
     useEffect(() => {
         const getCityList = async () => {
-            axios.get('http://localhost:3000/vanopoizon/api/getCities', {
+            axios.get('http://89.104.69.92:3000/vanopoizon/api/getCities', {
                 headers: {
                     'Content-Type': 'application/json',
                 }

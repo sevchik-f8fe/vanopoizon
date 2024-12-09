@@ -15,7 +15,7 @@ const NewsPage = () => {
     return (
         <Box
             sx={{
-                p: '4.5em .5em 3em .5em',
+                p: '4.5em .5em 2em .5em',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',

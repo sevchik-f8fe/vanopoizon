@@ -21,7 +21,7 @@ const FavoritePage = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                pb: '3em',
+                pb: '2em',
                 pt: '2em'
             }}
         >
