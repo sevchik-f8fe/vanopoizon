@@ -156,7 +156,7 @@ const DeliveryDataPage = () => {
                     },
                 }}
                 onClick={() => {
-                    if (name.value.split(' ').length >= 2 && phoneNumber.value.length == 16) {
+                    if (name.value.split(' ').length >= 2 && (phoneNumber.value.length == 12 || phoneNumber.value.length == 14)) {
                         setDeliveryData('name', name.value);
                         setDeliveryData('phone', phoneNumber.value.replace(/\s/g, ''));
 
@@ -306,17 +306,6 @@ const PickDeliveryBlock = ({ img, type }) => {
         </Box>
     );
 }
-
-// const Input = (props) => (
-//     <InputMask
-//         mask="+7 999 999 99 99"
-//         maskChar={''}
-//         value={props.value}
-//         onChange={props.onChange}
-//     >
-//         {() => <TextField error={props.error} helperText={props.helperText} sx={props.sx} size={props.size} variant={props.variant} label={props.label} type="tel" />}
-//     </InputMask>
-// );
 
 const PickBlock = ({ activeTitle, notActiveTitle, onClick }) => {
     return (
