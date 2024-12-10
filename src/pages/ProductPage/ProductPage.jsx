@@ -1,4 +1,4 @@
-import { Box, Typography, IconButton, Skeleton, Button, Link, Switch } from "@mui/material";
+import { Box, Typography, IconButton, Skeleton, Button, Link, Switch, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { nanoid } from "nanoid";
 import Slider from "react-slick";
 import { shareURL } from '@telegram-apps/sdk';
@@ -18,12 +18,14 @@ import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 import { useProductPage } from "./store";
 import { showShineMainBtn } from "../../utils/utilFuncs";
 import { useLocation } from "react-router-dom";
 import { toRub } from "../../utils/utilFuncs";
 import { sliceChn, toNormalPrice, imagesForCurrentColor } from "../../utils/utilFuncs";
+import { StarBorder } from "@mui/icons-material";
 
 const ProductPage = () => {
     const { setAccordion, setVariations, storeSpuId, setStoreSpuId, accordion, isSplit, useInsurance, setUseInsurance, setProduct, setPrices, product, currentProduct, setCurrentProductField } = useProductPage();
@@ -346,62 +348,43 @@ const ProductPage = () => {
 
             <Box
                 sx={{
-                    p: '.5em .8em',
-                    mb: '.5em',
                     borderRadius: '.5em',
+                    mb: '.5em',
                     backgroundColor: '#2E2E3A'
                 }}
             >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Box>
-                        <Typography
+                <List sx={{ p: 0 }}>
+                    <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('insurance')}>
+                        <Box
                             sx={{
-                                color: '#fff',
-                                fontSize: '1em',
-                                fontWeight: '700',
-                                p: '.5em 0'
+                                display: 'flex',
+                                gap: '1em'
                             }}
                         >
-                            Страховка и безопасность
-                        </Typography>
-                    </Box>
-
-                    <IconButton
-                        onClick={() => setAccordion('insurance')}
-                    >
-                        {(accordion.insurance === true) ? (
-                            <ExpandLessIcon
+                            <Typography
                                 sx={{
                                     color: '#fff',
+                                    fontSize: '1em',
+                                    fontWeight: '700',
                                 }}
-                            />
-                        ) : (
-                            <ExpandMoreIcon
-                                sx={{
-                                    color: '#fff'
-                                }}
-                            />
-                        )}
-                    </IconButton>
-                </Box>
+                            >Страховка и безопасность</Typography>
+                        </Box>
 
-                {(accordion.insurance === true) && (
-                    <>
-                        <Typography
-                            sx={{
-                                color: '#fff',
-                                fontSize: '.9em',
-                                fontWeight: '500',
-                            }}
-                        >
-                            В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности.
-                        </Typography>
+                        {accordion.insurance ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
+                    </ListItemButton>
+
+                    <Collapse in={accordion.insurance} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            <ListItemButton sx={{ pl: '1em' }}>
+                                <ListItemText
+                                    primaryTypographyProps={{
+                                        color: '#fff',
+                                        fontSize: '.9em',
+                                        fontWeight: '500',
+                                    }}
+                                    primary="В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности." />
+                            </ListItemButton>
+                        </List>
 
                         <Box
                             sx={{
@@ -411,7 +394,8 @@ const ProductPage = () => {
                                 display: 'flex',
                                 flexDirection: 'column',
                                 gap: '.5em',
-                                mt: '.5em'
+                                mx: '.8em',
+                                mb: '.5em'
                             }}
                         >
                             <Box
@@ -470,80 +454,69 @@ const ProductPage = () => {
                                 Если пиздец <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
                             </Typography>
                         </Box>
-                    </>
-                )}
+                    </Collapse>
+                </List>
             </Box>
 
             <Box
                 sx={{
-                    p: '.5em .8em',
-                    mb: '.5em',
                     borderRadius: '.5em',
+                    mb: '.5em',
                     backgroundColor: '#2E2E3A'
                 }}
             >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '1em',
-                            fontWeight: '700',
-                            p: '.5em 0'
-                        }}
-                    >
-                        Строго оригинал
-                    </Typography>
-                    <IconButton
-                        onClick={() => setAccordion('original')}
-                    >
-                        {(accordion.original === true) ? (
-                            <ExpandLessIcon
+                <List sx={{ p: 0 }}>
+                    <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('original')}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: '1em'
+                            }}
+                        >
+
+                            <Typography
                                 sx={{
                                     color: '#fff',
+                                    fontSize: '1em',
+                                    fontWeight: '700',
                                 }}
-                            />
-                        ) : (
-                            <ExpandMoreIcon
-                                sx={{
-                                    color: '#fff'
-                                }}
-                            />
-                        )}
-                    </IconButton>
-                </Box>
+                            >Строго оригинал</Typography>
+                        </Box>
 
-                {(accordion.original === true) && (
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '500',
-                        }}
-                    >
-                        Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере.
-                    </Typography>
-                )}
+                        {accordion.original ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
+                    </ListItemButton>
+
+                    <Collapse in={accordion.original} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            <ListItemButton sx={{ pl: '1em' }}>
+                                <ListItemText
+                                    primaryTypographyProps={{
+                                        color: '#fff',
+                                        fontSize: '.9em',
+                                        fontWeight: '500',
+                                    }}
+                                    primary="Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере." />
+                            </ListItemButton>
+                        </List>
+                    </Collapse>
+                </List>
             </Box>
 
             <ReviewContainer />
 
-            {product ? (
-                <AddOnsContainer />
-            ) : (
-                <Box
-                    sx={{
-                        p: '.5em'
-                    }}
-                >
-                    <Skeleton animation="wave" variant="rectangular" width='100%' height='5em' />
-                </Box>
-            )}
+            {
+                product ? (
+                    <AddOnsContainer />
+                ) : (
+                    <Box
+                        sx={{
+                            p: '.5em'
+                        }}
+                    >
+                        <Skeleton animation="wave" variant="rectangular" width='100%' height='5em' />
+                    </Box>
+                )
+            }
         </Box >
     );
 };
