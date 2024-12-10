@@ -2,7 +2,6 @@ import { Box, TextField, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
-import InputMask from "react-input-mask";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { hapticFeedback } from "@telegram-apps/sdk";
 
@@ -118,14 +117,14 @@ const DeliveryDataPage = () => {
                         variant="outlined"
                         label="Фамилия, имя и отчество"
                     />
-
-                    <Input
+                    <TextField
                         value={phoneNumber.value}
+                        onChange={(e) => {
+                            setFieldValue('phoneNumber', e.target.value.replace(/^([^+]|\+[^0-9])/, ''));
+                        }}
                         error={phoneNumber.error.isError}
                         helperText={phoneNumber.error.isError && phoneNumber.error.text}
-                        onChange={(e) => setFieldValue('phoneNumber', e.target.value)}
                         sx={{
-                            // mt: '1em',
                             '& .MuiInput-root': {
                                 color: '#fff',
                                 fontWeight: '400',
@@ -137,9 +136,11 @@ const DeliveryDataPage = () => {
                                 fontWeight: '400',
                             },
                         }}
-                        size="small"
-                        variant="outlined"
-                        label="Номер телефона"
+                        placeholder="+7 (116) 337-23-22"
+                        size={'small'}
+                        variant={'outlined'}
+                        label={'Номер телефона'}
+                        type="tel"
                     />
                 </Box>
             </Box>
@@ -306,16 +307,16 @@ const PickDeliveryBlock = ({ img, type }) => {
     );
 }
 
-const Input = (props) => (
-    <InputMask
-        mask="+7 999 999 99 99"
-        maskChar={''}
-        value={props.value}
-        onChange={props.onChange}
-    >
-        {() => <TextField error={props.error} helperText={props.helperText} sx={props.sx} size={props.size} variant={props.variant} label={props.label} type="tel" />}
-    </InputMask>
-);
+// const Input = (props) => (
+//     <InputMask
+//         mask="+7 999 999 99 99"
+//         maskChar={''}
+//         value={props.value}
+//         onChange={props.onChange}
+//     >
+//         {() => <TextField error={props.error} helperText={props.helperText} sx={props.sx} size={props.size} variant={props.variant} label={props.label} type="tel" />}
+//     </InputMask>
+// );
 
 const PickBlock = ({ activeTitle, notActiveTitle, onClick }) => {
     return (
