@@ -35,7 +35,7 @@ const HomePage = () => {
         tg.enableClosingConfirmation();
 
         const sendDataToValidate = async () => {
-            await axios.post('http://89.104.69.92:3000/vanopoizon/auth',
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/auth',
                 { tg: tg },
                 {
                     headers: {

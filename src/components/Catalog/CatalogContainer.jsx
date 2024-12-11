@@ -91,7 +91,7 @@ const CatalogContent = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            axios.post('http://89.104.69.92:3000/vanopoizon/api/getProducts', { page }, {
+            axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProducts', { page }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -101,12 +101,12 @@ const CatalogContent = () => {
                     else setMoreProducts(response?.data?.products);
                 })
                 .catch(error => {
-                    console.error('Ошибка: ', error)
+                    console.log('Ошибка: ', error.response ? error.response.data : error.message)
                 })
         }
 
         const fetchFilteredProducts = async () => {
-            axios.post('http://89.104.69.92:3000/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
+            axios.post('https://vanopoizonserver.ru/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
