@@ -84,7 +84,7 @@ const SetCalcSize = () => {
                         if (size.value.length > 0 && /^[0-9.]+$/.test(size.value)) {
                             setNextButtonLoading(true)
 
-                            axios.post('http://89.104.69.92:3000/vanopoizon/api/getSpuByLink', { link: link.value }, {
+                            axios.post('https://89.104.69.92:3000/vanopoizon/api/getSpuByLink', { link: link.value }, {
                                 headers: {
                                     'Content-Type': 'application/json',
                                 }

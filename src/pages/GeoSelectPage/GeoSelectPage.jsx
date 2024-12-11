@@ -17,7 +17,7 @@ const GeoSelectPage = () => {
         const getPvzList = async () => {
             setIsLoading(true);
 
-            const pvzs = await axios.post('http://89.104.69.92:3000/vanopoizon/api/getPvzs', { code: location.state.cityCode }, {
+            const pvzs = await axios.post('https://89.104.69.92:3000/vanopoizon/api/getPvzs', { code: location.state.cityCode }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

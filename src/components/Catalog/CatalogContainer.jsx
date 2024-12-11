@@ -91,7 +91,7 @@ const CatalogContent = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            axios.post('http://vanopoizonserver.ru:3000/vanopoizon/api/getProducts', { page }, {
+            axios.post('https://89.104.69.92:3000/vanopoizon/api/getProducts', { page }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -106,7 +106,7 @@ const CatalogContent = () => {
         }
 
         const fetchFilteredProducts = async () => {
-            axios.post('http://89.104.69.92:3000/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
+            axios.post('https://89.104.69.92:3000/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

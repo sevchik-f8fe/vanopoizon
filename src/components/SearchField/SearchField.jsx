@@ -22,7 +22,7 @@ const SearchField = () => {
         if (fieldValue.length > 0) {
             setIsTyping(true);
             try {
-                const response = await axios.post('http://89.104.69.92:3000/vanopoizon/api/getMiniProductList', { props: fieldValue }, {
+                const response = await axios.post('https://89.104.69.92:3000/vanopoizon/api/getMiniProductList', { props: fieldValue }, {
                     headers: {
                         'Content-Type': 'application/json',
                     }
