@@ -103,7 +103,7 @@ const ProductPage = () => {
                 }
             }
 
-            axios.post('https://89.104.69.92:3000/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
+            axios.post('http://89.104.69.92:3000/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
