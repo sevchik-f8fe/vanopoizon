@@ -11,7 +11,7 @@ import axios from "axios";
 import { create } from "zustand";
 
 const useAccess = create((set) => ({
-    access: 'no',
+    access: '!- - -!',
     setAccess: (value) => set((state) => {
         return { access: value }
     })
