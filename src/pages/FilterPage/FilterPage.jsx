@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import { nanoid } from "nanoid";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 import { useCatalog } from "../../components/Catalog/store";
 import { useFilters } from "./store";
@@ -8,6 +9,8 @@ import { useFilters } from "./store";
 const FilterPage = () => {
     let tg = window.Telegram.WebApp;
     const { setPropsOfSearch, setTypeOfSearch, setPage, setProducts } = useCatalog();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
         tg.BackButton.show();
@@ -18,31 +21,49 @@ const FilterPage = () => {
         <Box
             sx={{
                 w: '100%', p: '.5em',
+                minHeight: '100vh',
                 pt: '2.5em',
                 pb: '2em',
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
                 gap: '1em',
-                justifyContent: 'space-between'
+                ...(!isSmallScreen && {
+                    alignItems: 'start',
+                    justifyContent: 'start',
+                }),
+                ...(isSmallScreen && {
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                }),
             }}
         >
-            <Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '1em',
+                    ...(!isSmallScreen && {
+                        alignItems: 'start',
+                    }),
+                    ...(isSmallScreen && {
+                        alignItems: 'center',
+                    }),
+                }}>
                 <Typography
                     sx={{
                         fontSize: '.9em',
                         color: '#fff',
                         pb: '.5em',
                         fontWeight: '900',
-                        maxWidth: 'fit-content'
+                        maxWidth: 'fit-content',
                     }}
                 >Фильтры</Typography>
-            </Box>
 
-            <PriceComponent />
-            <BrandComponent />
-            <CategoryComponent />
-            <FirComponent />
+                <PriceComponent />
+                <BrandComponent />
+                <CategoryComponent />
+                <FirComponent />
+            </Box>
 
             <Button
                 onClick={() => {
@@ -54,7 +75,13 @@ const FilterPage = () => {
                 }}
                 sx={{
                     mt: '.5em',
-                    minWidth: '100%'
+                    ...(!isSmallScreen && {
+                        maxWidth: '50%',
+                        alignSelf: 'start'
+                    }),
+                    ...(isSmallScreen && {
+                        minWidth: '100%',
+                    }),
                 }}
                 variant="text"
                 size="large"
@@ -67,7 +94,8 @@ const PriceComponent = () => {
     const { filters, setFilter } = useFilters();
 
     return (
-        <Box>
+        <Box
+        >
             <Typography
                 sx={{
                     fontSize: '1em',
@@ -111,7 +139,8 @@ const PriceComponent = () => {
 
 const BrandComponent = () => {
     return (
-        <Box>
+        <Box
+        >
             <Typography
                 sx={{
                     fontSize: '1em',
@@ -147,7 +176,8 @@ const BrandComponent = () => {
 
 const CategoryComponent = () => {
     return (
-        <Box>
+        <Box
+        >
             <Typography
                 sx={{
                     fontSize: '1em',

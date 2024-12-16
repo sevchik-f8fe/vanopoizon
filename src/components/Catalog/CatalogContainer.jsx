@@ -1,4 +1,5 @@
 import { Box, Typography, IconButton, Skeleton } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 import TuneIcon from '@mui/icons-material/Tune';
 import { nanoid } from "nanoid";
 import { useEffect } from "react";
@@ -6,6 +7,7 @@ import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from "react-router-dom";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 import SearchField from "../SearchField/SearchField";
 import CatalogElement from "./CatalogElement";
@@ -13,11 +15,16 @@ import { useCatalog } from "./store";
 import { shortTitle, toNormalPrice, toRub, objectToQueryString } from "../../utils/utilFuncs";
 
 const CatalogContainer = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
     return (
         <Box
-            id="catalog"
+            // id="catalog"
             sx={{
-                w: '100%',
+                flexGrow: 1,
+                ...(!isSmallScreen && {
+                    maxWidth: 'calc(75% - 1em)',
+                }),
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '.5em',
@@ -88,6 +95,8 @@ const CatalogHeader = () => {
 
 const CatalogContent = () => {
     const { products, propsOfSearch, typeOfSearch, page, setNextPage, setMoreProducts, hasMore, setHasMore } = useCatalog();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -146,19 +155,20 @@ const CatalogContent = () => {
                                 fontWeight: 700,
                                 fontSize: '1em',
                             }}
-                        >Пожалуй, на это все</Typography>
+                        >Пожалуй, на этом все</Typography>
                     </Box>
                 }
             >
                 <Box
                     sx={{
+                        flexGrow: 1,
                         minWidth: '100%',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '.5em',
                     }}
                 >
-                    {products && products?.map((elem) => <CatalogElement key={nanoid()} spuId={elem?.spuId} price={toRub(toNormalPrice(elem?.price))} link={'/product'} title={shortTitle(elem?.title)} picture={elem?.logoUrl} />)}
+                    <Grid sx={{ minWidth: '100%' }} container spacing={2}>
+                        {products && products?.map((elem) => <CatalogElement key={nanoid()} spuId={elem?.spuId} price={toRub(toNormalPrice(elem?.price))} link={'/product'} title={shortTitle(elem?.title)} picture={elem?.logoUrl} />)}
+                    </Grid>
+
                 </Box>
             </InfiniteScroll>
         </>
@@ -176,74 +186,76 @@ const LoadingComponent = () => {
                 pt: '.5em',
             }}
         >
-            {[1, 2].map((elem) => <FreakElement key={nanoid()} />)}
+            <Grid container spacing={2} sx={{ minWidth: '100%' }}>
+                {[1, 2].map((elem) => <FreakElement key={nanoid()} />)}
+            </Grid>
         </Box>
     );
 }
 
 const FreakElement = () => {
     return (
-        <Box
-            sx={{
-                position: 'relative',
-                minWidth: 'calc(50% - .25em)',
-                maxWidth: 'calc(50% - .25em)',
-                cursor: 'pointer',
-                borderRadius: '1em',
-                backgroundColor: '#2E2E3A',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-            }}
-        >
-            <IconButton
-                size="small"
+        <Grid size={{ xs: 6, sm: 4, md: 3 }}>
+            <Box
                 sx={{
-                    '&:hover': {
-                        backgroundColor: '#fff',
-                    },
-                    '&:active': {
-                        backgroundColor: '#fff9',
-                    },
-                    top: '0',
-                    right: '0',
-                    position: 'absolute',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    borderRadius: '1em',
+                    backgroundColor: '#2E2E3A',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between'
                 }}
             >
-                <FavoriteBorderIcon sx={{ color: '#F34213' }} />
-            </IconButton>
-
-            <Box>
-                <Skeleton
+                <IconButton
+                    size="small"
                     sx={{
-                        borderRadius: '1em 1em 0 0'
-                    }}
-                    animation="wave" variant="rounded" width='100%' height='10em'
-                />
-
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'start',
-                        gap: '.5em',
-                        p: '.5em'
+                        '&:hover': {
+                            backgroundColor: '#fff',
+                        },
+                        '&:active': {
+                            backgroundColor: '#fff9',
+                        },
+                        top: '.1em',
+                        right: '.1em',
+                        position: 'absolute',
                     }}
                 >
-                    <Skeleton
-                        animation="wave" variant="rectangular" width='100%' height='1.5em'
-                    />
-                    <Skeleton
-                        animation="wave" variant="rectangular" width='100%' height='1em'
-                    />
-                </Box>
-            </Box>
+                    <FavoriteBorderIcon sx={{ color: '#F34213' }} />
+                </IconButton>
 
-            <CustomButton
-                isDisabled={false}
-            >В корзину</CustomButton>
-        </Box>
+                <Box>
+                    <Skeleton
+                        sx={{
+                            borderRadius: '1em 1em 0 0'
+                        }}
+                        animation="wave" variant="rounded" width='100%' height='10em'
+                    />
+
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'start',
+                            gap: '.5em',
+                            p: '.5em'
+                        }}
+                    >
+                        <Skeleton
+                            animation="wave" variant="rectangular" width='100%' height='1.5em'
+                        />
+                        <Skeleton
+                            animation="wave" variant="rectangular" width='100%' height='1em'
+                        />
+                    </Box>
+                </Box>
+
+                <CustomButton
+                    isDisabled={false}
+                >В корзину</CustomButton>
+            </Box>
+        </Grid>
     );
 }
 

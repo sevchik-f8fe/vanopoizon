@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CalculateIcon from '@mui/icons-material/Calculate';
 import { Link } from "react-router-dom";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 import Navigation from "../components/Navigation";
 import CatalogContainer from "../components/Catalog/CatalogContainer";
@@ -19,10 +20,10 @@ const useAccess = create((set) => ({
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
-    const params = new URLSearchParams(tg.initData);
-    const user = JSON.parse(params.get('user'));
-
     const { access, setAccess } = useAccess();
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
         tg.ready();
@@ -39,7 +40,7 @@ const HomePage = () => {
 
         const sendDataToValidate = async () => {
             await axios.post('https://vanopoizonserver.ru/vanopoizon/auth',
-                { tg: tg.initData, userData: user },
+                { tg: tg.initData },
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,17 +58,48 @@ const HomePage = () => {
     return (
         <Box
             sx={{
+                ...(isSmallScreen && {
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                }),
+                ...(!isSmallScreen && {
+                    alignItems: 'start',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                }),
                 p: '3em .5em 3.5em .5em',
                 display: 'flex',
-                flexDirection: 'column',
                 gap: '1em',
-                justifyContent: 'center'
             }}
         >
-            <Navigation />
-            <BottomBoard />
-            <CalculateBlock access={access} />
-            <CatalogContainer />
+            {isSmallScreen ? (
+                <>
+                    <Navigation />
+                    <BottomBoard />
+                    <CalculateBlock access={access} />
+                    <CatalogContainer />
+                </>
+            ) : (
+                <>
+                    <Box
+                        sx={{
+                            position: 'sticky',
+                            top: '4em',
+                            display: 'flex',
+                            flexWrap: 'wrap',
+                            gap: '1em',
+                            alignItems: 'start',
+                            maxWidth: '25%',
+                        }}
+                    >
+                        <Navigation />
+                        <BottomBoard />
+                        <CalculateBlock access={access} />
+                    </Box>
+
+                    <CatalogContainer />
+                </>
+            )}
         </Box>
     );
 }
@@ -102,7 +134,6 @@ const CalculateBlock = ({ access }) => {
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
-                // >{access}</Typography>
                 >Рассчитать стоимость товара из Poizon</Typography>
                 <ArrowOutwardIcon
                     sx={{

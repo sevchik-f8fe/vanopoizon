@@ -3,15 +3,19 @@ import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
 import ArticleIcon from '@mui/icons-material/Article';
+import { useTheme, useMediaQuery } from "@mui/material";
 
 const BottomBoard = () => {
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Box
             sx={{
                 display: 'flex',
                 gap: '.5em',
+                minWidth: '100%',
             }}
         >
             <Box
@@ -29,7 +33,7 @@ const BottomBoard = () => {
                         minHeight: 'calc(50% - 0.25em)',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        gap: '1em',
+                        gap: '.5em',
                         alignItems: 'center',
                         p: '.5em',
                         borderRadius: '1em'
@@ -58,7 +62,7 @@ const BottomBoard = () => {
                         minHeight: 'calc(50% - 0.25em)',
                         display: 'flex',
                         justifyContent: 'space-between',
-                        gap: '1em',
+                        gap: '.5em',
                         alignItems: 'center',
                         p: '.5em',
                         borderRadius: '1em'
@@ -105,10 +109,10 @@ const BottomBoard = () => {
 
                 <Box
                     sx={{
-                        minWidth: '4em',
-                        maxWidth: '4em',
-                        minHeight: '4em',
-                        maxHeight: '4em',
+                        minWidth: '3em',
+                        maxWidth: '3em',
+                        minHeight: '3em',
+                        maxHeight: '3em',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',

@@ -6,6 +6,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import { nanoid } from "nanoid";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
+import { useTheme, useMediaQuery } from "@mui/material";
+import Grid from '@mui/material/Grid2';
 
 import { useNotifications } from "./store";
 import shapka from "../../assets/shapka_png.png";
@@ -18,21 +20,15 @@ const ProfilePage = () => {
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
-
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     useEffect(() => {
         tg.BackButton.show();
         tg.MainButton.hide();
     }, [])
 
     return (
-        <Box
-            sx={{
-                w: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                py: '2em',
-            }}
-        >
+        <>
             <Box
                 sx={{
                     position: 'absolute',
@@ -51,61 +47,137 @@ const ProfilePage = () => {
 
             <Box
                 sx={{
-                    zIndex: '10',
+                    zIndex: '100',
                     w: '100%',
                     display: 'flex',
-                    alignItems: 'center',
                     flexDirection: 'column',
-                    p: '0 .5em',
+                    p: '2em .5em',
                     gap: '.5em',
                 }}
             >
-                <Avatar
-                    sx={{
-                        minWidth: '3em',
-                        minHeight: '3em'
-                    }}
-                    src={user_photo}
-                />
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '1.8em',
-                        fontWeight: '900',
-                    }}
-                >
-                    {user_firstName} {user_secondName}
-                </Typography>
+                <Grid container spacing={2} sx={{ zIndex: 100 }}>
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                        {isSmallScreen ? (
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '.5em',
+                                    flexDirection: 'column',
+                                }}
+                            >
+                                <Avatar
+                                    sx={{
+                                        minWidth: '3em',
+                                        minHeight: '3em'
+                                    }}
+                                    src={user_photo}
+                                />
+                                <Typography
+                                    sx={{
+                                        color: '#fff',
+                                        fontSize: '1.8em',
+                                        zIndex: '100',
+                                        fontWeight: '900',
+                                    }}
+                                >
+                                    {user_firstName} {user_secondName}
+                                </Typography>
 
-                <Box
-                    sx={{
-                        display: 'flex',
-                        gap: '1em'
-                    }}
-                >
-                    <IconButton
-                        onClick={() => navigate('/favorite')}
-                    >
-                        <FavoriteIcon
-                            sx={{ color: '#F34213' }}
-                        />
-                    </IconButton>
-                    <IconButton
-                        onClick={() => navigate('/cart')}
-                    >
-                        <ShoppingCartIcon
-                            sx={{ color: '#F34213' }}
-                        />
-                    </IconButton>
-                </Box>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: '1em'
+                                    }}
+                                >
+                                    <IconButton
+                                        onClick={() => navigate('/favorite')}
+                                    >
+                                        <FavoriteIcon
+                                            sx={{ color: '#F34213' }}
+                                        />
+                                    </IconButton>
+                                    <IconButton
+                                        onClick={() => navigate('/cart')}
+                                    >
+                                        <ShoppingCartIcon
+                                            sx={{ color: '#F34213' }}
+                                        />
+                                    </IconButton>
+                                </Box>
+                            </Box>
+                        ) : (
+                            <>
+                                <Box
+                                    sx={{
+                                        zIndex: '100',
+                                        mb: '.5em',
+                                        display: 'flex',
+                                        p: '.5em',
+                                        borderRadius: '.5em',
+                                        alignItems: 'center',
+                                        gap: '.5em',
+                                        backgroundColor: '#2E2E3A',
+                                    }}
+                                >
+                                    <Avatar
+                                        sx={{
+                                            minWidth: '3em',
+                                            minHeight: '3em'
+                                        }}
+                                        src={user_photo}
+                                    />
+                                    <Typography
+                                        sx={{
+                                            color: '#fff',
+                                            fontSize: '1.5em',
+                                            zIndex: '100',
+                                            fontWeight: '900',
+                                        }}
+                                    >
+                                        {user_firstName} {user_secondName}
+                                    </Typography>
 
-                <OrdersContainer />
-                <StatusContainer />
-                <BlocksContainer />
-                <NotificationsContainer />
-                <DataContainer />
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            gap: '1em'
+                                        }}
+                                    >
+                                        <IconButton
+                                            onClick={() => navigate('/favorite')}
+                                        >
+                                            <FavoriteIcon
+                                                sx={{ color: '#F34213' }}
+                                            />
+                                        </IconButton>
+                                        <IconButton
+                                            onClick={() => navigate('/cart')}
+                                        >
+                                            <ShoppingCartIcon
+                                                sx={{ color: '#F34213' }}
+                                            />
+                                        </IconButton>
+                                    </Box>
+                                </Box>
+                                <BlocksContainer />
+                            </>
+                        )}
+                        <Box sx={{ mt: '.5em' }}></Box>
+                        <StatusContainer />
+
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                        <OrdersContainer />
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                        <NotificationsContainer />
+                        <Box sx={{ mt: '.5em' }}></Box>
+                        <DataContainer />
+                    </Grid>
+                </Grid>
             </Box>
-        </Box >
+        </>
     );
 }
 
@@ -114,6 +186,8 @@ const OrdersContainer = () => {
     return (
         <Box
             sx={{
+                zIndex: '100',
+                minHeight: '15em',
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
                 borderRadius: '.5em',
@@ -140,6 +214,8 @@ const NotificationsContainer = () => {
     return (
         <Box
             sx={{
+                zIndex: '100',
+
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
                 borderRadius: '.5em',
@@ -219,6 +295,7 @@ const StatusContainer = () => {
     return (
         <Box
             sx={{
+                zIndex: '100',
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
                 borderRadius: '.5em',
@@ -384,6 +461,7 @@ const DataContainer = () => {
     return (
         <Box
             sx={{
+                zIndex: '100',
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
                 borderRadius: '.5em',
