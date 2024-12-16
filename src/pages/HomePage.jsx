@@ -36,7 +36,7 @@ const HomePage = () => {
 
         const sendDataToValidate = async () => {
             await axios.post('https://vanopoizonserver.ru/vanopoizon/auth',
-                { tg: tg.initData, unsafeUser: tg.initDataUnsafe.user },
+                { tg: tg.initData, unsafeUser: tg?.initDataUnsafe?.user },
                 {
                     headers: {
                         'Content-Type': 'application/json',
