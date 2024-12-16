@@ -70,6 +70,8 @@ const HomePage = () => {
 }
 
 const CalculateBlock = ({ access }) => {
+    let tg = window.Telegram.WebApp;
+
     const params = new URLSearchParams(tg.initData);
     const hash = params.get('hash');
     return (
