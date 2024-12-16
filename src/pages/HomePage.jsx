@@ -73,7 +73,6 @@ const HomePage = () => {
 }
 
 const CalculateBlock = ({ access }) => {
-    // let tg = window.Telegram.WebApp;
     return (
         <Link
             to={`/calc`}
@@ -103,8 +102,8 @@ const CalculateBlock = ({ access }) => {
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
-                >{access}</Typography>
-                {/* >Рассчитать стоимость товара из Poizon</Typography> */}
+                // >{access}</Typography>
+                >Рассчитать стоимость товара из Poizon</Typography>
                 <ArrowOutwardIcon
                     sx={{
                         color: '#fff',
