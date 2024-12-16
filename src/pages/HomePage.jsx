@@ -43,7 +43,7 @@ const HomePage = () => {
                     }
                 })
                 .then(res => {
-                    setAccess(`aaa: ${res?.data?.userId, res?.data?.username}`)
+                    setAccess(`aaa: ${res?.data?.userId}, ${res?.data?.username}, ${res?.data?.pointCount}`)
                 })
                 .catch(err => setAccess(`err: ${err}`));
         }
