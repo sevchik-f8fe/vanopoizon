@@ -99,7 +99,7 @@ const CalculateBlock = ({ access }) => {
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
-                >{access}</Typography>
+                >{access} | {tg.initDataunsafe.user.id}, {tg.initDataunsafe.user.username}</Typography>
                 {/* >Рассчитать стоимость товара из Poizon</Typography> */}
                 <ArrowOutwardIcon
                     sx={{
