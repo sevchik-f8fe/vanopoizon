@@ -43,7 +43,7 @@ const HomePage = () => {
                     }
                 })
                 .then(res => {
-                    setAccess(`params: ${res?.data?.params}, user: ${res?.data?.user}, err: ${res?.data?.error || res?.data?.message}`)
+                    setAccess(`aaa: ${res?.data?.userId, res?.data?.username}`)
                 })
                 .catch(err => setAccess(`err: ${err}`));
         }
