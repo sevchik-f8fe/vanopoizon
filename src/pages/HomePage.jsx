@@ -36,7 +36,7 @@ const HomePage = () => {
 
         const sendDataToValidate = async () => {
             await axios.post('https://vanopoizonserver.ru/vanopoizon/auth',
-                { tg: tg.initData, unsafeUser: tg?.initDataUnsafe?.user },
+                { tg: tg.initData },
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -70,6 +70,8 @@ const HomePage = () => {
 }
 
 const CalculateBlock = ({ access }) => {
+    const params = new URLSearchParams(tg.initData);
+    const hash = params.get('hash');
     return (
         <Link
             to={`/calc`}
@@ -99,7 +101,7 @@ const CalculateBlock = ({ access }) => {
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
-                >{access} | {tg?.initDataUnsafe?.user?.id}, {tg?.initDataUnsafe?.user?.username}, сейф: {new URLSearchParams(tg?.initData)}</Typography>
+                >{access}, сейф: {params}, {hash}</Typography>
                 {/* >Рассчитать стоимость товара из Poizon</Typography> */}
                 <ArrowOutwardIcon
                     sx={{
