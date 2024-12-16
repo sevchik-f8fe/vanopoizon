@@ -19,6 +19,9 @@ const useAccess = create((set) => ({
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
+    const params = new URLSearchParams(tg.initData);
+    const user = JSON.parse(params.get('user'));
+
     const { access, setAccess } = useAccess();
 
     useEffect(() => {
@@ -36,7 +39,7 @@ const HomePage = () => {
 
         const sendDataToValidate = async () => {
             await axios.post('https://vanopoizonserver.ru/vanopoizon/auth',
-                { tg: tg.initData },
+                { tg: tg.initData, userData: user },
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -70,10 +73,7 @@ const HomePage = () => {
 }
 
 const CalculateBlock = ({ access }) => {
-    let tg = window.Telegram.WebApp;
-
-    const params = new URLSearchParams(tg.initData);
-    const user = JSON.parse(params.get('user'));
+    // let tg = window.Telegram.WebApp;
     return (
         <Link
             to={`/calc`}
@@ -103,7 +103,7 @@ const CalculateBlock = ({ access }) => {
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
-                >{access}, сейф: {user.id}, {user.username}</Typography>
+                >{access}</Typography>
                 {/* >Рассчитать стоимость товара из Poizon</Typography> */}
                 <ArrowOutwardIcon
                     sx={{
