@@ -73,7 +73,7 @@ const CalculateBlock = ({ access }) => {
     let tg = window.Telegram.WebApp;
 
     const params = new URLSearchParams(tg.initData);
-    const user = params.get('user');
+    const user = JSON.parse(params.get('user'));
     return (
         <Link
             to={`/calc`}
@@ -103,7 +103,7 @@ const CalculateBlock = ({ access }) => {
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
-                >{access}, сейф: {user}</Typography>
+                >{access}, сейф: {user.id}, {user.username}</Typography>
                 {/* >Рассчитать стоимость товара из Poizon</Typography> */}
                 <ArrowOutwardIcon
                     sx={{
