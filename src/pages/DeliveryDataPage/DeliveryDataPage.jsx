@@ -195,7 +195,7 @@ const DeliveryDataPage = () => {
                         hapticFeedback.notificationOccurred('error')
                     }
                 }}
-            >{user}, {user._id}</Button>
+            >{user}, {user?._id}</Button>
         </Box >
     );
 }
