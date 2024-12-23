@@ -20,7 +20,24 @@ const DeliveryDataPage = () => {
         tg.BackButton.show();
         tg.MainButton.hide();
 
+        const getUserDeliveryData = () => {
+            const data = {
+                fullName: user?.delivery?.fullName,
+                phone: user?.delivery?.phone,
+                pvz: user?.delivery?.pvz,
+                fullAddress: user?.delivery?.fullAddress,
+                city: user?.delivery?.city,
+                deliveryType: user?.delivery?.deliveryType,
+            }
 
+            for (let key in data) {
+                if (data.hasOwnProperty(key) && data[key] !== undefined) {
+                    setFieldValue(key, data[key]);
+                }
+            }
+        }
+
+        getUserDeliveryData();
     }, [])
 
     return (
