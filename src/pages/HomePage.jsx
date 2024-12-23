@@ -40,7 +40,7 @@ const HomePage = () => {
                     }
                 })
                 .then(res => {
-                    setUser(res?.data?.message)
+                    setUser(res?.data)
                 })
                 .catch(err => console.log(`err: ${err}`));
         }
@@ -69,6 +69,7 @@ const HomePage = () => {
                 <>
                     <Navigation />
                     <BottomBoard />
+                    <Typography sx={{ color: '#FFF' }}>{user}</Typography>
                     <CalculateBlock />
                     <CatalogContainer />
                 </>
