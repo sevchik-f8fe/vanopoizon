@@ -173,14 +173,14 @@ const DeliveryDataPage = () => {
                                     }
                                 })
                                 .then(res => {
-                                    setUser(res?.data?.uptdatedUser);
-                                    setLoading(false);
+                                    setUser(res?.data?.user);
                                     window.history.back();
                                 })
-                                .catch(err => console.log(`err: ${err}`));
+                                .catch(err => console.log(`err: ${err}`))
+                                .finally(() => setLoading(false))
                         }
 
-                        // saveDeliveryData();
+                        saveDeliveryData();
 
                         // setDeliveryData('name', name.value);
                         // setDeliveryData('phone', phoneNumber.value.replace(/\s/g, ''));
@@ -196,7 +196,7 @@ const DeliveryDataPage = () => {
                     }
                 }}
             >{user}</Button>
-        </Box>
+        </Box >
     );
 }
 
