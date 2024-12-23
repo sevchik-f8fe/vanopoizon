@@ -13,15 +13,19 @@ import { useNotifications } from "./store";
 import shapka from "../../assets/shapka_png.png";
 import poizonLogo from "../../assets/miniman.png"
 import BlocksContainer from "../../components/BlocksContainer/BlocksContainer";
+import { useUserData } from "../../utils/store";
 
 const ProfilePage = () => {
     const navigate = useNavigate()
+
     let tg = window.Telegram.WebApp;
     let user_photo = tg?.initDataUnsafe?.user?.photo_url || poizonLogo;
     let user_firstName = tg?.initDataUnsafe?.user?.first_name || 'Личный';
     let user_secondName = tg?.initDataUnsafe?.user?.last_name || '';
+
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     useEffect(() => {
         tg.BackButton.show();
         tg.MainButton.hide();
@@ -585,14 +589,15 @@ const StatusContainer = () => {
 }
 
 const DataContainer = () => {
-    const { deliveryData } = useNotifications();
     const navigate = useNavigate();
+    const { user } = useUserData();
 
     const rows = [
-        { title: 'Город', data: (deliveryData.city.length > 0) ? (deliveryData.city) : ('Не указано') },
-        { title: 'ФИО', data: (deliveryData.name.length > 0) ? (deliveryData.name) : ('Не указано') },
-        { title: 'Телефон', data: (deliveryData.phone.length > 0) ? (deliveryData.phone) : ('Не указано') },
-        { title: 'Адрес CDEK', data: (deliveryData.cdek.address.length > 0) ? (deliveryData.cdek.address) : ('Не указано') },
+        { title: 'Город', data: (user?.delivery?.city?.name?.length > 0) ? (user?.delivery?.city?.name) : ('Не указано') },
+        { title: 'ФИО', data: (user?.delivery?.fullName?.length > 0) ? (user?.delivery?.fullName) : ('Не указано') },
+        { title: 'Телефон', data: (user?.delivery?.phone?.length > 0) ? (user?.delivery?.phone) : ('Не указано') },
+        { title: 'Адрес CDEK', data: (user?.delivery?.pvz?.smallAddress?.length > 0) ? (user?.delivery?.pvz?.smallAddress) : ('Не указано') },
+        { title: 'Ваш адрес', data: (user?.delivery?.fullAddress > 0) ? (user?.delivery?.fullAddress) : ('Не указано') },
     ];
 
     return (
@@ -651,16 +656,16 @@ const DataContainer = () => {
                                 <TableCell
                                     sx={{
                                         p: '.5em',
-                                        fontSize: '.9em',
+                                        fontSize: '.75em',
                                         color: '#ffffff',
                                         textAlign: 'left',
-                                        fontWeight: '500',
+                                        fontWeight: '600',
                                     }}
                                 >{row.title}</TableCell>
                                 <TableCell
                                     sx={{
                                         p: '.5em',
-                                        fontSize: '.9em',
+                                        fontSize: '.75em',
                                         color: '#ffffff50',
                                         textAlign: 'right',
                                         fontWeight: '500',
