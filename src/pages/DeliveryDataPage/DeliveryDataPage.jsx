@@ -121,7 +121,7 @@ const DeliveryDataPage = () => {
                         error={deliveryData.fullName.error !== null}
                         onChange={(e) => setFieldValue('fullName', e.target.value)}
                         sx={{
-                            mb: '.5em',
+                            mb: '.8em',
                             '& .MuiInput-root': {
                                 color: '#fff',
                                 fontWeight: '400',
@@ -291,7 +291,7 @@ const PickupBlock = () => {
                 minWidth: 'calc(100% - 1em)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '.5em'
+                gap: '.8em'
             }}
         >
             <PickBlock
@@ -332,10 +332,10 @@ const DeliveryBlock = () => {
             <TextField
                 value={deliveryData.fullAddress.value}
                 error={deliveryData.fullAddress.error !== null}
-                helperText={'Введите название улицы, номер дома, корпус, квартиру'}
+                helperText={'119049, Россия, Москва, Ленинский проспект, дом 4, строение 1А, квартира 10'}
                 FormHelperTextProps={{ sx: { color: '#fff5' } }}
                 onChange={(e) => { setFieldValue('fullAddress', e.target.value) }}
-                disabled={city.name.length <= 0}
+                disabled={deliveryData.fullName.value.length == 0}
                 sx={{
                     '& .MuiInput-root': {
                         color: '#fff',
