@@ -16,7 +16,7 @@ import { useCart } from "./store";
 import { useUserData } from "../../utils/store";
 
 const CartPage = () => {
-    const { products, deliveryIsFilled, setDeliveryDataIsFilled } = useCart();
+    const { products, deliveryDataIsFilled, setDeliveryDataIsFilled } = useCart();
     const { user } = useUserData();
 
     const navigate = useNavigate();
@@ -29,7 +29,6 @@ const CartPage = () => {
 
         if ((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0))) {
             showShineMainBtn(12000);
-
         }
     }, [])
 
@@ -64,10 +63,10 @@ const CartPage = () => {
                     p: '.5em',
                     mx: '.5em',
                     borderRadius: '1em',
-                    ...(deliveryIsFilled && {
+                    ...(deliveryDataIsFilled && {
                         border: '1px solid #fff5',
                     }),
-                    ...(!deliveryIsFilled && {
+                    ...(!deliveryDataIsFilled && {
                         border: '1px solid #DC4F51',
                     })
                 }}
@@ -84,7 +83,7 @@ const CartPage = () => {
                     }}
                 >
                     <Box>
-                        {deliveryIsFilled ? (
+                        {deliveryDataIsFilled ? (
                             <>
                                 <Typography
                                     sx={{
@@ -115,10 +114,10 @@ const CartPage = () => {
                     <ArrowOutwardIcon
                         sx={{
                             fontSize: '1.2em',
-                            ...(deliveryIsFilled && {
+                            ...(deliveryDataIsFilled && {
                                 color: '#F34213',
                             }),
-                            ...(!deliveryIsFilled && {
+                            ...(!deliveryDataIsFilled && {
                                 color: '#DC4F51',
                             })
                         }} />
