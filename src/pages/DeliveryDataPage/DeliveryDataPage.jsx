@@ -195,7 +195,7 @@ const DeliveryDataPage = () => {
                         hapticFeedback.notificationOccurred('error')
                     }
                 }}
-            >{loading ? 'Подождите' : 'Сохранить'}</Button>
+            >{loading ? 'Подождите' : user}</Button>
         </Box>
     );
 }
