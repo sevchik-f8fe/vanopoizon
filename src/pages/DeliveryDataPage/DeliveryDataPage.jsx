@@ -21,12 +21,12 @@ const DeliveryDataPage = () => {
         tg.MainButton.hide();
 
         const getUserDeliveryData = () => {
-            deliveryData.fullName.value.length == 0 && setFieldValue('fullName', user?.delivery?.fullName);
-            deliveryData.phone.value.length == 0 && setFieldValue('fullName', user?.delivery?.phone);
-            deliveryData.pvz.value.smallAddress.length == 0 && setFieldValue('fullName', user?.delivery?.pvz);
-            deliveryData.fullAddress.value.length == 0 && setFieldValue('fullName', user?.delivery?.fullAddress);
-            deliveryData.city.value.name.length == 0 && setFieldValue('fullName', user?.delivery?.city);
-            setFieldValue('deliveryType', user?.delivery?.deliveryType);
+            (deliveryData?.fullName?.value?.length == 0 && user?.delivery?.fullName?.length > 0) && setFieldValue('fullName', user?.delivery?.fullName);
+            (deliveryData?.phone?.value?.length < 3 && user?.delivery?.phone?.length > 0) && setFieldValue('phone', user?.delivery?.phone);
+            (deliveryData?.pvz?.value?.smallAddress?.length == 0 && user?.delivery?.pvz?.smallAddress?.length > 0) && setFieldValue('pvz', user?.delivery?.pvz);
+            (deliveryData?.fullAddress?.value?.length == 0 && user?.delivery?.fullAddress?.length > 0) && setFieldValue('fullAddress', user?.delivery?.fullAddress);
+            (deliveryData?.city?.value?.name?.length == 0 && user?.delivery?.city?.name?.length > 0) && setFieldValue('city', user?.delivery?.city);
+            user?.delivery?.deliveryType && setFieldValue('deliveryType', user?.delivery?.deliveryType);
         }
 
         getUserDeliveryData();
@@ -289,13 +289,13 @@ const PickupBlock = () => {
             <PickBlock
                 notActiveTitle='Город'
                 error={deliveryData.city.error}
-                activeTitle={deliveryData.city.value.name}
+                activeTitle={deliveryData?.city?.value?.name}
                 onClick={() => navigate('/select')}
             />
 
             <PickBlock
                 notActiveTitle='Пункт выдачи заказов'
-                activeTitle={deliveryData.pvz.value.smallAddress}
+                activeTitle={deliveryData?.pvz?.value?.smallAddress}
                 error={deliveryData.pvz.error}
                 onClick={() => {
                     if (deliveryData.city.value.name.length != 0) {
@@ -405,14 +405,14 @@ const PickBlock = ({ activeTitle, notActiveTitle, onClick, error }) => {
                     fontSize: '.9em',
                     fontWeight: '400',
                     p: '.3em .5em',
-                    ...(activeTitle.length == 0 && {
+                    ...(activeTitle?.length == 0 && {
                         color: '#fff5',
                     }),
-                    ...(activeTitle.length > 0 && {
+                    ...(activeTitle?.length > 0 && {
                         color: '#fff',
                     })
                 }}
-            >{activeTitle.length == 0 ? notActiveTitle : activeTitle}</Typography>
+            >{activeTitle?.length == 0 ? notActiveTitle : activeTitle}</Typography>
             <ExpandMoreIcon sx={{ color: '#fff3' }} />
         </Box>
     );
