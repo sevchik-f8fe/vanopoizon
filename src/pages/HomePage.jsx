@@ -40,7 +40,7 @@ const HomePage = () => {
                     }
                 })
                 .then(res => {
-                    setUser(res?.data?.user)
+                    setUser(res?.data?.message)
                 })
                 .catch(err => console.log(`err: ${err}`));
         }
