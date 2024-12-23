@@ -13,7 +13,7 @@ import { useUserData } from "../../utils/store";
 
 const DeliveryDataPage = () => {
     let tg = window?.Telegram?.WebApp;
-    const { deliveryData, setFieldValue, setFieldError, loading, setLoading } = useDeliveryData();
+    const { deliveryData, setFieldValue, setFieldError, loading, setLoading, costyl, setCostyl } = useDeliveryData();
     const { user, setUser } = useUserData();
 
     useEffect(() => {
@@ -21,20 +21,12 @@ const DeliveryDataPage = () => {
         tg.MainButton.hide();
 
         const getUserDeliveryData = () => {
-            const data = {
-                fullName: user?.delivery?.fullName,
-                phone: user?.delivery?.phone,
-                pvz: user?.delivery?.pvz,
-                fullAddress: user?.delivery?.fullAddress,
-                city: user?.delivery?.city,
-                deliveryType: user?.delivery?.deliveryType,
-            }
-
-            for (let key in data) {
-                if (data.hasOwnProperty(key) && data[key] !== undefined) {
-                    setFieldValue(key, data[key]);
-                }
-            }
+            deliveryData.fullName.value.length == 0 && setFieldValue('fullName', user?.delivery?.fullName);
+            deliveryData.phone.value.length == 0 && setFieldValue('fullName', user?.delivery?.phone);
+            deliveryData.pvz.value.smallAddress.length == 0 && setFieldValue('fullName', user?.delivery?.pvz);
+            deliveryData.fullAddress.value.length == 0 && setFieldValue('fullName', user?.delivery?.fullAddress);
+            deliveryData.city.value.name.length == 0 && setFieldValue('fullName', user?.delivery?.city);
+            setFieldValue('deliveryType', user?.delivery?.deliveryType);
         }
 
         getUserDeliveryData();
@@ -335,7 +327,6 @@ const DeliveryBlock = () => {
                 helperText={'119049, Россия, Москва, Ленинский проспект, дом 4, строение 1А, квартира 10'}
                 FormHelperTextProps={{ sx: { color: '#fff5' } }}
                 onChange={(e) => { setFieldValue('fullAddress', e.target.value) }}
-                disabled={deliveryData.fullName.value.length == 0}
                 sx={{
                     '& .MuiInput-root': {
                         color: '#fff',
