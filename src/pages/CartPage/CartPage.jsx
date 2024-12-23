@@ -29,7 +29,7 @@ const CartPage = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '1em',
+                gap: '.5em',
                 pt: '2em'
             }}
         >
@@ -45,16 +45,15 @@ const CartPage = () => {
                     sx={{
                         fontSize: '.9em',
                         color: '#fff',
-                        pb: '.5em',
                         fontWeight: '900'
                     }}
                 >Корзина</Typography>
-
             </Box>
 
             <Box
                 sx={{
-                    border: '1px solid #fff5',
+                    // border: '1px solid #fff5',
+                    border: '1px solid #DC4F51',
                     p: '.5em',
                     mx: '.5em',
                     borderRadius: '1em'
@@ -65,20 +64,38 @@ const CartPage = () => {
                     sx={{
                         minWidth: '100%',
                         display: 'flex',
-                        alignItems: 'center',
+                        alignItems: 'start',
                         justifyContent: 'space-between',
                         gap: '1em',
                         cursor: 'pointer',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: '.9em',
-                            color: '#fff',
-                            fontWeight: '500'
-                        }}
-                    >Пункт CDEK: шашлычка</Typography>
+                    <Box>
+                        {/* <Typography
+                            sx={{
+                                fontSize: '.9em',
+                                color: '#DC4F51',
+                                fontWeight: '600',
+                            }}
+                        >Заполните информацию о доставке</Typography> */}
 
+                        <Typography
+                            sx={{
+                                fontSize: '.9em',
+                                color: '#fff',
+                                fontWeight: '500',
+                                mb: '.2em'
+                            }}
+                        >Доставка в пункт выдачи</Typography>
+                        <Typography
+                            sx={{
+                                fontSize: '.75em',
+                                color: '#fff5',
+                                fontWeight: '500'
+                            }}
+                        >113234, Россия, новгородская обл., г. Пестово, ул. Тихова, д.12</Typography>
+                    </Box>
+                    {/* <ArrowOutwardIcon sx={{ color: '#DC4F51', fontSize: '1.2em' }} /> */}
                     <ArrowOutwardIcon sx={{ color: '#F34213', fontSize: '1.2em' }} />
                 </Box>
             </Box>
@@ -110,22 +127,13 @@ const CartPage = () => {
                             display: 'flex',
                             flexDirection: 'column',
                             gap: '.5em',
-                            p: '.5em',
-                            // backgroundColor: '#2E2E3A',
-                            borderRadius: '1em 1em 0 0',
+                            p: '1em .5em',
                         }}
                     >
                         {products.map((product) => <CartElement key={nanoid()} id={product.id} picture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljwOll9YYO3ZIeoRk-aDUZb7wwu8iHAbo1g&s' price={product.price} title={product.title} link='/product' size={product.size} count={product.count} />)}
                     </Box>
-
-                    {/* <SplitBlock price={12000} /> */}
-
                     <UsePointsBlock />
-
-                    {/* <ExpressDeliveryBlock /> */}
-
                     <InsuranceBlock />
-
                     <TotalPriceBlock />
                 </>
             )
@@ -140,7 +148,9 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
     return (
         <Box
             sx={{
-                py: '.2em'
+                p: '.5em',
+                borderRadius: '.5em',
+                border: '1px solid #fff3'
             }}
         >
             <Link to={link}>
@@ -201,7 +211,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                     display: 'flex',
                     justifyContent: 'space-between',
                     gap: '1em',
-                    alignItems: 'center',
+                    alignItems: 'end',
                     p: '.5em 0',
                 }}
             >

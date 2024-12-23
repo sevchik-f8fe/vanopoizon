@@ -5,6 +5,7 @@ export const useDeliveryData = create((set) => ({
         value: '+7',
         error: { text: '', isError: false },
     },
+    loading: false,
     'name': {
         value: '',
         error: { text: '', isError: false },
@@ -23,6 +24,9 @@ export const useDeliveryData = create((set) => ({
     }),
     setCities: (data) => set((state) => {
         return { cities: data }
+    }),
+    setLoading: (value) => set((state) => {
+        return { loading: value }
     }),
     setFieldValue: (field, value) => set((state) => {
         return { [field]: { value, error: { ...state[field].error, isError: false } } }

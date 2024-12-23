@@ -9,18 +9,11 @@ import Navigation from "../components/Navigation";
 import CatalogContainer from "../components/Catalog/CatalogContainer";
 import BottomBoard from "../components/BottomBoard";
 import axios from "axios";
-import { create } from "zustand";
-
-const useAccess = create((set) => ({
-    access: '!- - -!',
-    setAccess: (value) => set((state) => {
-        return { access: value }
-    })
-}))
+import { useUserData } from "../utils/store";
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
-    const { access, setAccess } = useAccess();
+    const { user, setUser } = useUserData();
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -47,9 +40,9 @@ const HomePage = () => {
                     }
                 })
                 .then(res => {
-                    setAccess(`aaa: ${res?.data?.userId}, ${res?.data?.username}, ${res?.data?.pointCount}`)
+                    setUser(res?.data?.user)
                 })
-                .catch(err => setAccess(`err: ${err}`));
+                .catch(err => console.log(`err: ${err}`));
         }
 
         sendDataToValidate();

@@ -55,7 +55,7 @@ const ProfilePage = () => {
                     gap: '.5em',
                 }}
             >
-                <Grid container spacing={2} sx={{ zIndex: 100 }}>
+                <Grid container spacing={1} sx={{ zIndex: 100 }}>
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         {isSmallScreen ? (
                             <Box
@@ -160,15 +160,17 @@ const ProfilePage = () => {
                                         </IconButton>
                                     </Box>
                                 </Box>
-                                <BlocksContainer />
                             </>
                         )}
-                        <Box sx={{ mt: '.5em' }}></Box>
-                        <StatusContainer />
-
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <OrdersContainer />
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                        <BlocksContainer />
+                    </Grid>
+                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                        <StatusContainer />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <NotificationsContainer />
@@ -182,16 +184,24 @@ const ProfilePage = () => {
 }
 
 const OrdersContainer = () => {
+    const orders = [
+        { orderId: '1231242123', date: '17.03.24', status: 'на рассмотрении', title: 'Nike Air Pro' },
+        { orderId: '1231242123', date: '17.03.24', status: 'прибыл в ваш город', title: 'Nike Air Pro' },
+        { orderId: '1231242123', date: '17.03.24', status: 'готов к выдаче', title: 'Nike Air Pro' },
+        { orderId: '1231242123', date: '17.03.24', status: 'завершён', title: 'Nike Air Pro' }
+    ];
 
     return (
         <Box
             sx={{
                 zIndex: '100',
-                minHeight: '15em',
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
                 borderRadius: '.5em',
                 minWidth: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '.5em',
             }}
         >
             <Typography
@@ -199,11 +209,138 @@ const OrdersContainer = () => {
                     color: '#fff',
                     fontSize: '1.4em',
                     fontWeight: '900',
-                    mb: '.5em',
                 }}
             >
                 Заказы
             </Typography>
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '.5em',
+                }}
+            >
+                {/* <Typography
+                    sx={{
+                        color: '#fff5',
+                        fontSize: '.75em',
+                        fontWeight: '600',
+                    }}
+                >У вас нет активных заказов :(</Typography> */}
+
+                {orders
+                    .map(elem => <OrderElement key={nanoid()} orderId={elem.orderId} price={elem.price} date={elem.date} status={elem.status} picture={elem.picture} title={elem.title} />)}
+            </Box>
+
+            <Box>
+                <Button
+                    onClick={() => navigate('/orders')}
+                    variant="text"
+                    sx={{
+                        minWidth: '100%'
+                    }}
+                >Посмотреть все заказы</Button>
+            </Box>
+        </Box>
+    );
+}
+
+const OrderElement = ({ orderId, price, date, status, title }) => {
+    const navigate = useNavigate();
+    const statusColors = {
+        'на рассмотрении': '#ffffff',
+        'прибыл на склад в Китае': '#709ed9',
+        'прибыл на склад в Москву': '#709ed9',
+        'прибыл в ваш город': '#709ed9',
+        'готов к выдаче': '#19DB40',
+        'завершён': '#686A69',
+    }
+
+    return (
+        <Box
+            onClick={() => navigate('/orders')}
+            sx={{
+                backgroundColor: '#202029',
+                // border: '1px solid #fff',
+                borderRadius: '.5em',
+                p: '.5em',
+                justifyContent: 'space-between',
+                flexDirection: 'column',
+                display: 'flex',
+                gap: '.5em'
+            }}
+        >
+            <Box
+                sx={{
+                    justifyContent: 'space-between',
+                    display: 'flex',
+                    gap: '1em',
+                    alignItems: 'center'
+                }}
+            >
+                <Typography
+                    sx={{
+                        color: statusColors[status],
+                        fontSize: '.9em',
+                        fontWeight: '700',
+                    }}
+                >Заказ {status}</Typography>
+                <Box
+                    sx={{
+                        p: '.1em .3em',
+                        borderRadius: '.5em',
+                        backgroundColor: `${statusColors[status]}10`
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: `${statusColors[status]}50`,
+                            fontSize: '.8em',
+                            fontWeight: '600',
+                        }}
+                    >#{orderId}</Typography>
+                </Box>
+            </Box>
+
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '.5em',
+                    justifyContent: 'space-between',
+                    alignItems: 'end'
+                }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: `${statusColors[status]}80`,
+                            fontSize: '1.2em',
+                            fontWeight: '900',
+                        }}
+                    >{title}</Typography>
+                </Box>
+
+                <Typography
+                    sx={{
+                        color: `${statusColors[status]}60`,
+                        fontSize: '.8em',
+                        fontWeight: '600',
+                    }}
+                >{date}</Typography>
+            </Box>
+
+            {status == 'завершён' && (
+                <Button
+                    variant="contained"
+                    size="small"
+                >Оставить отзыв</Button>
+            )}
         </Box>
     );
 }

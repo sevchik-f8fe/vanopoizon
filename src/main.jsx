@@ -27,6 +27,7 @@ import SelectPage from './pages/SelectPage/SelectPage';
 import NewsPage from './pages/NewsPage/NewsPage';
 import FavoritePage from './pages/FavoritePage/FavotitePage';
 import GeoSelectPage from './pages/GeoSelectPage/GeoSelectPage';
+import OrdersPage from './pages/OrdersPage/OrdersPage';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -52,6 +53,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/contest' element={<ContestPage />} />
           <Route path='/filter' element={<FilterPage />} />
           <Route path='/news' element={<NewsPage />} />
+          <Route path='/orders' element={<OrdersPage />} />
         </Routes>
         {/* <BottomBoard /> */}
       </BrowserRouter>
