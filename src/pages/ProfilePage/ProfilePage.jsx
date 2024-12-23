@@ -596,8 +596,8 @@ const DataContainer = () => {
         { title: 'Город', data: (user?.delivery?.city?.name?.length > 0) ? (user?.delivery?.city?.name) : ('Не указано') },
         { title: 'ФИО', data: (user?.delivery?.fullName?.length > 0) ? (user?.delivery?.fullName) : ('Не указано') },
         { title: 'Телефон', data: (user?.delivery?.phone?.length > 0) ? (user?.delivery?.phone) : ('Не указано') },
-        { title: 'Адрес CDEK', data: (user?.delivery?.pvz?.smallAddress?.length > 0) ? (user?.delivery?.pvz?.smallAddress) : ('Не указано') },
-        { title: 'Ваш адрес', data: (user?.delivery?.fullAddress > 0) ? (user?.delivery?.fullAddress) : ('Не указано') },
+        { title: 'Адрес CDEK', data: (user?.delivery?.pvz?.smallAddress?.length > 0) ? (user?.delivery?.pvz?.fullAddress) : ('Не указано') },
+        { title: 'Ваш адрес', data: (user?.delivery?.fullAddress?.length > 0) ? (user?.delivery?.fullAddress) : ('Не указано') },
     ];
 
     return (
