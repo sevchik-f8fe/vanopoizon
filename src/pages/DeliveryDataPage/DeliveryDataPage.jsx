@@ -13,7 +13,7 @@ import { useNotifications } from "../ProfilePage/store";
 import { useUserData } from "../../utils/store";
 
 const DeliveryDataPage = () => {
-    let tg = window.Telegram.WebApp;
+    let tg = window?.Telegram?.WebApp;
     const { phoneNumber, setFieldValue, name, activeDeliveryType, setFieldError, cdekAddress, city, address, loading, setLoading } = useDeliveryData();
     const { setDeliveryData } = useNotifications();
     const { user, setUser } = useUserData();
@@ -165,7 +165,7 @@ const DeliveryDataPage = () => {
                             setLoading(true);
 
                             await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
-                                { tg: tg.initData, userId: user._id, phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
+                                { tg: tg?.initData, userId: user._id, phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
                                 // { phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
                                 {
                                     headers: {
@@ -195,7 +195,7 @@ const DeliveryDataPage = () => {
                         hapticFeedback.notificationOccurred('error')
                     }
                 }}
-            >{user}, {user?._id}</Button>
+            >Сохранить</Button>
         </Box >
     );
 }
