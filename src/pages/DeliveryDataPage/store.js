@@ -1,40 +1,26 @@
 import { create } from "zustand";
 
 export const useDeliveryData = create((set) => ({
-    'phoneNumber': {
-        value: '+7',
-        error: { text: '', isError: false },
+    deliveryData: {
+        'fullName': { value: '', error: null },
+        'phone': { value: '+7', error: null },
+        'city': { value: { name: '', code: '', coords: [] }, error: null },
+        'fullAddress': { value: '', error: null },
+        'pvz': { value: { smallAddress: '', fullAddress: '' }, error: null },
+        'deliveryType': { value: 'pickup', error: null },
     },
     loading: false,
-    'name': {
-        value: '',
-        error: { text: '', isError: false },
-    },
-    'address': '',
-    // 'city': { name: '', cityCode: null, cityCoords: [] },
-    'city': { name: '', cityCode: null, cityCoords: [] },
     cities: [],
-    'cdekAddress': {
-        address: '',
-        fullAddress: ''
-    },
-    activeDeliveryType: 'pickup',
-    setDeliveryType: (value) => set((state) => {
-        return { activeDeliveryType: value }
-    }),
-    setCities: (data) => set((state) => {
-        return { cities: data }
-    }),
-    setLoading: (value) => set((state) => {
-        return { loading: value }
-    }),
     setFieldValue: (field, value) => set((state) => {
-        return { [field]: { value, error: { ...state[field].error, isError: false } } }
+        return { deliveryData: { ...state.deliveryData, [field]: { error: null, value } } }
     }),
     setFieldError: (field, error) => set((state) => {
-        return { [field]: { ...state[field], error: { isError: true, text: error } } }
+        return { deliveryData: { ...state.deliveryData, [field]: { ...state.deliveryData[field], error } } }
     }),
-    setSimpleFieldValue: (field, value) => set((state) => {
-        return { [field]: value }
+    setCities: (data) => set(() => {
+        return { cities: data }
+    }),
+    setLoading: (value) => set(() => {
+        return { loading: value }
     }),
 }))

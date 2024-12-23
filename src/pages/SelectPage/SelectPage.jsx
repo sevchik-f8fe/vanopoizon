@@ -1,5 +1,4 @@
 import { Box, Typography, TextField, Skeleton } from "@mui/material";
-import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { nanoid } from "nanoid";
 import axios from "axios";
@@ -8,8 +7,7 @@ import { useDeliveryData } from "../DeliveryDataPage/store";
 import { useSelectPage } from "./store";
 
 const SelectPage = () => {
-    const location = useLocation();
-    const { setSimpleFieldValue, cities, setCities, city } = useDeliveryData();
+    const { deliveryData, setFieldValue, cities, setCities } = useDeliveryData();
 
     let tg = window.Telegram.WebApp;
     const { value, setValue } = useSelectPage();
@@ -34,12 +32,8 @@ const SelectPage = () => {
     }, [])
 
     const onSelectHandle = (label, code, coords) => {
-        setSimpleFieldValue('cdekAddress', {
-            address: '',
-            fullAddress: ''
-        })
-        setSimpleFieldValue('address', '')
-        setSimpleFieldValue([location.state.field], { name: label, cityCode: code, cityCoords: coords })
+        setFieldValue('pvz', { smallAddress: '', fullAddress: '' })
+        setFieldValue('city', { name: label, code: code, coords: coords })
         window.history.back();
     }
 
@@ -82,7 +76,10 @@ const SelectPage = () => {
                         {
                             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map((elem) => <Skeleton sx={{
                                 p: '.8em .5em',
-                                borderBottom: '2px solid #fff3'
+                                m: '0 .5em',
+                                borderRadius: '.5em',
+                                // borderBottom: '2px solid #fff3',
+                                backgroundColor: '#2E2E3A80',
                             }}
                                 animation="wave"
                                 key={nanoid()}
@@ -107,7 +104,6 @@ const SelectElement = ({ text, onSelect, code, subText, coords }) => {
                 p: '.8em .5em',
                 m: '0 .5em',
                 borderRadius: '.5em',
-                // borderBottom: '2px solid #fff3',
                 backgroundColor: '#2E2E3A80',
             }}
         >

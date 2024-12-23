@@ -9,18 +9,18 @@ import axios from "axios";
 import { useDeliveryData } from "./store";
 import pickupImg from "../../assets/cdek-self-pickup.png";
 import courierImg from "../../assets/cdek-courier.png";
-import { useNotifications } from "../ProfilePage/store";
 import { useUserData } from "../../utils/store";
 
 const DeliveryDataPage = () => {
     let tg = window?.Telegram?.WebApp;
-    const { phoneNumber, setFieldValue, name, activeDeliveryType, setFieldError, cdekAddress, city, address, loading, setLoading } = useDeliveryData();
-    const { setDeliveryData } = useNotifications();
+    const { deliveryData, setFieldValue, setFieldError, loading, setLoading } = useDeliveryData();
     const { user, setUser } = useUserData();
 
     useEffect(() => {
         tg.BackButton.show();
         tg.MainButton.hide();
+
+
     }, [])
 
     return (
@@ -71,12 +71,12 @@ const DeliveryDataPage = () => {
                             overflowX: 'scroll',
                         }}
                     >
-                        {[{ type: 'pickup', img: pickupImg }, { type: 'delivery', img: courierImg }].map((elem) => <PickDeliveryBlock key={nanoid()} img={elem.img} type={elem.type} />)}
+                        {[{ type: 'pickup', img: pickupImg }, { type: 'courier', img: courierImg }].map((elem) => <PickDeliveryBlock key={nanoid()} img={elem.img} type={elem.type} />)}
                     </Box>
 
-                    {(activeDeliveryType == 'pickup') ? (
+                    {(deliveryData.deliveryType.value == 'pickup') ? (
                         <PickupBlock />
-                    ) : (activeDeliveryType == 'delivery') ? (
+                    ) : (deliveryData.deliveryType.value == 'courier') ? (
                         <DeliveryBlock />
                     ) : (
                         <></>
@@ -99,10 +99,10 @@ const DeliveryDataPage = () => {
                     >Данные получателя</Typography>
 
                     <TextField
-                        value={name.value}
-                        helperText={name.error.isError && name.error.text}
-                        error={name.error.isError}
-                        onChange={(e) => setFieldValue('name', e.target.value)}
+                        value={deliveryData.fullName.value}
+                        helperText={deliveryData.fullName.error !== null && deliveryData.fullName.error}
+                        error={deliveryData.fullName.error !== null}
+                        onChange={(e) => setFieldValue('fullName', e.target.value)}
                         sx={{
                             mb: '.5em',
                             '& .MuiInput-root': {
@@ -121,12 +121,12 @@ const DeliveryDataPage = () => {
                         label="Фамилия, имя и отчество"
                     />
                     <TextField
-                        value={phoneNumber.value}
+                        value={deliveryData.phone.value}
                         onChange={(e) => {
-                            setFieldValue('phoneNumber', e.target.value.replace(/^([^+]|\+[^0-9])/, ''));
+                            setFieldValue('phone', e.target.value.replace(/^([^+]|\+[^0-9])/, ''));
                         }}
-                        error={phoneNumber.error.isError}
-                        helperText={phoneNumber.error.isError && phoneNumber.error.text}
+                        error={deliveryData.phone.error !== null}
+                        helperText={deliveryData.phone.error && deliveryData.phone.error}
                         sx={{
                             '& .MuiInput-root': {
                                 color: '#fff',
@@ -139,7 +139,7 @@ const DeliveryDataPage = () => {
                                 fontWeight: '400',
                             },
                         }}
-                        placeholder="+7 (116) 337-23-22"
+                        placeholder="+7 (987) 654-32-10"
                         size={'small'}
                         variant={'outlined'}
                         label={'Номер телефона'}
@@ -160,38 +160,100 @@ const DeliveryDataPage = () => {
                 }}
                 disabled={loading}
                 onClick={() => {
-                    if (name.value.split(' ').length >= 2 && (phoneNumber.value.length == 12 || phoneNumber.value.length == 14)) {
-                        const saveDeliveryData = async () => {
-                            setLoading(true);
+                    setLoading(true);
 
-                            await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
-                                { tg: tg?.initData, userId: user._id, phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
-                                // { phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
-                                {
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    }
-                                })
-                                .then(res => {
-                                    setUser(res?.data?.user);
-                                    window.history.back();
-                                })
-                                .catch(err => console.log(`err: ${err}`))
-                                .finally(() => setLoading(false))
+                    let mainFieldsAreFilled = (deliveryData.fullName.value.split(' ').length >= 2 && deliveryData.fullName.value.length >= 3) && (deliveryData.phone.value.length == 12 || deliveryData.phone.value.length == 14);
+
+                    if (mainFieldsAreFilled) {
+                        if (deliveryData.deliveryType.value === 'pickup') {
+                            const savePickupData = async () => {
+                                await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
+                                    {
+                                        tg: tg?.initData,
+                                        userId: user._id,
+                                        phone: deliveryData.phone.value,
+                                        fullName: deliveryData.fullName.value,
+                                        deliveryType: deliveryData.deliveryType.value,
+                                        pvz: {
+                                            smallAddress: user.delivery.pvz.smallAddress,
+                                            fullAddress: user.delivery.pvz.fullAddress
+                                        },
+                                        city: {
+                                            name: user.delivery.city.name,
+                                            code: user.delivery.city.code,
+                                            coords: user.delivery.city.coords
+                                        },
+                                        fullAddress: deliveryData.fullAddress.value
+                                    },
+                                    {
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        }
+                                    })
+                                    .then(res => {
+                                        setUser(res?.data?.user);
+                                        window.history.back();
+                                    })
+                                    .catch(err => console.log(`err: ${err}`))
+                                    .finally(() => setLoading(false))
+                            }
+
+                            if (deliveryData.fullAddress.value.length > 0) {
+                                savePickupData();
+                            } else {
+                                setFieldError('fullAddress', 'Укажите корректные данные');
+                                hapticFeedback.notificationOccurred('error');
+                            }
+                        } else if (deliveryData.deliveryType.value === 'courier') {
+                            const saveCourierData = async () => {
+                                await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
+                                    {
+                                        tg: tg?.initData,
+                                        userId: user._id,
+                                        phone: deliveryData.phone.value,
+                                        fullName: deliveryData.fullName.value,
+                                        deliveryType: deliveryData.deliveryType.value,
+                                        pvz: {
+                                            smallAddress: deliveryData.pvz.value.smallAddress,
+                                            fullAddress: deliveryData.pvz.value.fullAddress
+                                        },
+                                        city: {
+                                            name: deliveryData.city.value.name,
+                                            code: deliveryData.city.value.code,
+                                            coords: deliveryData.city.value.coords
+                                        },
+                                        fullAddress: user.delivery.fullAddress
+                                    },
+                                    {
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        }
+                                    })
+                                    .then(res => {
+                                        setUser(res?.data?.user);
+                                        window.history.back();
+                                    })
+                                    .catch(err => console.log(`err: ${err}`))
+                                    .finally(() => setLoading(false))
+                            }
+
+                            if (deliveryData.city.value.name.length > 0 && deliveryData.city.value.code.length > 0 && deliveryData.city.value.coords.length > 0 && deliveryData.pvz.value.fullAddress.length > 0) {
+                                saveCourierData();
+                            } else if (deliveryData.city.value.name.length == 0 || deliveryData.city.value.code.length == 0 || deliveryData.city.value.coords.length == 0) {
+                                setFieldError('city', 'Укажите корректные данные');
+                                hapticFeedback.notificationOccurred('error');
+                            } else {
+                                setFieldError('pvz', 'Укажите корректные данные');
+                                hapticFeedback.notificationOccurred('error');
+                            }
+                        } else {
+                            hapticFeedback.notificationOccurred('error');
                         }
-
-                        saveDeliveryData();
-
-                        // setDeliveryData('name', name.value);
-                        // setDeliveryData('phone', phoneNumber.value.replace(/\s/g, ''));
-
-                        // if (city.name.length > 0) setDeliveryData('city', city.name);
-                        // if (cdekAddress.address.length > 0) setDeliveryData('cdek', cdekAddress);
-                    } else if (name.value.split(' ').length < 2) {
+                    } else if (deliveryData.fullName.value.split(' ').length < 2 || deliveryData.fullName.value.length < 3) {
                         setFieldError('name', 'Укажите корректные данные');
                         hapticFeedback.notificationOccurred('error')
-                    } else if (phoneNumber.value.length < 16) {
-                        setFieldError('phoneNumber', 'Укажите корректный номер телефона');
+                    } else if (deliveryData.phone.value.length !== 12 || deliveryData.phone.value.length !== 14) {
+                        setFieldError('phoneNumber', 'Укажите корректные данные');
                         hapticFeedback.notificationOccurred('error')
                     }
                 }}
@@ -201,7 +263,7 @@ const DeliveryDataPage = () => {
 }
 
 const PickupBlock = () => {
-    const { city, cdekAddress } = useDeliveryData();
+    const { deliveryData, setFieldValue, setFieldError } = useDeliveryData();
     const navigate = useNavigate();
 
     return (
@@ -215,22 +277,18 @@ const PickupBlock = () => {
         >
             <PickBlock
                 notActiveTitle='Город'
-                activeTitle={city.name}
-                onClick={() => {
-                    navigate('/select', {
-                        state: {
-                            field: 'city',
-                        }
-                    })
-                }}
+                error={deliveryData.city.error}
+                activeTitle={deliveryData.city.value.name}
+                onClick={() => navigate('/select')}
             />
 
             <PickBlock
                 notActiveTitle='Пункт выдачи заказов'
-                activeTitle={cdekAddress.address}
+                activeTitle={deliveryData.pvz.value.smallAddress}
+                error={deliveryData.pvz.error}
                 onClick={() => {
-                    if (city.name.length != 0) {
-                        navigate('/geoSelect', { state: { cityCode: city.cityCode, cityCoords: city.cityCoords } })
+                    if (deliveryData.city.value.name.length != 0) {
+                        navigate('/geoSelect', { state: { cityCode: deliveryData.city.value.code, cityCoords: deliveryData.city.value.coords } })
                     } else {
                         hapticFeedback.notificationOccurred('error');
                     }
@@ -241,8 +299,7 @@ const PickupBlock = () => {
 }
 
 const DeliveryBlock = () => {
-    const { city, address, setSimpleFieldValue } = useDeliveryData();
-    const navigate = useNavigate();
+    const { deliveryData, setFieldValue, setFieldError } = useDeliveryData();
 
     return (
         <Box
@@ -253,23 +310,12 @@ const DeliveryBlock = () => {
                 gap: '.5em'
             }}
         >
-            <PickBlock
-                notActiveTitle='Город'
-                activeTitle={city.name}
-                onClick={() => {
-                    navigate('/select', {
-                        state: {
-                            field: 'city',
-                        }
-                    })
-                }}
-            />
-
             <TextField
-                value={address}
+                value={deliveryData.fullAddress.value}
+                error={deliveryData.fullAddress.error !== null}
                 helperText={'Введите название улицы, номер дома, корпус, квартиру'}
                 FormHelperTextProps={{ sx: { color: '#fff5' } }}
-                onChange={(e) => { setSimpleFieldValue('address', e.target.value) }}
+                onChange={(e) => { setFieldValue('fullAddress', e.target.value) }}
                 disabled={city.name.length <= 0}
                 sx={{
                     '& .MuiInput-root': {
@@ -292,11 +338,11 @@ const DeliveryBlock = () => {
 }
 
 const PickDeliveryBlock = ({ img, type }) => {
-    const { activeDeliveryType, setDeliveryType } = useDeliveryData();
+    const { deliveryData, setFieldValue } = useDeliveryData();
 
     return (
         <Box
-            onClick={() => setDeliveryType(type)}
+            onClick={() => setFieldValue('deliveryType', type)}
             sx={{
                 borderRadius: '1em',
                 p: '.1em',
@@ -304,10 +350,10 @@ const PickDeliveryBlock = ({ img, type }) => {
                 '&:active': {
                     transform: 'scale(.96)',
                 },
-                ...(activeDeliveryType == type && {
+                ...(deliveryData.deliveryType.value == type && {
                     border: '2px solid #F34213',
                 }),
-                ...(activeDeliveryType != type && {
+                ...(deliveryData.deliveryType.value != type && {
                     border: '2px solid transparent'
                 })
             }}
@@ -330,7 +376,7 @@ const PickDeliveryBlock = ({ img, type }) => {
     );
 }
 
-const PickBlock = ({ activeTitle, notActiveTitle, onClick }) => {
+const PickBlock = ({ activeTitle, notActiveTitle, onClick, error }) => {
     return (
         <Box
             onClick={onClick}

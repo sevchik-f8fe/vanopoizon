@@ -11,7 +11,7 @@ const GeoSelectPage = () => {
     const location = useLocation();
     const mapContainerRef = useRef(null);
     const { currentObject, setCurrentObject, isLoading, setIsLoading, objects, setObjects } = useGeoSelect();
-    const { setSimpleFieldValue } = useDeliveryData();
+    const { setFieldValue } = useDeliveryData();
 
     useEffect(() => {
         const getPvzList = async () => {
@@ -141,7 +141,7 @@ const GeoSelectPage = () => {
 
                         <Button
                             onClick={() => {
-                                setSimpleFieldValue('cdekAddress', { address: currentObject?.address, fullAddress: currentObject?.full_address });
+                                setFieldValue('pvz', { smallAddress: currentObject?.address, fullAddress: currentObject?.full_address });
                                 window.history.back();
                             }}
                             variant="contained">
