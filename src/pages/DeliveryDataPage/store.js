@@ -12,9 +12,11 @@ export const useDeliveryData = create((set) => ({
     loading: false,
     cities: [],
     setFieldValue: (field, value) => set((state) => {
+        console.log(field + ": " + JSON.stringify(value))
         return { deliveryData: { ...state.deliveryData, [field]: { error: null, value } } }
     }),
     setFieldError: (field, error) => set((state) => {
+        console.log(field + ": " + error)
         return { deliveryData: { ...state.deliveryData, [field]: { ...state.deliveryData[field], error } } }
     }),
     setCities: (data) => set(() => {

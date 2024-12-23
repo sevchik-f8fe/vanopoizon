@@ -160,86 +160,88 @@ const DeliveryDataPage = () => {
                 }}
                 disabled={loading}
                 onClick={() => {
-                    setLoading(true);
-
                     let mainFieldsAreFilled = (deliveryData.fullName.value.split(' ').length >= 2 && deliveryData.fullName.value.length >= 3) && (deliveryData.phone.value.length == 12 || deliveryData.phone.value.length == 14);
 
                     if (mainFieldsAreFilled) {
-                        if (deliveryData.deliveryType.value === 'pickup') {
-                            const savePickupData = async () => {
-                                await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
-                                    {
-                                        tg: tg?.initData,
-                                        userId: user._id,
-                                        phone: deliveryData.phone.value,
-                                        fullName: deliveryData.fullName.value,
-                                        deliveryType: deliveryData.deliveryType.value,
-                                        pvz: {
-                                            smallAddress: user.delivery.pvz.smallAddress,
-                                            fullAddress: user.delivery.pvz.fullAddress
-                                        },
-                                        city: {
-                                            name: user.delivery.city.name,
-                                            code: user.delivery.city.code,
-                                            coords: user.delivery.city.coords
-                                        },
-                                        fullAddress: deliveryData.fullAddress.value
-                                    },
-                                    {
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        }
-                                    })
-                                    .then(res => {
-                                        setUser(res?.data?.user);
-                                        window.history.back();
-                                    })
-                                    .catch(err => console.log(`err: ${err}`))
-                                    .finally(() => setLoading(false))
-                            }
-
+                        if (deliveryData.deliveryType.value == 'courier') {
                             if (deliveryData.fullAddress.value.length > 0) {
-                                savePickupData();
+                                const saveCourierData = async () => {
+                                    setLoading(true);
+
+                                    await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
+                                        {
+                                            tg: tg?.initData,
+                                            userId: user._id,
+                                            phone: deliveryData.phone.value,
+                                            fullName: deliveryData.fullName.value,
+                                            deliveryType: deliveryData.deliveryType.value,
+                                            pvz: {
+                                                smallAddress: user.delivery.pvz.smallAddress,
+                                                fullAddress: user.delivery.pvz.fullAddress
+                                            },
+                                            city: {
+                                                name: user.delivery.city.name,
+                                                code: user.delivery.city.code,
+                                                coords: user.delivery.city.coords
+                                            },
+                                            fullAddress: deliveryData.fullAddress.value
+                                        },
+                                        {
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            }
+                                        })
+                                        .then(res => {
+                                            setUser(res?.data?.user);
+                                            window.history.back();
+                                        })
+                                        .catch(err => console.log(`err: ${err}`))
+                                        .finally(() => setLoading(false))
+                                }
+
+                                saveCourierData();
                             } else {
                                 setFieldError('fullAddress', 'Укажите корректные данные');
                                 hapticFeedback.notificationOccurred('error');
                             }
-                        } else if (deliveryData.deliveryType.value === 'courier') {
-                            const saveCourierData = async () => {
-                                await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
-                                    {
-                                        tg: tg?.initData,
-                                        userId: user._id,
-                                        phone: deliveryData.phone.value,
-                                        fullName: deliveryData.fullName.value,
-                                        deliveryType: deliveryData.deliveryType.value,
-                                        pvz: {
-                                            smallAddress: deliveryData.pvz.value.smallAddress,
-                                            fullAddress: deliveryData.pvz.value.fullAddress
-                                        },
-                                        city: {
-                                            name: deliveryData.city.value.name,
-                                            code: deliveryData.city.value.code,
-                                            coords: deliveryData.city.value.coords
-                                        },
-                                        fullAddress: user.delivery.fullAddress
-                                    },
-                                    {
-                                        headers: {
-                                            'Content-Type': 'application/json',
-                                        }
-                                    })
-                                    .then(res => {
-                                        setUser(res?.data?.user);
-                                        window.history.back();
-                                    })
-                                    .catch(err => console.log(`err: ${err}`))
-                                    .finally(() => setLoading(false))
-                            }
+                        } else if (deliveryData.deliveryType.value == 'pickup') {
+                            if (deliveryData.city.value.name.length > 0 && deliveryData.pvz.value.fullAddress.length > 0) {
+                                const savePickupData = async () => {
+                                    setLoading(true);
 
-                            if (deliveryData.city.value.name.length > 0 && deliveryData.city.value.code.length > 0 && deliveryData.city.value.coords.length > 0 && deliveryData.pvz.value.fullAddress.length > 0) {
-                                saveCourierData();
-                            } else if (deliveryData.city.value.name.length == 0 || deliveryData.city.value.code.length == 0 || deliveryData.city.value.coords.length == 0) {
+                                    await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
+                                        {
+                                            tg: tg?.initData,
+                                            userId: user._id,
+                                            phone: deliveryData.phone.value,
+                                            fullName: deliveryData.fullName.value,
+                                            deliveryType: deliveryData.deliveryType.value,
+                                            pvz: {
+                                                smallAddress: deliveryData.pvz.value.smallAddress,
+                                                fullAddress: deliveryData.pvz.value.fullAddress
+                                            },
+                                            city: {
+                                                name: deliveryData.city.value.name,
+                                                code: deliveryData.city.value.code,
+                                                coords: deliveryData.city.value.coords
+                                            },
+                                            fullAddress: user.delivery.fullAddress
+                                        },
+                                        {
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            }
+                                        })
+                                        .then(res => {
+                                            setUser(res?.data?.user);
+                                            window.history.back();
+                                        })
+                                        .catch(err => console.log(`err: ${err}`))
+                                        .finally(() => setLoading(false))
+                                }
+
+                                savePickupData();
+                            } else if (deliveryData.city.value.name.length == 0) {
                                 setFieldError('city', 'Укажите корректные данные');
                                 hapticFeedback.notificationOccurred('error');
                             } else {
