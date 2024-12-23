@@ -16,22 +16,21 @@ import { useCart } from "./store";
 import { useUserData } from "../../utils/store";
 
 const CartPage = () => {
-    const { products } = useCart();
+    const { products, deliveryIsFilled, setDeliveryDataIsFilled } = useCart();
     const { user } = useUserData();
-
-    let deliveryIsFilled, deliveryTypeLabel, deliveryDataLabel;
 
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
+        setDeliveryDataIsFilled((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0)))
+
         tg.BackButton.show();
-        showShineMainBtn(12000);
 
-        deliveryIsFilled = (user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0))
+        if ((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0))) {
+            showShineMainBtn(12000);
 
-        deliveryTypeLabel = `Доставка ${user?.delivery?.deliveryType == 'pickup' ? 'в пункт выдачи' : 'курьером'}`;
-        deliveryDataLabel = `${user?.delivery?.deliveryType == 'pickup' ? user?.delivery?.pvz?.fullAddress : user?.delivery?.fullAddress}`;
+        }
     }, [])
 
     return (
@@ -94,14 +93,14 @@ const CartPage = () => {
                                         fontWeight: '500',
                                         mb: '.2em'
                                     }}
-                                >{deliveryTypeLabel}</Typography>
+                                >Доставка {user?.delivery?.deliveryType == 'pickup' ? 'в пункт выдачи' : 'курьером'}</Typography>
                                 <Typography
                                     sx={{
                                         fontSize: '.75em',
                                         color: '#fff5',
                                         fontWeight: '500'
                                     }}
-                                >{deliveryDataLabel}</Typography>
+                                >{user?.delivery?.deliveryType == 'pickup' ? user?.delivery?.pvz?.fullAddress : user?.delivery?.fullAddress}</Typography>
                             </>
                         ) : (
                             <Typography
@@ -113,8 +112,16 @@ const CartPage = () => {
                             >Заполните информацию о доставке</Typography>
                         )}
                     </Box>
-                    {/* <ArrowOutwardIcon sx={{ color: '#DC4F51', fontSize: '1.2em' }} /> */}
-                    <ArrowOutwardIcon sx={{ color: '#F34213', fontSize: '1.2em' }} />
+                    <ArrowOutwardIcon
+                        sx={{
+                            fontSize: '1.2em',
+                            ...(deliveryIsFilled && {
+                                color: '#F34213',
+                            }),
+                            ...(!deliveryIsFilled && {
+                                color: '#DC4F51',
+                            })
+                        }} />
                 </Box>
             </Box>
 

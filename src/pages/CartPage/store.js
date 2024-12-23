@@ -33,8 +33,12 @@ export const useCart = create((set) => ({
     ],
     usePoints: false,
     useInsurance: false,
+    deliveryDataIsFilled: false,
     toggleUseInsurance: () => set(state => {
         return { useInsurance: !state.useInsurance }
+    }),
+    setDeliveryDataIsFilled: (value) => set(state => {
+        return { deliveryDataIsFilled: value }
     }),
     toggleUsePoints: () => set(state => {
         return { usePoints: !state.usePoints }
