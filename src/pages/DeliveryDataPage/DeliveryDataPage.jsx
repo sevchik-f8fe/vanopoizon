@@ -180,7 +180,7 @@ const DeliveryDataPage = () => {
                                 .catch(err => console.log(`err: ${err}`));
                         }
 
-                        saveDeliveryData();
+                        // saveDeliveryData();
 
                         // setDeliveryData('name', name.value);
                         // setDeliveryData('phone', phoneNumber.value.replace(/\s/g, ''));

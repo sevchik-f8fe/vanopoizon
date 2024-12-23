@@ -69,7 +69,7 @@ const HomePage = () => {
                 <>
                     <Navigation />
                     <BottomBoard />
-                    <Typography sx={{ color: '#FFF' }}>{user}</Typography>
+                    <Typography sx={{ color: '#FFF' }}>{JSON.stringify(user)}</Typography>
                     <CalculateBlock />
                     <CatalogContainer />
                 </>
