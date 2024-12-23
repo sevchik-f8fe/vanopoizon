@@ -163,7 +163,8 @@ const DeliveryDataPage = () => {
                             setLoading(true);
 
                             await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
-                                { tg: tg.initData, phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
+                                // { tg: tg.initData, phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
+                                { phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
                                 {
                                     headers: {
                                         'Content-Type': 'application/json',
@@ -176,6 +177,8 @@ const DeliveryDataPage = () => {
                                 })
                                 .catch(err => console.log(`err: ${err}`));
                         }
+
+                        saveDeliveryData();
 
                         // setDeliveryData('name', name.value);
                         // setDeliveryData('phone', phoneNumber.value.replace(/\s/g, ''));

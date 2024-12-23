@@ -240,7 +240,7 @@ const ProductElement = ({ spuId, picture, price }) => {
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
                     minHeight: '6em',
-                    minHeight: '6em',
+                    maxHeight: '6em',
                     minWidth: '6em',
                     maxWidth: '6em',
                 }}
