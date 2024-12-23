@@ -69,7 +69,7 @@ const HomePage = () => {
                 <>
                     <Navigation />
                     <BottomBoard />
-                    <CalculateBlock access={access} />
+                    <CalculateBlock />
                     <CatalogContainer />
                 </>
             ) : (
@@ -87,7 +87,7 @@ const HomePage = () => {
                     >
                         <Navigation />
                         <BottomBoard />
-                        <CalculateBlock access={access} />
+                        <CalculateBlock />
                     </Box>
 
                     <CatalogContainer />
@@ -97,7 +97,7 @@ const HomePage = () => {
     );
 }
 
-const CalculateBlock = ({ access }) => {
+const CalculateBlock = () => {
     return (
         <Link
             to={`/calc`}

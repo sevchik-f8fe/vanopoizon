@@ -157,42 +157,42 @@ const DeliveryDataPage = () => {
                     },
                 }}
                 disabled={loading}
-                onClick={() => {
-                    if (name.value.split(' ').length >= 2 && (phoneNumber.value.length == 12 || phoneNumber.value.length == 14)) {
-                        const saveDeliveryData = async () => {
-                            setLoading(true);
+            // onClick={() => {
+            //     if (name.value.split(' ').length >= 2 && (phoneNumber.value.length == 12 || phoneNumber.value.length == 14)) {
+            //         const saveDeliveryData = async () => {
+            //             setLoading(true);
 
-                            await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
-                                // { tg: tg.initData, phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
-                                { phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
-                                {
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    }
-                                })
-                                .then(res => {
-                                    setUser(res?.data?.uptdatedUser);
-                                    setLoading(false);
-                                    window.history.back();
-                                })
-                                .catch(err => console.log(`err: ${err}`));
-                        }
+            //             await axios.post('https://vanopoizonserver.ru/vanopoizon/saveDeliveryData',
+            //                 // { tg: tg.initData, phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
+            //                 { phone: phoneNumber.value, fullName: name.value, deliveryType: activeDeliveryType, pvz: cdekAddress.sddress, city: city.name, fullAddress: address },
+            //                 {
+            //                     headers: {
+            //                         'Content-Type': 'application/json',
+            //                     }
+            //                 })
+            //                 .then(res => {
+            //                     setUser(res?.data?.uptdatedUser);
+            //                     setLoading(false);
+            //                     window.history.back();
+            //                 })
+            //                 .catch(err => console.log(`err: ${err}`));
+            //         }
 
-                        saveDeliveryData();
+            //         saveDeliveryData();
 
-                        // setDeliveryData('name', name.value);
-                        // setDeliveryData('phone', phoneNumber.value.replace(/\s/g, ''));
+            //         // setDeliveryData('name', name.value);
+            //         // setDeliveryData('phone', phoneNumber.value.replace(/\s/g, ''));
 
-                        // if (city.name.length > 0) setDeliveryData('city', city.name);
-                        // if (cdekAddress.address.length > 0) setDeliveryData('cdek', cdekAddress);
-                    } else if (name.value.split(' ').length < 2) {
-                        setFieldError('name', 'Укажите корректные данные');
-                        hapticFeedback.notificationOccurred('error')
-                    } else if (phoneNumber.value.length < 16) {
-                        setFieldError('phoneNumber', 'Укажите корректный номер телефона');
-                        hapticFeedback.notificationOccurred('error')
-                    }
-                }}
+            //         // if (city.name.length > 0) setDeliveryData('city', city.name);
+            //         // if (cdekAddress.address.length > 0) setDeliveryData('cdek', cdekAddress);
+            //     } else if (name.value.split(' ').length < 2) {
+            //         setFieldError('name', 'Укажите корректные данные');
+            //         hapticFeedback.notificationOccurred('error')
+            //     } else if (phoneNumber.value.length < 16) {
+            //         setFieldError('phoneNumber', 'Укажите корректный номер телефона');
+            //         hapticFeedback.notificationOccurred('error')
+            //     }
+            // }}
             >Сохранить</Button>
         </Box>
     );
