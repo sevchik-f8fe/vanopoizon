@@ -13,15 +13,25 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import { showShineMainBtn } from "../../utils/utilFuncs";
 import { useCart } from "./store";
+import { useUserData } from "../../utils/store";
 
 const CartPage = () => {
     const { products } = useCart();
+    const { user } = useUserData();
+
+    let deliveryIsFilled, deliveryTypeLabel, deliveryDataLabel;
+
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
         tg.BackButton.show();
         showShineMainBtn(12000);
+
+        deliveryIsFilled = (user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0))
+
+        deliveryTypeLabel = `Доставка ${user?.delivery?.deliveryType == 'pickup' ? 'в пункт выдачи' : 'курьером'}`;
+        deliveryDataLabel = `${user?.delivery?.deliveryType == 'pickup' ? user?.delivery?.pvz?.fullAddress : user?.delivery?.fullAddress}`;
     }, [])
 
     return (
@@ -52,11 +62,15 @@ const CartPage = () => {
 
             <Box
                 sx={{
-                    // border: '1px solid #fff5',
-                    border: '1px solid #DC4F51',
                     p: '.5em',
                     mx: '.5em',
-                    borderRadius: '1em'
+                    borderRadius: '1em',
+                    ...(deliveryIsFilled && {
+                        border: '1px solid #fff5',
+                    }),
+                    ...(!deliveryIsFilled && {
+                        border: '1px solid #DC4F51',
+                    })
                 }}
             >
                 <Box
@@ -71,29 +85,33 @@ const CartPage = () => {
                     }}
                 >
                     <Box>
-                        {/* <Typography
-                            sx={{
-                                fontSize: '.9em',
-                                color: '#DC4F51',
-                                fontWeight: '600',
-                            }}
-                        >Заполните информацию о доставке</Typography> */}
-
-                        <Typography
-                            sx={{
-                                fontSize: '.9em',
-                                color: '#fff',
-                                fontWeight: '500',
-                                mb: '.2em'
-                            }}
-                        >Доставка в пункт выдачи</Typography>
-                        <Typography
-                            sx={{
-                                fontSize: '.75em',
-                                color: '#fff5',
-                                fontWeight: '500'
-                            }}
-                        >113234, Россия, новгородская обл., г. Пестово, ул. Тихова, д.12</Typography>
+                        {deliveryIsFilled ? (
+                            <>
+                                <Typography
+                                    sx={{
+                                        fontSize: '.9em',
+                                        color: '#fff',
+                                        fontWeight: '500',
+                                        mb: '.2em'
+                                    }}
+                                >{deliveryTypeLabel}</Typography>
+                                <Typography
+                                    sx={{
+                                        fontSize: '.75em',
+                                        color: '#fff5',
+                                        fontWeight: '500'
+                                    }}
+                                >{deliveryDataLabel}</Typography>
+                            </>
+                        ) : (
+                            <Typography
+                                sx={{
+                                    fontSize: '.9em',
+                                    color: '#DC4F51',
+                                    fontWeight: '600',
+                                }}
+                            >Заполните информацию о доставке</Typography>
+                        )}
                     </Box>
                     {/* <ArrowOutwardIcon sx={{ color: '#DC4F51', fontSize: '1.2em' }} /> */}
                     <ArrowOutwardIcon sx={{ color: '#F34213', fontSize: '1.2em' }} />

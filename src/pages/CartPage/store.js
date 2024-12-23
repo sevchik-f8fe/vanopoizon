@@ -31,16 +31,8 @@ export const useCart = create((set) => ({
             size: 33,
         },
     ],
-    // useSplit: false,
     usePoints: false,
     useInsurance: false,
-    // useExpressDelivery: false,
-    // toggleUseExpressDelivery: () => set(state => {
-    //     return { useExpressDelivery: !state.useExpressDelivery }
-    // }),
-    // toggleUseSplit: () => set(state => {
-    //     return { useSplit: !state.useSplit }
-    // }),
     toggleUseInsurance: () => set(state => {
         return { useInsurance: !state.useInsurance }
     }),
