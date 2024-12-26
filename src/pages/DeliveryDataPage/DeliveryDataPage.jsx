@@ -13,7 +13,7 @@ import { useUserData } from "../../utils/store";
 
 const DeliveryDataPage = () => {
     let tg = window?.Telegram?.WebApp;
-    const { deliveryData, setFieldValue, setFieldError, loading, setLoading, costyl, setCostyl } = useDeliveryData();
+    const { deliveryData, setFieldValue, setFieldError, loading, setLoading } = useDeliveryData();
     const { user, setUser } = useUserData();
 
     useEffect(() => {
