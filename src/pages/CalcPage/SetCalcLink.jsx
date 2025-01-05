@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { Box, Typography, Button, TextField, Link } from "@mui/material";
 import { hapticFeedback } from "@telegram-apps/sdk";
 import { useNavigate } from "react-router-dom";
+import LoadingButton from '@mui/lab/LoadingButton';
+import axios from "axios";
 
 import { useCalc } from "./store";
 import calcImg from "../../assets/calc_page_link.png";
@@ -9,7 +11,7 @@ import calcImg from "../../assets/calc_page_link.png";
 const SetCalcLink = () => {
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
-    const { setLink, link, setFieldError } = useCalc()
+    const { setLink, link, setFieldError, nextButtonLoading, setNextButtonLoading } = useCalc()
 
     useEffect(() => {
         tg.BackButton.show();
@@ -50,7 +52,7 @@ const SetCalcLink = () => {
                     fontSize: '.75em'
                 }}
             >
-                Шаг 1 из 3. Нажмите на товаре в Poizon кнопку "поделиться". Скопируйте ссылку и вставьте сюда. <Link sx={{ color: '#709ed9', textDecoration: 'none', cursor: 'pointer' }} onClick={() => { tg.openLink('http://www.smoltra.ru/klasific-tractora') }}>А как это сделать</Link>
+                Нажмите на товаре в Poizon кнопку "поделиться". Скопируйте ссылку и вставьте сюда. <Link sx={{ color: '#709ed9', textDecoration: 'none', cursor: 'pointer' }} onClick={() => { tg.openLink('http://www.smoltra.ru/klasific-tractora') }}>А как это сделать</Link>
             </Typography>
             <Box
                 sx={{
@@ -76,17 +78,43 @@ const SetCalcLink = () => {
                     }}
                 >
                 </Box>
-                <Button
-                    onClick={() => {
-                        if (link.value.length > 0 && link.value.startsWith('https://dw4.co/')) navigate('/calcSize');
+                <LoadingButton
+                    onClick={async () => {
+                        if (link.value.length > 0 && link.value.startsWith('https://dw4.co/')) {
+                            setNextButtonLoading(true)
+
+                            axios.post('https://vanopoizonserver.ru/vanopoizon/api/getSpuByLink', { link: link.value }, {
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                }
+                            })
+                                .then(response => {
+                                    navigate('/product', { state: { spu: response.data.spuId } })
+                                })
+                                .catch(error => console.error('Ошибка: ', error))
+                                .finally(() => setNextButtonLoading(false));
+                        }
                         else {
+                            setFieldError('link', 'Укажите корректную ссылку');
+                            hapticFeedback.notificationOccurred('error');
+                        }
+                    }}
+                    loading={nextButtonLoading}
+                    variant="text"
+                    size="large"
+                >Поиск</LoadingButton>
+                {/* <Button
+                    onClick={() => {
+                        if (link.value.length > 0 && link.value.startsWith('https://dw4.co/')) {
+
+                        } else {
                             setFieldError('link', 'Укажите корректную ссылку');
                             hapticFeedback.notificationOccurred('error');
                         }
                     }}
                     variant="text"
                     size="large"
-                >Далее</Button>
+                >Поиск</Button> */}
             </Box>
         </Box>
     );

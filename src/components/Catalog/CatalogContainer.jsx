@@ -1,6 +1,12 @@
-import { Box, Typography, IconButton, Skeleton } from "@mui/material";
+import { Box, Typography, IconButton, Skeleton, List, ListItemButton, Collapse } from "@mui/material";
 import Grid from '@mui/material/Grid2';
+
 import TuneIcon from '@mui/icons-material/Tune';
+import SwapVertIcon from '@mui/icons-material/SwapVert';
+import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import SellIcon from '@mui/icons-material/Sell';
+
 import { nanoid } from "nanoid";
 import { useEffect } from "react";
 import axios from "axios";
@@ -19,7 +25,6 @@ const CatalogContainer = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
     return (
         <Box
-            // id="catalog"
             sx={{
                 flexGrow: 1,
                 ...(!isSmallScreen && {
@@ -38,58 +43,71 @@ const CatalogContainer = () => {
 }
 
 const CatalogHeader = () => {
-    const navigate = useNavigate();
-
     return (
         <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                mb: '1em'
             }}
         >
-            <Box
+            {/* <Typography
                 sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    gap: '1em',
+                    color: '#fff',
+                    fontSize: '1.6em',
+                    fontWeight: '900'
                 }}
             >
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '1.6em',
-                        fontWeight: '900'
-                    }}
-                >
-                    Каталог
-                </Typography>
-
-                <Box
-                    sx={{
-                        display: 'flex',
-                        gap: '.5em'
-                    }}
-                >
-                    <IconButton
-                        onClick={() => {
-                            navigate('/filter');
-                        }}
-                    >
-                        <TuneIcon
-                            sx={{
-                                color: '#fff',
-                                fontSize: '1.2em',
-                            }}
-                        />
-                    </IconButton>
-                </Box>
-            </Box>
+                Каталог
+            </Typography> */}
 
             <SearchField />
+
+            <FilterContainer />
         </Box>
+    );
+}
+
+const FilterContainer = () => {
+    const filterItems = [
+        { icon: TuneIcon, title: null, type: 'filter' },
+        { icon: SwapVertIcon, title: null, type: 'sort' },
+        { icon: null, title: 'Бренд', type: 'brand' },
+        { icon: null, title: 'Категории', type: 'category' },
+        { icon: null, title: 'Цена', type: 'price' },
+    ];
+
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexWrap: 'no-wrap',
+                overflowX: 'auto',
+                gap: '.5em',
+                alignItems: 'center'
+            }}
+        >
+            {filterItems.map((elem) => <FilterElement Icon={elem?.icon} title={elem.title} type={elem.type} key={nanoid()} />)}
+        </Box>
+    );
+}
+
+const FilterElement = ({ Icon, title, type }) => {
+    return (
+        <IconButton
+            size="small"
+            sx={{
+                backgroundColor: '#2E2E3A',
+                borderRadius: '.5em',
+                p: '.4em .6em',
+            }}
+        >
+            {Icon ? (
+                <Icon sx={{ color: '#fff', fontSize: '1.1em' }} />
+            ) : (
+                <Typography sx={{ color: '#fff', fontSize: '.8em', fontWeight: '500' }}>{title}</Typography>
+            )}
+        </IconButton>
     );
 }
 
