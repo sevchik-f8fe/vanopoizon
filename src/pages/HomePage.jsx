@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Drawer, Button, FormControl } from "@mui/material";
 import { useEffect } from "react";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CalculateIcon from '@mui/icons-material/Calculate';
@@ -10,10 +10,17 @@ import CatalogContainer from "../components/Catalog/CatalogContainer";
 import BottomBoard from "../components/BottomBoard";
 import axios from "axios";
 import { useUserData } from "../utils/store";
+import { useFilters } from "../components/Catalog/store";
+import Price from "../components/FilterBlocks/Price";
+import Sort from "../components/FilterBlocks/Sort";
+import Brand from "../components/FilterBlocks/Brand";
+import Caterogy from "../components/FilterBlocks/Category";
+import Fit from "../components/FilterBlocks/Fit";
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
     const { user, setUser } = useUserData();
+    const { propsOfSearch, setPropsValue, setPropsOpen, setTypeOfSearch, activeFilter, setActiveFilter, values } = useFilters()
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -71,6 +78,80 @@ const HomePage = () => {
                     <BottomBoard />
                     <CalculateBlock />
                     <CatalogContainer />
+
+                    <Drawer
+                        PaperProps={{
+                            sx: {
+                                backgroundColor: 'transparent',
+                            },
+                        }}
+                        anchor={'bottom'}
+                        open={activeFilter !== null
+                        }
+                        onClose={() => setActiveFilter(null)}
+                    >
+                        <Box
+                            sx={{
+                                borderRadius: '1em 1em 0 0',
+                                backgroundColor: '#2E2E3A',
+                                p: '1em 1.5em',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '1em'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: "center",
+                                    alignItems: 'center',
+
+                                }}
+                            >
+                                <Typography
+                                    sx={{
+                                        fontSize: '.9em',
+                                        color: '#fff',
+                                        fontWeight: '600',
+                                    }}
+                                >Фильтры</Typography>
+                            </Box>
+
+                            {activeFilter === 'price' && <Price />}
+                            {activeFilter === 'sort' && <Sort />}
+                            {activeFilter === 'brand' && <Brand />}
+                            {activeFilter === 'category' && <Caterogy />}
+                            {activeFilter === 'fit' && <Fit />}
+
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '.5em'
+                                }}
+                            >
+                                <Button
+                                    onClick={() => {
+                                        if (activeFilter === 'price') {
+                                            setPropsValue('lowestPrice', values.lowestPrice);
+                                            setPropsValue('highestPrice', values.highestPrice);
+                                        } else if (activeFilter === 'sort') {
+                                        } else if (activeFilter === 'brand') {
+                                        } else if (activeFilter === 'category') {
+                                        } else if (activeFilter === 'fit') {
+                                        }
+
+                                        setActiveFilter(null);
+                                    }}
+                                >Применить</Button>
+                                <Button
+                                    onClick={() => setActiveFilter(null)}
+                                    variant="hide"
+                                >Отмена</Button>
+                            </Box>
+
+                        </Box>
+                    </Drawer>
                 </>
             ) : (
                 <>

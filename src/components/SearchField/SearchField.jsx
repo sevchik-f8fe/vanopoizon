@@ -85,7 +85,7 @@ const SearchField = () => {
                                     >
                                         <CloseIcon
                                             sx={{
-                                                fontSize: '1.2em',
+                                                fontSize: '.9em',
                                                 color: '#fff8'
                                             }} />
                                     </IconButton>
@@ -120,7 +120,7 @@ const SearchField = () => {
                                     >
                                         <ArrowOutwardIcon
                                             sx={{
-                                                fontSize: '1.2em',
+                                                fontSize: '.9em',
                                                 color: '#ffffff',
                                             }} />
                                     </IconButton>

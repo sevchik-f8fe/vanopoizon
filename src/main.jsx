@@ -10,8 +10,6 @@ import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PointsPage from './pages/PointsPage';
 import ReferalPage from './pages/ReferalPage';
 import SetCalcLink from './pages/CalcPage/SetCalcLink';
-// import SetCalcSize from './pages/CalcPage/SetCalcSize';
-// import CalcDescription from './pages/CalcPage/CalcDescription';
 import ProductPage from './pages/ProductPage/ProductPage';
 import TableOfSizes from './pages/ProductPage/TableOfSizes';
 import CartPage from './pages/CartPage/CartPage';
@@ -40,10 +38,8 @@ createRoot(document.getElementById('root')).render(
           <Route path='/profile' element={<ProfilePage />} />
           <Route path='/points' element={<PointsPage />} />
           <Route path='/referal' element={<ReferalPage />} />
-          {/* <Route path='/calc' element={<CalcDescription />} /> */}
           <Route path='/deliveryData' element={<DeliveryDataPage />} />
           <Route path='/calc' element={<SetCalcLink />} />
-          {/* <Route path='/calcSize' element={<SetCalcSize />} /> */}
           <Route path='/product' element={<ProductPage />} />
           <Route path='/sizes' element={<TableOfSizes />} />
           <Route path='/select' element={<SelectPage />} />
@@ -55,7 +51,6 @@ createRoot(document.getElementById('root')).render(
           <Route path='/news' element={<NewsPage />} />
           <Route path='/orders' element={<OrdersPage />} />
         </Routes>
-        {/* <BottomBoard /> */}
       </BrowserRouter>
     </ThemeProvider>
   </StrictMode>

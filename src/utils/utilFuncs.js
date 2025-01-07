@@ -92,16 +92,16 @@ export const objectToQueryString = (obj) => {
     let params = [];
 
     Object.entries(obj).forEach(([key, value]) => {
-        if (value === null) {
+        if (value.value === null) {
             return;
         }
 
-        if (Array.isArray(value)) {
-            value.forEach(item => {
+        if (Array.isArray(value.value)) {
+            value.value.forEach(item => {
                 params.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`);
             });
         } else {
-            params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value)}`);
+            params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value.value)}`);
         }
     });
 

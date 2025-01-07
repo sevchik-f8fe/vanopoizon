@@ -11,6 +11,32 @@ export const theme = createTheme({
                 main: '#F34213',
             },
         },
+        MuiRadio: {
+            styleOverrides: {
+                root: {
+                    color: '#fff6', // Цвет невыбранного состояния
+                    '&.Mui-checked': {
+                        color: '#709ed9', // Цвет выбранного состояния
+                    },
+                    '& .MuiRadio-root': { // Дополнительное уточнение для стилей svg
+                        padding: '5px', // Изменение размера
+                    },
+                },
+            },
+        },
+        MuiCheckbox: {
+            styleOverrides: {
+                root: {
+                    color: '#fff6', // Цвет невыбранного состояния
+                    '&.Mui-checked': {
+                        color: '#709ed9', // Цвет выбранного состояния
+                    },
+                    '& .MuiRadio-root': { // Дополнительное уточнение для стилей svg
+                        padding: '5px', // Изменение размера
+                    },
+                },
+            },
+        },
         MuiButton: {
             styleOverrides: {
                 root: {
@@ -35,6 +61,16 @@ export const theme = createTheme({
                     color: '#709ed9',
                     '&:hover': {
                         backgroundColor: '#709dd915',
+                    },
+                },
+                hide: {
+                    textTransform: 'none',
+                    borderRadius: '.5em',
+                    fontWeight: '600',
+                    backgroundColor: '#ffffff05',
+                    color: '#fff8',
+                    '&:hover': {
+                        backgroundColor: '#ffffff05',
                     },
                 },
                 contained: {

@@ -3,10 +3,6 @@ import Grid from '@mui/material/Grid2';
 
 import TuneIcon from '@mui/icons-material/Tune';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
-import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import SellIcon from '@mui/icons-material/Sell';
-
 import { nanoid } from "nanoid";
 import { useEffect } from "react";
 import axios from "axios";
@@ -18,6 +14,7 @@ import { useTheme, useMediaQuery } from "@mui/material";
 import SearchField from "../SearchField/SearchField";
 import CatalogElement from "./CatalogElement";
 import { useCatalog } from "./store";
+import { useFilters } from "./store";
 import { shortTitle, toNormalPrice, toRub, objectToQueryString } from "../../utils/utilFuncs";
 
 const CatalogContainer = () => {
@@ -51,18 +48,7 @@ const CatalogHeader = () => {
                 gap: '1em',
             }}
         >
-            {/* <Typography
-                sx={{
-                    color: '#fff',
-                    fontSize: '1.6em',
-                    fontWeight: '900'
-                }}
-            >
-                Каталог
-            </Typography> */}
-
             <SearchField />
-
             <FilterContainer />
         </Box>
     );
@@ -70,11 +56,11 @@ const CatalogHeader = () => {
 
 const FilterContainer = () => {
     const filterItems = [
-        { icon: TuneIcon, title: null, type: 'filter' },
         { icon: SwapVertIcon, title: null, type: 'sort' },
         { icon: null, title: 'Бренд', type: 'brand' },
         { icon: null, title: 'Категории', type: 'category' },
         { icon: null, title: 'Цена', type: 'price' },
+        { icon: null, title: 'Пол', type: 'fit' },
     ];
 
     return (
@@ -93,8 +79,11 @@ const FilterContainer = () => {
 }
 
 const FilterElement = ({ Icon, title, type }) => {
+    const { activeFilter, setActiveFilter } = useFilters();
+
     return (
         <IconButton
+            onClick={() => setActiveFilter(type)}
             size="small"
             sx={{
                 backgroundColor: '#2E2E3A',
@@ -112,7 +101,9 @@ const FilterElement = ({ Icon, title, type }) => {
 }
 
 const CatalogContent = () => {
-    const { products, propsOfSearch, typeOfSearch, page, setNextPage, setMoreProducts, hasMore, setHasMore } = useCatalog();
+    const { products, page, setNextPage, setMoreProducts, hasMore, setHasMore } = useCatalog();
+    const { propsOfSearch, typeOfSearch } = useFilters();
+
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -183,7 +174,7 @@ const CatalogContent = () => {
                         minWidth: '100%',
                     }}
                 >
-                    <Grid sx={{ minWidth: '100%' }} container spacing={2}>
+                    <Grid sx={{ minWidth: '100%' }} container spacing={1}>
                         {products && products?.map((elem) => <CatalogElement key={nanoid()} spuId={elem?.spuId} price={toRub(toNormalPrice(elem?.price))} link={'/product'} title={shortTitle(elem?.title)} picture={elem?.logoUrl} />)}
                     </Grid>
 
