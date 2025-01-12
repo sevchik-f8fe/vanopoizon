@@ -1,8 +1,18 @@
+import { useEffect } from "react";
 import { Box, TextField, InputAdornment, IconButton, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
+import { useFilters } from "../Catalog/store";
 
 const Caterogy = () => {
+    const { values, searchValue, setSearchValue, setFieldValues, propsOfSearch } = useFilters();
+
+    useEffect(() => {
+        setSearchValue('');
+        setFieldValues('categoriesId', propsOfSearch?.categoriesId?.value);
+    }, []);
+
+
     const brandList = [
         { label: 'Nike', value: '1' },
         { label: 'Puma', value: '2' },
@@ -75,6 +85,8 @@ const Caterogy = () => {
                         )
                     },
                 }}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
                 sx={{
                     flex: '1',
                 }}
@@ -91,23 +103,29 @@ const Caterogy = () => {
                     flexDirection: 'column',
                 }}
             >
-                {brandList.map(elem => (
-                    <FormControlLabel
-                        labelPlacement="start"
-                        sx={{
-                            justifyContent: 'space-between',
-                            maxWidth: '90%',
-                            '& .MuiFormControlLabel-label': {
-                                color: '#fff',
-                                fontSize: '.9em',
-                                fontWeight: '500',
-                            },
-                        }}
-                        control={<Checkbox />}
-                        label={elem.label}
-                        value={elem.value}
-                    />
-                ))}
+                {brandList
+                    .filter(elem => elem.label.toLowerCase().includes(searchValue.toLowerCase()))
+                    .map(elem => (
+                        <FormControlLabel
+                            labelPlacement="start"
+                            sx={{
+                                justifyContent: 'space-between',
+                                maxWidth: '90%',
+                                '& .MuiFormControlLabel-label': {
+                                    color: '#fff',
+                                    fontSize: '.9em',
+                                    fontWeight: '500',
+                                },
+                            }}
+                            control={<Checkbox
+                                checked={values?.categoriesId?.some(categorieId => categorieId === elem.value)}
+                                onChange={() => {
+                                    setFieldValues('categoriesId', [...values?.categoriesId, elem.value])
+                                }}
+                            />}
+                            label={elem.label}
+                        />
+                    ))}
             </Box>
         </Box>
     );

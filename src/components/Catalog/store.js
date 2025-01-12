@@ -29,27 +29,28 @@ export const useFilters = create((set) => ({
         'highestPrice': { isOpen: false, value: null },
         'sortType': { isOpen: false, value: null },
         'sortMode': { isOpen: false, value: null },
-        'categoriesId': { isOpen: false, value: null },
-        'frontCategoryId': { isOpen: false, value: null },
-        'brandsId': { isOpen: false, value: null },
+        'categoriesId': { isOpen: false, value: [] },
+        'frontCategoryId': { isOpen: false, value: [] },
+        'brandsId': { isOpen: false, value: [] },
         'fitId': { isOpen: false, value: null },
     },
     searchValue: '',
     values: {
         'lowestPrice': null,
         'highestPrice': null,
-        'categoriesId': null,
-        'frontCategoryId': null,
-        'brandsId': null,
+        'categoriesId': [],
+        'frontCategoryId': [],
+        'brandsId': [],
         'fitId': null,
-        'sortType': null,
-        'sortMode': null,
+        'sort': { type: null, mode: null },
     },
     typeOfSearch: 'default',
     setPropsValue: (field, value) => set(state => {
+        console.log('setPropsValue: ', field, ' ', value);
         return { propsOfSearch: { ...state.propsOfSearch, [field]: { ...state.propsOfSearch[field], value } } }
     }),
     setFieldValues: (field, value) => set(state => {
+        console.log('setFieldValues: ', field, ' ', value);
         return { values: { ...state.values, [field]: value } }
     }),
     setActiveFilter: (value) => set(() => {

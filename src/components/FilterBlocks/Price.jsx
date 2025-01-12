@@ -1,8 +1,14 @@
 import { Box, Typography, TextField, InputAdornment } from "@mui/material";
 import { useFilters } from "../Catalog/store";
+import { useEffect } from "react";
 
 const Price = () => {
-    const { values, setFieldValues } = useFilters();
+    const { values, setFieldValues, propsOfSearch } = useFilters();
+
+    useEffect(() => {
+        setFieldValues('highestPrice', propsOfSearch?.highestPrice?.value);
+        setFieldValues('lowestPrice', propsOfSearch?.lowestPrice?.value)
+    }, []);
 
     return (
         <Box>

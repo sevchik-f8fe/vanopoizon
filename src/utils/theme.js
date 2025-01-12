@@ -73,6 +73,16 @@ export const theme = createTheme({
                         backgroundColor: '#ffffff05',
                     },
                 },
+                danger: {
+                    textTransform: 'none',
+                    borderRadius: '.5em',
+                    fontWeight: '600',
+                    backgroundColor: '#e6394610',
+                    color: '#e63946',
+                    '&:hover': {
+                        backgroundColor: '#e6394610',
+                    },
+                },
                 contained: {
                     textTransform: 'none',
                     borderRadius: '1em',

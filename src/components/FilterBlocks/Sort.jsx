@@ -1,6 +1,14 @@
 import { Box, Typography, Radio, RadioGroup, FormControl, FormControlLabel } from "@mui/material";
+import { useEffect } from "react";
+import { useFilters } from "../Catalog/store";
 
 const Sort = () => {
+    const { values, setFieldValues, propsOfSearch } = useFilters();
+
+    useEffect(() => {
+        setFieldValues('sort', { type: propsOfSearch?.sortType?.value, mode: propsOfSearch?.sortMode?.value });
+    }, []);
+
     const sortList = [
         { label: 'Популярные', value: '1 0' },
         { label: 'Новинки', value: '3 0' },
@@ -27,6 +35,13 @@ const Sort = () => {
                     p: '.5em',
                     borderRadius: '1em'
                 }}
+                value={`${values.sort.type} ${values.sort.mode}` || null}
+                onChange={(e) => {
+                    let type = e.target.value.split(' ')[0];
+                    let mode = e.target.value.split(' ')[1];
+
+                    setFieldValues('sort', { type, mode })
+                }}
             >
                 {sortList.map(elem => (
                     <Box
@@ -46,6 +61,7 @@ const Sort = () => {
                                     fontSize: '.9em',
                                     fontWeight: '500',
                                 },
+                                minWidth: '100%'
                             }}
                         />
                     </Box>

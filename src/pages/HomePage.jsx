@@ -20,7 +20,7 @@ import Fit from "../components/FilterBlocks/Fit";
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
     const { user, setUser } = useUserData();
-    const { propsOfSearch, setPropsValue, setPropsOpen, setTypeOfSearch, activeFilter, setActiveFilter, values } = useFilters()
+    const { propsOfSearch, setPropsValue, setFieldValues, setTypeOfSearch, activeFilter, setActiveFilter, values } = useFilters()
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -132,22 +132,91 @@ const HomePage = () => {
                             >
                                 <Button
                                     onClick={() => {
-                                        if (activeFilter === 'price') {
-                                            setPropsValue('lowestPrice', values.lowestPrice);
-                                            setPropsValue('highestPrice', values.highestPrice);
-                                        } else if (activeFilter === 'sort') {
-                                        } else if (activeFilter === 'brand') {
-                                        } else if (activeFilter === 'category') {
-                                        } else if (activeFilter === 'fit') {
+                                        switch (activeFilter) {
+                                            case 'price': {
+                                                setPropsValue('lowestPrice', values.lowestPrice);
+                                                setPropsValue('highestPrice', values.highestPrice);
+                                                break;
+                                            };
+                                            case 'sort':
+                                                setPropsValue('sortType', values.sort.type);
+                                                setPropsValue('sortMode', values.sort.mode);
+                                                break;
+                                            case 'brand':
+                                                setPropsValue('brandsId', values.brandsId);
+                                                break;
+                                            case 'category':
+                                                setPropsValue('categoriesId', values.categoriesId);
+                                                break;
+                                            case 'fit':
+                                                setPropsValue('fitId', values.fitId);
+                                                break;
+                                            default:
+                                                console.log('ups');
                                         }
 
                                         setActiveFilter(null);
                                     }}
                                 >Применить</Button>
-                                <Button
-                                    onClick={() => setActiveFilter(null)}
-                                    variant="hide"
-                                >Отмена</Button>
+
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: '.5em',
+
+                                    }}
+                                >
+
+                                    <Button
+                                        sx={{
+                                            flex: 1
+                                        }}
+
+                                        onClick={() => {
+                                            switch (activeFilter) {
+                                                case 'price': {
+                                                    setPropsValue('lowestPrice', null);
+                                                    setPropsValue('highestPrice', null);
+
+                                                    setFieldValues('lowestPrice', null)
+                                                    setFieldValues('highestPrice', null)
+                                                    break;
+                                                };
+                                                case 'sort':
+                                                    setPropsValue('sortType', null);
+                                                    setPropsValue('sortMode', null);
+
+                                                    setFieldValues('sort', { type: null, mode: null })
+                                                    break;
+                                                case 'brand':
+                                                    setPropsValue('brandsId', []);
+
+                                                    setFieldValues('brandsId', [])
+                                                    break;
+                                                case 'category':
+                                                    setPropsValue('categoriesId', []);
+
+                                                    setFieldValues('categoriesId', [])
+                                                    break;
+                                                case 'fit':
+                                                    setPropsValue('fitId', null);
+                                                    setFieldValues('fitId', null)
+                                                    break;
+                                            }
+
+                                            setActiveFilter(null)
+                                        }}
+                                        variant="danger"
+                                    >Сбросить</Button>
+
+                                    <Button
+                                        sx={{
+                                            flex: 1
+                                        }}
+                                        onClick={() => setActiveFilter(null)}
+                                        variant="hide"
+                                    >Отмена</Button>
+                                </Box>
                             </Box>
 
                         </Box>
