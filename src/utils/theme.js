@@ -83,6 +83,27 @@ export const theme = createTheme({
                         backgroundColor: '#e6394610',
                     },
                 },
+                attention: {
+                    textTransform: 'none',
+                    borderRadius: '.5em',
+                    fontWeight: '600',
+                    backgroundColor: '#F3421310',
+                    color: '#F34213',
+                    '&:hover': {
+                        backgroundColor: '#F3421310',
+                    },
+                },
+                semi_attention: {
+                    textTransform: 'none',
+                    borderRadius: '0 0 1em 1em',
+                    fontWeight: '500',
+                    fontSize: '.9em',
+                    backgroundColor: '#F3421310',
+                    color: '#F34213',
+                    '&:hover': {
+                        backgroundColor: '#F3421310',
+                    },
+                },
                 contained: {
                     textTransform: 'none',
                     borderRadius: '1em',

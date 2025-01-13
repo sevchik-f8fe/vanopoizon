@@ -2,6 +2,8 @@ import { Box, Button, Typography } from "@mui/material";
 
 import { useOrders } from "./store";
 import { nanoid } from "nanoid";
+import { copyOnCLickHandle } from "../../utils/utilFuncs";
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 const OrdersPage = () => {
     const { showDone, orders } = useOrders();
@@ -27,22 +29,35 @@ const OrdersPage = () => {
 
             <FilterComponent />
 
-            {showDone ? (
-                orders
-                    .filter(elem => elem.status !== 'завершён')
-                    .map(elem => <OrderElement key={nanoid()} orderId={elem.orderId} date={elem.date} status={elem.status} title={elem.title} photoUrl={elem.photoUrl} products={elem.products} isMark={elem.isMark} deliveryType={elem.deliveryType} />)
+            {!showDone ? (
+                (orders.filter(elem => elem.status !== 'done').length > 0) ? (
+                    orders
+                        .filter(elem => elem.status !== 'done')
+                        .map(elem => <OrderElement key={nanoid()} address={elem.address} orderId={elem.orderId} date={elem.date} status={elem.status} label={elem.label} products={elem.products} isMark={elem.isMark} deliveryType={elem.deliveryType} />)
+                ) : (
+                    <Typography
+                        sx={{
+                            color: '#fff5',
+                            fontSize: '.75em',
+                            fontWeight: '600',
+                        }}
+                    >У вас нет завершенных заказов в магазине IVAN IVANOV :(</Typography>
+                )
             ) : (
-                orders
-                    .filter(elem => elem.status === 'завершён')
-                    .map(elem => <OrderElement key={nanoid()} orderId={elem.orderId} date={elem.date} status={elem.status} title={elem.title} photoUrl={elem.photoUrl} products={elem.products} isMark={elem.isMark} deliveryType={elem.deliveryType} />)
+                (orders.filter(elem => elem.status === 'done').length > 0) ? (
+                    orders
+                        .filter(elem => elem.status === 'done')
+                        .map(elem => <OrderElement key={nanoid()} address={elem.address} orderId={elem.orderId} date={elem.date} status={elem.status} label={elem.label} products={elem.products} isMark={elem.isMark} deliveryType={elem.deliveryType} />)
+                ) : (
+                    <Typography
+                        sx={{
+                            color: '#fff5',
+                            fontSize: '.75em',
+                            fontWeight: '600',
+                        }}
+                    >У вас нет активных заказов в магазине IVAN IVANOV :(</Typography>
+                )
             )}
-            {/* <Typography
-                sx={{
-                    color: '#fff5',
-                    fontSize: '.75em',
-                    fontWeight: '600',
-                }}
-            >У вас ещё нет заказов в магазине IVAN IVANOV :(</Typography> */}
         </Box>
     );
 }
@@ -63,36 +78,6 @@ const FilterComponent = () => {
                 gap: '1em',
             }}
         >
-            <Box
-                onClick={() => setShowDone(true)}
-                sx={{
-                    transition: '.3s ease',
-                    cursor: 'pointer',
-                    p: '.5em .8em',
-                    borderRadius: '.5em',
-                    ...(showDone && {
-                        backgroundColor: '#202029',
-                    }),
-                    ...(!showDone && {
-                        backgroundColor: 'transparent',
-                    }),
-                }}
-            >
-                <Typography
-                    sx={{
-                        transition: '.3s ease',
-                        fontSize: '.9em',
-                        fontWeight: '700',
-                        ...(showDone && {
-                            color: '#fff',
-                        }),
-                        ...(!showDone && {
-                            color: '#fff5',
-                        }),
-                    }}
-                >В процессе</Typography>
-            </Box>
-
             <Box
                 onClick={() => setShowDone(false)}
                 sx={{
@@ -120,20 +105,48 @@ const FilterComponent = () => {
                             color: '#fff5',
                         }),
                     }}
+                >В процессе</Typography>
+            </Box>
+
+            <Box
+                onClick={() => setShowDone(true)}
+                sx={{
+                    transition: '.3s ease',
+                    cursor: 'pointer',
+                    p: '.5em .8em',
+                    borderRadius: '.5em',
+                    ...(showDone && {
+                        backgroundColor: '#202029',
+                    }),
+                    ...(!showDone && {
+                        backgroundColor: 'transparent',
+                    }),
+                }}
+            >
+                <Typography
+                    sx={{
+                        transition: '.3s ease',
+                        fontSize: '.9em',
+                        fontWeight: '700',
+                        ...(showDone && {
+                            color: '#fff',
+                        }),
+                        ...(!showDone && {
+                            color: '#fff5',
+                        }),
+                    }}
                 >Завершённые</Typography>
             </Box>
         </Box>
     );
 }
 
-const OrderElement = ({ date, status, orderId, products, deliveryType, isMark }) => {
+const OrderElement = ({ date, status, orderId, address, products, deliveryType, isMark, label }) => {
     const statusColors = {
-        'на рассмотрении': '#ffffff',
-        'прибыл на склад в Китае': '#709ed9',
-        'прибыл на склад в Москву': '#709ed9',
-        'прибыл в ваш город': '#709ed9',
-        'готов к выдаче': '#19DB40',
-        'завершён': '#686A69',
+        'atView': '#ffffff',
+        'onWay': '#709ed9',
+        'readyForDone': '#19DB40',
+        'done': '#686A69',
     }
 
     const fullPrice = products.reduce((sum, elem) => sum + elem.price, 0)
@@ -164,21 +177,36 @@ const OrderElement = ({ date, status, orderId, products, deliveryType, isMark })
                         fontSize: '.9em',
                         fontWeight: '700',
                     }}
-                >Заказ {status}</Typography>
+                >{label}</Typography>
                 <Box
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        copyOnCLickHandle(orderId);
+                    }}
                     sx={{
-                        p: '.1em .3em',
+                        p: '.2em .4em',
                         borderRadius: '.5em',
-                        backgroundColor: `${statusColors[status]}10`
+                        backgroundColor: `${statusColors[status]}10`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '1em',
+                        justifyContent: 'space-between'
                     }}
                 >
                     <Typography
                         sx={{
-                            color: `${statusColors[status]}50`,
+                            color: `${statusColors[status]}70`,
                             fontSize: '.8em',
                             fontWeight: '600',
                         }}
                     >#{orderId}</Typography>
+
+                    <ContentCopyIcon
+                        sx={{
+                            color: `${statusColors[status]}70`,
+                            fontSize: '1em'
+                        }}
+                    />
                 </Box>
             </Box>
 
@@ -199,11 +227,11 @@ const OrderElement = ({ date, status, orderId, products, deliveryType, isMark })
                 >Заказ от {date} на сумму {fullPrice} руб.</Typography>
                 <Typography
                     sx={{
-                        color: '#fff8',
-                        fontSize: '.75em',
+                        color: '#fff',
+                        fontSize: '.8em',
                         fontWeight: '500',
                     }}
-                >Доставка {deliveryType}</Typography>
+                >Доставка {deliveryType}, {address}</Typography>
 
                 <Box
                     sx={{
@@ -228,7 +256,7 @@ const ProductElement = ({ spuId, picture, price }) => {
     return (
         <Box
             sx={{
-                border: '1px solid #fff3',
+                border: '1px solid #fff2',
                 borderRadius: '.5em'
             }}
         >
@@ -241,8 +269,8 @@ const ProductElement = ({ spuId, picture, price }) => {
                     backgroundRepeat: 'no-repeat',
                     minHeight: '6em',
                     maxHeight: '6em',
-                    minWidth: '6em',
-                    maxWidth: '6em',
+                    minWidth: '7em',
+                    maxWidth: '7em',
                 }}
             ></Box>
             <Typography

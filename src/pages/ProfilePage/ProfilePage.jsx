@@ -8,12 +8,15 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 import Grid from '@mui/material/Grid2';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import { useNotifications } from "./store";
 import shapka from "../../assets/shapka_png.png";
 import poizonLogo from "../../assets/miniman.png"
 import BlocksContainer from "../../components/BlocksContainer/BlocksContainer";
 import { useUserData } from "../../utils/store";
+import { useOrders } from "../OrdersPage/store";
+import { copyOnCLickHandle, shortTitle } from "../../utils/utilFuncs";
 
 const ProfilePage = () => {
     const navigate = useNavigate()
@@ -188,12 +191,8 @@ const ProfilePage = () => {
 }
 
 const OrdersContainer = () => {
-    const orders = [
-        { orderId: '1231242123', date: '17.03.24', status: 'на рассмотрении', title: 'Nike Air Pro' },
-        { orderId: '1231242123', date: '17.03.24', status: 'прибыл в ваш город', title: 'Nike Air Pro' },
-        { orderId: '1231242123', date: '17.03.24', status: 'готов к выдаче', title: 'Nike Air Pro' },
-        { orderId: '1231242123', date: '17.03.24', status: 'завершён', title: 'Nike Air Pro' }
-    ];
+    const navigate = useNavigate();
+    const { orders } = useOrders();
 
     return (
         <Box
@@ -202,63 +201,74 @@ const OrdersContainer = () => {
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
                 borderRadius: '.5em',
-                minWidth: '100%',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '.5em',
             }}
         >
-            <Typography
-                sx={{
-                    color: '#fff',
-                    fontSize: '1.4em',
-                    fontWeight: '900',
-                }}
-            >
-                Заказы
-            </Typography>
-
             <Box
                 sx={{
                     display: 'flex',
-                    flexDirection: 'column',
                     gap: '.5em',
+                    overflowX: 'auto',
                 }}
             >
-                {/* <Typography
-                    sx={{
-                        color: '#fff5',
-                        fontSize: '.75em',
-                        fontWeight: '600',
-                    }}
-                >У вас нет активных заказов :(</Typography> */}
-
                 {orders
-                    .map(elem => <OrderElement key={nanoid()} orderId={elem.orderId} price={elem.price} date={elem.date} status={elem.status} picture={elem.picture} title={elem.title} />)}
-            </Box>
+                    .filter(elem => elem.status !== 'done')
+                    .map(elem => <OrderElement key={nanoid()} orderId={elem.orderId} address={elem.address} status={elem.status} products={elem.products} label={elem.label} />)}
 
-            <Box>
-                <Button
+                <Box
                     onClick={() => navigate('/orders')}
-                    variant="text"
                     sx={{
-                        minWidth: '100%'
+                        backgroundColor: '#202029',
+                        borderRadius: '.5em',
+                        p: '.5em',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center'
                     }}
-                >Посмотреть все заказы</Button>
+                >
+                    <Box
+                        sx={{
+                            p: '.5em',
+                            backgroundColor: '#fff1',
+                            display: 'flex',
+                            gap: '.2em',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexDirection: 'column',
+                            whiteSpace: 'nowrap',
+                            height: '96%',
+                            borderRadius: '.5em'
+                        }}
+                    >
+                        <ArrowOutwardIcon
+                            sx={{
+                                color: '#fff',
+                                fontSize: '1.4em'
+                            }}
+                        />
+                        <Typography
+                            sx={{
+                                color: '#fff',
+                                fontSize: '.75em',
+                                fontWeight: 600
+                            }}
+                        >Все заказы</Typography>
+                    </Box>
+                </Box>
             </Box>
         </Box>
     );
 }
 
-const OrderElement = ({ orderId, price, date, status, title }) => {
+const OrderElement = ({ orderId, status, address, products, label }) => {
     const navigate = useNavigate();
     const statusColors = {
-        'на рассмотрении': '#ffffff',
-        'прибыл на склад в Китае': '#709ed9',
-        'прибыл на склад в Москву': '#709ed9',
-        'прибыл в ваш город': '#709ed9',
-        'готов к выдаче': '#19DB40',
-        'завершён': '#686A69',
+        'atView': '#ffffff',
+        'onWay': '#709ed9',
+        'readyForDone': '#19DB40',
+        'done': '#686A69',
     }
 
     return (
@@ -266,85 +276,89 @@ const OrderElement = ({ orderId, price, date, status, title }) => {
             onClick={() => navigate('/orders')}
             sx={{
                 backgroundColor: '#202029',
-                // border: '1px solid #fff',
                 borderRadius: '.5em',
+                maxWidth: '75%',
                 p: '.5em',
-                justifyContent: 'space-between',
-                flexDirection: 'column',
                 display: 'flex',
+                alignItems: 'center',
                 gap: '.5em'
             }}
         >
             <Box
                 sx={{
-                    justifyContent: 'space-between',
+                    borderRadius: '.5em',
+                    backgroundImage: `url(${products[0].photoUrl})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    minHeight: '4em',
+                    maxHeight: '4em',
+                    minWidth: '4em',
+                    maxWidth: '4em',
+                }}
+            ></Box>
+
+            <Box
+                sx={{
                     display: 'flex',
-                    gap: '1em',
-                    alignItems: 'center'
+                    gap: '.2em',
+                    flexDirection: 'column',
                 }}
             >
                 <Typography
                     sx={{
                         color: statusColors[status],
-                        fontSize: '.9em',
-                        fontWeight: '700',
+                        fontSize: '.8em',
+                        fontWeight: '900',
                     }}
-                >Заказ {status}</Typography>
+                >{label}</Typography>
+
                 <Box
                     sx={{
-                        p: '.1em .3em',
-                        borderRadius: '.5em',
-                        backgroundColor: `${statusColors[status]}10`
+                        whiteSpace: 'nowrap',
                     }}
                 >
                     <Typography
                         sx={{
-                            color: `${statusColors[status]}50`,
+                            color: '#fff',
+                            fontSize: '.8em',
+                            pr: '.5em',
+                            fontWeight: 500,
+                        }}
+                    >{shortTitle(address)}</Typography>
+                </Box>
+
+                <Box
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        copyOnCLickHandle(orderId);
+                    }}
+                    sx={{
+                        p: '.2em .4em',
+                        borderRadius: '.5em',
+                        backgroundColor: `${statusColors[status]}10`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '1em',
+                        justifyContent: 'space-between'
+                    }}
+                >
+                    <Typography
+                        sx={{
+                            color: `${statusColors[status]}70`,
                             fontSize: '.8em',
                             fontWeight: '600',
                         }}
                     >#{orderId}</Typography>
-                </Box>
-            </Box>
 
-            <Box
-                sx={{
-                    display: 'flex',
-                    gap: '.5em',
-                    justifyContent: 'space-between',
-                    alignItems: 'end'
-                }}
-            >
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
-                    <Typography
+                    <ContentCopyIcon
                         sx={{
-                            color: `${statusColors[status]}80`,
-                            fontSize: '1.2em',
-                            fontWeight: '900',
+                            color: `${statusColors[status]}70`,
+                            fontSize: '1em'
                         }}
-                    >{title}</Typography>
+                    />
                 </Box>
-
-                <Typography
-                    sx={{
-                        color: `${statusColors[status]}60`,
-                        fontSize: '.8em',
-                        fontWeight: '600',
-                    }}
-                >{date}</Typography>
             </Box>
-
-            {status == 'завершён' && (
-                <Button
-                    variant="contained"
-                    size="small"
-                >Оставить отзыв</Button>
-            )}
         </Box>
     );
 }
@@ -356,7 +370,6 @@ const NotificationsContainer = () => {
         <Box
             sx={{
                 zIndex: '100',
-
                 backgroundColor: '#2E2E3A',
                 p: '.5em',
                 borderRadius: '.5em',

@@ -49,9 +49,6 @@ export const showMainBtn = (textBtn) => {
 
 export const copyOnCLickHandle = (text) => {
     text && navigator.clipboard.writeText(text)
-        .then(() => {
-            console.log('!!!')
-        })
         .catch(err => {
             console.log(':((((', err)
         })
