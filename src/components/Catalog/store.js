@@ -29,9 +29,8 @@ export const useFilters = create((set) => ({
         'highestPrice': { isOpen: false, value: null },
         'sortType': { isOpen: false, value: null },
         'sortMode': { isOpen: false, value: null },
-        'categoriesId': { isOpen: false, value: [] },
-        'frontCategoryId': { isOpen: false, value: [] },
-        'brandsId': { isOpen: false, value: [] },
+        'categoryId': { isOpen: false, value: [] },
+        'brandId': { isOpen: false, value: [] },
         'fitId': { isOpen: false, value: null },
     },
     searchValue: '',
@@ -39,7 +38,6 @@ export const useFilters = create((set) => ({
         'lowestPrice': null,
         'highestPrice': null,
         'categoriesId': [],
-        'frontCategoryId': [],
         'brandsId': [],
         'fitId': null,
         'sort': { type: null, mode: null },
@@ -52,6 +50,12 @@ export const useFilters = create((set) => ({
     setFieldValues: (field, value) => set(state => {
         console.log('setFieldValues: ', field, ' ', value);
         return { values: { ...state.values, [field]: value } }
+    }),
+    removeFieldValues: (field, value) => set(state => {
+        console.log('removeFieldValues: ', field, ' ', value);
+        const newArray = state.values[field].filter(elem => elem !== value);
+
+        return { values: { ...state.values, [field]: newArray } }
     }),
     setActiveFilter: (value) => set(() => {
         return { activeFilter: value }

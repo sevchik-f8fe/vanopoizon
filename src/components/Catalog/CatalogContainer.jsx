@@ -16,6 +16,7 @@ import CatalogElement from "./CatalogElement";
 import { useCatalog } from "./store";
 import { useFilters } from "./store";
 import { shortTitle, toNormalPrice, toRub, objectToQueryString } from "../../utils/utilFuncs";
+import { useSearchField } from "../SearchField/store";
 
 const CatalogContainer = () => {
     const theme = useTheme();
@@ -40,6 +41,8 @@ const CatalogContainer = () => {
 }
 
 const CatalogHeader = () => {
+    const { fieldValue } = useSearchField();
+
     return (
         <Box
             sx={{
@@ -49,7 +52,7 @@ const CatalogHeader = () => {
             }}
         >
             <SearchField />
-            <FilterContainer />
+            {fieldValue.length > 0 && <FilterContainer />}
         </Box>
     );
 }
@@ -104,17 +107,18 @@ const CatalogContent = () => {
     const { products, page, setNextPage, setMoreProducts, hasMore, setHasMore } = useCatalog();
     const { propsOfSearch, typeOfSearch } = useFilters();
 
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
     useEffect(() => {
         const fetchProducts = async () => {
+            setHasMore(true);
+
             axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProducts', { page }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
                 .then(response => {
+                    console.log('ok default: ', response.data.products);
+
                     if (response?.data?.products.length <= 0) setHasMore(false);
                     else setMoreProducts(response?.data?.products);
                 })
@@ -124,12 +128,17 @@ const CatalogContent = () => {
         }
 
         const fetchFilteredProducts = async () => {
+            console.log('start filter: ', objectToQueryString(propsOfSearch));
+            setHasMore(true);
+
             axios.post('https://vanopoizonserver.ru/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
                 .then(response => {
+                    console.log('ok filter: ', objectToQueryString(propsOfSearch), response.data.products);
+
                     if (response?.data?.products.length <= 0) setHasMore(false);
                     else setMoreProducts(response?.data?.products);
                 })

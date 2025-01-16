@@ -1,40 +1,63 @@
 import { useEffect } from "react";
-import { Box, TextField, InputAdornment, IconButton, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { Box, TextField, InputAdornment, IconButton, FormControlLabel, Checkbox } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
+import axios from "axios";
+import _ from "lodash";
 
 import { useFilters } from "../Catalog/store";
+import { useBrands } from "./store";
+import { nanoid } from "nanoid";
 
 const Brand = () => {
-    const { values, searchValue, setSearchValue, setFieldValues, propsOfSearch } = useFilters();
+    const { data, setData, currentPage, isLoading, hasMore, setIsLoading, setHasMore, setCurrentPage } = useBrands();
+    const { values, searchValue, setSearchValue, setFieldValues, removeFieldValues, propsOfSearch } = useFilters();
 
     useEffect(() => {
         setSearchValue('');
-        setFieldValues('brandsId', propsOfSearch?.brandsId?.value);
-    }, []);
+        setFieldValues('brandsId', propsOfSearch?.brandId?.value);
+    }, [])
 
-    const brandList = [
-        { label: 'Nike', value: '1' },
-        { label: 'Puma', value: '2' },
-        { label: 'Adidas', value: '3' },
-        { label: 'Times&Jump', value: '4' },
-        { label: 'Grib', value: '15' },
-        { label: 'Nike', value: '11' },
-        { label: 'Puma', value: '12' },
-        { label: 'Adidas', value: '13' },
-        { label: 'Times&Jump', value: '14' },
-        { label: 'Grib', value: '25' },
-        { label: 'Nike', value: '21' },
-        { label: 'Puma', value: '22' },
-        { label: 'Adidas', value: '23' },
-        { label: 'Times&Jump', value: '24' },
-        { label: 'Grib', value: '35' },
-        { label: 'Nike', value: '31' },
-        { label: 'Puma', value: '32' },
-        { label: 'Adidas', value: '33' },
-        { label: 'Times&Jump', value: '34' },
-        { label: 'Grib', value: '35' },
-    ];
+    useEffect(() => {
+        const getBrandList = async () => {
+            setIsLoading(true);
+            setHasMore(true);
+
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/api/getBrands', { page: currentPage },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    if (response.data.brands.data.length == 0) {
+                        setHasMore(false);
+                    } else {
+                        setData(response.data.brands.data);
+                    }
+                })
+                .catch(error => console.error('Ошибка: ', error))
+                .finally(() => setIsLoading(false))
+        };
+
+        getBrandList();
+    }, [currentPage])
+
+    useEffect(() => {
+        const debouncedCheckAndFetchMore = _.debounce(async () => {
+            const filteredData = filterListHandle(data, searchValue);
+
+            if (filteredData.length === 0 && hasMore && !isLoading) {
+                setCurrentPage(currentPage + 1);
+            }
+        }, 250);
+
+        if (data.length > 0) debouncedCheckAndFetchMore();
+    }, [searchValue, isLoading, hasMore]);
+
+    const filterListHandle = (array, searchTerm) => {
+        return array?.filter(item => item?.name?.toLowerCase().includes(searchTerm?.toLowerCase()));
+    }
 
     return (
         <Box
@@ -60,9 +83,7 @@ const Brand = () => {
                             <InputAdornment position="end">
                                 <IconButton
                                     onClick={() => {
-                                        setIsTyping(false);
-                                        setMiniProductList([]);
-                                        setFieldValue('');
+                                        setSearchValue('');
                                     }}
                                     size="small"
                                     sx={{
@@ -106,8 +127,8 @@ const Brand = () => {
                     flexDirection: 'column',
                 }}
             >
-                {brandList
-                    .filter(elem => elem.label.toLowerCase().includes(searchValue.toLowerCase()))
+                {filterListHandle(data, searchValue)
+                    .filter((elem, id) => id < 40)
                     .map(elem => (
                         <FormControlLabel
                             labelPlacement="start"
@@ -120,13 +141,18 @@ const Brand = () => {
                                     fontWeight: '500',
                                 },
                             }}
+                            key={nanoid()}
                             control={<Checkbox
-                                checked={values?.brandsId?.some(brandId => brandId === elem.value)}
+                                checked={values?.brandsId?.some(brandId => brandId === elem.id)}
                                 onChange={() => {
-                                    setFieldValues('brandsId', [...values?.brandsId, elem.value])
+                                    if (!values?.brandsId?.some(brandId => brandId === elem.id)) {
+                                        setFieldValues('brandsId', [...values?.brandsId, elem.id])
+                                    } else {
+                                        removeFieldValues('brandsId', elem.id)
+                                    }
                                 }}
                             />}
-                            label={elem.label}
+                            label={elem.name}
                         />
                     ))}
             </Box>

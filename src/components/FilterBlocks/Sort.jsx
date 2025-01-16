@@ -1,6 +1,7 @@
 import { Box, Typography, Radio, RadioGroup, FormControl, FormControlLabel } from "@mui/material";
 import { useEffect } from "react";
 import { useFilters } from "../Catalog/store";
+import { nanoid } from "nanoid";
 
 const Sort = () => {
     const { values, setFieldValues, propsOfSearch } = useFilters();
@@ -45,6 +46,7 @@ const Sort = () => {
             >
                 {sortList.map(elem => (
                     <Box
+                        key={nanoid()}
                         sx={{
                             ':not(:last-child)': {
                                 borderBottom: '1px solid #fff3'

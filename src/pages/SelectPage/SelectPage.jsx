@@ -30,8 +30,7 @@ const SelectPage = () => {
                     if (response.data.cities.length == 0) {
                         setHasMore(false);
                     } else {
-                        const uniqueSet = new Set([...data, ...response.data.cities]);
-                        setData([...uniqueSet])
+                        setData(response.data.cities)
                     }
                 })
                 .catch(error => console.error('Ошибка: ', error))

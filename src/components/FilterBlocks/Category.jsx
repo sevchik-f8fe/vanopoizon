@@ -3,38 +3,38 @@ import { Box, TextField, InputAdornment, IconButton, FormGroup, FormControlLabel
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFilters } from "../Catalog/store";
+import { useCategories } from "./store";
+import axios from "axios";
+import { nanoid } from "nanoid";
 
 const Caterogy = () => {
-    const { values, searchValue, setSearchValue, setFieldValues, propsOfSearch } = useFilters();
+
+    const { values, searchValue, setSearchValue, setFieldValues, removeFieldValues, propsOfSearch } = useFilters();
+    const { data, isLoading, setData, setIsLoading } = useCategories();
 
     useEffect(() => {
+        const fetchCategories = async () => {
+            setIsLoading(true);
+
+            await axios.get('https://vanopoizonserver.ru/vanopoizon/api/getCategories',
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    setData(response.data.categories);
+                })
+                .catch(error => console.error('Ошибка: ', error))
+                .finally(() => setIsLoading(false))
+        }
+
+        if (data.length === 0) fetchCategories();
+
         setSearchValue('');
-        setFieldValues('categoriesId', propsOfSearch?.categoriesId?.value);
+        setFieldValues('categoriesId', propsOfSearch?.categoryId?.value);
     }, []);
 
-
-    const brandList = [
-        { label: 'Nike', value: '1' },
-        { label: 'Puma', value: '2' },
-        { label: 'Adidas', value: '3' },
-        { label: 'Times&Jump', value: '4' },
-        { label: 'Grib', value: '15' },
-        { label: 'Nike', value: '11' },
-        { label: 'Puma', value: '12' },
-        { label: 'Adidas', value: '13' },
-        { label: 'Times&Jump', value: '14' },
-        { label: 'Grib', value: '25' },
-        { label: 'Nike', value: '21' },
-        { label: 'Puma', value: '22' },
-        { label: 'Adidas', value: '23' },
-        { label: 'Times&Jump', value: '24' },
-        { label: 'Grib', value: '35' },
-        { label: 'Nike', value: '31' },
-        { label: 'Puma', value: '32' },
-        { label: 'Adidas', value: '33' },
-        { label: 'Times&Jump', value: '34' },
-        { label: 'Grib', value: '35' },
-    ];
 
     return (
         <Box
@@ -60,9 +60,7 @@ const Caterogy = () => {
                             <InputAdornment position="end">
                                 <IconButton
                                     onClick={() => {
-                                        setIsTyping(false);
-                                        setMiniProductList([]);
-                                        setFieldValue('');
+                                        setSearchValue('');
                                     }}
                                     size="small"
                                     sx={{
@@ -103,8 +101,9 @@ const Caterogy = () => {
                     flexDirection: 'column',
                 }}
             >
-                {brandList
-                    .filter(elem => elem.label.toLowerCase().includes(searchValue.toLowerCase()))
+                {data
+                    .filter(elem => elem.name.toLowerCase().includes(searchValue.toLowerCase()))
+                    .filter((elem, id) => id < 50)
                     .map(elem => (
                         <FormControlLabel
                             labelPlacement="start"
@@ -117,13 +116,18 @@ const Caterogy = () => {
                                     fontWeight: '500',
                                 },
                             }}
+                            key={nanoid()}
                             control={<Checkbox
-                                checked={values?.categoriesId?.some(categorieId => categorieId === elem.value)}
+                                checked={values?.categoriesId?.some(categorieId => categorieId === elem.id)}
                                 onChange={() => {
-                                    setFieldValues('categoriesId', [...values?.categoriesId, elem.value])
+                                    if (!values?.categoriesId?.some(categorieId => categorieId === elem.id)) {
+                                        setFieldValues('categoriesId', [...values?.categoriesId, elem.id])
+                                    } else {
+                                        removeFieldValues('categoriesId', elem.id)
+                                    }
                                 }}
                             />}
-                            label={elem.label}
+                            label={elem.name}
                         />
                     ))}
             </Box>

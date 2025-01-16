@@ -10,11 +10,12 @@ import _ from "lodash";
 
 import { shortTitle } from "../../utils/utilFuncs";
 import { useSearchField } from "./store";
-import { useCatalog } from "../Catalog/store";
+import { useCatalog, useFilters } from "../Catalog/store";
 
 const SearchField = () => {
     const { fieldValue, setFieldValue, isTyping, setIsTyping, setMiniProductList } = useSearchField();
-    const { setPropsOfSearch, setProducts, setPage, typeOfSearch, setTypeOfSearch } = useCatalog();
+    const { setProducts, setPage } = useCatalog();
+    const { typeOfSearch, setPropsValue, setTypeOfSearch } = useFilters();
 
     const fetchMiniList = useCallback(_.debounce(async () => {
         setMiniProductList([]);
@@ -92,7 +93,7 @@ const SearchField = () => {
                                     <IconButton
                                         onClick={() => {
                                             if (fieldValue.length > 0) {
-                                                setPropsOfSearch('keyword', fieldValue);
+                                                setPropsValue('keyword', fieldValue);
                                                 setTypeOfSearch('filtered');
                                                 setProducts([]);
                                                 setPage(1);
@@ -102,7 +103,7 @@ const SearchField = () => {
                                                     setPage(1);
                                                     setTypeOfSearch('default');
                                                 }
-                                                setPropsOfSearch('keyword', null);
+                                                setPropsValue('keyword', null);
                                             }
                                             setIsTyping(false);
                                             setMiniProductList([]);

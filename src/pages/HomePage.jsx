@@ -10,7 +10,7 @@ import CatalogContainer from "../components/Catalog/CatalogContainer";
 import BottomBoard from "../components/BottomBoard";
 import axios from "axios";
 import { useUserData } from "../utils/store";
-import { useFilters } from "../components/Catalog/store";
+import { useCatalog, useFilters } from "../components/Catalog/store";
 import Price from "../components/FilterBlocks/Price";
 import Sort from "../components/FilterBlocks/Sort";
 import Brand from "../components/FilterBlocks/Brand";
@@ -21,9 +21,11 @@ const HomePage = () => {
     let tg = window.Telegram.WebApp;
     const { user, setUser } = useUserData();
     const { propsOfSearch, setPropsValue, setFieldValues, setTypeOfSearch, activeFilter, setActiveFilter, values } = useFilters()
+    const { setPage, setProducts } = useCatalog();
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+
 
     useEffect(() => {
         tg.ready();
@@ -143,10 +145,10 @@ const HomePage = () => {
                                                 setPropsValue('sortMode', values.sort.mode);
                                                 break;
                                             case 'brand':
-                                                setPropsValue('brandsId', values.brandsId);
+                                                setPropsValue('brandId', values.brandsId);
                                                 break;
                                             case 'category':
-                                                setPropsValue('categoriesId', values.categoriesId);
+                                                setPropsValue('categoryId', values.categoriesId);
                                                 break;
                                             case 'fit':
                                                 setPropsValue('fitId', values.fitId);
@@ -155,6 +157,8 @@ const HomePage = () => {
                                                 console.log('ups');
                                         }
 
+                                        setProducts([]);
+                                        setPage(1);
                                         setActiveFilter(null);
                                     }}
                                 >Применить</Button>
@@ -189,12 +193,12 @@ const HomePage = () => {
                                                     setFieldValues('sort', { type: null, mode: null })
                                                     break;
                                                 case 'brand':
-                                                    setPropsValue('brandsId', []);
+                                                    setPropsValue('brandId', []);
 
                                                     setFieldValues('brandsId', [])
                                                     break;
                                                 case 'category':
-                                                    setPropsValue('categoriesId', []);
+                                                    setPropsValue('categoryId', []);
 
                                                     setFieldValues('categoriesId', [])
                                                     break;
@@ -204,7 +208,9 @@ const HomePage = () => {
                                                     break;
                                             }
 
-                                            setActiveFilter(null)
+                                            setActiveFilter(null);
+                                            setProducts([]);
+                                            setPage(1);
                                         }}
                                         variant="danger"
                                     >Сбросить</Button>
