@@ -97,6 +97,20 @@ export const objectToQueryString = (obj) => {
             value.value.forEach(item => {
                 params.push(`${encodeURIComponent(key)}=${encodeURIComponent(item)}`);
             });
+        } else if (typeof value.value == 'string') {
+            if (value.value.length > 0) {
+                let encodedString = '';
+
+                for (let char of value.value) {
+                    if (char === ' ') {
+                        encodedString += '+';
+                    } else {
+                        encodedString += encodeURIComponent(char);
+                    }
+                }
+
+                params.push(`${encodeURIComponent(key)}=${encodedString}`);
+            }
         } else {
             params.push(`${encodeURIComponent(key)}=${encodeURIComponent(value.value)}`);
         }

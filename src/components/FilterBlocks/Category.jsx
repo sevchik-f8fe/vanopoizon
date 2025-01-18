@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Box, TextField, InputAdornment, IconButton, FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { Box, TextField, InputAdornment, IconButton, Skeleton, FormControlLabel, Checkbox } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFilters } from "../Catalog/store";
@@ -101,7 +101,7 @@ const Caterogy = () => {
                     flexDirection: 'column',
                 }}
             >
-                {data
+                {(!isLoading && (data.length > 0)) ? (data
                     .filter(elem => elem.name.toLowerCase().includes(searchValue.toLowerCase()))
                     .filter((elem, id) => id < 50)
                     .map(elem => (
@@ -129,7 +129,23 @@ const Caterogy = () => {
                             />}
                             label={elem.name}
                         />
-                    ))}
+                    ))) : (
+                    [1, 2, 9, 1, 2, 3, 34, 4, 5, 5, 6, 7].map((elem) => (
+                        <Box
+                            key={nanoid()}
+                            sx={{
+                                mb: '.5em'
+                            }}
+                        >
+                            <Skeleton
+                                animation="wave"
+                                variant="rectangular"
+                                width='100%'
+                                height='2em'
+                            />
+                        </Box>
+                    ))
+                )}
             </Box>
         </Box>
     );

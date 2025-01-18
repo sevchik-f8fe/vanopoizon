@@ -5,18 +5,23 @@ export const useCatalog = create((set) => ({
     page: 1,
     hasMore: true,
     setNextPage: () => set(state => {
+        console.log('set next page: ', state.page + 1);
         return { page: state.page + 1 }
     }),
-    setPage: (value) => set(state => {
+    setPage: (value) => set(() => {
+        console.log('set page: ', value);
         return { page: value }
     }),
-    setHasMore: (value) => set(state => {
+    setHasMore: (value) => set(() => {
+        console.log('hasmore: ', value);
         return { hasMore: value }
     }),
-    setProducts: (data) => set(state => {
+    setProducts: (data) => set(() => {
+        console.log('set products: ', data);
         return { products: data }
     }),
     setMoreProducts: (data) => set(state => {
+        console.log('set more products: ', data);
         return { products: [...state.products, ...data] }
     }),
 }));
@@ -24,9 +29,9 @@ export const useCatalog = create((set) => ({
 export const useFilters = create((set) => ({
     activeFilter: null,
     propsOfSearch: {
-        'keyword': { isOpen: true, value: null },
-        'lowestPrice': { isOpen: false, value: null },
-        'highestPrice': { isOpen: false, value: null },
+        'keyword': { isOpen: true, value: '' },
+        'lowestPrice': { isOpen: false, value: '' },
+        'highestPrice': { isOpen: false, value: '' },
         'sortType': { isOpen: false, value: null },
         'sortMode': { isOpen: false, value: null },
         'categoryId': { isOpen: false, value: [] },
@@ -35,8 +40,8 @@ export const useFilters = create((set) => ({
     },
     searchValue: '',
     values: {
-        'lowestPrice': null,
-        'highestPrice': null,
+        'lowestPrice': '',
+        'highestPrice': '',
         'categoriesId': [],
         'brandsId': [],
         'fitId': null,

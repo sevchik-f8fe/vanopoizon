@@ -41,7 +41,7 @@ const CatalogContainer = () => {
 }
 
 const CatalogHeader = () => {
-    const { fieldValue } = useSearchField();
+    const { typeOfSearch } = useFilters();
 
     return (
         <Box
@@ -49,10 +49,11 @@ const CatalogHeader = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
+                // mb: '.5em'
             }}
         >
             <SearchField />
-            {fieldValue.length > 0 && <FilterContainer />}
+            {typeOfSearch === 'filtered' && <FilterContainer />}
         </Box>
     );
 }
@@ -73,7 +74,8 @@ const FilterContainer = () => {
                 flexWrap: 'no-wrap',
                 overflowX: 'auto',
                 gap: '.5em',
-                alignItems: 'center'
+                mb: '.5em',
+                alignItems: 'center',
             }}
         >
             {filterItems.map((elem) => <FilterElement Icon={elem?.icon} title={elem.title} type={elem.type} key={nanoid()} />)}
@@ -82,16 +84,40 @@ const FilterContainer = () => {
 }
 
 const FilterElement = ({ Icon, title, type }) => {
-    const { activeFilter, setActiveFilter } = useFilters();
+    const { propsOfSearch, setActiveFilter } = useFilters();
+
+    const isUse = (type) => {
+        switch (type) {
+            case 'price': return propsOfSearch.lowestPrice.value !== '' || propsOfSearch.highestPrice.value !== '';
+            case 'sort': return propsOfSearch.sortType.value !== null || propsOfSearch.sortMode.value !== null;
+            case 'brand': return propsOfSearch.brandId.value.length > 0;
+            case 'category': return propsOfSearch.categoryId.value.length > 0;
+            case 'fit': return propsOfSearch.fitId.value !== null;
+            default: console.log('ups');
+        }
+    }
 
     return (
         <IconButton
             onClick={() => setActiveFilter(type)}
             size="small"
             sx={{
-                backgroundColor: '#2E2E3A',
                 borderRadius: '.5em',
+                backgroundColor: '#2E2E3A',
+                position: 'relative',
                 p: '.4em .6em',
+                ...(isUse(type) && {
+                    '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        right: 0,
+                        width: '.5em',
+                        height: '.5em',
+                        backgroundColor: 'white',
+                        borderRadius: '50%',
+                    },
+                }),
             }}
         >
             {Icon ? (
@@ -108,9 +134,12 @@ const CatalogContent = () => {
     const { propsOfSearch, typeOfSearch } = useFilters();
 
     useEffect(() => {
-        const fetchProducts = async () => {
-            setHasMore(true);
+        function addProducts(response) {
+            if (response?.data?.products.length <= 0) setHasMore(false);
+            else setMoreProducts(response?.data?.products);
+        }
 
+        const fetchProducts = async () => {
             axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProducts', { page }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,19 +147,15 @@ const CatalogContent = () => {
             })
                 .then(response => {
                     console.log('ok default: ', response.data.products);
-
-                    if (response?.data?.products.length <= 0) setHasMore(false);
-                    else setMoreProducts(response?.data?.products);
+                    addProducts(response);
                 })
                 .catch(error => {
-                    console.log('Ошибка: ', error.response ? error.response.data : error.message)
+                    console.log('Ошибка: ', error)
                 })
         }
 
         const fetchFilteredProducts = async () => {
             console.log('start filter: ', objectToQueryString(propsOfSearch));
-            setHasMore(true);
-
             axios.post('https://vanopoizonserver.ru/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -138,14 +163,14 @@ const CatalogContent = () => {
             })
                 .then(response => {
                     console.log('ok filter: ', objectToQueryString(propsOfSearch), response.data.products);
-
-                    if (response?.data?.products.length <= 0) setHasMore(false);
-                    else setMoreProducts(response?.data?.products);
+                    addProducts(response);
                 })
                 .catch(error => {
                     console.error('Ошибка: ', error)
                 })
         }
+
+        setHasMore(true);
 
         if (typeOfSearch == 'filtered') {
             fetchFilteredProducts();
@@ -201,10 +226,9 @@ const LoadingComponent = () => {
                 display: 'flex',
                 flexWrap: 'wrap',
                 gap: '.5em',
-                pt: '.5em',
             }}
         >
-            <Grid container spacing={2} sx={{ minWidth: '100%' }}>
+            <Grid container spacing={1} sx={{ minWidth: '100%' }}>
                 {[1, 2].map((elem) => <FreakElement key={nanoid()} />)}
             </Grid>
         </Box>

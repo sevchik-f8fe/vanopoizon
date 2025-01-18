@@ -179,11 +179,11 @@ const HomePage = () => {
                                         onClick={() => {
                                             switch (activeFilter) {
                                                 case 'price': {
-                                                    setPropsValue('lowestPrice', null);
-                                                    setPropsValue('highestPrice', null);
+                                                    setPropsValue('lowestPrice', '');
+                                                    setPropsValue('highestPrice', '');
 
-                                                    setFieldValues('lowestPrice', null)
-                                                    setFieldValues('highestPrice', null)
+                                                    setFieldValues('lowestPrice', '')
+                                                    setFieldValues('highestPrice', '')
                                                     break;
                                                 };
                                                 case 'sort':

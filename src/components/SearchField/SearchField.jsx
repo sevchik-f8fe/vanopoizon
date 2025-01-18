@@ -103,7 +103,7 @@ const SearchField = () => {
                                                     setPage(1);
                                                     setTypeOfSearch('default');
                                                 }
-                                                setPropsValue('keyword', null);
+                                                setPropsValue('keyword', '');
                                             }
                                             setIsTyping(false);
                                             setMiniProductList([]);

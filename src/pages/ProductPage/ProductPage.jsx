@@ -1,4 +1,4 @@
-import { Box, Typography, IconButton, Skeleton, Button, Link, Switch, Collapse, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Box, Typography, IconButton, Skeleton, Button, Link, Switch, Collapse, List, ListItemButton, ListItemText } from "@mui/material";
 import { nanoid } from "nanoid";
 import Slider from "react-slick";
 import { shareURL } from '@telegram-apps/sdk';
