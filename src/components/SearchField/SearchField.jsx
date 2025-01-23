@@ -253,13 +253,7 @@ const MiniListComponent = ({ spuId, title, img }) => {
                     }}
                 ></Box>
 
-                <Typography
-                    sx={{
-                        pt: '.5em',
-                        color: '#fff',
-                        fontWeight: '600',
-                        fontSize: '1em'
-                    }}
+                <Typography variant="h5" sx={{ pt: '.5em' }}
                 >{title}</Typography>
             </Box>
 

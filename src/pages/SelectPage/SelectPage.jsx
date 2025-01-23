@@ -118,13 +118,7 @@ const SelectPage = () => {
                                 backgroundColor: '#2E2E3A80',
                             }}
                         >
-                            <Typography
-                                sx={{
-                                    fontWeight: 500,
-                                    fontSize: '1em',
-                                    color: '#fff'
-                                }}
-                            >Город не найден ;(</Typography>
+                            <Typography variant="caption">Город не найден ;(</Typography>
                         </Box>
                     )}
                 </>
@@ -169,13 +163,7 @@ const SelectElement = ({ text, onSelect, code, subText, coords }) => {
                 backgroundColor: '#2E2E3A80',
             }}
         >
-            <Typography
-                sx={{
-                    fontWeight: 500,
-                    fontSize: '1em',
-                    color: '#fff'
-                }}
-            >{subText} {text}</Typography>
+            <Typography variant="caption">{subText} {text}</Typography>
         </Box>
     );
 }

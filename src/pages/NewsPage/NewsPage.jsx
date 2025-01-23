@@ -21,14 +21,8 @@ const NewsPage = () => {
                 gap: '1em',
             }}
         >
-            <Typography
-                sx={{
-                    fontSize: '2em',
-                    color: '#fff',
-                    p: '0em .5em',
-                    fontWeight: '900'
-                }}
-            >Последние <br /> <span style={{ color: '#F34213' }}>Новости</span></Typography>
+            <Typography variant="h1" sx={{ p: '0em .5em' }}>
+                Последние <br /> <span style={{ color: '#F34213' }}>Новости</span></Typography>
 
             <ArcticleContainer />
             <ContestContainer />

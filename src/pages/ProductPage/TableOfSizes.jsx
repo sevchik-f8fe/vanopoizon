@@ -47,16 +47,7 @@ const TableOfSizes = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography
-                    sx={{
-                        p: '.5em',
-                        fontSize: '1.5em',
-                        color: '#ffffff',
-                        fontWeight: '900',
-                    }}
-                >
-                    Таблица размеров
-                </Typography>
+                <Typography variant="h2" sx={{ p: '.5em' }}>Таблица размеров</Typography>
             </Box>
 
             <TableContainer

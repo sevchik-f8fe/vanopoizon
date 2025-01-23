@@ -45,13 +45,7 @@ const SetCalcLink = () => {
                     fontSize: '.9em',
                 }}
             />
-            <Typography
-                sx={{
-                    p: '0 .5em',
-                    color: '#ffffff50',
-                    fontSize: '.75em'
-                }}
-            >
+            <Typography variant="subtitle2" sx={{ p: '0 .5em' }}>
                 Нажмите на товаре в Poizon кнопку "поделиться". Скопируйте ссылку и вставьте сюда. <Link sx={{ color: '#709ed9', textDecoration: 'none', cursor: 'pointer' }} onClick={() => { tg.openLink('http://www.smoltra.ru/klasific-tractora') }}>А как это сделать</Link>
             </Typography>
             <Box

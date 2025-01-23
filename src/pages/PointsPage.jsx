@@ -96,14 +96,7 @@ const DescriptionContainer = () => {
                 backgroundColor: '#2E2E3A',
             }}
         >
-            <Typography
-                sx={{
-                    fontWeight: '500',
-                    color: '#fff',
-                    fontSize: '.9em',
-                    mb: '1em',
-                }}
-            >
+            <Typography variant="caption" sx={{ mb: '1em' }}>
                 Дальше ты будешь получать
                 <span style={{ color: '#F34213' }}> +50 баллов</span> за каждый завершенный заказ. Подробная информация в <Link
                     sx={{
@@ -117,7 +110,6 @@ const DescriptionContainer = () => {
             <Typography
                 sx={{
                     fontWeight: '500',
-                    color: '#fff',
                     fontSize: '.9em'
                 }}
             >
@@ -136,14 +128,7 @@ const HistoryContainer = () => {
                 backgroundColor: '#2E2E3A',
             }}
         >
-            <Typography
-                sx={{
-                    color: '#fff',
-                    fontSize: '1.2em',
-                    fontWeight: '700',
-                    mb: '.5em',
-                }}
-            >История баллов</Typography>
+            <Typography variant="h4" sx={{ mb: '.5em' }}>История баллов</Typography>
 
             <Box
                 sx={{

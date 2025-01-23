@@ -12,14 +12,7 @@ const Price = () => {
 
     return (
         <Box>
-            <Typography
-                sx={{
-                    fontSize: '.8em',
-                    color: '#fff',
-                    fontWeight: '500',
-                    mb: '.5em'
-                }}
-            >Цена</Typography>
+            <Typography variant="body1" sx={{ mb: '.5em' }}>Цена</Typography>
 
             <Box
                 sx={{
@@ -34,7 +27,7 @@ const Price = () => {
                         input: {
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <Typography sx={{ color: '#ffffff50', fontSize: '.8em' }} >от</Typography>
+                                    <Typography variant="body2">от</Typography>
                                 </InputAdornment>
                             ),
                         },
@@ -52,7 +45,7 @@ const Price = () => {
                         input: {
                             startAdornment: (
                                 <InputAdornment position="start">
-                                    <Typography sx={{ color: '#ffffff50', fontSize: '.8em' }} >до</Typography>
+                                    <Typography variant="body2">до</Typography>
                                 </InputAdornment>
                             ),
                         },

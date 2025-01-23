@@ -123,7 +123,7 @@ const FilterElement = ({ Icon, title, type }) => {
             {Icon ? (
                 <Icon sx={{ color: '#fff', fontSize: '1.1em' }} />
             ) : (
-                <Typography sx={{ color: '#fff', fontSize: '.8em', fontWeight: '500' }}>{title}</Typography>
+                <Typography variant="body1">{title}</Typography>
             )}
         </IconButton>
     );
@@ -186,6 +186,7 @@ const CatalogContent = () => {
                 next={() => setNextPage()}
                 hasMore={hasMore}
                 loader={<LoadingComponent />}
+                //! CHANGE
                 endMessage={
                     <Box
                         sx={{

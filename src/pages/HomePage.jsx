@@ -110,13 +110,7 @@ const HomePage = () => {
 
                                 }}
                             >
-                                <Typography
-                                    sx={{
-                                        fontSize: '.9em',
-                                        color: '#fff',
-                                        fontWeight: '600',
-                                    }}
-                                >Фильтры</Typography>
+                                <Typography variant="caption">Фильтры</Typography>
                             </Box>
 
                             {activeFilter === 'price' && <Price />}
@@ -277,13 +271,7 @@ const CalculateBlock = () => {
                         fontSize: '4em'
                     }}
                 />
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '1em',
-                        fontWeight: '700'
-                    }}
-                >Рассчитать стоимость товара из Poizon</Typography>
+                <Typography variant="h5">Рассчитать стоимость товара из Poizon</Typography>
                 <ArrowOutwardIcon
                     sx={{
                         color: '#fff',

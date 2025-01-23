@@ -21,14 +21,7 @@ const Sort = () => {
 
     return (
         <>
-            <Typography
-                sx={{
-                    fontSize: '.8em',
-                    color: '#fff',
-                    fontWeight: '500',
-                    mb: '.5em'
-                }}
-            >Показать сначала</Typography>
+            <Typography variant="body1">Показать сначала</Typography>
 
             <RadioGroup
                 sx={{

@@ -80,14 +80,7 @@ const ProfilePage = () => {
                                     }}
                                     src={user_photo}
                                 />
-                                <Typography
-                                    sx={{
-                                        color: '#fff',
-                                        fontSize: '1.8em',
-                                        zIndex: '100',
-                                        fontWeight: '900',
-                                    }}
-                                >
+                                <Typography variant="h2" sx={{ zIndex: '100' }}>
                                     {user_firstName} {user_secondName}
                                 </Typography>
 
@@ -136,7 +129,6 @@ const ProfilePage = () => {
                                     />
                                     <Typography
                                         sx={{
-                                            color: '#fff',
                                             fontSize: '1.5em',
                                             zIndex: '100',
                                             fontWeight: '900',
@@ -250,7 +242,6 @@ const OrdersContainer = () => {
                         />
                         <Typography
                             sx={{
-                                color: '#fff',
                                 fontSize: '.75em',
                                 fontWeight: 600
                             }}
@@ -277,7 +268,8 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
             sx={{
                 backgroundColor: '#202029',
                 borderRadius: '.5em',
-                maxWidth: '75%',
+                maxWidth: '16em',
+                minWidth: '16em',
                 p: '.5em',
                 display: 'flex',
                 alignItems: 'center',
@@ -318,14 +310,7 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
                         whiteSpace: 'nowrap',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '.8em',
-                            pr: '.5em',
-                            fontWeight: 500,
-                        }}
-                    >{shortTitle(address)}</Typography>
+                    <Typography variant="body1" sx={{ pr: '.5em' }}>{shortTitle(address)}</Typography>
                 </Box>
 
                 <Box
@@ -343,11 +328,9 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
                         justifyContent: 'space-between'
                     }}
                 >
-                    <Typography
+                    <Typography variant="body1"
                         sx={{
                             color: `${statusColors[status]}70`,
-                            fontSize: '.8em',
-                            fontWeight: '600',
                         }}
                     >#{orderId}</Typography>
 
@@ -359,7 +342,7 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
                     />
                 </Box>
             </Box>
-        </Box>
+        </Box >
     );
 }
 
@@ -378,7 +361,6 @@ const NotificationsContainer = () => {
         >
             <Typography
                 sx={{
-                    color: '#fff',
                     fontSize: '1.4em',
                     fontWeight: '900',
                     mb: '.5em',
@@ -413,17 +395,10 @@ const NotificationsContainer = () => {
                         <Typography
                             sx={{
                                 fontSize: '.9em',
-                                color: '#fff',
                                 fontWeight: '500',
                             }}
                         >Акции</Typography>
-                        <Typography
-                            sx={{
-                                fontSize: '.75em',
-                                color: '#ffffff50',
-                                fontWeight: '500',
-                            }}
-                        >Розыгрыши и бонусы</Typography>
+                        <Typography variant="subtitle2">Розыгрыши и бонусы</Typography>
                     </Box>
                 </Box>
 
@@ -459,7 +434,6 @@ const StatusContainer = () => {
             <Box>
                 <Typography
                     sx={{
-                        color: '#fff',
                         fontSize: '1.4em',
                         fontWeight: '900',
                         mb: '.5em',
@@ -471,7 +445,6 @@ const StatusContainer = () => {
                 <Typography
                     sx={{
                         fontSize: '.9em',
-                        color: '#fff',
                         fontWeight: '500',
                     }}
                 >
@@ -494,14 +467,12 @@ const StatusContainer = () => {
                 <Typography
                     sx={{
                         fontSize: '.9em',
-                        color: '#fff',
                         fontWeight: '500',
                     }}
                 >У тебя нет завершенных заказов в IVAN IVANOW SHOP</Typography>
                 <Typography
                     sx={{
                         fontSize: '.9em',
-                        color: '#fff',
                         fontWeight: '500',
                     }}
                 >Закажи и получи еще 3 товара, чтобы получить статус "Модник".</Typography>
@@ -630,7 +601,6 @@ const DataContainer = () => {
             >
                 <Typography
                     sx={{
-                        color: '#fff',
                         fontSize: '1.4em',
                         fontWeight: '900',
                         mb: '.5em',
@@ -642,7 +612,6 @@ const DataContainer = () => {
                 <Typography
                     sx={{
                         fontSize: '.9em',
-                        color: '#fff',
                         fontWeight: '500',
                     }}
                 >

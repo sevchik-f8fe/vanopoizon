@@ -56,7 +56,6 @@ const ReferalPage = () => {
 
                 <Typography
                     sx={{
-                        color: '#fff',
                         fontWeight: '900',
                         fontSize: '1.5em'
                     }}
@@ -65,7 +64,6 @@ const ReferalPage = () => {
                 </Typography>
                 <Typography
                     sx={{
-                        color: '#fff',
                         fontSize: '1em',
                         fontWeight: '500'
                     }}
@@ -74,7 +72,6 @@ const ReferalPage = () => {
                 </Typography>
                 <Typography
                     sx={{
-                        color: '#fff',
                         fontSize: '1em',
                         fontWeight: '500'
                     }}
@@ -89,9 +86,8 @@ const ReferalPage = () => {
                         borderRadius: '1em',
                     }}
                 >
-                    <Typography
+                    <Typography variant="caption"
                         sx={{
-                            color: '#fff',
                             fontSize: '.9em',
                             fontWeight: '500'
                         }}
@@ -120,7 +116,6 @@ const ReferalPage = () => {
                 >
                     <Typography
                         sx={{
-                            color: '#fff',
                             fontSize: '1em',
                             fontWeight: '700'
                         }}

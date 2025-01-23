@@ -130,13 +130,8 @@ const GeoSelectPage = () => {
                                     pb: '.5em'
                                 }}
                             >{currentObject?.address}</Typography>
-                            <Typography
-                                sx={{
-                                    fontSize: '.9em',
-                                    fontWeight: '500',
-                                    color: '#20202980'
-                                }}
-                            >CDEK {currentObject?.full_address}</Typography>
+                            <Typography variant="body1" sx={{ color: '#20202980' }}>
+                                CDEK {currentObject?.full_address}</Typography>
                         </Box>
 
                         <Button

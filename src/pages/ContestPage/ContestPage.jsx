@@ -31,31 +31,19 @@ const ContestPage = () => {
                     p: '.2em .5em',
                 }}
             >
-                <Typography
-                    sx={{
-                        color: '#f44336',
-                        fontWeight: '500',
-                        fontSize: '1em'
-                    }}
-                >1 - 31 октября</Typography>
+                <Typography variant="h5" sx={{ color: '#f44336' }}>1 - 31 октября</Typography>
             </Box>
 
             <Typography
                 sx={{
-                    fontSize: '2.2em',
+                    fontSize: '2.3em',
                     fontWeight: '900',
                     color: '#f44336',
                     lineHeight: '.98',
                 }}
             >Бооооооольшой <br />розыгрыш <br />октября</Typography>
 
-            <Typography
-                sx={{
-                    fontSize: '1em',
-                    fontWeight: '600',
-                    color: '#f44336',
-                }}
-            >Выполняй задания и повышай шансы выиграть приз</Typography>
+            <Typography variant="h5" sx={{ color: '#f44336' }}>Выполняй задания и повышай шансы выиграть приз</Typography>
 
             <Box
                 sx={{
@@ -76,13 +64,8 @@ const ContestPage = () => {
                     }}
                 >Подпишись на <span style={{ color: '#f44336' }}>@vano_poizon</span></Typography>
 
-                <Typography
-                    sx={{
-                        fontSize: '.9em',
-                        fontWeight: '600',
-                        color: '#371f1f90',
-                    }}
-                >Подарочный сертификат на 20к рублей, а также по 10 сертификатов на 1500, 1000 и 500 рублей</Typography>
+                <Typography variant="caption" sx={{ color: '#371f1f90' }}>
+                    Подарочный сертификат на 20к рублей, а также по 10 сертификатов на 1500, 1000 и 500 рублей</Typography>
 
                 <Box
                     sx={{
@@ -108,13 +91,7 @@ const ContestPage = () => {
                     }}
                     onClick={() => tg.openTelegramLink('https://t.me/IVANOV_SHOP')}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: '1em',
-                            fontWeight: '600',
-                            color: '#fff',
-                        }}
-                    >Перейти в @vano_poizon</Typography>
+                    <Typography variant="h5">Перейти в @vano_poizon</Typography>
                 </Box>
             </Box>
 
@@ -137,13 +114,7 @@ const ContestPage = () => {
                     }}
                 >Сделай <span style={{ color: '#f44336' }}>любой заказ</span> <br /> 1 -31 октября</Typography>
 
-                <Typography
-                    sx={{
-                        fontSize: '.9em',
-                        fontWeight: '600',
-                        color: '#371f1f90',
-                    }}
-                >Каждый заказ повышает шанс выиграть</Typography>
+                <Typography variant="caption" sx={{ color: '#371f1f90' }}>Каждый заказ повышает шанс выиграть</Typography>
 
                 <Box
                     sx={{
@@ -169,13 +140,7 @@ const ContestPage = () => {
                     }}
                     onClick={() => navigate('/')}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: '1em',
-                            fontWeight: '600',
-                            color: '#fff',
-                        }}
-                    >За покупками</Typography>
+                    <Typography variant="h5">За покупками</Typography>
                 </Box>
             </Box>
 
@@ -198,13 +163,7 @@ const ContestPage = () => {
                     }}
                 >Оставь <span style={{ color: '#f44336' }}>отзыв с фото</span></Typography>
 
-                <Typography
-                    sx={{
-                        fontSize: '.9em',
-                        fontWeight: '600',
-                        color: '#371f1f90',
-                    }}
-                >Каждый отзыв повышает шанс выиграть</Typography>
+                <Typography variant="caption" sx={{ color: '#371f1f90' }}>Каждый отзыв повышает шанс выиграть</Typography>
 
                 <Box
                     sx={{
@@ -230,13 +189,7 @@ const ContestPage = () => {
                     }}
                     onClick={() => tg.openTelegramLink('https://t.me/@vano_poizon')}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: '1em',
-                            fontWeight: '600',
-                            color: '#fff',
-                        }}
-                    >Оставить отзыв</Typography>
+                    <Typography variant="h5">Оставить отзыв</Typography>
                 </Box>
             </Box>
 
@@ -274,15 +227,8 @@ const ContestPage = () => {
                             color: '#fff',
                         }}
                     >Главный приз - прыжок с 207 метров!</Typography>
-                    <Typography
-                        sx={{
-                            fontSize: '1em',
-                            fontWeight: '600',
-                            color: '#fff',
-                        }}
-                    >Билет в Cочи,
-                        сопровождение в Скай Парк,
-                        организация прыжка</Typography>
+                    <Typography variant="h5">
+                        Билет в Cочи, сопровождение в Скай Парк, организация прыжка</Typography>
                 </Box>
 
                 <Box
@@ -293,20 +239,10 @@ const ContestPage = () => {
                         gap: '1em',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: '1.3em',
-                            fontWeight: '600',
-                            color: '#371f1f',
-                        }}
-                    >Для участия – достаточно участвовать в любом из розыгрышей</Typography>
-                    <Typography
-                        sx={{
-                            fontSize: '.9em',
-                            fontWeight: '500',
-                            color: '#371f1f80',
-                        }}
-                    >Сделать покупку в Октябре, оставить отзыв на товар или быть подписанным на @poizonshop</Typography>
+                    <Typography variant="h4" sx={{ color: '#371f1f' }}>
+                        Для участия – достаточно участвовать в любом из розыгрышей</Typography>
+                    <Typography variant="body1" sx={{ color: '#371f1f80' }}>
+                        Сделать покупку в Октябре, оставить отзыв на товар или быть подписанным на @poizonshop</Typography>
                 </Box>
             </Box>
 
@@ -346,13 +282,8 @@ const ContestPage = () => {
                             }}
                         >Подведение <br /> итогов</Typography>
 
-                        <Typography
-                            sx={{
-                                fontSize: '.9em',
-                                fontWeight: '600',
-                                color: '#371f1f',
-                            }}
-                        >в Telegram-канале <br /> @vano_poizon</Typography>
+                        <Typography variant="caption" sx={{ color: '#371f1f' }}>
+                            в Telegram-канале <br /> @vano_poizon</Typography>
                     </Box>
 
                     <Box
@@ -389,13 +320,7 @@ const ContestPage = () => {
                         textAlign: 'center',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontSize: '1em',
-                            color: '#f44336',
-                            fontWeight: '600'
-                        }}
-                    >Перейти в @vano_poizon</Typography>
+                    <Typography variant="h5" sx={{ color: '#f44336' }}>Перейти в @vano_poizon</Typography>
                 </Box>
             </Box>
         </Box>

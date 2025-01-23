@@ -15,7 +15,6 @@ import TableOfSizes from './pages/ProductPage/TableOfSizes';
 import CartPage from './pages/CartPage/CartPage';
 import DeliveryDataPage from './pages/DeliveryDataPage/DeliveryDataPage';
 import ContestPage from './pages/ContestPage/ContestPage';
-import FilterPage from './pages/FilterPage/FilterPage';
 
 import { ScrollToTop } from './utils/utilFuncs';
 import { BackBtnHandle } from './utils/utilFuncs';
@@ -47,7 +46,6 @@ createRoot(document.getElementById('root')).render(
           <Route path='/cart' element={<CartPage />} />
           <Route path='/favorite' element={<FavoritePage />} />
           <Route path='/contest' element={<ContestPage />} />
-          <Route path='/filter' element={<FilterPage />} />
           <Route path='/news' element={<NewsPage />} />
           <Route path='/orders' element={<OrdersPage />} />
         </Routes>

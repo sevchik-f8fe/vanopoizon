@@ -3,7 +3,64 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
     typography: {
-        fontFamily: '"Inter", sans-serif'
+        allVariants: {
+            fontFamily: '"Inter", sans-serif',
+            color: '#fff',
+        },
+        // Отдельные настройки для конкретных вариантов
+        h1: {
+            fontSize: '2em',
+            fontWeight: 900,
+        },
+        h2: {
+            fontSize: '1.8em',
+            fontWeight: 900,
+        },
+        h3: {
+            fontSize: '1.2em',
+            fontWeight: 900,
+        },
+        h4: {
+            fontSize: '1.2rem',
+            fontWeight: 700,
+        },
+        h5: {
+            fontWeight: 600,
+            fontSize: '1em'
+        },
+        h6: {
+            fontSize: '.9em',
+            fontWeight: 900,
+        },
+        body1: {
+            fontSize: '.8em',
+            fontWeight: 500
+        },
+        body2: {
+
+        },
+        subtitle1: {
+            color: '#fff5',
+            fontSize: '.8em',
+            fontWeight: 400
+        },
+        subtitle2: {
+            fontSize: '.75rem',
+            fontWeight: 500,
+            color: '#fff5'
+        },
+        // button: {
+        //     fontSize: '1rem',
+        //     fontWeight: 400,
+        // },
+        caption: {
+            fontSize: '.9rem',
+            fontWeight: 600,
+        },
+        // overline: {
+        //     fontSize: '1rem',
+        //     fontWeight: 400,
+        // },
     },
     components: {
         palette: {

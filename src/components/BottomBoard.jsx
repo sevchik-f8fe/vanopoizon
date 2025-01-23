@@ -39,13 +39,7 @@ const BottomBoard = () => {
                         borderRadius: '1em'
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: '#F34213',
-                            fontSize: '1.2em',
-                            fontWeight: '900'
-                        }}
-                    >Профиль</Typography>
+                    <Typography variant="h3" sx={{ color: '#F34213' }}>Профиль</Typography>
 
                     <PersonIcon
                         sx={{
@@ -68,13 +62,7 @@ const BottomBoard = () => {
                         borderRadius: '1em'
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: '#F34213',
-                            fontSize: '1.2em',
-                            fontWeight: '900'
-                        }}
-                    >Новости</Typography>
+                    <Typography variant="h3" sx={{ color: '#F34213' }}>Новости</Typography>
 
                     <ArticleIcon
                         sx={{
@@ -99,13 +87,7 @@ const BottomBoard = () => {
                     borderRadius: '1em',
                 }}
             >
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '1.2em',
-                        fontWeight: '900'
-                    }}
-                >Корзина</Typography>
+                <Typography variant="h3">Корзина</Typography>
 
                 <Box
                     sx={{

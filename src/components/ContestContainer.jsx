@@ -26,20 +26,13 @@ const ContestContainer = () => {
                     backgroundColor: '#f44336',
                 }}
             >
-                <Typography
-                    sx={{
-                        fontSize: '1em',
-                        fontWeight: '500',
-                        color: '#ffebee',
-                    }}
-                >1 - 31 октября</Typography>
+                <Typography variant="h5" sx={{ color: '#ffebee' }}>1 - 31 октября</Typography>
             </Box>
 
             <Typography
                 gutterBottom
+                variant="h2"
                 sx={{
-                    fontSize: '1.8em',
-                    fontWeight: '900',
                     color: '#f44336',
                     lineHeight: '.9',
                 }}
@@ -112,13 +105,7 @@ const ContestContainer = () => {
                     backgroundColor: '#f44336',
                 }}
             >
-                <Typography
-                    sx={{
-                        color: '#ffebee',
-                        fontWeight: '500',
-                        fontSize: '1.2em',
-                    }}
-                >Узнать подробности</Typography>
+                <Typography variant="h4" sx={{ color: '#ffebee' }}>Узнать подробности</Typography>
             </Box>
         </Box>
     );

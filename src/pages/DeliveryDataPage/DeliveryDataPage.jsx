@@ -50,7 +50,6 @@ const DeliveryDataPage = () => {
                     sx={{
                         mb: '1em',
                         fontWeight: '900',
-                        color: '#fff',
                         fontSize: '1.8em'
                     }}
                 >Данные доставки</Typography>
@@ -63,14 +62,7 @@ const DeliveryDataPage = () => {
                         mb: '2em',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontWeight: '900',
-                            color: '#fff',
-                            mb: '.5em',
-                            fontSize: '1em',
-                        }}
-                    >Способы получения</Typography>
+                    <Typography variant="h6" sx={{ mb: '.5em' }}>Способы получения</Typography>
 
                     <Box
                         sx={{
@@ -98,14 +90,7 @@ const DeliveryDataPage = () => {
                         flexDirection: 'column',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontWeight: '900',
-                            color: '#fff',
-                            mb: '1em',
-                            fontSize: '1em',
-                        }}
-                    >Данные получателя</Typography>
+                    <Typography variant="h6" sx={{ mb: '1em' }}>Данные получателя</Typography>
 
                     <TextField
                         value={deliveryData.fullName.value}
@@ -115,7 +100,6 @@ const DeliveryDataPage = () => {
                         sx={{
                             mb: '.8em',
                             '& .MuiInput-root': {
-                                color: '#fff',
                                 fontWeight: '400',
                                 fontSize: '.9em',
                             },

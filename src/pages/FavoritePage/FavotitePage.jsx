@@ -33,13 +33,7 @@ const FavoritePage = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography
-                    sx={{
-                        fontSize: '.9em',
-                        color: '#fff',
-                        pb: '.5em',
-                        fontWeight: '900'
-                    }}
+                <Typography variant="h6" sx={{ pb: '.5em' }}
                 >Избранные</Typography>
             </Box>
 
@@ -53,13 +47,7 @@ const FavoritePage = () => {
                         minHeight: '20vh'
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: '#fff6',
-                            fontSize: '.9em',
-                            fontWeight: '500'
-                        }}
-                    >У вас нет избранных товаров ;(</Typography>
+                    <Typography variant="caption" sx={{ color: '#fff5' }}>У вас нет избранных товаров ;(</Typography>
                 </Box>
             ) : (
                 <Box
@@ -135,19 +123,8 @@ const FavoriteElement = ({ picture, price, title, link, id }) => {
                         alignItems: 'start'
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '1.2em',
-                            fontWeight: '700'
-                        }}
-                    >{price} &#8381;</Typography>
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '.8em',
-                        }}
-                    >{title}</Typography>
+                    <Typography variant="h4">{price} &#8381;</Typography>
+                    <Typography variant="body1">{title}</Typography>
                 </Box>
             </Link>
 

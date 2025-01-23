@@ -19,14 +19,7 @@ const Fit = () => {
 
     return (
         <>
-            <Typography
-                sx={{
-                    fontSize: '.8em',
-                    color: '#fff',
-                    fontWeight: '500',
-                    mb: '.5em'
-                }}
-            >Показать</Typography>
+            <Typography variant="body1" sx={{ mb: '.5em' }}>Показать</Typography>
 
             <RadioGroup
                 sx={{

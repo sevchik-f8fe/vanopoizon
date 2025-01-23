@@ -33,17 +33,10 @@ const PointBlock = ({ points }) => {
                     }}
                 >
                     <Typography
-                        sx={{
-                            color: '#F34213',
-                            fontSize: '1.2em',
-                            fontWeight: '900'
-                        }}
+                        variant="h3"
+                        sx={{ color: '#F34213' }}
                     >Баллы</Typography>
-                    <ArrowOutwardIcon
-                        sx={{
-                            color: '#F34213',
-                        }}
-                    />
+                    <ArrowOutwardIcon sx={{ color: '#F34213' }} />
                 </Box>
                 <Box
                     sx={{
@@ -65,16 +58,13 @@ const PointBlock = ({ points }) => {
                             alignItems: 'center'
                         }}
                     >
-                        <CurrencyRubleIcon sx={{
-                            color: '#F34213',
-                            fontSize: '1.3em'
-                        }} />
+                        <CurrencyRubleIcon sx={{ color: '#F34213', fontSize: '1.5em' }} />
                     </Box>
                     <Box>
                         <Typography
+                            variant="h1"
                             sx={{
                                 color: '#F34213',
-                                fontSize: '2em',
                                 fontWeight: '700'
                             }}
                         >{points || 0}</Typography>

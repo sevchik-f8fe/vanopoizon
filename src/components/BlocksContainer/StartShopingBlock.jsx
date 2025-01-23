@@ -16,13 +16,7 @@ const StartShopingBLock = () => {
                 borderRadius: '1em',
             }}
         >
-            <Typography
-                sx={{
-                    color: '#fff',
-                    fontSize: '1.2em',
-                    fontWeight: '900'
-                }}
-            >Выбрать и заказать</Typography>
+            <Typography variant="h3">Выбрать и заказать</Typography>
             <Box
                 sx={{
                     minWidth: '4em',

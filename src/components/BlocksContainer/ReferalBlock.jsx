@@ -34,27 +34,13 @@ const ReferalBlock = () => {
                         gap: '1em'
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: '#fff',
-                            fontSize: '1.2em',
-                            fontWeight: '900',
-                        }}
-                    >Зови друзей</Typography>
+                    <Typography variant="h3">Зови друзей</Typography>
                     <ArrowOutwardIcon
-                        sx={{
-                            color: '#fff',
-                        }}
+                        sx={{ color: '#fff' }}
                     />
                 </Box>
                 <Box>
-                    <Typography
-                        sx={{
-                            fontSize: '.75em',
-                            color: '#ffffff50',
-                            fontWeight: '600',
-                        }}
-                    >Дарим по <span style={{ color: '#F34213' }}>500</span><CurrencyRubleIcon sx={{ fontSize: '.9em', color: '#F34213', }} /> - тебе и приведенному другу</Typography>
+                    <Typography variant="subtitle2">Дарим по <span style={{ color: '#F34213' }}>500</span><CurrencyRubleIcon sx={{ fontSize: '.9em', color: '#F34213', }} /> - тебе и приведенному другу</Typography>
                 </Box>
             </Box>
         </Link>

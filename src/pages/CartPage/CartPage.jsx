@@ -49,13 +49,7 @@ const CartPage = () => {
                     alignItems: 'center',
                 }}
             >
-                <Typography
-                    sx={{
-                        fontSize: '.9em',
-                        color: '#fff',
-                        fontWeight: '900'
-                    }}
-                >Корзина</Typography>
+                <Typography variant="h6">Корзина</Typography>
             </Box>
 
             <Box
@@ -85,30 +79,14 @@ const CartPage = () => {
                     <Box>
                         {deliveryDataIsFilled ? (
                             <>
-                                <Typography
-                                    sx={{
-                                        fontSize: '.9em',
-                                        color: '#fff',
-                                        fontWeight: '500',
-                                        mb: '.2em'
-                                    }}
-                                >Доставка {user?.delivery?.deliveryType == 'pickup' ? 'в пункт выдачи' : 'курьером'}</Typography>
-                                <Typography
-                                    sx={{
-                                        fontSize: '.75em',
-                                        color: '#fff5',
-                                        fontWeight: '500'
-                                    }}
-                                >{user?.delivery?.deliveryType == 'pickup' ? user?.delivery?.pvz?.fullAddress : user?.delivery?.fullAddress}</Typography>
+                                <Typography variant="body1" sx={{ mb: '.2em' }}>
+                                    Доставка {user?.delivery?.deliveryType == 'pickup' ? 'в пункт выдачи' : 'курьером'}</Typography>
+                                <Typography variant="subtitle2">
+                                    {user?.delivery?.deliveryType == 'pickup' ? user?.delivery?.pvz?.fullAddress : user?.delivery?.fullAddress}</Typography>
                             </>
                         ) : (
-                            <Typography
-                                sx={{
-                                    fontSize: '.9em',
-                                    color: '#DC4F51',
-                                    fontWeight: '600',
-                                }}
-                            >Заполните информацию о доставке</Typography>
+                            <Typography variant="caption" sx={{ color: '#DC4F51' }}>
+                                Заполните информацию о доставке</Typography>
                         )}
                     </Box>
                     <ArrowOutwardIcon
@@ -135,13 +113,7 @@ const CartPage = () => {
                             minHeight: '20vh'
                         }}
                     >
-                        <Typography
-                            sx={{
-                                color: '#fff6',
-                                fontSize: '.9em',
-                                fontWeight: '500'
-                            }}
-                        >В вашей корзине пусто ;(</Typography>
+                        <Typography variant="subtitle1">В вашей корзине пусто ;(</Typography>
                     </Box>
                 </>
             ) : (
@@ -205,27 +177,9 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                             p: '.2em 0'
                         }}
                     >
-                        <Typography
-                            sx={{
-                                color: '#fff',
-                                fontSize: '1em',
-                                fontWeight: '500'
-                            }}
-                        >{title}</Typography>
-                        <Typography
-                            sx={{
-                                color: '#fff6',
-                                fontSize: '.9em',
-                                fontWeight: '500'
-                            }}
-                        >{price} &#8381;</Typography>
-                        <Typography
-                            sx={{
-                                color: '#fff6',
-                                fontSize: '.9em',
-                                fontWeight: '500'
-                            }}
-                        >размер {size} (EU)</Typography>
+                        <Typography variant="h5">{title}</Typography>
+                        <Typography variant="subtitle1">{price} &#8381;</Typography>
+                        <Typography variant="subtitle1">размер {size} (EU)</Typography>
                     </Box>
                 </Box>
             </Link>
@@ -294,14 +248,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                             alignItems: 'center'
                         }}
                     >
-                        <Typography
-                            sx={{
-                                color: '#fffffE',
-                                fontSize: '.9em',
-                                fontWeight: '500',
-
-                            }}
-                        >{count}</Typography>
+                        <Typography variant="body1">{count}</Typography>
                     </Box>
                     <CustomButton
                         isDisabled={false}
@@ -359,10 +306,9 @@ const InsuranceBlock = () => {
                 />
 
                 <Typography
+                    variant="caption"
                     sx={{
-                        fontSize: '.9em',
                         transition: '.1s ease',
-                        fontWeight: '700',
                         ...(!useInsurance && {
                             color: '#fff5',
                         }),
@@ -374,12 +320,18 @@ const InsuranceBlock = () => {
             </Box>
 
             <Typography
+                variant="subtitle2"
                 sx={{
-                    fontSize: '.75em',
-                    color: '#fff5',
-                    fontWeight: '500',
+                    transition: '.1s ease',
+                    ...(!useInsurance && {
+                        color: '#fff5',
+                    }),
+                    ...(useInsurance && {
+                        color: '#fff',
+                    }),
                 }}
-            >При получении не оригинала или потере при доставке, мы возместим всю стоимость товара в тройном размере.</Typography>
+            >
+                При получении не оригинала или потере при доставке, мы возместим всю стоимость товара в тройном размере.</Typography>
         </Box>
     );
 }
@@ -409,15 +361,7 @@ const UsePointsBlock = () => {
                     }}
                 />
 
-                <Typography
-                    sx={{
-                        color: '#F34213',
-                        fontSize: '1em',
-                        fontWeight: '700',
-                    }}
-                >
-                    Баллы PoizonShop
-                </Typography>
+                <Typography variant="caption" sx={{ color: '#F34213' }}>Баллы PoizonShop</Typography>
             </Box>
 
             <Box
@@ -451,11 +395,9 @@ const UsePointsBlock = () => {
                     }}
                 >
                     <Typography
+                        variant="caption"
                         sx={{
                             transition: '.3s ease',
-                            color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '700',
                             ...(!usePoints && {
                                 color: '#fff',
                             }),
@@ -484,11 +426,9 @@ const UsePointsBlock = () => {
                     }}
                 >
                     <Typography
+                        variant="caption"
                         sx={{
                             transition: '.3s ease',
-                            color: '#fff',
-                            fontSize: '.9em',
-                            fontWeight: '700',
                             ...(usePoints && {
                                 color: '#fff',
                             }),
@@ -535,18 +475,10 @@ const TotalPriceElement = ({ label, price, isTotal }) => {
                 pb: '.2em'
             }}
         >
+            <Typography variant="subtitle2">{label}</Typography>
             <Typography
+                variant="body1"
                 sx={{
-                    fontSize: '.75em',
-                    fontWeight: '500',
-                    color: '#fff5',
-                }}
-            >{label}</Typography>
-            <Typography
-                sx={{
-                    fontSize: '.9em',
-                    fontWeight: '500',
-                    color: '#fff',
                     ...(isTotal && {
                         fontSize: '1.2em',
                     }),

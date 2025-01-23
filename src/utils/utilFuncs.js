@@ -59,7 +59,7 @@ export const entityToChar = (ent) => {
 }
 
 export const shortTitle = (title) => {
-    return title && `${title.substr(0, 24)}...`;
+    return title && `${title.substr(0, 20)}...`;
 }
 
 export const toRub = (value) => {

@@ -50,13 +50,7 @@ const ProfileBtn = () => {
                         alignItems: 'center',
                     }}
                 >
-                    <Typography
-                        sx={{
-                            fontWeight: 'bold',
-                            color: 'white'
-                        }}
-                        variant="subtitle1"
-                    >{user_name} </Typography>
+                    <Typography sx={{ fontWeight: '800' }} variant="h5">{user_name} </Typography>
                     <ArrowOutwardIcon fontSize="small" sx={{ color: 'white' }} />
                 </Box>
             </Box>

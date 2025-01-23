@@ -65,20 +65,9 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                         }}
                     >
                         {price && (
-                            <Typography
-                                sx={{
-                                    color: '#fff',
-                                    fontSize: '1.2em',
-                                    fontWeight: '700'
-                                }}
-                            >{price} &#8381;</Typography>
+                            <Typography variant="h4">{price} &#8381;</Typography>
                         )}
-                        <Typography
-                            sx={{
-                                color: '#fff',
-                                fontSize: '.8em',
-                            }}
-                        >{title}</Typography>
+                        <Typography variant="body1">{title}</Typography>
                     </Box>
                 </Box>
 

@@ -284,11 +284,9 @@ const ProductPage = () => {
                             {product ? (
                                 <>
                                     <Typography
+                                        variant="h2"
                                         sx={{
-                                            color: '#ffffff',
-                                            fontSize: '1.8em',
                                             transition: '.3s ease',
-                                            fontWeight: '900',
                                             ...(!isSplit && {
                                                 color: '#ffffff',
                                             }),
@@ -300,14 +298,9 @@ const ProductPage = () => {
                                         {(!isNaN(currentProduct?.price)) ? <>{toRub(toNormalPrice(currentProduct?.price))} &#8381;</> : currentProduct?.price}
                                     </Typography>
 
-                                    <Typography
-                                        sx={{
-                                            fontSize: '.75em',
-                                            fontWeight: '500',
-                                            color: '#ffffff50',
-                                        }}
-                                    >
-                                        Оплачивая заказ, вы соглашаетесь с условиями <Link
+                                    <Typography variant="subtitle2">
+                                        Оплачивая заказ, вы соглашаетесь с условиями
+                                        <Link
                                             sx={{
                                                 color: '#709ed9',
                                                 cursor: 'pointer',
@@ -367,13 +360,7 @@ const ProductPage = () => {
                                         gap: '1em'
                                     }}
                                 >
-                                    <Typography
-                                        sx={{
-                                            color: '#fff',
-                                            fontSize: '1em',
-                                            fontWeight: '700',
-                                        }}
-                                    >Страховка и безопасность</Typography>
+                                    <Typography variant="h5">Страховка и безопасность</Typography>
                                 </Box>
 
                                 {accordion.insurance ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
@@ -426,7 +413,6 @@ const ProductPage = () => {
                                             />
                                             <Typography
                                                 sx={{
-                                                    color: '#fff',
                                                     fontWeight: '700',
                                                     fontSize: '.9em'
                                                 }}
@@ -449,14 +435,7 @@ const ProductPage = () => {
                                             onChange={(e) => setUseInsurance(e.target.checked)}
                                         />
                                     </Box>
-                                    <Typography
-                                        sx={{
-                                            pl: '1em',
-                                            color: '#fff',
-                                            fontWeight: '500',
-                                            fontSize: '.9em'
-                                        }}
-                                    >
+                                    <Typography variant="caption" sx={{ pl: '1em' }}>
                                         Если пиздец <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
                                     </Typography>
                                 </Box>
@@ -481,13 +460,7 @@ const ProductPage = () => {
                                     }}
                                 >
 
-                                    <Typography
-                                        sx={{
-                                            color: '#fff',
-                                            fontSize: '1em',
-                                            fontWeight: '700',
-                                        }}
-                                    >Строго оригинал</Typography>
+                                    <Typography variant="h5">Строго оригинал</Typography>
                                 </Box>
 
                                 {accordion.original ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
@@ -680,11 +653,9 @@ const ProductPage = () => {
                                     {product ? (
                                         <>
                                             <Typography
+                                                variant="h2"
                                                 sx={{
-                                                    color: '#ffffff',
-                                                    fontSize: '1.8em',
                                                     transition: '.3s ease',
-                                                    fontWeight: '900',
                                                     ...(!isSplit && {
                                                         color: '#ffffff',
                                                     }),
@@ -696,13 +667,7 @@ const ProductPage = () => {
                                                 {(!isNaN(currentProduct?.price)) ? <>{toRub(toNormalPrice(currentProduct?.price))} &#8381;</> : currentProduct?.price}
                                             </Typography>
 
-                                            <Typography
-                                                sx={{
-                                                    fontSize: '.75em',
-                                                    fontWeight: '500',
-                                                    color: '#ffffff50',
-                                                }}
-                                            >
+                                            <Typography variant="subtitle2">
                                                 Оплачивая заказ, вы соглашаетесь с условиями <Link
                                                     sx={{
                                                         color: '#709ed9',
@@ -792,7 +757,6 @@ const ProductPage = () => {
 
                                                     <Typography
                                                         sx={{
-                                                            color: '#fff',
                                                             fontSize: '1em',
                                                             fontWeight: '700',
                                                         }}
@@ -835,7 +799,6 @@ const ProductPage = () => {
                                                 >
                                                     <Typography
                                                         sx={{
-                                                            color: '#fff',
                                                             fontSize: '1em',
                                                             fontWeight: '700',
                                                         }}
@@ -890,9 +853,8 @@ const ProductPage = () => {
                                                                     color: '#fff'
                                                                 }}
                                                             />
-                                                            <Typography
+                                                            <Typography variant="caption"
                                                                 sx={{
-                                                                    color: '#fff',
                                                                     fontWeight: '700',
                                                                     fontSize: '.9em'
                                                                 }}
@@ -916,13 +878,8 @@ const ProductPage = () => {
                                                         />
                                                     </Box>
                                                     <Typography
-                                                        sx={{
-                                                            pl: '1em',
-                                                            color: '#fff',
-                                                            fontWeight: '500',
-                                                            fontSize: '.9em'
-                                                        }}
-                                                    >
+                                                        variant="caption"
+                                                        sx={{ pl: '1em' }}>
                                                         Если пиздец <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
                                                     </Typography>
                                                 </Box>
@@ -1095,7 +1052,6 @@ const SizesContainer = ({ calcPrice }) => {
             >
                 <Typography
                     sx={{
-                        color: '#fff',
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
@@ -1155,13 +1111,7 @@ const SizesElement = ({ size, sizeId, calcPrice }) => {
                 }),
             }}
         >
-            <Typography
-                sx={{
-                    color: '#fff',
-                    fontSize: '.9em',
-                    fontWeight: '500'
-                }}
-            >{size}</Typography>
+            <Typography variant="caption">{size}</Typography>
         </Box>
     );
 };
@@ -1186,7 +1136,6 @@ const ColorsContainer = ({ calcPrice }) => {
             >
                 <Typography
                     sx={{
-                        color: '#fff',
                         fontSize: '1em',
                         fontWeight: '700'
                     }}
@@ -1233,13 +1182,7 @@ const ColorElement = ({ color, colorId, calcPrice }) => {
                 }),
             }}
         >
-            <Typography
-                sx={{
-                    color: '#fff',
-                    fontSize: '.9em',
-                    fontWeight: '500'
-                }}
-            >{color}</Typography>
+            <Typography variant="caption">{color}</Typography>
         </Box>
     );
 }
@@ -1354,7 +1297,6 @@ const ReviewContainer = () => {
         >
             <Typography
                 sx={{
-                    color: '#fff',
                     fontSize: '1em',
                     fontWeight: '700',
                     pb: '.5em'
@@ -1432,13 +1374,7 @@ const AddOnsContainer = () => {
                         fontSize: '1.2em'
                     }}
                 />
-                <Typography
-                    sx={{
-                        fontWeight: '700',
-                        color: '#fff',
-                        fontSize: '.9em'
-                    }}
-                >Открыть этот товар в Poizon</Typography>
+                <Typography variant="caption">Открыть этот товар в Poizon</Typography>
             </Box>
 
             <Box
@@ -1460,13 +1396,7 @@ const AddOnsContainer = () => {
                         fontSize: '1.2em'
                     }}
                 />
-                <Typography
-                    sx={{
-                        fontWeight: '700',
-                        color: '#fff',
-                        fontSize: '.9em'
-                    }}
-                >Отправить заказ в чат оператору</Typography>
+                <Typography variant="caption">Отправить заказ в чат оператору</Typography>
             </Box>
         </Box>
     );

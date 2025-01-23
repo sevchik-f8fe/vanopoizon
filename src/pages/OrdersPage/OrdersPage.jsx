@@ -18,14 +18,7 @@ const OrdersPage = () => {
                 gap: '.5em'
             }}
         >
-            <Typography
-                sx={{
-                    fontSize: '.9em',
-                    color: '#fff',
-                    mb: '.5em',
-                    fontWeight: '900',
-                }}
-            >Заказы</Typography>
+            <Typography variant="h6" sx={{ mb: '.5em' }}>Заказы</Typography>
 
             <FilterComponent />
 
@@ -35,13 +28,8 @@ const OrdersPage = () => {
                         .filter(elem => elem.status !== 'done')
                         .map(elem => <OrderElement key={nanoid()} address={elem.address} orderId={elem.orderId} date={elem.date} status={elem.status} label={elem.label} products={elem.products} isMark={elem.isMark} deliveryType={elem.deliveryType} />)
                 ) : (
-                    <Typography
-                        sx={{
-                            color: '#fff5',
-                            fontSize: '.75em',
-                            fontWeight: '600',
-                        }}
-                    >У вас нет завершенных заказов в магазине IVAN IVANOV :(</Typography>
+                    <Typography variant="subtitle2">
+                        У вас нет завершенных заказов в магазине IVAN IVANOV :(</Typography>
                 )
             ) : (
                 (orders.filter(elem => elem.status === 'done').length > 0) ? (
@@ -49,13 +37,8 @@ const OrdersPage = () => {
                         .filter(elem => elem.status === 'done')
                         .map(elem => <OrderElement key={nanoid()} address={elem.address} orderId={elem.orderId} date={elem.date} status={elem.status} label={elem.label} products={elem.products} isMark={elem.isMark} deliveryType={elem.deliveryType} />)
                 ) : (
-                    <Typography
-                        sx={{
-                            color: '#fff5',
-                            fontSize: '.75em',
-                            fontWeight: '600',
-                        }}
-                    >У вас нет активных заказов в магазине IVAN IVANOV :(</Typography>
+                    <Typography variant="subtitle2">
+                        У вас нет активных заказов в магазине IVAN IVANOV :(</Typography>
                 )
             )}
         </Box>
@@ -94,10 +77,9 @@ const FilterComponent = () => {
                 }}
             >
                 <Typography
+                    variant="caption"
                     sx={{
                         transition: '.3s ease',
-                        fontSize: '.9em',
-                        fontWeight: '700',
                         ...(!showDone && {
                             color: '#fff',
                         }),
@@ -124,10 +106,9 @@ const FilterComponent = () => {
                 }}
             >
                 <Typography
+                    variant="caption"
                     sx={{
                         transition: '.3s ease',
-                        fontSize: '.9em',
-                        fontWeight: '700',
                         ...(showDone && {
                             color: '#fff',
                         }),
@@ -172,11 +153,8 @@ const OrderElement = ({ date, status, orderId, address, products, deliveryType, 
                 }}
             >
                 <Typography
-                    sx={{
-                        color: statusColors[status],
-                        fontSize: '.9em',
-                        fontWeight: '700',
-                    }}
+                    variant="caption"
+                    sx={{ color: statusColors[status] }}
                 >{label}</Typography>
                 <Box
                     onClick={(e) => {
@@ -193,13 +171,7 @@ const OrderElement = ({ date, status, orderId, address, products, deliveryType, 
                         justifyContent: 'space-between'
                     }}
                 >
-                    <Typography
-                        sx={{
-                            color: `${statusColors[status]}70`,
-                            fontSize: '.8em',
-                            fontWeight: '600',
-                        }}
-                    >#{orderId}</Typography>
+                    <Typography variant="body1" sx={{ color: `${statusColors[status]}70` }}>#{orderId}</Typography>
 
                     <ContentCopyIcon
                         sx={{
@@ -218,20 +190,9 @@ const OrderElement = ({ date, status, orderId, address, products, deliveryType, 
                     // alignItems: 'center'
                 }}
             >
-                <Typography
-                    sx={{
-                        color: '#fff8',
-                        fontSize: '.75em',
-                        fontWeight: '500',
-                    }}
-                >Заказ от {date} на сумму {fullPrice} руб.</Typography>
-                <Typography
-                    sx={{
-                        color: '#fff',
-                        fontSize: '.8em',
-                        fontWeight: '500',
-                    }}
-                >Доставка {deliveryType}, {address}</Typography>
+                <Typography variant="subtitle2" sx={{ color: '#fff8' }}>
+                    Заказ от {date} на сумму {fullPrice} руб.</Typography>
+                <Typography variant="body1">Доставка {deliveryType}, {address}</Typography>
 
                 <Box
                     sx={{
@@ -273,12 +234,10 @@ const ProductElement = ({ spuId, picture, price }) => {
                     maxWidth: '7em',
                 }}
             ></Box>
-            <Typography
+            <Typography variant="subtitle2"
                 sx={{
                     p: '.2em .5em',
                     color: '#fff8',
-                    fontSize: '.75em',
-                    fontWeight: '500',
                 }}
             >{price}</Typography>
         </Box>
