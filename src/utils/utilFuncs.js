@@ -118,3 +118,18 @@ export const objectToQueryString = (obj) => {
 
     return params.length > 0 ? '&' + params.join('&') : '';
 }
+
+export const checkFilter = (type, url) => {
+    const regex = new RegExp(`&${type}=[^&]+(&|$)`)
+    const match = url.match(regex);
+
+    if (match) {
+        const result = url.replace(match[0], '');
+
+        console.log('1: ', result);
+        return result.length > 0;
+    } else {
+        console.log('2: ', url);
+        return url.length > 0;
+    }
+}

@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
-// import ErrorPage from './pages/ErrorPage';
+import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import PointsPage from './pages/PointsPage';
@@ -48,6 +48,7 @@ createRoot(document.getElementById('root')).render(
           <Route path='/contest' element={<ContestPage />} />
           <Route path='/news' element={<NewsPage />} />
           <Route path='/orders' element={<OrdersPage />} />
+          <Route path='*' element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

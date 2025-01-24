@@ -6,6 +6,7 @@ import axios from "axios";
 import { useDeliveryData } from "../DeliveryDataPage/store";
 import { useSelectPage } from "./store";
 import _ from "lodash";
+import EndMessage from "../../components/EndMessage";
 
 const SelectPage = () => {
     const { setFieldValue } = useDeliveryData();
@@ -14,9 +15,12 @@ const SelectPage = () => {
     const { searchValue, data, currentPage, addData, isLoading, hasMore, setData, setIsLoading, setHasMore, setCurrentPage, setSearchValue } = useSelectPage();
 
     useEffect(() => {
-        const getCityList = async () => {
-            console.log('сука + 1');
+        tg.BackButton.show();
+        tg.MainButton.hide();
+    }, []);
 
+    useEffect(() => {
+        const getCityList = async () => {
             setIsLoading(true);
             setHasMore(true);
 
@@ -37,19 +41,14 @@ const SelectPage = () => {
                 .finally(() => setIsLoading(false))
         };
 
-        tg.BackButton.show();
-        tg.MainButton.hide();
-
         getCityList();
     }, [currentPage])
 
     useEffect(() => {
         const debouncedCheckAndFetchMore = _.debounce(async () => {
-            console.log('дебаунс');
             const filteredData = filterListHandle(data, searchValue);
 
             if (filteredData.length === 0 && hasMore && !isLoading) {
-                console.log('дебаунс+1');
                 setCurrentPage(currentPage + 1);
             }
         }, 250);
@@ -103,7 +102,7 @@ const SelectPage = () => {
                     onChange={(e) => setSearchValue(e.target.value)}
                 />
             </Box>
-            {!isLoading ? (
+            {!isLoading && filterListHandle(data, searchValue).length > 0 ? (
                 <>
                     {filterListHandle(data, searchValue)
                         .filter((elem, id) => id < 50)
@@ -118,7 +117,7 @@ const SelectPage = () => {
                                 backgroundColor: '#2E2E3A80',
                             }}
                         >
-                            <Typography variant="caption">Город не найден ;(</Typography>
+                            <EndMessage title="Населенный пункт не найлен" />
                         </Box>
                     )}
                 </>
@@ -145,8 +144,7 @@ const SelectPage = () => {
                         />)
                     }
                 </Box>
-            )
-            }
+            )}
         </Box>
     );
 }

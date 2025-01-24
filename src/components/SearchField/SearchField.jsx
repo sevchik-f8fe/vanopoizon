@@ -8,14 +8,14 @@ import axios from "axios";
 import { useEffect, useCallback } from "react";
 import _ from "lodash";
 
-import { shortTitle } from "../../utils/utilFuncs";
+import { checkFilter, objectToQueryString, shortTitle } from "../../utils/utilFuncs";
 import { useSearchField } from "./store";
 import { useCatalog, useFilters } from "../Catalog/store";
 
 const SearchField = () => {
     const { fieldValue, setFieldValue, isTyping, setIsTyping, setMiniProductList } = useSearchField();
     const { setProducts, setPage } = useCatalog();
-    const { typeOfSearch, setPropsValue, setTypeOfSearch } = useFilters();
+    const { setPropsValue, propsOfSearch } = useFilters();
 
     const fetchMiniList = useCallback(_.debounce(async () => {
         setMiniProductList([]);
@@ -92,18 +92,17 @@ const SearchField = () => {
                                     </IconButton>
                                     <IconButton
                                         onClick={() => {
-                                            if (fieldValue.length > 0) {
-                                                setPropsValue('keyword', fieldValue);
-                                                setTypeOfSearch('filtered');
-                                                setProducts([]);
-                                                setPage(1);
-                                            } else {
-                                                if (typeOfSearch != 'default') {
+                                            console.log(objectToQueryString(propsOfSearch), fieldValue)
+                                            if (checkFilter('keyword', objectToQueryString(propsOfSearch)) || fieldValue.length > 0) {
+                                                if (fieldValue.length > 0) {
+                                                    setPropsValue('keyword', fieldValue);
                                                     setProducts([]);
                                                     setPage(1);
-                                                    setTypeOfSearch('default');
+                                                } else {
+                                                    setPropsValue('keyword', '');
+                                                    setProducts([]);
+                                                    setPage(1);
                                                 }
-                                                setPropsValue('keyword', '');
                                             }
                                             setIsTyping(false);
                                             setMiniProductList([]);

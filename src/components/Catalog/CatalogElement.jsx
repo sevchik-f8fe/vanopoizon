@@ -11,6 +11,7 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
         <Grid size={{ xs: 6, sm: 4, md: 3 }}>
             <Box
                 sx={{
+                    minHeight: '100%',
                     position: 'relative',
                     cursor: 'pointer',
                     borderRadius: '1em',

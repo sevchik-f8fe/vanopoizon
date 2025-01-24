@@ -16,11 +16,12 @@ import Sort from "../components/FilterBlocks/Sort";
 import Brand from "../components/FilterBlocks/Brand";
 import Caterogy from "../components/FilterBlocks/Category";
 import Fit from "../components/FilterBlocks/Fit";
+import { checkFilter } from "../utils/utilFuncs";
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
     const { user, setUser } = useUserData();
-    const { propsOfSearch, setPropsValue, setFieldValues, setTypeOfSearch, activeFilter, setActiveFilter, values } = useFilters()
+    const { propsOfSearch, setPropsValue, setFieldValues, activeFilter, setActiveFilter, values } = useFilters()
     const { setPage, setProducts } = useCatalog();
 
     const theme = useTheme();

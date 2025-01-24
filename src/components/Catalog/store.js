@@ -35,7 +35,7 @@ export const useFilters = create((set) => ({
         'sortType': { isOpen: false, value: null },
         'sortMode': { isOpen: false, value: null },
         'categoryId': { isOpen: false, value: [] },
-        'brandId': { isOpen: false, value: [] },
+        'brandId': { isOpen: false, value: [144, 2, 3] },
         'fitId': { isOpen: false, value: null },
     },
     searchValue: '',
@@ -47,7 +47,6 @@ export const useFilters = create((set) => ({
         'fitId': null,
         'sort': { type: null, mode: null },
     },
-    typeOfSearch: 'default',
     setPropsValue: (field, value) => set(state => {
         console.log('setPropsValue: ', field, ' ', value);
         return { propsOfSearch: { ...state.propsOfSearch, [field]: { ...state.propsOfSearch[field], value } } }
@@ -70,8 +69,5 @@ export const useFilters = create((set) => ({
     }),
     setPropsOpen: (field, value) => set(state => {
         return { propsOfSearch: { ...state.propsOfSearch, [field]: { ...state.propsOfSearch[field], isOpen: value } } }
-    }),
-    setTypeOfSearch: (value) => set(() => {
-        return { typeOfSearch: value }
     }),
 }));

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Box, TextField, InputAdornment, IconButton, Skeleton, FormControlLabel, Checkbox } from "@mui/material";
+import { Box, TextField, InputAdornment, IconButton, Skeleton, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import { useFilters } from "../Catalog/store";
@@ -35,6 +35,9 @@ const Caterogy = () => {
         setFieldValues('categoriesId', propsOfSearch?.categoryId?.value);
     }, []);
 
+    const filterListHandle = (array, searchTerm) => {
+        return array?.filter(item => item?.name?.toLowerCase().includes(searchTerm?.toLowerCase()));
+    }
 
     return (
         <Box
@@ -90,7 +93,7 @@ const Caterogy = () => {
                 }}
                 placeholder="Поиск по списку"
                 size="small"
-                variant="outlined"
+                variant="outlined" t
             />
 
             <Box
@@ -101,8 +104,7 @@ const Caterogy = () => {
                     flexDirection: 'column',
                 }}
             >
-                {(!isLoading && (data.length > 0)) ? (data
-                    .filter(elem => elem.name.toLowerCase().includes(searchValue.toLowerCase()))
+                {(!isLoading && filterListHandle(data, searchValue).length > 0) ? (filterListHandle(data, searchValue)
                     .filter((elem, id) => id < 50)
                     .map(elem => (
                         <FormControlLabel
@@ -130,21 +132,32 @@ const Caterogy = () => {
                             label={elem.name}
                         />
                     ))) : (
-                    [1, 2, 9, 1, 2, 3, 34, 4, 5, 5, 6, 7].map((elem) => (
+                    (isLoading) ? (
+                        [1, 2, 9, 1, 2, 3, 34, 4, 5, 5, 6, 7].map((elem) => (
+                            <Box
+                                key={nanoid()}
+                                sx={{
+                                    mb: '.5em'
+                                }}
+                            >
+                                <Skeleton
+                                    animation="wave"
+                                    variant="rectangular"
+                                    width='100%'
+                                    height='2em'
+                                />
+                            </Box>
+                        ))
+                    ) : (
                         <Box
-                            key={nanoid()}
                             sx={{
+                                textAlign: 'center',
                                 mb: '.5em'
                             }}
                         >
-                            <Skeleton
-                                animation="wave"
-                                variant="rectangular"
-                                width='100%'
-                                height='2em'
-                            />
+                            <Typography variant="subtitle1">Такой категории не найдено</Typography>
                         </Box>
-                    ))
+                    )
                 )}
             </Box>
         </Box>

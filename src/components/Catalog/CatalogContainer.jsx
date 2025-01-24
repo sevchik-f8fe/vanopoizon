@@ -8,7 +8,6 @@ import { useEffect } from "react";
 import axios from "axios";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useNavigate } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 
 import SearchField from "../SearchField/SearchField";
@@ -16,7 +15,7 @@ import CatalogElement from "./CatalogElement";
 import { useCatalog } from "./store";
 import { useFilters } from "./store";
 import { shortTitle, toNormalPrice, toRub, objectToQueryString } from "../../utils/utilFuncs";
-import { useSearchField } from "../SearchField/store";
+import EndMessage from "../EndMessage";
 
 const CatalogContainer = () => {
     const theme = useTheme();
@@ -41,19 +40,16 @@ const CatalogContainer = () => {
 }
 
 const CatalogHeader = () => {
-    const { typeOfSearch } = useFilters();
-
     return (
         <Box
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                // mb: '.5em'
             }}
         >
             <SearchField />
-            {typeOfSearch === 'filtered' && <FilterContainer />}
+            <FilterContainer />
         </Box>
     );
 }
@@ -131,29 +127,9 @@ const FilterElement = ({ Icon, title, type }) => {
 
 const CatalogContent = () => {
     const { products, page, setNextPage, setMoreProducts, hasMore, setHasMore } = useCatalog();
-    const { propsOfSearch, typeOfSearch } = useFilters();
+    const { propsOfSearch } = useFilters();
 
     useEffect(() => {
-        function addProducts(response) {
-            if (response?.data?.products.length <= 0) setHasMore(false);
-            else setMoreProducts(response?.data?.products);
-        }
-
-        const fetchProducts = async () => {
-            axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProducts', { page }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-                .then(response => {
-                    console.log('ok default: ', response.data.products);
-                    addProducts(response);
-                })
-                .catch(error => {
-                    console.log('Ошибка: ', error)
-                })
-        }
-
         const fetchFilteredProducts = async () => {
             console.log('start filter: ', objectToQueryString(propsOfSearch));
             axios.post('https://vanopoizonserver.ru/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
@@ -162,8 +138,9 @@ const CatalogContent = () => {
                 }
             })
                 .then(response => {
-                    console.log('ok filter: ', objectToQueryString(propsOfSearch), response.data.products);
-                    addProducts(response);
+                    console.log('ok filter: ', objectToQueryString(propsOfSearch), ' data: ', response?.data?.productsS);
+                    if (response?.data?.products.length <= 0) setHasMore(false);
+                    else setMoreProducts(response?.data?.products);
                 })
                 .catch(error => {
                     console.error('Ошибка: ', error)
@@ -172,11 +149,7 @@ const CatalogContent = () => {
 
         setHasMore(true);
 
-        if (typeOfSearch == 'filtered') {
-            fetchFilteredProducts();
-        } else {
-            fetchProducts();
-        }
+        fetchFilteredProducts();
     }, [page])
 
     return (
@@ -186,22 +159,7 @@ const CatalogContent = () => {
                 next={() => setNextPage()}
                 hasMore={hasMore}
                 loader={<LoadingComponent />}
-                //! CHANGE
-                endMessage={
-                    <Box
-                        sx={{
-                            textAlign: 'center'
-                        }}
-                    >
-                        <Typography
-                            sx={{
-                                color: '#fff3',
-                                fontWeight: 700,
-                                fontSize: '1em',
-                            }}
-                        >Пожалуй, на этом все</Typography>
-                    </Box>
-                }
+                endMessage={<EndMessage title='Товары закончились. Измените запрос или проверьте интернет.' />}
             >
                 <Box
                     sx={{
@@ -210,7 +168,9 @@ const CatalogContent = () => {
                     }}
                 >
                     <Grid sx={{ minWidth: '100%' }} container spacing={1}>
-                        {products && products?.map((elem) => <CatalogElement key={nanoid()} spuId={elem?.spuId} price={toRub(toNormalPrice(elem?.price))} link={'/product'} title={shortTitle(elem?.title)} picture={elem?.logoUrl} />)}
+                        {products && products
+                            ?.filter(elem => elem?.logoUrl?.length > 0 && elem?.price > 0 && elem?.title?.length > 0)
+                            ?.map((elem) => <CatalogElement key={nanoid()} spuId={elem?.spuId} price={toRub(toNormalPrice(elem?.price))} link={'/product'} title={shortTitle(elem?.title)} picture={elem?.logoUrl} />)}
                     </Grid>
 
                 </Box>

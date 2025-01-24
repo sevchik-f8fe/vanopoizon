@@ -33,6 +33,8 @@ export const useSelectPage = create((set) => ({
         return { hasMore: value }
     }),
     setCurrentPage: (value) => set(() => {
+        console.log('page: ', value);
+
         return { currentPage: value }
     }),
     setSearchValue: (value) => set(() => {

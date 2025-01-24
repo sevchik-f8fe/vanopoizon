@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Box, TextField, InputAdornment, IconButton, FormControlLabel, Checkbox, Skeleton } from "@mui/material";
+import { Box, TextField, InputAdornment, IconButton, FormControlLabel, Checkbox, Skeleton, Typography } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 import axios from "axios";
@@ -155,21 +155,32 @@ const Brand = () => {
                             label={elem.name}
                         />
                     ))) : (
-                    [1, 2, 9, 1, 2, 3, 34, 4, 5, 5, 6, 7].map((elem) => (
+                    (hasMore) ? (
+                        [1, 2, 9, 1, 2, 3, 34, 4, 5, 5, 6, 7].map((elem) => (
+                            <Box
+                                key={nanoid()}
+                                sx={{
+                                    mb: '.5em'
+                                }}
+                            >
+                                <Skeleton
+                                    animation="wave"
+                                    variant="rectangular"
+                                    width='100%'
+                                    height='2em'
+                                />
+                            </Box>
+                        ))
+                    ) : (
                         <Box
-                            key={nanoid()}
                             sx={{
+                                textAlign: 'center',
                                 mb: '.5em'
                             }}
                         >
-                            <Skeleton
-                                animation="wave"
-                                variant="rectangular"
-                                width='100%'
-                                height='2em'
-                            />
+                            <Typography variant="subtitle1">Такого бренда не найдено</Typography>
                         </Box>
-                    ))
+                    )
                 )}
             </Box>
         </Box >
