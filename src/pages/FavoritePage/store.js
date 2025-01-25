@@ -4,7 +4,8 @@ export const useFavorites = create((set) => ({
     products: [],
     isLoading: false,
     setFavorites: (value) => set(state => {
-        return { products: value }
+        let newProducts = new Set(value)
+        return { products: [...newProducts] }
     }),
     setIsLoading: (value) => set(state => {
         return { isLoading: value }

@@ -95,6 +95,22 @@ const FavoritePage = () => {
 const FavoriteElement = ({ picture, title, spuId }) => {
     const { removeFromFavorites } = useFavorites();
 
+    const fetchRemoveFromFavorites = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
+            {
+                tg: tg?.initData,
+                userId: user._id,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK r fav'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
     return (
         <Box
             sx={{
@@ -108,7 +124,10 @@ const FavoriteElement = ({ picture, title, spuId }) => {
         >
             <IconButton
                 size="small"
-                onClick={() => { removeFromFavorites(spuId) }}
+                onClick={() => {
+                    removeFromFavorites(spuId);
+                    fetchRemoveFromFavorites(spuId);
+                }}
                 sx={{
                     '&:hover': {
                         backgroundColor: '#fff',
