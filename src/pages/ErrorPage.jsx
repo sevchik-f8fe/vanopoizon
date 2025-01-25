@@ -9,7 +9,8 @@ const ErrorPage = () => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 minHeight: '100vh',
-                gap: '8em'
+                gap: '8em',
+                backgroundColor: '#DC4F5105'
             }}
         >
             <Box

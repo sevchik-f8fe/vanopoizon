@@ -25,6 +25,8 @@ import NewsPage from './pages/NewsPage/NewsPage';
 import FavoritePage from './pages/FavoritePage/FavotitePage';
 import GeoSelectPage from './pages/GeoSelectPage/GeoSelectPage';
 import OrdersPage from './pages/OrdersPage/OrdersPage';
+// import MisstakePage from './pages/PayPage/MisstakePage';
+// import SuccessPage from './pages/PayPage/SuccessPage';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -48,6 +50,8 @@ createRoot(document.getElementById('root')).render(
           <Route path='/contest' element={<ContestPage />} />
           <Route path='/news' element={<NewsPage />} />
           <Route path='/orders' element={<OrdersPage />} />
+          {/* <Route path='/success' element={<SuccessPage />} /> */}
+          {/* <Route path='/misstake' element={<MisstakePage />} /> */}
           <Route path='*' element={<ErrorPage />} />
         </Routes>
       </BrowserRouter>
