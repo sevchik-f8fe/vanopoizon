@@ -93,7 +93,9 @@ const FavoritePage = () => {
 }
 
 const FavoriteElement = ({ picture, title, spuId }) => {
+    let tg = window.Telegram.WebApp;
     const { removeFromFavorites } = useFavorites();
+    const { user } = useUserData();
 
     const fetchRemoveFromFavorites = async () => {
         await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
