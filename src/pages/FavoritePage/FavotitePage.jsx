@@ -59,7 +59,7 @@ const FavoritePage = () => {
                         borderRadius: '1em 1em 0 0',
                     }}
                 >
-                    {products.map((product) => <FavoriteElement key={nanoid()} id={product.id} picture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljwOll9YYO3ZIeoRk-aDUZb7wwu8iHAbo1g&s' price={product.price} title={product.title} link='/product' size={product.size} />)}
+                    {products.map((product) => <FavoriteElement key={nanoid()} spuId={product.spuId} picture={product.photoUrl} title={product.title} />)}
                 </Box>
             )
             }
@@ -67,8 +67,8 @@ const FavoritePage = () => {
     );
 }
 
-const FavoriteElement = ({ picture, price, title, link, id }) => {
-    const { removeElementFromFavorites } = useFavorites();
+const FavoriteElement = ({ picture, title, spuId }) => {
+    const { removeFromFavorites } = useFavorites();
 
     return (
         <Box
@@ -83,7 +83,7 @@ const FavoriteElement = ({ picture, price, title, link, id }) => {
         >
             <IconButton
                 size="small"
-                onClick={() => { removeElementFromFavorites(id) }}
+                onClick={() => { removeFromFavorites(spuId) }}
                 sx={{
                     '&:hover': {
                         backgroundColor: '#fff',
@@ -99,7 +99,7 @@ const FavoriteElement = ({ picture, price, title, link, id }) => {
                 <FavoriteIcon sx={{ color: '#F34213' }} />
             </IconButton>
 
-            <Link to={link}
+            <Link to={'/product'}
             >
                 <Box
                     sx={{
@@ -123,7 +123,6 @@ const FavoriteElement = ({ picture, price, title, link, id }) => {
                         alignItems: 'start'
                     }}
                 >
-                    <Typography variant="h4">{price} &#8381;</Typography>
                     <Typography variant="body1">{title}</Typography>
                 </Box>
             </Link>

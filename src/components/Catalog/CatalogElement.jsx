@@ -3,9 +3,63 @@ import Grid from '@mui/material/Grid2';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { useFavorites } from "../../pages/FavoritePage/store";
+import { useUserData } from "../../utils/store";
 
 const CatalogElement = ({ picture, price, title, spuId }) => {
+    let tg = window?.Telegram?.WebApp;
     const navigate = useNavigate();
+
+    const { products, addToFavorites, removeFromFavorites } = useFavorites()
+    const { user } = useUserData();
+
+    const fetchAddToFavorites = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToFavorites',
+            {
+                tg: tg?.initData,
+                userId: user?._id,
+                title,
+                photoUrl: picture,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK add fav'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+    const fetchRemoveFromFavorites = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
+            {
+                tg: tg?.initData,
+                userId: user._id,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK r fav'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+    const handleFavoriteClick = () => {
+        if (products.some(item => item.spuId === spuId)) {
+            removeFromFavorites(spuId);
+
+            fetchRemoveFromFavorites();
+        } else {
+            addToFavorites({ title, spuId, photoUrl: picture });
+
+            fetchAddToFavorites();
+        }
+    }
 
     return (
         <Grid size={{ xs: 6, sm: 4, md: 3 }}>
@@ -22,6 +76,7 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                 }}
             >
                 <IconButton
+                    onClick={() => handleFavoriteClick()}
                     size="small"
                     sx={{
                         '&:hover': {
@@ -35,7 +90,11 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                         position: 'absolute',
                     }}
                 >
-                    <FavoriteBorderIcon sx={{ color: '#F34213' }} />
+                    {products.some(item => item.spuId === spuId) ? (
+                        <FavoriteIcon sx={{ color: '#F34213' }} />
+                    ) : (
+                        <FavoriteBorderIcon sx={{ color: '#F34213' }} />
+                    )}
                 </IconButton>
 
                 <Box
