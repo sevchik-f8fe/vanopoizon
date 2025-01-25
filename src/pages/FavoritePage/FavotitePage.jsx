@@ -4,6 +4,7 @@ import { Box, Typography, IconButton } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { nanoid } from "nanoid";
 import axios from "axios";
+import Grid from '@mui/material/Grid2';
 
 import { useFavorites } from "./store";
 import { useUserData } from "../../utils/store";
@@ -32,7 +33,7 @@ const FavoritePage = () => {
                 .finally(() => setIsLoading(false))
         }
 
-        fetchFavorites();
+        // fetchFavorites();
 
         tg.BackButton.show();
         tg.MainButton.hide();
@@ -77,14 +78,14 @@ const FavoritePage = () => {
             ) : (
                 <Box
                     sx={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '.5em',
-                        p: '.5em',
-                        borderRadius: '1em 1em 0 0',
+                        minWidth: '100%',
+                        flexGrow: 1,
+                        p: '0 .5em'
                     }}
                 >
-                    {products.map((product) => <FavoriteElement key={nanoid()} spuId={product.spuId} picture={product.photoUrl} title={product.title} />)}
+                    <Grid sx={{ minWidth: '100%' }} container spacing={1}>
+                        {products.map((product) => <FavoriteElement key={nanoid()} spuId={product.spuId} picture={product.photoUrl} title={product.title} />)}
+                    </Grid>
                 </Box>
             )
             }
@@ -114,77 +115,78 @@ const FavoriteElement = ({ picture, title, spuId }) => {
     }
 
     return (
-        <Box
-            sx={{
-                position: 'relative',
-                minWidth: 'calc(50% - .25em)',
-                maxWidth: 'calc(50%)',
-                cursor: 'pointer',
-                borderRadius: '1em',
-                backgroundColor: '#2E2E3A',
-            }}
-        >
-            <IconButton
-                size="small"
-                onClick={() => {
-                    removeFromFavorites(spuId);
-                    fetchRemoveFromFavorites(spuId);
-                }}
-                sx={{
-                    '&:hover': {
-                        backgroundColor: '#fff',
-                    },
-                    '&:active': {
-                        backgroundColor: '#fff9',
-                    },
-                    top: '0',
-                    right: '0',
-                    position: 'absolute',
-                }}
-            >
-                <FavoriteIcon sx={{ color: '#F34213' }} />
-            </IconButton>
-
-            <Link to={'/product'}
-            >
-                <Box
-                    sx={{
-                        backgroundImage: `url(${picture})`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        minWidth: '100%',
-                        borderRadius: '1em',
-                        minHeight: '7em',
-                    }}
-                >
-                </Box>
-
-                <Box
-                    sx={{
-                        p: '.5em',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'senter',
-                        alignItems: 'start'
-                    }}
-                >
-                    <Typography variant="body1">{title}</Typography>
-                </Box>
-            </Link>
-
+        <Grid size={{ xs: 6, sm: 4, md: 3 }}>
             <Box
                 sx={{
-                    display: 'flex',
-                    justifyContent: 'center'
+                    minHeight: '100%',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    borderRadius: '1em',
+                    backgroundColor: '#2E2E3A',
                 }}
             >
-                <CustomButton
-                    isDisabled={false}
-                // onClick={()=>}
-                >В корзину</CustomButton>
+                <IconButton
+                    size="small"
+                    onClick={() => {
+                        removeFromFavorites(spuId);
+                        fetchRemoveFromFavorites(spuId);
+                    }}
+                    sx={{
+                        '&:hover': {
+                            backgroundColor: '#fff',
+                        },
+                        '&:active': {
+                            backgroundColor: '#fff9',
+                        },
+                        top: '0',
+                        right: '0',
+                        position: 'absolute',
+                    }}
+                >
+                    <FavoriteIcon sx={{ color: '#F34213' }} />
+                </IconButton>
+
+                <Link to={'/product'}
+                >
+                    <Box
+                        sx={{
+                            backgroundImage: `url(${picture})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            backgroundRepeat: 'no-repeat',
+                            minWidth: '100%',
+                            borderRadius: '1em',
+                            minHeight: '7em',
+                        }}
+                    >
+                    </Box>
+
+                    <Box
+                        sx={{
+                            p: '.5em',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'senter',
+                            alignItems: 'start'
+                        }}
+                    >
+                        <Typography variant="body1">{title}</Typography>
+                    </Box>
+                </Link>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center'
+                    }}
+                >
+                    <CustomButton
+                        isDisabled={false}
+                    // onClick={()=>}
+                    >В корзину</CustomButton>
+                </Box>
             </Box>
-        </Box>
+        </Grid>
     );
 }
 
