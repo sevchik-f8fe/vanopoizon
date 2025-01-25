@@ -3,14 +3,37 @@ import { Link } from "react-router-dom";
 import { Box, Typography, IconButton } from "@mui/material";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { nanoid } from "nanoid";
+import axios from "axios";
 
 import { useFavorites } from "./store";
+import { useUserData } from "../../utils/store";
 
 const FavoritePage = () => {
-    const { products } = useFavorites();
+    const { setIsLoading, isLoading, products, setFavorites } = useFavorites();
+    const { user } = useUserData()
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
+        const fetchFavorites = async () => {
+            setIsLoading(true);
+
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/getFavorites',
+                {
+                    tg: tg?.initData,
+                    userId: user?._id,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(res => setFavorites(res.data.favorites))
+                .catch(err => console.log(`err: ${err}`))
+                .finally(() => setIsLoading(false))
+        }
+
+        fetchFavorites();
+
         tg.BackButton.show();
         tg.MainButton.hide();
     }, [])
@@ -38,17 +61,19 @@ const FavoritePage = () => {
             </Box>
 
             {products.length <= 0 ? (
-                <Box
-                    sx={{
-                        p: '.5em',
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        minHeight: '20vh'
-                    }}
-                >
-                    <Typography variant="caption" sx={{ color: '#fff5' }}>У вас нет избранных товаров ;(</Typography>
-                </Box>
+                (isLoading) ? (<>Загрузка</>) : (
+                    <Box
+                        sx={{
+                            p: '.5em',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            minHeight: '10vh'
+                        }}
+                    >
+                        <Typography variant="caption" sx={{ color: '#fff5' }}>У вас нет избранных товаров ;(</Typography>
+                    </Box>
+                )
             ) : (
                 <Box
                     sx={{
