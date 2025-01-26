@@ -3,18 +3,17 @@ import { useNavigate, Link } from "react-router-dom";
 import { Box, Typography, IconButton } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import { nanoid } from "nanoid";
-import FlightIcon from '@mui/icons-material/Flight';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 
 import { showShineMainBtn } from "../../utils/utilFuncs";
 import { useCart } from "./store";
 import { useUserData } from "../../utils/store";
+import { useFavorites } from "../FavoritePage/store";
 
 const CartPage = () => {
     const { products, spuIds, isLoading, setIsLoading, setSpuIds, deliveryDataIsFilled, setDeliveryDataIsFilled } = useCart();
@@ -42,7 +41,7 @@ const CartPage = () => {
                 .finally(() => setIsLoading(false))
         }
 
-        // fetchProcuctCart();
+        fetchProcuctCart();
 
         setDeliveryDataIsFilled((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0)))
         tg.BackButton.show();
@@ -166,6 +165,87 @@ const CartPage = () => {
 
 const CartElement = ({ color, size, spuId, count }) => {
     const { removeFromCart, incProductCount, decProductCount } = useCart()
+    const { products, addToFavorites, removeFromFavorites } = useFavorites();
+
+    const fetchRemoveFromFavorites = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
+            {
+                tg: tg?.initData,
+                userId: user._id,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK r fav'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+    const fetchAddToFavorites = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToFavorites',
+            {
+                tg: tg?.initData,
+                userId: user?._id,
+                title,
+                photoUrl: picture,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK add fav'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+
+    const fetchRemoveFromCart = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
+            {
+                tg: tg?.initData,
+                userId: user._id,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK r cart'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+    const fetchAddToCart = async (customCount) => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
+            {
+                tg: tg?.initData,
+                userId: user?._id,
+                spuId,
+                count: customCount,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK add cart'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+    const handleFavoriteClick = () => {
+        if (products.some(item => item.spuId === spuId)) {
+            removeFromFavorites(spuId);
+
+            fetchRemoveFromFavorites();
+        } else {
+            addToFavorites({ title, spuId, photoUrl: picture });
+
+            fetchAddToFavorites();
+        }
+    }
 
     return (
         <Box
@@ -228,17 +308,30 @@ const CartElement = ({ color, size, spuId, count }) => {
                     }}
                 >
                     <IconButton
+                        onClick={() => handleFavoriteClick()}
                         size="small"
                     >
-                        <FavoriteBorderIcon
-                            sx={{
-                                fontSize: '1.2em',
-                                color: '#F34213'
-                            }}
-                        />
+                        {products.some(item => item.spuId === spuId) ? (
+                            <FavoriteIcon
+                                sx={{
+                                    fontSize: '1.2em',
+                                    color: '#F34213'
+                                }}
+                            />
+                        ) : (
+                            <FavoriteBorderIcon
+                                sx={{
+                                    fontSize: '1.2em',
+                                    color: '#F34213'
+                                }}
+                            />
+                        )}
                     </IconButton>
                     <IconButton
-                        onClick={() => removeFromCart(spuId)}
+                        onClick={() => {
+                            fetchRemoveFromCart();
+                            removeFromCart(spuId)
+                        }}
                         size="small"
                     >
                         <DeleteIcon
@@ -260,7 +353,10 @@ const CartElement = ({ color, size, spuId, count }) => {
                 >
                     <CustomButton
                         isDisabled={count <= 1}
-                        onClick={() => decProductCount(spuId)}
+                        onClick={() => {
+                            decProductCount(spuId)
+                            fetchAddToCart(-1)
+                        }}
                     >
                         -
                     </CustomButton>
@@ -279,7 +375,10 @@ const CartElement = ({ color, size, spuId, count }) => {
                     </Box>
                     <CustomButton
                         isDisabled={false}
-                        onClick={() => incProductCount(spuId)}
+                        onClick={() => {
+                            incProductCount(spuId)
+                            fetchAddToCart(1)
+                        }}
                     >
                         +
                     </CustomButton>

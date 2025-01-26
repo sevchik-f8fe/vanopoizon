@@ -8,6 +8,7 @@ import Grid from '@mui/material/Grid2';
 
 import { useFavorites } from "./store";
 import { useUserData } from "../../utils/store";
+import { useCart } from "../CartPage/store";
 
 const FavoritePage = () => {
     const { setIsLoading, isLoading, products, setFavorites } = useFavorites();
@@ -96,7 +97,41 @@ const FavoritePage = () => {
 const FavoriteElement = ({ picture, title, spuId }) => {
     let tg = window.Telegram.WebApp;
     const { removeFromFavorites } = useFavorites();
+    const { spuIds, addToCart, removeFromCart } = useCart();
     const { user } = useUserData();
+
+    const fetchAddToCart = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
+            {
+                tg: tg?.initData,
+                userId: user?._id,
+                spuId,
+                count: 1,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK add cart'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+    const fetchRemoveFromCart = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
+            {
+                tg: tg?.initData,
+                userId: user._id,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK r cart'))
+            .catch(err => console.log(`err: ${err}`))
+    }
 
     const fetchRemoveFromFavorites = async () => {
         await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
@@ -112,6 +147,18 @@ const FavoriteElement = ({ picture, title, spuId }) => {
             })
             .then(res => console.log('OK r fav'))
             .catch(err => console.log(`err: ${err}`))
+    }
+
+    const handleCartClick = () => {
+        if (spuIds.some(item => item.spuId === spuId)) {
+            removeFromCart(spuId);
+
+            fetchRemoveFromCart();
+        } else {
+            addToCart({ spuId, count: 1 });
+
+            fetchAddToCart();
+        }
     }
 
     return (
@@ -182,8 +229,8 @@ const FavoriteElement = ({ picture, title, spuId }) => {
                 >
                     <CustomButton
                         isDisabled={false}
-                    // onClick={()=>}
-                    >В корзину</CustomButton>
+                        onClick={() => handleCartClick()}
+                    >{spuIds.some(item => item.spuId === spuId) ? 'Удалить' : 'В корзину'}</CustomButton>
                 </Box>
             </Box>
         </Grid>

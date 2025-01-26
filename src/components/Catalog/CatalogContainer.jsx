@@ -16,10 +16,54 @@ import { useCatalog } from "./store";
 import { useFilters } from "./store";
 import { shortTitle, toNormalPrice, toRub, objectToQueryString } from "../../utils/utilFuncs";
 import EndMessage from "../EndMessage";
+import { useUserData } from "../../utils/store";
+import { useFavorites } from "../../pages/FavoritePage/store";
+import { useCart } from "../../pages/CartPage/store";
 
 const CatalogContainer = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
+    let tg = window.Telegram.WebApp;
+
+    const { user } = useUserData();
+    const { setFavorites } = useFavorites();
+    const { setSpuIds } = useCart();
+
+    useEffect(() => {
+        const fetchFavorites = async () => {
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/getFavorites',
+                {
+                    tg: tg?.initData,
+                    userId: user?._id,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(res => setFavorites(res.data.favorites))
+                .catch(err => console.log(`err: ${err}`))
+        }
+
+        const fetchProcuctCart = async () => {
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/getProductCart',
+                {
+                    tg: tg?.initData,
+                    userId: user?._id,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(res => setSpuIds(res.data.cart))
+                .catch(err => console.log(`err: ${err}`))
+        }
+
+        fetchProcuctCart();
+        fetchFavorites();
+    })
+
     return (
         <Box
             sx={{
