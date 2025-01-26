@@ -60,10 +60,10 @@ export const useCart = create((set) => ({
     }),
 
     removeFromCart: (elemId) => set(state => {
-        return { products: [...state.spuIds.filter((elem) => elem !== elemId)] }
+        return { spuIds: [...state.spuIds.filter((elem) => elem.spuId !== elemId)] }
     }),
-    addToCart: (elemId) => set(state => {
-        return { products: [...state.spuIds, elemId] }
+    addToCart: (elem) => set(state => {
+        return { spuIds: [...state.spuIds, elem] }
     }),
 
     incProductCount: (elemId) => set(state => ({
