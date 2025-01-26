@@ -33,7 +33,7 @@ const FavoritePage = () => {
                 .finally(() => setIsLoading(false))
         }
 
-        // fetchFavorites();
+        fetchFavorites();
 
         tg.BackButton.show();
         tg.MainButton.hide();

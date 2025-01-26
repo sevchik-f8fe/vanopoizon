@@ -7,12 +7,14 @@ import axios from "axios";
 
 import { useFavorites } from "../../pages/FavoritePage/store";
 import { useUserData } from "../../utils/store";
+import { useCart } from "../../pages/CartPage/store";
 
 const CatalogElement = ({ picture, price, title, spuId }) => {
     let tg = window?.Telegram?.WebApp;
     const navigate = useNavigate();
 
-    const { products, addToFavorites, removeFromFavorites } = useFavorites()
+    const { products, addToFavorites, removeFromFavorites } = useFavorites();
+    const { removeFromCart, addToCart, spuIds } = useCart()
     const { user } = useUserData();
 
     const fetchAddToFavorites = async () => {
@@ -49,6 +51,39 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
             .catch(err => console.log(`err: ${err}`))
     }
 
+    const fetchAddToCart = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
+            {
+                tg: tg?.initData,
+                userId: user?._id,
+                spuId,
+                count: 1,
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK add cart'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
+    const fetchRemoveFromCart = async () => {
+        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
+            {
+                tg: tg?.initData,
+                userId: user._id,
+                spuId
+            },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(res => console.log('OK r cart'))
+            .catch(err => console.log(`err: ${err}`))
+    }
+
     const handleFavoriteClick = () => {
         if (products.some(item => item.spuId === spuId)) {
             removeFromFavorites(spuId);
@@ -58,6 +93,18 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
             addToFavorites({ title, spuId, photoUrl: picture });
 
             fetchAddToFavorites();
+        }
+    }
+
+    const handleCartClick = () => {
+        if (spuIds.some(item => item.spuId === spuId)) {
+            removeFromCart(spuId);
+
+            fetchRemoveFromCart();
+        } else {
+            addToCart({ spuId, count: 1 });
+
+            fetchAddToCart();
         }
     }
 
@@ -133,8 +180,8 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
 
                 <CustomButton
                     isDisabled={false}
-                // onClick={()=>}
-                >В корзину</CustomButton>
+                    onClick={() => handleCartClick()}
+                >{spuIds.some(item => item.spuId === spuId) ? 'Удалить' : 'В корзину'}</CustomButton>
             </Box>
         </Grid>
     );

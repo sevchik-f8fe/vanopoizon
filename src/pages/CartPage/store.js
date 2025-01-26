@@ -31,9 +31,14 @@ export const useCart = create((set) => ({
             size: 33,
         },
     ],
+    spuIds: [],
+
     usePoints: false,
     useInsurance: false,
+
     deliveryDataIsFilled: false,
+    isLoading: false,
+
     toggleUseInsurance: () => set(state => {
         return { useInsurance: !state.useInsurance }
     }),
@@ -43,13 +48,24 @@ export const useCart = create((set) => ({
     toggleUsePoints: () => set(state => {
         return { usePoints: !state.usePoints }
     }),
-    removeElementFromCart: (elemId) => set(state => {
-        return {
-            products: [
-                ...state.products.filter((elem) => elem.id != elemId)
-            ]
-        }
+    setIsLoading: (value) => set(() => {
+        return { isLoading: value }
     }),
+
+    setSpuIds: (value) => set(() => {
+        return { spuIds: value }
+    }),
+    setProducts: (value) => set(() => {
+        return { products: value }
+    }),
+
+    removeFromCart: (elemId) => set(state => {
+        return { products: [...state.spuIds.filter((elem) => elem !== elemId)] }
+    }),
+    addToCart: (elemId) => set(state => {
+        return { products: [...state.spuIds, elemId] }
+    }),
+
     incProductCount: (elemId) => set(state => ({
         ...state,
         products: state.products.map(product =>

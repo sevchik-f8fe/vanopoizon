@@ -10,27 +10,53 @@ import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
+import axios from "axios";
 
 import { showShineMainBtn } from "../../utils/utilFuncs";
 import { useCart } from "./store";
 import { useUserData } from "../../utils/store";
 
 const CartPage = () => {
-    const { products, deliveryDataIsFilled, setDeliveryDataIsFilled } = useCart();
+    const { products, spuIds, isLoading, setIsLoading, setSpuIds, deliveryDataIsFilled, setDeliveryDataIsFilled } = useCart();
     const { user } = useUserData();
 
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
+        const fetchProcuctCart = async () => {
+            setIsLoading(true);
+
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/getProductCart',
+                {
+                    tg: tg?.initData,
+                    userId: user?._id,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(res => setSpuIds(res.data.cart))
+                .catch(err => console.log(`err: ${err}`))
+                .finally(() => setIsLoading(false))
+        }
+
+        // fetchProcuctCart();
+
         setDeliveryDataIsFilled((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0)))
-
         tg.BackButton.show();
+    }, [])
 
-        if ((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0))) {
+    useEffect(() => {
+
+
+        if ((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0)) && spuIds.length > 0) {
             showShineMainBtn(12000);
         }
-    }, [])
+    }, [spuIds])
+
+    //! removeFromCart, addToCart, getProductCart | userId, spuId, count, size, color | tg
 
     return (
         <Box
@@ -102,20 +128,20 @@ const CartPage = () => {
                 </Box>
             </Box>
 
-            {products.length <= 0 ? (
-                <>
+            {spuIds.length <= 0 ? (
+                (isLoading) ? (<>Загрузка</>) : (
                     <Box
                         sx={{
                             p: '.5em',
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            minHeight: '20vh'
+                            minHeight: '10vh'
                         }}
                     >
-                        <Typography variant="subtitle1">В вашей корзине пусто ;(</Typography>
+                        <Typography variant="caption" sx={{ color: '#fff5' }}>В вашей корзине пусто ;(</Typography>
                     </Box>
-                </>
+                )
             ) : (
                 <>
                     <Box
@@ -126,7 +152,7 @@ const CartPage = () => {
                             p: '1em .5em',
                         }}
                     >
-                        {products.map((product) => <CartElement key={nanoid()} id={product.id} picture='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljwOll9YYO3ZIeoRk-aDUZb7wwu8iHAbo1g&s' price={product.price} title={product.title} link='/product' size={product.size} count={product.count} />)}
+                        {spuIds.map((product) => <CartElement key={nanoid()} spuId={product.spuId} count={product.count} size={product.size} color={product.color} />)}
                     </Box>
                     <UsePointsBlock />
                     <InsuranceBlock />
@@ -138,8 +164,8 @@ const CartPage = () => {
     );
 }
 
-const CartElement = ({ picture, price, size, title, link, id, count }) => {
-    const { removeElementFromCart, incProductCount, decProductCount } = useCart()
+const CartElement = ({ color, size, spuId, count }) => {
+    const { removeFromCart, incProductCount, decProductCount } = useCart()
 
     return (
         <Box
@@ -149,7 +175,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                 border: '1px solid #fff3'
             }}
         >
-            <Link to={link}>
+            <Link to={'/product'}>
                 <Box
                     sx={{
                         cursor: 'pointer',
@@ -158,7 +184,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                         gap: '.5em',
                     }}
                 >
-                    <Box
+                    {/* <Box
                         sx={{
                             backgroundImage: `url(${picture})`,
                             backgroundSize: 'cover',
@@ -168,7 +194,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                             borderRadius: '.5em',
                             minHeight: '5em',
                         }}
-                    ></Box>
+                    ></Box> */}
                     <Box
                         sx={{
                             display: 'flex',
@@ -177,9 +203,10 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                             p: '.2em 0'
                         }}
                     >
-                        <Typography variant="h5">{title}</Typography>
-                        <Typography variant="subtitle1">{price} &#8381;</Typography>
-                        <Typography variant="subtitle1">размер {size} (EU)</Typography>
+                        <Typography variant="h5">{spuId}, {size}, {color}</Typography>
+                        {/* <Typography variant="subtitle1">{price} &#8381;</Typography> */}
+                        {/* <Typography variant="subtitle1">размер {size} (EU)</Typography> */}
+                        {/* <Typography variant="subtitle1">{color}</Typography> */}
                     </Box>
                 </Box>
             </Link>
@@ -211,7 +238,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                         />
                     </IconButton>
                     <IconButton
-                        onClick={() => removeElementFromCart(id)}
+                        onClick={() => removeFromCart(spuId)}
                         size="small"
                     >
                         <DeleteIcon
@@ -233,7 +260,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                 >
                     <CustomButton
                         isDisabled={count <= 1}
-                        onClick={() => decProductCount(id)}
+                        onClick={() => decProductCount(spuId)}
                     >
                         -
                     </CustomButton>
@@ -252,7 +279,7 @@ const CartElement = ({ picture, price, size, title, link, id, count }) => {
                     </Box>
                     <CustomButton
                         isDisabled={false}
-                        onClick={() => incProductCount(id)}
+                        onClick={() => incProductCount(spuId)}
                     >
                         +
                     </CustomButton>
