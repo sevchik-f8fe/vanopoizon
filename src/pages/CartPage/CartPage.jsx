@@ -23,39 +23,15 @@ const CartPage = () => {
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
-        const fetchProcuctCart = async () => {
-            setIsLoading(true);
-
-            await axios.post('https://vanopoizonserver.ru/vanopoizon/getProductCart',
-                {
-                    tg: tg?.initData,
-                    userId: user?._id,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(res => setSpuIds(res.data.cart))
-                .catch(err => console.log(`err: ${err}`))
-                .finally(() => setIsLoading(false))
-        }
-
-        fetchProcuctCart();
-
         setDeliveryDataIsFilled((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0)))
         tg.BackButton.show();
     }, [])
 
     useEffect(() => {
-
-
         if ((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0)) && spuIds.length > 0) {
             showShineMainBtn(12000);
         }
     }, [spuIds])
-
-    //! removeFromCart, addToCart, getProductCart | userId, spuId, count, size, color | tg
 
     return (
         <Box
@@ -164,88 +140,9 @@ const CartPage = () => {
 }
 
 const CartElement = ({ color, size, spuId, count }) => {
-    const { removeFromCart, incProductCount, decProductCount } = useCart()
-    const { products, addToFavorites, removeFromFavorites } = useFavorites();
-
-    const fetchRemoveFromFavorites = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
-            {
-                tg: tg?.initData,
-                userId: user._id,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK r fav'))
-            .catch(err => console.log(`err: ${err}`))
-    }
-
-    const fetchAddToFavorites = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToFavorites',
-            {
-                tg: tg?.initData,
-                userId: user?._id,
-                title,
-                photoUrl: picture,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK add fav'))
-            .catch(err => console.log(`err: ${err}`))
-    }
-
-
-    const fetchRemoveFromCart = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
-            {
-                tg: tg?.initData,
-                userId: user._id,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK r cart'))
-            .catch(err => console.log(`err: ${err}`))
-    }
-
-    const fetchAddToCart = async (customCount) => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
-            {
-                tg: tg?.initData,
-                userId: user?._id,
-                spuId,
-                count: customCount,
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK add cart'))
-            .catch(err => console.log(`err: ${err}`))
-    }
-
-    const handleFavoriteClick = () => {
-        if (products.some(item => item.spuId === spuId)) {
-            removeFromFavorites(spuId);
-
-            fetchRemoveFromFavorites();
-        } else {
-            addToFavorites({ title, spuId, photoUrl: picture });
-
-            fetchAddToFavorites();
-        }
-    }
+    const { removeFromCart, incProductCount } = useCart()
+    const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+    const { user } = useUserData();
 
     return (
         <Box
@@ -308,10 +205,9 @@ const CartElement = ({ color, size, spuId, count }) => {
                     }}
                 >
                     <IconButton
-                        onClick={() => handleFavoriteClick()}
                         size="small"
                     >
-                        {products.some(item => item.spuId === spuId) ? (
+                        {favorites.some(item => item.spuId === spuId) ? (
                             <FavoriteIcon
                                 sx={{
                                     fontSize: '1.2em',
@@ -329,8 +225,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     </IconButton>
                     <IconButton
                         onClick={() => {
-                            fetchRemoveFromCart();
-                            removeFromCart(spuId)
+                            removeFromCart(spuId, user._id)
                         }}
                         size="small"
                     >
@@ -354,8 +249,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     <CustomButton
                         isDisabled={count <= 1}
                         onClick={() => {
-                            decProductCount(spuId)
-                            fetchAddToCart(-1)
+                            incProductCount(spuId, -1, user._id)
                         }}
                     >
                         -
@@ -376,8 +270,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     <CustomButton
                         isDisabled={false}
                         onClick={() => {
-                            incProductCount(spuId)
-                            fetchAddToCart(1)
+                            incProductCount(spuId, 1, user._id)
                         }}
                     >
                         +

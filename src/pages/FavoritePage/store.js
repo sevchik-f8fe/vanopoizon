@@ -1,21 +1,17 @@
 import { create } from "zustand";
 
 export const useFavorites = create((set) => ({
-    products: [],
-    isLoading: false,
+    favorites: [],
     setFavorites: (value) => set(state => {
         let newProducts = new Set(value)
-        return { products: [...newProducts] }
-    }),
-    setIsLoading: (value) => set(state => {
-        return { isLoading: value }
+        return { favorites: [...newProducts] }
     }),
     addToFavorites: (product) => set(state => {
-        return { products: [...state.products, product] }
+        return { favorites: [...state.products, product] }
     }),
     removeFromFavorites: (elemId) => set(state => {
         return {
-            products: [
+            favorites: [
                 ...state.products.filter((elem) => elem.spuId != elemId)
             ]
         }

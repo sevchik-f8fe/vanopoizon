@@ -11,14 +11,12 @@ import { useUserData } from "../../utils/store";
 import { useCart } from "../CartPage/store";
 
 const FavoritePage = () => {
-    const { setIsLoading, isLoading, products, setFavorites } = useFavorites();
+    const { favorites, setFavorites } = useFavorites();
     const { user } = useUserData()
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
         const fetchFavorites = async () => {
-            setIsLoading(true);
-
             await axios.post('https://vanopoizonserver.ru/vanopoizon/getFavorites',
                 {
                     tg: tg?.initData,
@@ -31,7 +29,6 @@ const FavoritePage = () => {
                 })
                 .then(res => setFavorites(res.data.favorites))
                 .catch(err => console.log(`err: ${err}`))
-                .finally(() => setIsLoading(false))
         }
 
         fetchFavorites();
@@ -100,39 +97,6 @@ const FavoriteElement = ({ picture, title, spuId }) => {
     const { spuIds, addToCart, removeFromCart } = useCart();
     const { user } = useUserData();
 
-    const fetchAddToCart = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
-            {
-                tg: tg?.initData,
-                userId: user?._id,
-                spuId,
-                count: 1,
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK add cart'))
-            .catch(err => console.log(`err: ${err}`))
-    }
-
-    const fetchRemoveFromCart = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
-            {
-                tg: tg?.initData,
-                userId: user._id,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK r cart'))
-            .catch(err => console.log(`err: ${err}`))
-    }
-
     const fetchRemoveFromFavorites = async () => {
         await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
             {
@@ -147,18 +111,6 @@ const FavoriteElement = ({ picture, title, spuId }) => {
             })
             .then(res => console.log('OK r fav'))
             .catch(err => console.log(`err: ${err}`))
-    }
-
-    const handleCartClick = () => {
-        if (spuIds.some(item => item.spuId === spuId)) {
-            removeFromCart(spuId);
-
-            fetchRemoveFromCart();
-        } else {
-            addToCart({ spuId, count: 1 });
-
-            fetchAddToCart();
-        }
     }
 
     return (
@@ -229,7 +181,6 @@ const FavoriteElement = ({ picture, title, spuId }) => {
                 >
                     <CustomButton
                         isDisabled={false}
-                        onClick={() => handleCartClick()}
                     >{spuIds.some(item => item.spuId === spuId) ? 'Удалить' : 'В корзину'}</CustomButton>
                 </Box>
             </Box>

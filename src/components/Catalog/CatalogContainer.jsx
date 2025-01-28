@@ -23,46 +23,6 @@ import { useCart } from "../../pages/CartPage/store";
 const CatalogContainer = () => {
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-    let tg = window.Telegram.WebApp;
-
-    const { user } = useUserData();
-    const { setFavorites } = useFavorites();
-    const { setSpuIds } = useCart();
-
-    useEffect(() => {
-        const fetchFavorites = async () => {
-            await axios.post('https://vanopoizonserver.ru/vanopoizon/getFavorites',
-                {
-                    tg: tg?.initData,
-                    userId: user?._id,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(res => setFavorites(res.data.favorites))
-                .catch(err => console.log(`err: ${err}`))
-        }
-
-        const fetchProcuctCart = async () => {
-            await axios.post('https://vanopoizonserver.ru/vanopoizon/getProductCart',
-                {
-                    tg: tg?.initData,
-                    userId: user?._id,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(res => setSpuIds(res.data.cart))
-                .catch(err => console.log(`err: ${err}`))
-        }
-
-        fetchProcuctCart();
-        fetchFavorites();
-    })
 
     return (
         <Box
@@ -175,19 +135,17 @@ const CatalogContent = () => {
 
     useEffect(() => {
         const fetchFilteredProducts = async () => {
-            console.log('start filter: ', objectToQueryString(propsOfSearch));
-            axios.post('https://vanopoizonserver.ru/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
                 .then(response => {
-                    console.log('ok filter: ', objectToQueryString(propsOfSearch), ' data: ', response?.data?.productsS);
                     if (response?.data?.products.length <= 0) setHasMore(false);
                     else setMoreProducts(response?.data?.products);
                 })
                 .catch(error => {
-                    console.error('Ошибка: ', error)
+                    console.error('Ошибка')
                 })
         }
 

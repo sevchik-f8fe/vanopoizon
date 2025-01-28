@@ -1,36 +1,7 @@
 import { create } from "zustand";
 
 export const useCart = create((set) => ({
-    products: [
-        {
-            id: 1,
-            title: '1 Бобёр коричневый б/у',
-            price: '12 000',
-            count: 1,
-            size: 33,
-        },
-        {
-            id: 2,
-            title: '2 Бобёр коричневый б/у',
-            price: '12 000',
-            count: 1,
-            size: 33,
-        },
-        {
-            id: 3,
-            title: '3 Бобёр коричневый б/у',
-            price: '12 000',
-            count: 1,
-            size: 33,
-        },
-        {
-            id: 4,
-            title: '4 Бобёр коричневый б/у',
-            price: '12 000',
-            count: 1,
-            size: 33,
-        },
-    ],
+    cart: [],
     spuIds: [],
 
     usePoints: false,
@@ -59,24 +30,96 @@ export const useCart = create((set) => ({
         return { products: value }
     }),
 
-    removeFromCart: (elemId) => set(state => {
+    removeFromCart: (elemId, userId) => set(state => {
+        let tg = window?.Telegram?.WebApp;
+
+        const fetchRemovefromCart = async (userId) => {
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
+                {
+                    tg: tg?.initData,
+                    userId,
+                    spuId: elemId
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    console.log('ok: ', response.data)
+                })
+                .catch(error => {
+                    console.error('Ошибка')
+                })
+        }
+
+        fetchRemovefromCart(userId);
+
         return { spuIds: [...state.spuIds.filter((elem) => elem.spuId !== elemId)] }
     }),
-    addToCart: (elem) => set(state => {
+    addToCart: (elem, userId) => set(state => {
+        let tg = window?.Telegram?.WebApp;
+
+        const fetchAddToCart = async (userId) => {
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
+                {
+                    tg: tg?.initData,
+                    userId,
+                    spuId: elem.spuId,
+                    color: elem?.color,
+                    count: elem.count,
+                    size: elem?.size,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    console.log('ok: ', response.data)
+                })
+                .catch(error => {
+                    console.error('Ошибка')
+                })
+        }
+
+        fetchAddToCart(userId);
+
         return { spuIds: [...state.spuIds, elem] }
     }),
 
-    incProductCount: (elemId) => set(state => ({
-        ...state,
-        products: state.products.map(product =>
-            product.id === elemId ? { ...product, count: product.count + 1 } : product
-        )
-    })),
-    decProductCount: (elemId) => set(state => ({
-        ...state,
-        products: state.products.map(product =>
-            product.id === elemId ? { ...product, count: product.count - 1 } : product
-        )
-    })),
+    incProductCount: (elem, value, userId) => set(state => {
+        let tg = window?.Telegram?.WebApp;
 
+        const fetchAddToCart = async (userId) => {
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
+                {
+                    tg: tg?.initData,
+                    userId,
+                    spuId: elem.spuId,
+                    color: elem?.color,
+                    count: elem.count + value,
+                    size: elem?.size,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => {
+                    console.log('ok: ', response.data)
+                })
+                .catch(error => {
+                    console.error('Ошибка')
+                })
+        }
+
+        let newArr = state.products.map(product =>
+            spuIds.spuId === elem.spuId ? { ...product, count: product.count + value } : product
+        );
+
+        fetchAddToCart(userId);
+
+        return { spuIds: newArr }
+    }),
 }));

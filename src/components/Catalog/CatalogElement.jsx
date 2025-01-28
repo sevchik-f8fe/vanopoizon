@@ -13,98 +13,61 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
     let tg = window?.Telegram?.WebApp;
     const navigate = useNavigate();
 
-    const { products, addToFavorites, removeFromFavorites } = useFavorites();
+    const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
     const { removeFromCart, addToCart, spuIds } = useCart()
     const { user } = useUserData();
 
-    const fetchAddToFavorites = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToFavorites',
-            {
-                tg: tg?.initData,
-                userId: user?._id,
-                title,
-                photoUrl: picture,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK add fav'))
-            .catch(err => console.log(`err: ${err}`))
-    }
+    // const fetchAddToFavorites = async () => {
+    //     await axios.post('https://vanopoizonserver.ru/vanopoizon/addToFavorites',
+    //         {
+    //             tg: tg?.initData,
+    //             userId: user?._id,
+    //             title,
+    //             photoUrl: picture,
+    //             spuId
+    //         },
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         })
+    //         .then(res => console.log('OK add fav'))
+    //         .catch(err => console.log(`err: ${err}`))
+    // }
 
-    const fetchRemoveFromFavorites = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
-            {
-                tg: tg?.initData,
-                userId: user._id,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK r fav'))
-            .catch(err => console.log(`err: ${err}`))
-    }
+    // const fetchRemoveFromFavorites = async () => {
+    //     await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
+    //         {
+    //             tg: tg?.initData,
+    //             userId: user._id,
+    //             spuId
+    //         },
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             }
+    //         })
+    //         .then(res => console.log('OK r fav'))
+    //         .catch(err => console.log(`err: ${err}`))
+    // }
+    // 
+    // const handleFavoriteClick = () => {
+    //     if (products.some(item => item.spuId === spuId)) {
+    //         removeFromFavorites(spuId);
 
-    const fetchAddToCart = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/addToCart',
-            {
-                tg: tg?.initData,
-                userId: user?._id,
-                spuId,
-                count: 1,
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK add cart'))
-            .catch(err => console.log(`err: ${err}`))
-    }
+    //         fetchRemoveFromFavorites();
+    //     } else {
+    //         addToFavorites({ title, spuId, photoUrl: picture });
 
-    const fetchRemoveFromCart = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
-            {
-                tg: tg?.initData,
-                userId: user._id,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK r cart'))
-            .catch(err => console.log(`err: ${err}`))
-    }
-
-    const handleFavoriteClick = () => {
-        if (products.some(item => item.spuId === spuId)) {
-            removeFromFavorites(spuId);
-
-            fetchRemoveFromFavorites();
-        } else {
-            addToFavorites({ title, spuId, photoUrl: picture });
-
-            fetchAddToFavorites();
-        }
-    }
+    //         fetchAddToFavorites();
+    //     }
+    // }    
 
     const handleCartClick = () => {
         if (spuIds.some(item => item.spuId === spuId)) {
-            removeFromCart(spuId);
-
-            fetchRemoveFromCart();
+            removeFromCart(spuId, user._id);
         } else {
-            addToCart({ spuId, count: 1 });
-
-            fetchAddToCart();
+            addToCart({ count: 1, spuId }, user._id);
         }
     }
 
@@ -123,7 +86,7 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                 }}
             >
                 <IconButton
-                    onClick={() => handleFavoriteClick()}
+                    // onClick={() => handleFavoriteClick()}
                     size="small"
                     sx={{
                         '&:hover': {
@@ -137,7 +100,7 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                         position: 'absolute',
                     }}
                 >
-                    {products.some(item => item.spuId === spuId) ? (
+                    {favorites.some(item => item.spuId === spuId) ? (
                         <FavoriteIcon sx={{ color: '#F34213' }} />
                     ) : (
                         <FavoriteBorderIcon sx={{ color: '#F34213' }} />

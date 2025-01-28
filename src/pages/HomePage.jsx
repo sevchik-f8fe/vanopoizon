@@ -17,16 +17,19 @@ import Brand from "../components/FilterBlocks/Brand";
 import Caterogy from "../components/FilterBlocks/Category";
 import Fit from "../components/FilterBlocks/Fit";
 import { checkFilter } from "../utils/utilFuncs";
+import { useFavorites } from "./FavoritePage/store";
+import { useCart } from "./CartPage/store";
 
 const HomePage = () => {
     let tg = window.Telegram.WebApp;
     const { user, setUser } = useUserData();
     const { propsOfSearch, setPropsValue, setFieldValues, activeFilter, setActiveFilter, values } = useFilters()
     const { setPage, setProducts } = useCatalog();
+    const { setFavorites } = useFavorites();
+    const { setSpuIds } = useCart();
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
-
 
     useEffect(() => {
         tg.ready();
@@ -36,7 +39,6 @@ const HomePage = () => {
             tg.requestFullscreen();
         } catch (error) {
             tg.expand();
-            console.error('Ошибка при запросе полноэкранного режима:', error);
         }
         tg.disableVerticalSwipes();
         tg.enableClosingConfirmation();
@@ -51,6 +53,8 @@ const HomePage = () => {
                 })
                 .then(res => {
                     setUser(res?.data?.user)
+                    setFavorites(res?.data?.user?.favorites);
+                    setSpuIds(res?.data?.user?.cart)
                 })
                 .catch(err => console.log(`err: ${err}`));
         }
