@@ -7,7 +7,7 @@ export const useFavorites = create((set) => ({
         let newProducts = new Set(value)
         return { favorites: [...newProducts] }
     }),
-    addToFavorites: (product, userId) => set(state => {
+    addToFavorites: (elem, userId) => set(state => {
         let tg = window?.Telegram?.WebApp;
 
         const fetchAddToFavorites = async (userId) => {
@@ -34,7 +34,7 @@ export const useFavorites = create((set) => ({
 
         fetchAddToFavorites(userId);
 
-        return { favorites: [...state.products, product] }
+        return { favorites: [...state.favorites, elem] }
     }),
     removeFromFavorites: (elemId, userId) => set(state => {
         let tg = window?.Telegram?.WebApp;
