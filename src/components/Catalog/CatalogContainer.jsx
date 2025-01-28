@@ -1,7 +1,6 @@
-import { Box, Typography, IconButton, Skeleton, List, ListItemButton, Collapse } from "@mui/material";
+import { Box, Typography, IconButton, Skeleton } from "@mui/material";
 import Grid from '@mui/material/Grid2';
 
-import TuneIcon from '@mui/icons-material/Tune';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 import { nanoid } from "nanoid";
 import { useEffect } from "react";
@@ -16,9 +15,6 @@ import { useCatalog } from "./store";
 import { useFilters } from "./store";
 import { shortTitle, toNormalPrice, toRub, objectToQueryString } from "../../utils/utilFuncs";
 import EndMessage from "../EndMessage";
-import { useUserData } from "../../utils/store";
-import { useFavorites } from "../../pages/FavoritePage/store";
-import { useCart } from "../../pages/CartPage/store";
 
 const CatalogContainer = () => {
     const theme = useTheme();

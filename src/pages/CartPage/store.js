@@ -119,7 +119,7 @@ export const useCart = create((set) => ({
             product.spuId == elem.spuId ? { ...product, count: product.count + value } : product
         );
 
-        // fetchAddToCart(userId);
+        fetchAddToCart(userId);
 
         return { spuIds: newArr }
     }),
