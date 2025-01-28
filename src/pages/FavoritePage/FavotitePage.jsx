@@ -37,7 +37,7 @@ const FavoritePage = () => {
                 >Избранные</Typography>
             </Box>
 
-            {products.length <= 0 ? (
+            {favorites.length <= 0 ? (
                 (isLoading) ? (<>Загрузка</>) : (
                     <Box
                         sx={{
