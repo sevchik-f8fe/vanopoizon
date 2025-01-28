@@ -278,7 +278,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     <CustomButton
                         isDisabled={false}
                         onClick={() => {
-                            setProductCount({ color, size, count, spuId }, count + 1, user?._id)
+                            setProductCount({ color, size, count, spuId }, count + 1, user._id)
                         }}
                     >
                         +
