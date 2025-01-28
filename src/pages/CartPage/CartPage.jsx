@@ -16,7 +16,7 @@ import { useUserData } from "../../utils/store";
 import { useFavorites } from "../FavoritePage/store";
 
 const CartPage = () => {
-    const { products, spuIds, isLoading, setIsLoading, setSpuIds, deliveryDataIsFilled, setDeliveryDataIsFilled } = useCart();
+    const { spuIds, isLoading, deliveryDataIsFilled, setDeliveryDataIsFilled } = useCart();
     const { user } = useUserData();
 
     const navigate = useNavigate();
@@ -249,7 +249,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     <CustomButton
                         isDisabled={count <= 1}
                         onClick={() => {
-                            incProductCount(spuId, -1, user._id)
+                            incProductCount({ color, size, count, spuId }, -1, user._id)
                         }}
                     >
                         -
@@ -270,7 +270,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     <CustomButton
                         isDisabled={false}
                         onClick={() => {
-                            incProductCount(spuId, 1, user._id)
+                            incProductCount({ color, size, count, spuId }, 1, user._id)
                         }}
                     >
                         +

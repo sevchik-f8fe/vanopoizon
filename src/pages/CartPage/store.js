@@ -66,7 +66,7 @@ export const useCart = create((set) => ({
                 {
                     tg: tg?.initData,
                     userId,
-                    spuId: elem.spuId,
+                    spuId: toString(elem.spuId),
                     color: elem?.color,
                     count: elem.count,
                     size: elem?.size,
