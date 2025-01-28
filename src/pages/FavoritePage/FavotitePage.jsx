@@ -38,19 +38,17 @@ const FavoritePage = () => {
             </Box>
 
             {favorites.length <= 0 ? (
-                (isLoading) ? (<>Загрузка</>) : (
-                    <Box
-                        sx={{
-                            p: '.5em',
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            minHeight: '10vh'
-                        }}
-                    >
-                        <Typography variant="caption" sx={{ color: '#fff5' }}>У вас нет избранных товаров ;(</Typography>
-                    </Box>
-                )
+                <Box
+                    sx={{
+                        p: '.5em',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        minHeight: '10vh'
+                    }}
+                >
+                    <Typography variant="caption" sx={{ color: '#fff5' }}>У вас нет избранных товаров ;(</Typography>
+                </Box>
             ) : (
                 <Box
                     sx={{
