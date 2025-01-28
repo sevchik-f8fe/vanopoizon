@@ -144,6 +144,14 @@ const CartElement = ({ color, size, spuId, count }) => {
     const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
     const { user } = useUserData();
 
+    // const handleFavoriteClick = () => {
+    //     if (favorites.some(item => item.spuId === spuId)) {
+    //         removeFromFavorites(spuId, user._id);
+    //     } else {
+    //         addToFavorites({ count: 1, spuId }, user._id);
+    //     }
+    // }
+
     return (
         <Box
             sx={{

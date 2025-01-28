@@ -92,26 +92,9 @@ const FavoritePage = () => {
 }
 
 const FavoriteElement = ({ picture, title, spuId }) => {
-    let tg = window.Telegram.WebApp;
     const { removeFromFavorites } = useFavorites();
     const { spuIds, addToCart, removeFromCart } = useCart();
     const { user } = useUserData();
-
-    const fetchRemoveFromFavorites = async () => {
-        await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromFavorites',
-            {
-                tg: tg?.initData,
-                userId: user._id,
-                spuId
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            .then(res => console.log('OK r fav'))
-            .catch(err => console.log(`err: ${err}`))
-    }
 
     return (
         <Grid size={{ xs: 6, sm: 4, md: 3 }}>
@@ -127,8 +110,7 @@ const FavoriteElement = ({ picture, title, spuId }) => {
                 <IconButton
                     size="small"
                     onClick={() => {
-                        removeFromFavorites(spuId);
-                        fetchRemoveFromFavorites(spuId);
+                        removeFromFavorites(spuId, user._id);
                     }}
                     sx={{
                         '&:hover': {

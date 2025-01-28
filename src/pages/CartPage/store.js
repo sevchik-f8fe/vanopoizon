@@ -66,7 +66,7 @@ export const useCart = create((set) => ({
                 {
                     tg: tg?.initData,
                     userId,
-                    spuId: toString(elem.spuId),
+                    spuId: elem.spuId,
                     color: elem?.color,
                     count: elem.count,
                     size: elem?.size,
@@ -115,11 +115,11 @@ export const useCart = create((set) => ({
                 })
         }
 
-        let newArr = state.products.map(product =>
-            spuIds.spuId === elem.spuId ? { ...product, count: product.count + value } : product
+        let newArr = state.spuIds.map(product =>
+            product.spuId == elem.spuId ? { ...product, count: product.count + value } : product
         );
 
-        fetchAddToCart(userId);
+        // fetchAddToCart(userId);
 
         return { spuIds: newArr }
     }),

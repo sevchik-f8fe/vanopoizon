@@ -71,6 +71,14 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
         }
     }
 
+    const handleFavoriteClick = () => {
+        if (favorites.some(item => item.spuId === spuId)) {
+            removeFromFavorites(spuId, user._id);
+        } else {
+            addToFavorites({ photoUrl: picture, title, spuId }, user._id);
+        }
+    }
+
     return (
         <Grid size={{ xs: 6, sm: 4, md: 3 }}>
             <Box
@@ -86,7 +94,7 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                 }}
             >
                 <IconButton
-                    // onClick={() => handleFavoriteClick()}
+                    onClick={() => handleFavoriteClick()}
                     size="small"
                     sx={{
                         '&:hover': {
