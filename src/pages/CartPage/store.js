@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useCart = create((set) => ({
     cart: [],
-    spuIds: [],
+    spuIds: [{ spuId: '123', count: 1 }],
 
     usePoints: false,
     useInsurance: false,
@@ -89,7 +89,7 @@ export const useCart = create((set) => ({
         return { spuIds: [...state.spuIds, elem] }
     }),
 
-    incProductCount: (elem, value, userId) => set(state => {
+    setProductCount: (elem, value, userId) => set(state => {
         let tg = window?.Telegram?.WebApp;
 
         const fetchAddToCart = async (userId) => {
@@ -99,7 +99,7 @@ export const useCart = create((set) => ({
                     userId,
                     spuId: elem.spuId,
                     color: elem?.color,
-                    count: elem.count + value,
+                    count: value,
                     size: elem?.size,
                 },
                 {
@@ -116,7 +116,7 @@ export const useCart = create((set) => ({
         }
 
         let newArr = state.spuIds.map(product =>
-            product.spuId == elem.spuId ? { ...product, count: product.count + value } : product
+            product.spuId == elem.spuId ? { ...product, count: value } : product
         );
 
         fetchAddToCart(userId);

@@ -140,7 +140,7 @@ const CartPage = () => {
 }
 
 const CartElement = ({ color, size, spuId, count }) => {
-    const { removeFromCart, incProductCount } = useCart()
+    const { removeFromCart, setProductCount } = useCart()
     const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
     const { user } = useUserData();
 
@@ -257,7 +257,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     <CustomButton
                         isDisabled={count <= 1}
                         onClick={() => {
-                            incProductCount({ color, size, count, spuId }, -1, user._id)
+                            setProductCount({ color, size, count, spuId }, count - 1, user._id)
                         }}
                     >
                         -
@@ -278,7 +278,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                     <CustomButton
                         isDisabled={false}
                         onClick={() => {
-                            incProductCount({ color, size, count, spuId }, 1, user._id)
+                            setProductCount({ color, size, count, spuId }, count + 1, user?._id)
                         }}
                     >
                         +
