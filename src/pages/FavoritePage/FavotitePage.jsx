@@ -58,7 +58,7 @@ const FavoritePage = () => {
                     }}
                 >
                     <Grid sx={{ minWidth: '100%' }} container spacing={1}>
-                        {products.map((product) => <FavoriteElement key={nanoid()} spuId={product.spuId} picture={product.photoUrl} title={product.title} />)}
+                        {favorites.map((product) => <FavoriteElement key={nanoid()} spuId={product.spuId} picture={product.photoUrl} title={product.title} />)}
                     </Grid>
                 </Box>
             )
