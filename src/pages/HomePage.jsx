@@ -25,8 +25,8 @@ const HomePage = () => {
     const { user, setUser } = useUserData();
     const { propsOfSearch, setPropsValue, setFieldValues, activeFilter, setActiveFilter, values } = useFilters()
     const { setPage, setProducts } = useCatalog();
-    const { setFavorites } = useFavorites();
-    const { setSpuIds } = useCart();
+    const { setFavorites, favorites } = useFavorites();
+    const { setSpuIds, spuIds } = useCart();
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -53,8 +53,9 @@ const HomePage = () => {
                 })
                 .then(res => {
                     setUser(res?.data?.user)
-                    setFavorites(res?.data?.user?.favorites);
-                    setSpuIds(res?.data?.user?.cart)
+
+                    if (favorites?.length === 0) setFavorites(res?.data?.user?.favorites);
+                    if (spuIds?.length === 0) setSpuIds(res?.data?.user?.cart)
                 })
                 .catch(err => console.log(`err: ${err}`));
         }
