@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import axios from "axios";
 
 export const useCart = create((set) => ({
     cart: [],
