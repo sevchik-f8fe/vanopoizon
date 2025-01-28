@@ -63,7 +63,7 @@ export const useFavorites = create((set) => ({
 
         return {
             favorites: [
-                ...state.products.filter((elem) => elem.spuId != elemId)
+                ...state.favorites.filter((elem) => elem.spuId != elemId)
             ]
         }
     }),

@@ -15,28 +15,6 @@ const FavoritePage = () => {
     const { user } = useUserData()
     let tg = window.Telegram.WebApp;
 
-    useEffect(() => {
-        const fetchFavorites = async () => {
-            await axios.post('https://vanopoizonserver.ru/vanopoizon/getFavorites',
-                {
-                    tg: tg?.initData,
-                    userId: user?._id,
-                },
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(res => setFavorites(res.data.favorites))
-                .catch(err => console.log(`err: ${err}`))
-        }
-
-        fetchFavorites();
-
-        tg.BackButton.show();
-        tg.MainButton.hide();
-    }, [])
-
     return (
         <Box
             sx={{

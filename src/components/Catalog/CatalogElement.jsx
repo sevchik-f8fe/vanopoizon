@@ -152,7 +152,7 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                 <CustomButton
                     isDisabled={false}
                     onClick={() => handleCartClick()}
-                >{spuIds.some(item => item.spuId === spuId) ? 'Удалить' : 'В корзину'}</CustomButton>
+                >{spuIds.some(item => item.spuId == spuId) ? 'Удалить' : 'В корзину'}</CustomButton>
             </Box>
         </Grid>
     );
