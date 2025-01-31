@@ -5,7 +5,7 @@ const ArcticleBlock = ({ article_link, picture }) => {
 
     return (
         <Box
-            // onClick={() => { tg.openLink(article_link) }}
+            onClick={() => { tg.openLink(article_link) }}
             sx={{
                 borderRadius: '.5em',
                 backgroundImage: `url(${picture})`,
@@ -14,8 +14,9 @@ const ArcticleBlock = ({ article_link, picture }) => {
                 backgroundRepeat: 'no-repeat',
                 minHeight: '8em',
                 maxHeight: '8em',
-                minWidth: '96%',
-                maxWidth: '96%',
+                minWidth: '8em',
+                maxWidth: '8em',
+                cursor: 'pointer'
             }}
         >
         </Box>
