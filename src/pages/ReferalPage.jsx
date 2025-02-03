@@ -1,5 +1,6 @@
 import { Box, Typography, Button, Table, TableBody, TableCell, TableContainer, TableRow } from "@mui/material";
 import { nanoid } from "nanoid";
+import { useTheme, useMediaQuery } from "@mui/material";
 import { useEffect, useRef } from "react";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 
@@ -8,6 +9,9 @@ import { copyOnCLickHandle } from "../utils/utilFuncs";
 const ReferalPage = () => {
     const inputRef = useRef(null);
     let tg = window.Telegram.WebApp;
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
         tg.BackButton.show();
@@ -23,10 +27,8 @@ const ReferalPage = () => {
     return (
         <Box
             sx={{
-                p: '.5em',
-                pb: '3.5em',
                 display: 'flex',
-                flexDirection: 'column',
+                flexDirection: !isSmallScreen ? 'row' : 'column',
                 gap: '.5em',
             }}
         >
@@ -105,6 +107,7 @@ const ReferalPage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '1em',
+                    minWidth: !isSmallScreen && '40%',
                 }}
             >
                 <Box

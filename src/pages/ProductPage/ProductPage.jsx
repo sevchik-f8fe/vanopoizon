@@ -505,8 +505,6 @@ const ProductPage = () => {
                             display: 'flex',
                             gap: '1em',
                             alignItems: 'start',
-                            px: '2em',
-                            pt: '1em'
                         }}
                     >
                         <Box

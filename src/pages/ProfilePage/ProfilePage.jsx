@@ -28,6 +28,7 @@ const ProfilePage = () => {
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+    const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
         tg.BackButton.show();
@@ -58,12 +59,11 @@ const ProfilePage = () => {
                     w: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    p: '2em .5em',
                     gap: '.5em',
                 }}
             >
                 <Grid container spacing={1} sx={{ zIndex: 100 }}>
-                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                         {isSmallScreen ? (
                             <Box
                                 sx={{
@@ -111,7 +111,6 @@ const ProfilePage = () => {
                                 <Box
                                     sx={{
                                         zIndex: '100',
-                                        mb: '.5em',
                                         display: 'flex',
                                         p: '.5em',
                                         borderRadius: '.5em',
@@ -162,19 +161,31 @@ const ProfilePage = () => {
                             </>
                         )}
                     </Grid>
-                    <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Grid size={{ xs: 12, sm: 12, md: 12 }}>
                         <OrdersContainer />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <BlocksContainer />
+                        {isMediumScreen && (
+                            <>
+                                <Box sx={{ mt: '.5em' }}></Box>
+                                <NotificationsContainer />
+                                <Box sx={{ mt: '.5em' }}></Box>
+                                <DataContainer />
+                            </>
+                        )}
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
                         <StatusContainer />
                     </Grid>
                     <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-                        <NotificationsContainer />
-                        <Box sx={{ mt: '.5em' }}></Box>
-                        <DataContainer />
+                        {!isMediumScreen && (
+                            <>
+                                <NotificationsContainer />
+                                <Box sx={{ mt: '.5em' }}></Box>
+                                <DataContainer />
+                            </>
+                        )}
                     </Grid>
                 </Grid>
             </Box>
@@ -190,7 +201,8 @@ const OrdersContainer = () => {
         <Box
             sx={{
                 zIndex: '100',
-                backgroundColor: '#2E2E3A',
+                // backgroundColor: '#2E2E3A',
+                border: '1px solid #fff3',
                 p: '.5em',
                 borderRadius: '.5em',
                 display: 'flex',

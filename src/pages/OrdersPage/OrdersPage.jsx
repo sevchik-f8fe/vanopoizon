@@ -11,7 +11,6 @@ const OrdersPage = () => {
     return (
         <Box
             sx={{
-                p: '2em .5em',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',

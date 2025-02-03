@@ -3,6 +3,7 @@ import { Box, Typography, Button, TextField, Link } from "@mui/material";
 import { hapticFeedback } from "@telegram-apps/sdk";
 import { useNavigate } from "react-router-dom";
 import LoadingButton from '@mui/lab/LoadingButton';
+import { useTheme, useMediaQuery } from "@mui/material";
 import axios from "axios";
 
 import { useCalc } from "./store";
@@ -12,6 +13,8 @@ const SetCalcLink = () => {
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
     const { setLink, link, setFieldError, nextButtonLoading, setNextButtonLoading } = useCalc()
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
         tg.BackButton.show();
@@ -24,9 +27,8 @@ const SetCalcLink = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '.5em',
-                height: '100vh',
-                p: '.5em',
-                pt: '5em'
+                minHeight: isSmallScreen && '90vh',
+                maxHeight: '90vh',
             }}
         >
             <TextField
@@ -52,8 +54,9 @@ const SetCalcLink = () => {
                 sx={{
                     p: '.5em',
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexDirection: !isSmallScreen ? 'row' : 'column',
                     justifyContent: 'space-between',
+                    alignItems: !isSmallScreen ? 'start' : 'stretch',
                     gap: '2em',
                     flex: '1',
                     w: '100%',
@@ -67,12 +70,13 @@ const SetCalcLink = () => {
                         backgroundRepeat: 'no-repeat',
                         minHeight: '18em',
                         maxHeight: '18em',
-                        maxWidth: '100%',
-                        minWidth: '100%',
+                        maxWidth: isSmallScreen ? '100%' : '70%',
+                        minWidth: isSmallScreen ? '100%' : '70%',
                     }}
                 >
                 </Box>
                 <LoadingButton
+                    sx={{ flex: isSmallScreen ? '' : 1 }}
                     onClick={async () => {
                         if (link.value.length > 0 && link.value.startsWith('https://dw4.co/')) {
                             setNextButtonLoading(true)
@@ -97,18 +101,6 @@ const SetCalcLink = () => {
                     variant="text"
                     size="large"
                 >Поиск</LoadingButton>
-                {/* <Button
-                    onClick={() => {
-                        if (link.value.length > 0 && link.value.startsWith('https://dw4.co/')) {
-
-                        } else {
-                            setFieldError('link', 'Укажите корректную ссылку');
-                            hapticFeedback.notificationOccurred('error');
-                        }
-                    }}
-                    variant="text"
-                    size="large"
-                >Поиск</Button> */}
             </Box>
         </Box>
     );

@@ -21,8 +21,6 @@ const FavoritePage = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
-                pb: '2em',
-                pt: '2em'
             }}
         >
             <Box

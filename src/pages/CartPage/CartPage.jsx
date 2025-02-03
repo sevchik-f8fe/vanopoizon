@@ -39,7 +39,6 @@ const CartPage = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '.5em',
-                pt: '2em'
             }}
         >
             <Box

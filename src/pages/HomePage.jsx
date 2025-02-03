@@ -75,7 +75,6 @@ const HomePage = () => {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                 }),
-                p: '3em .5em 3.5em .5em',
                 display: 'flex',
                 gap: '1em',
             }}
@@ -254,6 +253,9 @@ const HomePage = () => {
 }
 
 const CalculateBlock = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Link
             to={`/calc`}
@@ -277,7 +279,7 @@ const CalculateBlock = () => {
                         fontSize: '4em'
                     }}
                 />
-                <Typography variant="h5">Рассчитать стоимость товара из Poizon</Typography>
+                <Typography variant={isSmallScreen ? 'h5' : 'body2'}>Рассчитать стоимость товара из Poizon</Typography>
                 <ArrowOutwardIcon
                     sx={{
                         color: '#fff',

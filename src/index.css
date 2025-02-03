@@ -11,5 +11,13 @@ a {
 }
 
 body {
+    padding: 3em .5em;
     background-color: #202029;
+}
+
+@media (min-width: 992px) {
+    body {
+        max-width: 992px;
+        margin: 0 auto;
+    }
 }

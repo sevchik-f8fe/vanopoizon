@@ -35,8 +35,6 @@ const TableOfSizes = () => {
     return (
         <Box
             sx={{
-                p: '.5em',
-                pt: '4em'
             }}
         >
             <Box

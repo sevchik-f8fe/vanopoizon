@@ -29,15 +29,17 @@ export const theme = createTheme({
             fontSize: '1em'
         },
         h6: {
-            fontSize: '.9em',
+            fontSize: '1em',
             fontWeight: 900,
         },
         body1: {
             fontSize: '.8em',
             fontWeight: 500
         },
-        // body2: {
-        // },
+        body2: {
+            fontSize: '.7em',
+            fontWeight: 700
+        },
         subtitle1: {
             color: '#fff5',
             fontSize: '.8em',

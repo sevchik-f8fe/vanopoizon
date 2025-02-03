@@ -84,7 +84,6 @@ const SelectPage = () => {
                     top: '.0000001px',
                     backgroundColor: '#202029',
                     mx: '.5em',
-                    pt: '3.5em',
                     position: 'sticky',
                     zIndex: 102120012,
                 }}

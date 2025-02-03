@@ -15,8 +15,6 @@ const PointsPage = () => {
     return (
         <Box
             sx={{
-                p: '4em .5em',
-                pb: '3.5em',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '.5em',

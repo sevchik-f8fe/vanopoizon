@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { hapticFeedback } from "@telegram-apps/sdk";
 import axios from "axios";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 import { useDeliveryData } from "./store";
 import pickupImg from "../../assets/cdek-self-pickup.png";
@@ -15,6 +16,8 @@ const DeliveryDataPage = () => {
     let tg = window?.Telegram?.WebApp;
     const { deliveryData, setFieldValue, setFieldError, loading, setLoading } = useDeliveryData();
     const { user, setUser } = useUserData();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
         tg.BackButton.show();
@@ -37,9 +40,9 @@ const DeliveryDataPage = () => {
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'space-between',
-                p: '4em .5em 0 .5em',
-                minHeight: '100vh',
+                justifyContent: isSmallScreen && 'space-between',
+                gap: '1em',
+                minHeight: isSmallScreen && '90vh',
             }}
         >
             <Box
@@ -92,52 +95,115 @@ const DeliveryDataPage = () => {
                 >
                     <Typography variant="h6" sx={{ mb: '1em' }}>Данные получателя</Typography>
 
-                    <TextField
-                        value={deliveryData.fullName.value}
-                        helperText={deliveryData.fullName.error !== null && deliveryData.fullName.error}
-                        error={deliveryData.fullName.error !== null}
-                        onChange={(e) => setFieldValue('fullName', e.target.value)}
-                        sx={{
-                            mb: '.8em',
-                            '& .MuiInput-root': {
-                                fontWeight: '400',
-                                fontSize: '.9em',
-                            },
-                            '& .MuiInputLabel-root': {
-                                color: '#fff5',
-                                fontSize: '.9em',
-                                fontWeight: '400',
-                            },
-                        }}
-                        size="small"
-                        variant="outlined"
-                        label="Фамилия, имя и отчество"
-                    />
-                    <TextField
-                        value={deliveryData.phone.value}
-                        onChange={(e) => {
-                            setFieldValue('phone', e.target.value.replace(/^([^+]|\+[^0-9])/, ''));
-                        }}
-                        error={deliveryData.phone.error !== null}
-                        helperText={deliveryData.phone.error && deliveryData.phone.error}
-                        sx={{
-                            '& .MuiInput-root': {
-                                color: '#fff',
-                                fontWeight: '400',
-                                fontSize: '.9em',
-                            },
-                            '& .MuiInputLabel-root': {
-                                color: '#fff5',
-                                fontSize: '.9em',
-                                fontWeight: '400',
-                            },
-                        }}
-                        placeholder="+7 (987) 654-32-10"
-                        size={'small'}
-                        variant={'outlined'}
-                        label={'Номер телефона'}
-                        type="tel"
-                    />
+                    {isSmallScreen ? (
+                        <>
+                            <TextField
+                                value={deliveryData.fullName.value}
+                                helperText={deliveryData.fullName.error !== null && deliveryData.fullName.error}
+                                error={deliveryData.fullName.error !== null}
+                                onChange={(e) => setFieldValue('fullName', e.target.value)}
+                                sx={{
+                                    mb: '.8em',
+                                    '& .MuiInput-root': {
+                                        fontWeight: '400',
+                                        fontSize: '.9em',
+                                    },
+                                    '& .MuiInputLabel-root': {
+                                        color: '#fff5',
+                                        fontSize: '.9em',
+                                        fontWeight: '400',
+                                    },
+                                }}
+                                size="small"
+                                variant="outlined"
+                                label="Фамилия, имя и отчество"
+                            />
+                            <TextField
+                                value={deliveryData.phone.value}
+                                onChange={(e) => {
+                                    setFieldValue('phone', e.target.value.replace(/^([^+]|\+[^0-9])/, ''));
+                                }}
+                                error={deliveryData.phone.error !== null}
+                                helperText={deliveryData.phone.error && deliveryData.phone.error}
+                                sx={{
+                                    '& .MuiInput-root': {
+                                        color: '#fff',
+                                        fontWeight: '400',
+                                        fontSize: '.9em',
+                                    },
+                                    '& .MuiInputLabel-root': {
+                                        color: '#fff5',
+                                        fontSize: '.9em',
+                                        fontWeight: '400',
+                                    },
+                                }}
+                                placeholder="+7 (987) 654-32-10"
+                                size={'small'}
+                                variant={'outlined'}
+                                label={'Номер телефона'}
+                                type="tel"
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    gap: '1em'
+                                }}
+                            >
+                                <TextField
+                                    value={deliveryData.fullName.value}
+                                    helperText={deliveryData.fullName.error !== null && deliveryData.fullName.error}
+                                    error={deliveryData.fullName.error !== null}
+                                    onChange={(e) => setFieldValue('fullName', e.target.value)}
+                                    sx={{
+                                        flex: !isSmallScreen && 1,
+                                        mb: '.8em',
+                                        '& .MuiInput-root': {
+                                            fontWeight: '400',
+                                            fontSize: '.9em',
+                                        },
+                                        '& .MuiInputLabel-root': {
+                                            color: '#fff5',
+                                            fontSize: '.9em',
+                                            fontWeight: '400',
+                                        },
+                                    }}
+                                    size="small"
+                                    variant="outlined"
+                                    label="Фамилия, имя и отчество"
+                                />
+                                <TextField
+                                    value={deliveryData.phone.value}
+                                    onChange={(e) => {
+                                        setFieldValue('phone', e.target.value.replace(/^([^+]|\+[^0-9])/, ''));
+                                    }}
+                                    error={deliveryData.phone.error !== null}
+                                    helperText={deliveryData.phone.error && deliveryData.phone.error}
+                                    sx={{
+                                        flex: !isSmallScreen && 1,
+                                        '& .MuiInput-root': {
+                                            color: '#fff',
+                                            fontWeight: '400',
+                                            fontSize: '.9em',
+                                        },
+                                        '& .MuiInputLabel-root': {
+                                            color: '#fff5',
+                                            fontSize: '.9em',
+                                            fontWeight: '400',
+                                        },
+                                    }}
+                                    placeholder="+7 (987) 654-32-10"
+                                    size={'small'}
+                                    variant={'outlined'}
+                                    label={'Номер телефона'}
+                                    type="tel"
+                                />
+                            </Box>
+                        </>
+                    )}
                 </Box>
             </Box>
 
@@ -145,6 +211,7 @@ const DeliveryDataPage = () => {
                 variant="outlined"
                 size="large"
                 sx={{
+                    alignSelf: !isSmallScreen && 'end',
                     borderColor: '#a5d6a7',
                     color: '#a5d6a7',
                     '&:hover': {
@@ -260,14 +327,16 @@ const DeliveryDataPage = () => {
 const PickupBlock = () => {
     const { deliveryData, setFieldValue, setFieldError } = useDeliveryData();
     const navigate = useNavigate();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Box
             sx={{
                 minWidth: 'calc(100% - 1em)',
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '.8em'
+                flexDirection: isSmallScreen ? 'column' : 'row',
+                gap: '1em'
             }}
         >
             <PickBlock
@@ -309,7 +378,7 @@ const DeliveryBlock = () => {
                 value={deliveryData.fullAddress.value}
                 error={deliveryData.fullAddress.error !== null}
                 helperText={'119049, Россия, Москва, Ленинский проспект, дом 4, строение 1А, квартира 10'}
-                FormHelperTextProps={{ sx: { color: '#fff5' } }}
+                FormHelperTextProps={{ sx: { fontWeight: 400, fontSize: '.8em', color: '#fff5' } }}
                 onChange={(e) => { setFieldValue('fullAddress', e.target.value) }}
                 sx={{
                     '& .MuiInput-root': {
@@ -371,6 +440,9 @@ const PickDeliveryBlock = ({ img, type }) => {
 }
 
 const PickBlock = ({ activeTitle, notActiveTitle, onClick, error }) => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Box
             onClick={onClick}
@@ -381,7 +453,8 @@ const PickBlock = ({ activeTitle, notActiveTitle, onClick, error }) => {
                 borderRadius: '1em',
                 backgroundColor: '#2E2E3A',
                 cursor: 'pointer',
-                p: '.3em .5em'
+                p: '.3em .5em',
+                flex: !isSmallScreen && 1
             }}
         >
             <Typography

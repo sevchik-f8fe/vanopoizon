@@ -14,13 +14,13 @@ const ContestPage = () => {
     return (
         <Box
             sx={{
-                p: '1em .5em',
-                pt: '4.5em',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '1em',
                 minHeight: '100%',
-                background: 'linear-gradient(324deg, rgba(255,191,191,1) 0%, rgba(255,228,231,1) 57%, rgba(253,244,246,1) 100%)',
+                p: '.5em',
+                borderRadius: '1em',
+                background: 'linear-gradient(324deg, rgba(255,191,191,0.05) 0%, rgba(255,228,231,0.05) 57%, rgba(253,244,246,0.05) 100%)',
             }}
         >
             <Box

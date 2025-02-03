@@ -103,7 +103,6 @@ const GeoSelectPage = () => {
                     minWidth: '100%',
                     minHeight: '26vh',
                     backgroundColor: '#fff',
-                    p: '.5em .5em 1em .5em',
                     zIndex: 10000,
                     display: 'flex',
                     flexDirection: 'column',
