@@ -106,53 +106,419 @@ const ProductPage = () => {
                 }
             }
 
-            axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-                .then(response => {
-                    setProduct(response?.data?.product);
-                    setPrices(response?.data?.price);
-                    setStoreSpuId(location.state.spu);
+            // axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     }
+            // })
+            //     .then(response => {
+            //         setProduct(response?.data?.product);
+            //         setPrices(response?.data?.price);
+            //         setStoreSpuId(location.state.spu);
 
-                    const sizes = response.data.product?.saleProperties?.list?.find(elem => elem.name === '尺码' || elem.name === '尺寸')
-                    const colors = response.data.product?.saleProperties?.list?.find(elem => elem.name === '颜色')
+            //         const sizes = response.data.product?.saleProperties?.list?.find(elem => elem.name === '尺码' || elem.name === '尺寸')
+            //         const colors = response.data.product?.saleProperties?.list?.find(elem => elem.name === '颜色')
 
-                    setVariations('isColors', (colors))
-                    setVariations('isSizes', (sizes))
+            //         setVariations('isColors', (colors))
+            //         setVariations('isSizes', (sizes))
 
-                    setCurrentProductField('color', colors?.propertyValueId);
-                    setCurrentProductField('size', sizes?.propertyValueId);
-                    setCurrentProductField('images', imagesForCurrentColor(response.data.product?.image?.spuImage?.images, colors?.propertyValueId))
+            //         setCurrentProductField('color', colors?.propertyValueId);
+            //         setCurrentProductField('size', sizes?.propertyValueId);
+            //         setCurrentProductField('images', imagesForCurrentColor(response.data.product?.image?.spuImage?.images, colors?.propertyValueId))
 
-                    setCurrentProductField('price', calcPrice(response?.data?.product, response?.data?.price)(sizes?.propertyValueId)(colors?.propertyValueId));
-                })
-                .catch(error => console.error('Ошибка: ', error));
+            //         setCurrentProductField('price', calcPrice(response?.data?.product, response?.data?.price)(sizes?.propertyValueId)(colors?.propertyValueId));
+            //     })
+            //     .catch(error => console.error('Ошибка: ', error));
         };
 
         tg.BackButton.show();
         showShineMainBtn(currentProduct?.price);
 
-        if (storeSpuId != location.state.spu) {
-            setPrices(null)
-            setProduct(null);
+        // if (storeSpuId != location.state.spu) {
+        //     setPrices(null)
+        //     setProduct(null);
 
-            loadProductData();
-        }
+        //     loadProductData();
+        // }
     }, []);
 
-    return (
-        <Box>
-            {isSmallScreen ? (
-                <>
+    return isSmallScreen ? (
+        <>
+            <Box
+                sx={{
+                    mt: '.5em',
+                    borderRadius: '1em 1em 0 0',
+                    position: 'relative',
+                    backgroundColor: "#fff",
+                    minWidth: '100%',
+                }}
+            >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        bottom: '3.5em',
+                        right: '1em',
+                        position: 'absolute',
+                        zIndex: '20',
+                        gap: '.5em',
+                    }}
+                >
+                    <IconButton
+                        onClick={() => {
+                            shareURL('https://core.telegram.org', 'Оййй бляяя');
+                        }}
+                        sx={{
+                            backgroundColor: '#fff',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                            },
+                            '&:active': {
+                                backgroundColor: '#fff9',
+                            },
+                            maxWidth: '1.5em',
+                            maxHeight: '1.5em'
+                        }}
+                    >
+                        <ShareIcon
+                            sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
+                                color: '#F34213',
+                            }}
+                        />
+                    </IconButton>
+                    <IconButton
+                        sx={{
+                            backgroundColor: '#fff',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                            },
+                            '&:active': {
+                                backgroundColor: '#fff9',
+                            },
+                            maxWidth: '1.5em',
+                            maxHeight: '1.5em'
+                        }}
+                    >
+                        <FavoriteBorderIcon
+                            sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
+                                color: '#F34213'
+                            }}
+                        />
+                    </IconButton>
+                    <IconButton
+                        sx={{
+                            backgroundColor: '#fff',
+                            '&:hover': {
+                                backgroundColor: '#fff',
+                            },
+                            '&:active': {
+                                backgroundColor: '#fff9',
+                            },
+                            maxWidth: '1.5em',
+                            maxHeight: '1.5em'
+                        }}
+                    >
+                        <AddShoppingCartIcon
+                            sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
+                                color: '#F34213'
+                            }}
+                        />
+                    </IconButton>
+                </Box>
+
+                {product ? (
+                    <ProductSlider />
+                ) : (
+                    <Box>
+                        <Skeleton animation="wave" variant="rectangular" width='100%' height='13em' />
+                    </Box>
+                )}
+
+                {product ? (
+                    <Typography
+                        sx={{
+                            color: '#202029',
+                            fontSize: '1.6em',
+                            fontWeight: '900',
+                            lineHeight: '1.2',
+                            p: '.5em',
+                        }}
+                    >
+                        {sliceChn(product?.detail?.title)}
+                    </Typography>
+                ) : (
+                    <Box
+                        sx={{ p: '.5em 0', mb: '.5em' }}
+                    >
+                        <Skeleton animation="wave" variant="rounded" width='100%' height='2em' />
+                    </Box>
+                )}
+            </Box>
+
+            <Box
+                sx={{
+                    position: 'relative',
+                    borderRadius: '0 0 1em 1em',
+                    backgroundColor: '#2E2E3A',
+                    p: '.5em .8em',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '.5em',
+                }}
+            >
+                <Box
+                    sx={{
+                        pb: '.5em',
+                        borderBottom: '1px solid #ffffff30',
+                    }}
+                >
+
+                    {product ? (
+                        <>
+                            <Typography
+                                variant="h2"
+                                sx={{
+                                    transition: '.3s ease',
+                                    ...(!isSplit && {
+                                        color: '#ffffff',
+                                    }),
+                                    ...(isSplit && {
+                                        color: '#ffffff50',
+                                    }),
+                                }}
+                            >
+                                {(!isNaN(currentProduct?.price)) ? <>{toRub(toNormalPrice(currentProduct?.price))} &#8381;</> : currentProduct?.price}
+                            </Typography>
+
+                            <Typography variant="subtitle2">
+                                Оплачивая заказ, вы соглашаетесь с условиями
+                                <Link
+                                    sx={{
+                                        color: '#709ed9',
+                                        cursor: 'pointer',
+                                        textDecoration: 'none'
+                                    }}
+                                    onClick={() => { tg.openLink('https://ru.wikipedia.org/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0') }}
+                                >публичной оферты</Link>
+                            </Typography>
+                        </>
+                    ) : (
+                        <Box
+                            sx={{
+                                p: '.5em 0',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '.5em'
+                            }}
+                        >
+                            <Skeleton animation="wave" variant="rectangular" width='100%' height='3em' />
+                            <Skeleton animation="wave" variant="rectangular" width='100%' height='3.5em' />
+                        </Box>
+                    )}
+                </Box>
+
+                {product ? (
+                    <>
+                        <TypesContainer />
+                    </>
+                ) : (
                     <Box
                         sx={{
-                            mt: '.5em',
-                            borderRadius: '1em 1em 0 0',
+                            p: '.5em 0',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            gap: '.5em'
+                        }}
+                    >
+                        <Skeleton animation="wave" variant="rectangular" width='100%' height='8em' />
+                    </Box>
+                )}
+
+                <UsePointsContainer />
+            </Box>
+
+            <Box
+                sx={{
+                    mt: '.5em',
+                    borderRadius: '.5em',
+                    backgroundColor: '#2E2E3A'
+                }}
+            >
+                <List sx={{ p: 0 }}>
+                    <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('insurance')}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: '1em'
+                            }}
+                        >
+                            <Typography variant="h5">Страховка и безопасность</Typography>
+                        </Box>
+
+                        {accordion.insurance ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
+                    </ListItemButton>
+
+                    <Collapse in={accordion.insurance} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            <ListItemButton sx={{ pl: '1em' }}>
+                                <ListItemText
+                                    primaryTypographyProps={{
+                                        color: '#fff',
+                                        fontSize: '.9em',
+                                        fontWeight: '500',
+                                    }}
+                                    primary="В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности." />
+                            </ListItemButton>
+                        </List>
+
+                        <Box
+                            sx={{
+                                backgroundColor: '#202029',
+                                borderRadius: '.5em',
+                                p: '.5em',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                gap: '.5em',
+                                mx: '.8em',
+                                mb: '.5em'
+                            }}
+                        >
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'space-between',
+                                    alignItems: 'center',
+                                }}
+                            >
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: '.2em',
+                                        alignItems: 'center',
+                                    }}
+                                >
+                                    <HealthAndSafetyIcon
+                                        sx={{
+                                            fontSize: '1.5em',
+                                            color: '#fff'
+                                        }}
+                                    />
+                                    <Typography
+                                        sx={{
+                                            fontWeight: '700',
+                                            fontSize: '.9em'
+                                        }}
+                                    >
+                                        Страховка
+                                    </Typography>
+                                    <IconButton
+                                        size="small"
+                                    >
+                                        <InfoIcon
+                                            sx={{
+                                                fontSize: '1.2em',
+                                                color: '#709ed9'
+                                            }}
+                                        />
+                                    </IconButton>
+                                </Box>
+                                <Switch
+                                    checked={useInsurance}
+                                    onChange={(e) => setUseInsurance(e.target.checked)}
+                                />
+                            </Box>
+                            <Typography variant="caption" sx={{ pl: '1em' }}>
+                                Если пиздец <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
+                            </Typography>
+                        </Box>
+                    </Collapse>
+                </List>
+            </Box>
+
+            <Box
+                sx={{
+                    borderRadius: '.5em',
+                    mt: '.5em',
+                    mb: '.5em',
+                    backgroundColor: '#2E2E3A'
+                }}
+            >
+                <List sx={{ p: 0 }}>
+                    <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('original')}>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                gap: '1em'
+                            }}
+                        >
+
+                            <Typography variant="h5">Строго оригинал</Typography>
+                        </Box>
+
+                        {accordion.original ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
+                    </ListItemButton>
+
+                    <Collapse in={accordion.original} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            <ListItemButton sx={{ pl: '1em' }}>
+                                <ListItemText
+                                    primaryTypographyProps={{
+                                        color: '#fff',
+                                        fontSize: '.9em',
+                                        fontWeight: '500',
+                                    }}
+                                    primary="Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере." />
+                            </ListItemButton>
+                        </List>
+                    </Collapse>
+                </List>
+            </Box>
+
+            <ReviewContainer />
+
+            {
+                product ? (
+                    <AddOnsContainer />
+                ) : (
+                    <Box
+                        sx={{
+                            p: '.5em'
+                        }}
+                    >
+                        <Skeleton animation="wave" variant="rectangular" width='100%' height='5em' />
+                    </Box>
+                )
+            }
+        </>
+    ) : (
+        <>
+            <Box
+                sx={{
+                    display: 'flex',
+                    gap: '1em',
+                    alignItems: 'start',
+                    justifyContent: 'center'
+                }}
+            >
+                <Box
+                    sx={{
+                        minWidth: '50%',
+                        position: 'sticky',
+                        top: '1em'
+                    }}
+                >
+                    <Box
+                        sx={{
                             position: 'relative',
                             backgroundColor: "#fff",
                             minWidth: '100%',
+                            borderRadius: '1em 1em 0 0'
                         }}
                     >
                         <Box
@@ -168,7 +534,7 @@ const ProductPage = () => {
                         >
                             <IconButton
                                 onClick={() => {
-                                    shareURL('https://core.telegram.org', 'Оййй бляяя');
+                                    shareURL('https://core.telegram.org', 'Открой для себя стильную одежду по суперценам на VANOPOIZON и будь в тренде всегда!');
                                 }}
                                 sx={{
                                     backgroundColor: '#fff',
@@ -235,10 +601,10 @@ const ProductPage = () => {
                         </Box>
 
                         {product ? (
-                            <ProductSlider />
+                            <ProductSlider size="large" />
                         ) : (
                             <Box>
-                                <Skeleton animation="wave" variant="rectangular" width='100%' height='13em' />
+                                <Skeleton animation="wave" variant="rectangular" width='100%' height='17em' />
                             </Box>
                         )}
 
@@ -299,8 +665,7 @@ const ProductPage = () => {
                                     </Typography>
 
                                     <Typography variant="subtitle2">
-                                        Оплачивая заказ, вы соглашаетесь с условиями
-                                        <Link
+                                        Оплачивая заказ, вы соглашаетесь с условиями <Link
                                             sx={{
                                                 color: '#709ed9',
                                                 cursor: 'pointer',
@@ -341,13 +706,76 @@ const ProductPage = () => {
                                 <Skeleton animation="wave" variant="rectangular" width='100%' height='8em' />
                             </Box>
                         )}
-
-                        <UsePointsContainer />
                     </Box>
 
+                </Box>
+
+                <Box sx={{ maxWidth: '50%', display: 'flex', flexDirection: 'column', gap: '.5em' }}>
                     <Box
                         sx={{
-                            mt: '.5em',
+                            borderRadius: '.5em',
+                            backgroundColor: '#2E2E3A',
+                            p: '.5em'
+                        }}
+                    >
+                        <UsePointsContainer />
+                        {
+                            product ? (
+                                <AddOnsContainer />
+                            ) : (
+                                <Box
+                                    sx={{
+                                        p: '.5em'
+                                    }}
+                                >
+                                    <Skeleton animation="wave" variant="rectangular" width='100%' height='4em' />
+                                </Box>
+                            )
+                        }
+                    </Box>
+                    <Box
+                        sx={{
+                            borderRadius: '.5em',
+                            backgroundColor: '#2E2E3A'
+                        }}
+                    >
+                        <List sx={{ p: 0 }}>
+                            <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('original')}>
+                                <Box
+                                    sx={{
+                                        display: 'flex',
+                                        gap: '1em'
+                                    }}
+                                >
+
+                                    <Typography
+                                        sx={{
+                                            fontSize: '1em',
+                                            fontWeight: '700',
+                                        }}
+                                    >Строго оригинал</Typography>
+                                </Box>
+
+                                {accordion.original ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
+                            </ListItemButton>
+
+                            <Collapse in={accordion.original} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    <ListItemButton sx={{ pl: '1em' }}>
+                                        <ListItemText
+                                            primaryTypographyProps={{
+                                                color: '#fff',
+                                                fontSize: '.9em',
+                                                fontWeight: '500',
+                                            }}
+                                            primary="Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере." />
+                                    </ListItemButton>
+                                </List>
+                            </Collapse>
+                        </List>
+                    </Box>
+                    <Box
+                        sx={{
                             borderRadius: '.5em',
                             backgroundColor: '#2E2E3A'
                         }}
@@ -360,7 +788,12 @@ const ProductPage = () => {
                                         gap: '1em'
                                     }}
                                 >
-                                    <Typography variant="h5">Страховка и безопасность</Typography>
+                                    <Typography
+                                        sx={{
+                                            fontSize: '1em',
+                                            fontWeight: '700',
+                                        }}
+                                    >Страховка и безопасность</Typography>
                                 </Box>
 
                                 {accordion.insurance ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
@@ -411,7 +844,7 @@ const ProductPage = () => {
                                                     color: '#fff'
                                                 }}
                                             />
-                                            <Typography
+                                            <Typography variant="caption"
                                                 sx={{
                                                     fontWeight: '700',
                                                     fontSize: '.9em'
@@ -435,465 +868,19 @@ const ProductPage = () => {
                                             onChange={(e) => setUseInsurance(e.target.checked)}
                                         />
                                     </Box>
-                                    <Typography variant="caption" sx={{ pl: '1em' }}>
+                                    <Typography
+                                        variant="caption"
+                                        sx={{ pl: '1em' }}>
                                         Если пиздец <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
                                     </Typography>
                                 </Box>
                             </Collapse>
                         </List>
                     </Box>
-
-                    <Box
-                        sx={{
-                            borderRadius: '.5em',
-                            mt: '.5em',
-                            mb: '.5em',
-                            backgroundColor: '#2E2E3A'
-                        }}
-                    >
-                        <List sx={{ p: 0 }}>
-                            <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('original')}>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        gap: '1em'
-                                    }}
-                                >
-
-                                    <Typography variant="h5">Строго оригинал</Typography>
-                                </Box>
-
-                                {accordion.original ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
-                            </ListItemButton>
-
-                            <Collapse in={accordion.original} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                    <ListItemButton sx={{ pl: '1em' }}>
-                                        <ListItemText
-                                            primaryTypographyProps={{
-                                                color: '#fff',
-                                                fontSize: '.9em',
-                                                fontWeight: '500',
-                                            }}
-                                            primary="Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере." />
-                                    </ListItemButton>
-                                </List>
-                            </Collapse>
-                        </List>
-                    </Box>
-
                     <ReviewContainer />
-
-                    {
-                        product ? (
-                            <AddOnsContainer />
-                        ) : (
-                            <Box
-                                sx={{
-                                    p: '.5em'
-                                }}
-                            >
-                                <Skeleton animation="wave" variant="rectangular" width='100%' height='5em' />
-                            </Box>
-                        )
-                    }
-                </>
-            ) : (
-                <>
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            gap: '1em',
-                            alignItems: 'start',
-                        }}
-                    >
-                        <Box
-                            sx={{
-                                minWidth: '50%',
-                                position: 'sticky',
-                                top: '1em'
-                            }}
-                        >
-                            <Box
-                                sx={{
-                                    position: 'relative',
-                                    backgroundColor: "#fff",
-                                    minWidth: '100%',
-                                    borderRadius: '1em 1em 0 0'
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        bottom: '3.5em',
-                                        right: '1em',
-                                        position: 'absolute',
-                                        zIndex: '20',
-                                        gap: '.5em',
-                                    }}
-                                >
-                                    <IconButton
-                                        onClick={() => {
-                                            shareURL('https://core.telegram.org', 'Оййй бляяя');
-                                        }}
-                                        sx={{
-                                            backgroundColor: '#fff',
-                                            '&:hover': {
-                                                backgroundColor: '#fff',
-                                            },
-                                            '&:active': {
-                                                backgroundColor: '#fff9',
-                                            },
-                                            maxWidth: '1.5em',
-                                            maxHeight: '1.5em'
-                                        }}
-                                    >
-                                        <ShareIcon
-                                            sx={{
-                                                maxWidth: '.8em',
-                                                maxHeight: '.8em',
-                                                color: '#F34213',
-                                            }}
-                                        />
-                                    </IconButton>
-                                    <IconButton
-                                        sx={{
-                                            backgroundColor: '#fff',
-                                            '&:hover': {
-                                                backgroundColor: '#fff',
-                                            },
-                                            '&:active': {
-                                                backgroundColor: '#fff9',
-                                            },
-                                            maxWidth: '1.5em',
-                                            maxHeight: '1.5em'
-                                        }}
-                                    >
-                                        <FavoriteBorderIcon
-                                            sx={{
-                                                maxWidth: '.8em',
-                                                maxHeight: '.8em',
-                                                color: '#F34213'
-                                            }}
-                                        />
-                                    </IconButton>
-                                    <IconButton
-                                        sx={{
-                                            backgroundColor: '#fff',
-                                            '&:hover': {
-                                                backgroundColor: '#fff',
-                                            },
-                                            '&:active': {
-                                                backgroundColor: '#fff9',
-                                            },
-                                            maxWidth: '1.5em',
-                                            maxHeight: '1.5em'
-                                        }}
-                                    >
-                                        <AddShoppingCartIcon
-                                            sx={{
-                                                maxWidth: '.8em',
-                                                maxHeight: '.8em',
-                                                color: '#F34213'
-                                            }}
-                                        />
-                                    </IconButton>
-                                </Box>
-
-                                {product ? (
-                                    <ProductSlider size="large" />
-                                ) : (
-                                    <Box>
-                                        <Skeleton animation="wave" variant="rectangular" width='100%' height='17em' />
-                                    </Box>
-                                )}
-
-                                {product ? (
-                                    <Typography
-                                        sx={{
-                                            color: '#202029',
-                                            fontSize: '1.6em',
-                                            fontWeight: '900',
-                                            lineHeight: '1.2',
-                                            p: '.5em',
-                                        }}
-                                    >
-                                        {sliceChn(product?.detail?.title)}
-                                    </Typography>
-                                ) : (
-                                    <Box
-                                        sx={{ p: '.5em 0', mb: '.5em' }}
-                                    >
-                                        <Skeleton animation="wave" variant="rounded" width='100%' height='2em' />
-                                    </Box>
-                                )}
-                            </Box>
-
-                            <Box
-                                sx={{
-                                    position: 'relative',
-                                    borderRadius: '0 0 1em 1em',
-                                    backgroundColor: '#2E2E3A',
-                                    p: '.5em .8em',
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    gap: '.5em',
-                                }}
-                            >
-                                <Box
-                                    sx={{
-                                        pb: '.5em',
-                                        borderBottom: '1px solid #ffffff30',
-                                    }}
-                                >
-
-                                    {product ? (
-                                        <>
-                                            <Typography
-                                                variant="h2"
-                                                sx={{
-                                                    transition: '.3s ease',
-                                                    ...(!isSplit && {
-                                                        color: '#ffffff',
-                                                    }),
-                                                    ...(isSplit && {
-                                                        color: '#ffffff50',
-                                                    }),
-                                                }}
-                                            >
-                                                {(!isNaN(currentProduct?.price)) ? <>{toRub(toNormalPrice(currentProduct?.price))} &#8381;</> : currentProduct?.price}
-                                            </Typography>
-
-                                            <Typography variant="subtitle2">
-                                                Оплачивая заказ, вы соглашаетесь с условиями <Link
-                                                    sx={{
-                                                        color: '#709ed9',
-                                                        cursor: 'pointer',
-                                                        textDecoration: 'none'
-                                                    }}
-                                                    onClick={() => { tg.openLink('https://ru.wikipedia.org/wiki/%D0%A1%D1%81%D1%8B%D0%BB%D0%BA%D0%B0') }}
-                                                >публичной оферты</Link>
-                                            </Typography>
-                                        </>
-                                    ) : (
-                                        <Box
-                                            sx={{
-                                                p: '.5em 0',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                gap: '.5em'
-                                            }}
-                                        >
-                                            <Skeleton animation="wave" variant="rectangular" width='100%' height='3em' />
-                                            <Skeleton animation="wave" variant="rectangular" width='100%' height='3.5em' />
-                                        </Box>
-                                    )}
-                                </Box>
-
-                                {product ? (
-                                    <>
-                                        <TypesContainer />
-                                    </>
-                                ) : (
-                                    <Box
-                                        sx={{
-                                            p: '.5em 0',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            gap: '.5em'
-                                        }}
-                                    >
-                                        <Skeleton animation="wave" variant="rectangular" width='100%' height='8em' />
-                                    </Box>
-                                )}
-                            </Box>
-
-                        </Box>
-
-                        <Box sx={{ flexGrow: 1 }}>
-                            <Grid container spacing={1}>
-                                <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                                    <Box
-                                        sx={{
-                                            borderRadius: '.5em',
-                                            backgroundColor: '#2E2E3A',
-                                            p: '.5em'
-                                        }}
-                                    >
-                                        <UsePointsContainer />
-                                        {
-                                            product ? (
-                                                <AddOnsContainer />
-                                            ) : (
-                                                <Box
-                                                    sx={{
-                                                        p: '.5em'
-                                                    }}
-                                                >
-                                                    <Skeleton animation="wave" variant="rectangular" width='100%' height='4em' />
-                                                </Box>
-                                            )
-                                        }
-                                    </Box>
-                                </Grid>
-                                <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                                    <Box
-                                        sx={{
-                                            borderRadius: '.5em',
-                                            backgroundColor: '#2E2E3A'
-                                        }}
-                                    >
-                                        <List sx={{ p: 0 }}>
-                                            <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('original')}>
-                                                <Box
-                                                    sx={{
-                                                        display: 'flex',
-                                                        gap: '1em'
-                                                    }}
-                                                >
-
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: '1em',
-                                                            fontWeight: '700',
-                                                        }}
-                                                    >Строго оригинал</Typography>
-                                                </Box>
-
-                                                {accordion.original ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
-                                            </ListItemButton>
-
-                                            <Collapse in={accordion.original} timeout="auto" unmountOnExit>
-                                                <List component="div" disablePadding>
-                                                    <ListItemButton sx={{ pl: '1em' }}>
-                                                        <ListItemText
-                                                            primaryTypographyProps={{
-                                                                color: '#fff',
-                                                                fontSize: '.9em',
-                                                                fontWeight: '500',
-                                                            }}
-                                                            primary="Мы гарантируем, что все купленные товары в Unicorn оригинальные и прошли проверку на подлинность. Если по каким-то причинам у вас на руках окажется подделка — мы вернем деньги в двойном размере." />
-                                                    </ListItemButton>
-                                                </List>
-                                            </Collapse>
-                                        </List>
-                                    </Box>
-                                </Grid>
-                                <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                                    <Box
-                                        sx={{
-                                            borderRadius: '.5em',
-                                            backgroundColor: '#2E2E3A'
-                                        }}
-                                    >
-                                        <List sx={{ p: 0 }}>
-                                            <ListItemButton sx={{ borderRadius: '.5em .5em 0 0', p: '.8em .5em', display: 'flex', gap: '1em', justifyContent: 'space-between' }} onClick={() => setAccordion('insurance')}>
-                                                <Box
-                                                    sx={{
-                                                        display: 'flex',
-                                                        gap: '1em'
-                                                    }}
-                                                >
-                                                    <Typography
-                                                        sx={{
-                                                            fontSize: '1em',
-                                                            fontWeight: '700',
-                                                        }}
-                                                    >Страховка и безопасность</Typography>
-                                                </Box>
-
-                                                {accordion.insurance ? <ExpandLessIcon sx={{ color: '#fff' }} /> : <ExpandMoreIcon sx={{ color: '#fff' }} />}
-                                            </ListItemButton>
-
-                                            <Collapse in={accordion.insurance} timeout="auto" unmountOnExit>
-                                                <List component="div" disablePadding>
-                                                    <ListItemButton sx={{ pl: '1em' }}>
-                                                        <ListItemText
-                                                            primaryTypographyProps={{
-                                                                color: '#fff',
-                                                                fontSize: '.9em',
-                                                                fontWeight: '500',
-                                                            }}
-                                                            primary="В стоимость товара входит его полное страхование. Мы несем ответственность, чтобы вы получили свой заказ в целости и сохранности." />
-                                                    </ListItemButton>
-                                                </List>
-
-                                                <Box
-                                                    sx={{
-                                                        backgroundColor: '#202029',
-                                                        borderRadius: '.5em',
-                                                        p: '.5em',
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        gap: '.5em',
-                                                        mx: '.8em',
-                                                        mb: '.5em'
-                                                    }}
-                                                >
-                                                    <Box
-                                                        sx={{
-                                                            display: 'flex',
-                                                            justifyContent: 'space-between',
-                                                            alignItems: 'center',
-                                                        }}
-                                                    >
-                                                        <Box
-                                                            sx={{
-                                                                display: 'flex',
-                                                                gap: '.2em',
-                                                                alignItems: 'center',
-                                                            }}
-                                                        >
-                                                            <HealthAndSafetyIcon
-                                                                sx={{
-                                                                    fontSize: '1.5em',
-                                                                    color: '#fff'
-                                                                }}
-                                                            />
-                                                            <Typography variant="caption"
-                                                                sx={{
-                                                                    fontWeight: '700',
-                                                                    fontSize: '.9em'
-                                                                }}
-                                                            >
-                                                                Страховка
-                                                            </Typography>
-                                                            <IconButton
-                                                                size="small"
-                                                            >
-                                                                <InfoIcon
-                                                                    sx={{
-                                                                        fontSize: '1.2em',
-                                                                        color: '#709ed9'
-                                                                    }}
-                                                                />
-                                                            </IconButton>
-                                                        </Box>
-                                                        <Switch
-                                                            checked={useInsurance}
-                                                            onChange={(e) => setUseInsurance(e.target.checked)}
-                                                        />
-                                                    </Box>
-                                                    <Typography
-                                                        variant="caption"
-                                                        sx={{ pl: '1em' }}>
-                                                        Если пиздец <span style={{ paddingLeft: '1em' }}>+ 3 400 &#8381;</span>
-                                                    </Typography>
-                                                </Box>
-                                            </Collapse>
-                                        </List>
-                                    </Box>
-                                </Grid>
-                                <Grid size={{ xs: 12, sm: 12, md: 12 }}>
-                                    <ReviewContainer />
-                                </Grid>
-                            </Grid>
-                        </Box>
-                    </Box>
-                </>
-            )}
-        </Box >
+                </Box>
+            </Box >
+        </>
     );
 };
 

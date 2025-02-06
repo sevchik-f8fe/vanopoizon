@@ -1,4 +1,4 @@
-import { TextField, InputAdornment, Box, IconButton, Typography, Skeleton } from "@mui/material";
+import { TextField, InputAdornment, Box, Button, Typography, Skeleton } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CloseIcon from '@mui/icons-material/Close';
@@ -60,14 +60,14 @@ const SearchField = () => {
                             </InputAdornment>
                         ),
                         endAdornment: (
-                            <InputAdornment position="end">
+                            <InputAdornment sx={{ py: '.5em', minHeight: '100%', display: 'flex', alignItems: 'stretch' }} position="end">
                                 <Box
                                     sx={{
                                         display: 'flex',
                                         gap: '.5em',
                                     }}
                                 >
-                                    <IconButton
+                                    <Button
                                         onClick={() => {
                                             setIsTyping(false);
                                             setMiniProductList([]);
@@ -76,6 +76,7 @@ const SearchField = () => {
                                         size="small"
                                         sx={{
                                             backgroundColor: '#fff2',
+                                            minHeight: '100%',
                                             '&:hover': {
                                                 backgroundColor: '#fff2',
                                             },
@@ -86,11 +87,11 @@ const SearchField = () => {
                                     >
                                         <CloseIcon
                                             sx={{
-                                                fontSize: '.9em',
+                                                fontSize: '2em',
                                                 color: '#fff8'
                                             }} />
-                                    </IconButton>
-                                    <IconButton
+                                    </Button>
+                                    <Button
                                         onClick={() => {
                                             console.log(objectToQueryString(propsOfSearch), fieldValue)
                                             if (checkFilter('keyword', objectToQueryString(propsOfSearch)) || fieldValue.length > 0) {
@@ -120,10 +121,10 @@ const SearchField = () => {
                                     >
                                         <ArrowOutwardIcon
                                             sx={{
-                                                fontSize: '.9em',
+                                                fontSize: '2em',
                                                 color: '#ffffff',
                                             }} />
-                                    </IconButton>
+                                    </Button>
                                 </Box>
                             </InputAdornment>
                         )
@@ -135,7 +136,7 @@ const SearchField = () => {
                 onChange={(e) => { setFieldValue(e.target.value) }}
                 value={fieldValue}
                 placeholder="Nike Air Zoom"
-                size="small"
+                // size="small"
                 variant="outlined"
             />
             {isTyping && <MiniListContainer />}
