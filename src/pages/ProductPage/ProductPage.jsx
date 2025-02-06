@@ -106,40 +106,40 @@ const ProductPage = () => {
                 }
             }
 
-            // axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //     }
-            // })
-            //     .then(response => {
-            //         setProduct(response?.data?.product);
-            //         setPrices(response?.data?.price);
-            //         setStoreSpuId(location.state.spu);
+            axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(response => {
+                    setProduct(response?.data?.product);
+                    setPrices(response?.data?.price);
+                    setStoreSpuId(location.state.spu);
 
-            //         const sizes = response.data.product?.saleProperties?.list?.find(elem => elem.name === '尺码' || elem.name === '尺寸')
-            //         const colors = response.data.product?.saleProperties?.list?.find(elem => elem.name === '颜色')
+                    const sizes = response.data.product?.saleProperties?.list?.find(elem => elem.name === '尺码' || elem.name === '尺寸')
+                    const colors = response.data.product?.saleProperties?.list?.find(elem => elem.name === '颜色')
 
-            //         setVariations('isColors', (colors))
-            //         setVariations('isSizes', (sizes))
+                    setVariations('isColors', (colors))
+                    setVariations('isSizes', (sizes))
 
-            //         setCurrentProductField('color', colors?.propertyValueId);
-            //         setCurrentProductField('size', sizes?.propertyValueId);
-            //         setCurrentProductField('images', imagesForCurrentColor(response.data.product?.image?.spuImage?.images, colors?.propertyValueId))
+                    setCurrentProductField('color', colors?.propertyValueId);
+                    setCurrentProductField('size', sizes?.propertyValueId);
+                    setCurrentProductField('images', imagesForCurrentColor(response.data.product?.image?.spuImage?.images, colors?.propertyValueId))
 
-            //         setCurrentProductField('price', calcPrice(response?.data?.product, response?.data?.price)(sizes?.propertyValueId)(colors?.propertyValueId));
-            //     })
-            //     .catch(error => console.error('Ошибка: ', error));
+                    setCurrentProductField('price', calcPrice(response?.data?.product, response?.data?.price)(sizes?.propertyValueId)(colors?.propertyValueId));
+                })
+                .catch(error => console.error('Ошибка: ', error));
         };
 
         tg.BackButton.show();
         showShineMainBtn(currentProduct?.price);
 
-        // if (storeSpuId != location.state.spu) {
-        //     setPrices(null)
-        //     setProduct(null);
+        if (storeSpuId != location.state.spu) {
+            setPrices(null)
+            setProduct(null);
 
-        //     loadProductData();
-        // }
+            loadProductData();
+        }
     }, []);
 
     return isSmallScreen ? (

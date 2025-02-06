@@ -1,4 +1,4 @@
-import { TextField, InputAdornment, Box, Button, Typography, Skeleton } from "@mui/material";
+import { TextField, InputAdornment, Box, IconButton, Typography, Skeleton } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CloseIcon from '@mui/icons-material/Close';
@@ -54,20 +54,23 @@ const SearchField = () => {
             <TextField
                 slotProps={{
                     input: {
+                        style: {
+                            padding: '.3em .5em .3em 1em'
+                        },
                         startAdornment: (
                             <InputAdornment position="start">
                                 <SearchIcon sx={{ color: '#ffffff50' }} />
                             </InputAdornment>
                         ),
                         endAdornment: (
-                            <InputAdornment sx={{ py: '.5em', minHeight: '100%', display: 'flex', alignItems: 'stretch' }} position="end">
+                            <InputAdornment position="end">
                                 <Box
                                     sx={{
                                         display: 'flex',
                                         gap: '.5em',
                                     }}
                                 >
-                                    <Button
+                                    <IconButton
                                         onClick={() => {
                                             setIsTyping(false);
                                             setMiniProductList([]);
@@ -76,7 +79,6 @@ const SearchField = () => {
                                         size="small"
                                         sx={{
                                             backgroundColor: '#fff2',
-                                            minHeight: '100%',
                                             '&:hover': {
                                                 backgroundColor: '#fff2',
                                             },
@@ -87,11 +89,11 @@ const SearchField = () => {
                                     >
                                         <CloseIcon
                                             sx={{
-                                                fontSize: '2em',
+                                                fontSize: '.9em',
                                                 color: '#fff8'
                                             }} />
-                                    </Button>
-                                    <Button
+                                    </IconButton>
+                                    <IconButton
                                         onClick={() => {
                                             console.log(objectToQueryString(propsOfSearch), fieldValue)
                                             if (checkFilter('keyword', objectToQueryString(propsOfSearch)) || fieldValue.length > 0) {
@@ -121,22 +123,22 @@ const SearchField = () => {
                                     >
                                         <ArrowOutwardIcon
                                             sx={{
-                                                fontSize: '2em',
+                                                fontSize: '.9em',
                                                 color: '#ffffff',
                                             }} />
-                                    </Button>
+                                    </IconButton>
                                 </Box>
                             </InputAdornment>
                         )
                     },
                 }}
                 sx={{
-                    flex: '1',
+                    flex: '1'
                 }}
                 onChange={(e) => { setFieldValue(e.target.value) }}
                 value={fieldValue}
                 placeholder="Nike Air Zoom"
-                // size="small"
+                size="small"
                 variant="outlined"
             />
             {isTyping && <MiniListContainer />}
