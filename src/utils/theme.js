@@ -13,11 +13,14 @@ export const theme = createTheme({
             fontWeight: 900,
         },
         h2: {
-            fontSize: '1.8em',
+            fontSize: 'calc((4vh + 1vw) * 0.65)',
+
+            // fontSize: '1.6em',
             fontWeight: 900,
         },
         h3: {
-            fontSize: '1.2em',
+            fontSize: '1.4em',
+            // fontSize: 'calc((2vh + 1vw) * 1.2)',
             fontWeight: 900,
         },
         h4: {
@@ -29,7 +32,8 @@ export const theme = createTheme({
             fontSize: '1em'
         },
         h6: {
-            fontSize: '1em',
+            // fontSize: '1em',
+            fontSize: 'calc((4vh + 1vw) * 0.4)',
             fontWeight: 900,
         },
         body1: {
@@ -46,7 +50,8 @@ export const theme = createTheme({
             fontWeight: 400
         },
         subtitle2: {
-            fontSize: '.75rem',
+            // fontSize: '.75em',
+            fontSize: 'calc((3vh + 1vw) * 0.4)',
             fontWeight: 500,
             color: '#fff5'
         },
@@ -186,16 +191,6 @@ export const theme = createTheme({
                 },
             },
         },
-        MuiChip: {
-            styleOverrides: {
-                label: {
-                    color: 'var(--tg-theme-text-color)', // Цвет текста
-                    fontSize: '16px', // Размер шрифта
-                    fontWeight: '600',
-                    color: 'white'
-                },
-            },
-        },
         MuiTextField: {
             styleOverrides: {
                 root: {
@@ -203,6 +198,13 @@ export const theme = createTheme({
                         backgroundColor: '#2E2E3A',
                         color: 'white',
                         borderRadius: '1em',
+                        //!
+
+
+                        fontSize: 'calc((4vh + 1vw) * 0.3)',
+
+
+
                         '&.Mui-focused': {
                             '& .MuiOutlinedInput-notchedOutline': {
                                 borderColor: '#ffffff50',
@@ -212,12 +214,12 @@ export const theme = createTheme({
                     },
                     '& .MuiFilledInput-root': {
                         backgroundColor: '#2E2E3A',
-                        fontSize: '.9em',
+                        fontSize: 'calc((4vh + 1vw) * 0.4)',
                         color: '#fff',
                         '&.Mui-focused': {
                             backgroundColor: '#2E2E3A',
                             '& .MuiFilledInput-notchedOutline': {
-                                borderColor: '#ffffff50', // Используем цвет из темы
+                                borderColor: '#ffffff50',
                                 borderWidth: '1px',
                             },
                         },

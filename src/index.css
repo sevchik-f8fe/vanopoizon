@@ -16,9 +16,9 @@ body {
     background-color: #202029;
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1200px) {
     body {
-        max-width: 1400px;
+        max-width: 80vw;
         margin: 0 auto;
     }
 }

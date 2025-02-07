@@ -279,7 +279,7 @@ const CalculateBlock = () => {
                         fontSize: '4em'
                     }}
                 />
-                <Typography variant={isSmallScreen ? 'h5' : 'body2'}>Рассчитать стоимость товара из Poizon</Typography>
+                <Typography variant={'h5'}>Рассчитать стоимость товара из Poizon</Typography>
                 <ArrowOutwardIcon
                     sx={{
                         color: '#fff',

@@ -1,7 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import EastIcon from '@mui/icons-material/East';
 
 const StartShopingBLock = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Box
             sx={{
@@ -16,7 +19,7 @@ const StartShopingBLock = () => {
                 borderRadius: '1em',
             }}
         >
-            <Typography variant="h3">Выбрать и заказать</Typography>
+            <Typography variant="h3" sx={{ fontSize: !isSmallScreen && '1.8em', }}>Выбрать и заказать</Typography>
             <Box
                 sx={{
                     minWidth: '4em',

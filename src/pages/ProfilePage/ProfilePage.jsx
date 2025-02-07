@@ -112,25 +112,25 @@ const ProfilePage = () => {
                                     sx={{
                                         zIndex: '100',
                                         display: 'flex',
-                                        p: '.5em',
+                                        p: '.5em 1em',
                                         borderRadius: '.5em',
                                         alignItems: 'center',
-                                        gap: '.5em',
+                                        gap: '1em',
                                         backgroundColor: '#2E2E3A',
                                     }}
                                 >
                                     <Avatar
                                         sx={{
-                                            minWidth: '3em',
-                                            minHeight: '3em'
+                                            minWidth: '3.5em',
+                                            minHeight: '3.5em'
                                         }}
                                         src={user_photo}
                                     />
-                                    <Typography
+                                    <Typography variant="h2"
                                         sx={{
-                                            fontSize: '1.5em',
+                                            // fontSize: '1.5em',
                                             zIndex: '100',
-                                            fontWeight: '900',
+                                            // fontWeight: '900',
                                         }}
                                     >
                                         {user_firstName} {user_secondName}
@@ -139,21 +139,23 @@ const ProfilePage = () => {
                                     <Box
                                         sx={{
                                             display: 'flex',
-                                            gap: '1em'
+                                            flex: 1,
+                                            justifyContent: 'end'
+                                            // gap: '.5em'
                                         }}
                                     >
                                         <IconButton
                                             onClick={() => navigate('/favorite')}
                                         >
                                             <FavoriteIcon
-                                                sx={{ color: '#F34213' }}
+                                                sx={{ color: '#F34213', fontSize: 'calc((4vh + 1vw) * 0.65)' }}
                                             />
                                         </IconButton>
                                         <IconButton
                                             onClick={() => navigate('/cart')}
                                         >
                                             <ShoppingCartIcon
-                                                sx={{ color: '#F34213' }}
+                                                sx={{ color: '#F34213', fontSize: 'calc((4vh + 1vw) * 0.65)' }}
                                             />
                                         </IconButton>
                                     </Box>
@@ -226,7 +228,7 @@ const OrdersContainer = () => {
                     sx={{
                         backgroundColor: '#202029',
                         borderRadius: '.5em',
-                        p: '.5em',
+                        p: '.5em 0',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center'
@@ -249,12 +251,14 @@ const OrdersContainer = () => {
                         <ArrowOutwardIcon
                             sx={{
                                 color: '#fff',
-                                fontSize: '1.4em'
+                                fontSize: 'calc((3vh + 1vw) * 0.7)',
+                                // fontSize: '1.4em'
                             }}
                         />
-                        <Typography
+                        <Typography variant="subtitle2"
                             sx={{
-                                fontSize: '.75em',
+                                // fontSize: '.75em',
+                                color: '#fff',
                                 fontWeight: 600
                             }}
                         >Все заказы</Typography>
@@ -280,8 +284,8 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
             sx={{
                 backgroundColor: '#202029',
                 borderRadius: '.5em',
-                maxWidth: '16em',
-                minWidth: '16em',
+                maxWidth: '15vw',
+                minWidth: '16.5em',
                 p: '.5em',
                 display: 'flex',
                 alignItems: 'center',
@@ -295,10 +299,10 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
-                    minHeight: '4em',
-                    maxHeight: '4em',
-                    minWidth: '4em',
-                    maxWidth: '4em',
+                    minHeight: '4.5em',
+                    maxHeight: '4.5em',
+                    minWidth: '4.5em',
+                    maxWidth: '4.5em',
                 }}
             ></Box>
 
@@ -309,11 +313,11 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
                     flexDirection: 'column',
                 }}
             >
-                <Typography
+                <Typography variant="h6"
                     sx={{
                         color: statusColors[status],
-                        fontSize: '.8em',
-                        fontWeight: '900',
+                        // fontSize: '.8em',
+                        // fontWeight: '900',
                     }}
                 >{label}</Typography>
 
@@ -360,6 +364,8 @@ const OrderElement = ({ orderId, status, address, products, label }) => {
 
 const NotificationsContainer = () => {
     const { notificationsActive, setNotificationsActive } = useNotifications()
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Box
@@ -371,10 +377,9 @@ const NotificationsContainer = () => {
                 minWidth: '100%',
             }}
         >
-            <Typography
+            <Typography variant="h3"
                 sx={{
-                    fontSize: '1.4em',
-                    fontWeight: '900',
+                    fontSize: !isSmallScreen && '1.8em',
                     mb: '.5em',
                 }}
             >
@@ -425,6 +430,8 @@ const NotificationsContainer = () => {
 }
 
 const StatusContainer = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const rows = [
         { status: 'Новичок', points: '+50', orders: '0' },
         { status: 'Модник', points: '+150', orders: '3' },
@@ -444,10 +451,9 @@ const StatusContainer = () => {
             }}
         >
             <Box>
-                <Typography
+                <Typography variant="h3"
                     sx={{
-                        fontSize: '1.4em',
-                        fontWeight: '900',
+                        fontSize: !isSmallScreen && '1.8em',
                         mb: '.5em',
                     }}
                 >
@@ -587,6 +593,8 @@ const StatusContainer = () => {
 const DataContainer = () => {
     const navigate = useNavigate();
     const { user } = useUserData();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     const rows = [
         { title: 'Город', data: (user?.delivery?.city?.name?.length > 0) ? (user?.delivery?.city?.name) : ('Не указано') },
@@ -611,10 +619,9 @@ const DataContainer = () => {
                     mb: '1em'
                 }}
             >
-                <Typography
+                <Typography variant="h3"
                     sx={{
-                        fontSize: '1.4em',
-                        fontWeight: '900',
+                        fontSize: !isSmallScreen && '1.8em',
                         mb: '.5em',
                     }}
                 >

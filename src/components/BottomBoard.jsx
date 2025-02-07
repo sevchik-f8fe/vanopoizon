@@ -39,7 +39,7 @@ const BottomBoard = () => {
                         borderRadius: '1em'
                     }}
                 >
-                    <Typography variant={isSmallScreen ? 'h3' : 'h6'} sx={{ color: '#F34213' }}>Профиль</Typography>
+                    <Typography variant='h3' sx={{ color: '#F34213', fontSize: '1.2em' }}>Профиль</Typography>
 
                     <PersonIcon
                         sx={{
@@ -62,7 +62,7 @@ const BottomBoard = () => {
                         borderRadius: '1em'
                     }}
                 >
-                    <Typography variant={isSmallScreen ? 'h3' : 'h6'} sx={{ color: '#F34213' }}>Новости</Typography>
+                    <Typography variant='h3' sx={{ color: '#F34213', fontSize: '1.2em' }}>Новости</Typography>
 
                     <ArticleIcon
                         sx={{
@@ -87,7 +87,7 @@ const BottomBoard = () => {
                     borderRadius: '1em',
                 }}
             >
-                <Typography variant={isSmallScreen ? 'h3' : 'h6'} >Корзина</Typography>
+                <Typography variant={'h3'} sx={{ fontSize: '1.2em' }}>Корзина</Typography>
 
                 <Box
                     sx={{

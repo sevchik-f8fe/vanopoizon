@@ -1,9 +1,12 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { Link } from "react-router-dom";
 
 const PointBlock = ({ points }) => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <Link
             sx={{
@@ -34,7 +37,7 @@ const PointBlock = ({ points }) => {
                 >
                     <Typography
                         variant="h3"
-                        sx={{ color: '#F34213' }}
+                        sx={{ color: '#F34213', fontSize: !isSmallScreen && '1.8em' }}
                     >Баллы</Typography>
                     <ArrowOutwardIcon sx={{ color: '#F34213' }} />
                 </Box>
@@ -47,10 +50,10 @@ const PointBlock = ({ points }) => {
                 >
                     <Box
                         sx={{
-                            maxWidth: '1.5em',
-                            maxHeight: '1.5em',
-                            minHeight: '1.5em',
-                            minWidth: '1.5em',
+                            maxWidth: '2em',
+                            maxHeight: '2em',
+                            minHeight: '2em',
+                            minWidth: '2em',
                             borderRadius: '50%',
                             backgroundColor: 'white',
                             display: 'flex',

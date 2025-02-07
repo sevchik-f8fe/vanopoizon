@@ -1,10 +1,12 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 import { Link } from "react-router-dom";
 
 const ReferalBlock = () => {
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Link
@@ -34,7 +36,7 @@ const ReferalBlock = () => {
                         gap: '1em'
                     }}
                 >
-                    <Typography variant="h3">Зови друзей</Typography>
+                    <Typography variant="h3" sx={{ fontSize: !isSmallScreen && '1.8em', }}>Зови друзей</Typography>
                     <ArrowOutwardIcon
                         sx={{ color: '#fff' }}
                     />
