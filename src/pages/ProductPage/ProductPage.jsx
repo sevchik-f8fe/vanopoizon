@@ -23,7 +23,7 @@ import axios from "axios";
 import { useProductPage } from "./store";
 import { showShineMainBtn } from "../../utils/utilFuncs";
 import { useLocation } from "react-router-dom";
-import { toRub } from "../../utils/utilFuncs";
+import { toRub, calcPrice } from "../../utils/utilFuncs";
 import { sliceChn, toNormalPrice, imagesForCurrentColor } from "../../utils/utilFuncs";
 import { useTheme, useMediaQuery } from "@mui/material";
 
@@ -37,75 +37,6 @@ const ProductPage = () => {
 
     useEffect(() => {
         const loadProductData = async () => {
-            const calcPrice = (productData, pricesData) => {
-                return (sizeId = currentProduct?.size) => {
-                    return (colorId = currentProduct?.color) => {
-                        const originProps = (arr, needValue) => {
-                            const found = arr.find(elem => elem.level === needValue);
-                            return found ? found.propertyValueId : null;
-                        };
-
-                        if (!sizeId && !colorId) {
-                            return productData?.price?.item?.price || 'Нет в наличии';
-                        } else if (!sizeId) {
-                            console.log(productData?.saleProperties?.list)
-                            const skusForCurrentColor = productData?.skus
-                                .filter(elem => originProps(elem.properties, 1) == colorId)
-                                .map(elem => ({ skuId: elem?.skuId, colorId: originProps(elem.properties, 1) }));
-
-                            const currentPrices = skusForCurrentColor && skusForCurrentColor
-                                .map(sku => {
-                                    const skuId = sku?.skuId?.toString();
-                                    const price = pricesData?.skus[skuId]?.prices;
-                                    return price;
-                                });
-
-                            const rightCurrentPrice = currentPrices[0] && currentPrices[0]
-                                .filter((elem) => elem?.tradeType != 95)
-                                .map((elem) => elem?.price)[0]
-
-                            return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
-                        } else if (!colorId) {
-                            const skusForCurrentSize = productData && productData?.skus
-                                .filter(elem => originProps(elem.properties, 1) == sizeId)
-                                .map(elem => ({ skuId: elem.skuId, sizeId: originProps(elem.properties, 1) }));
-
-                            console.log(productData?.skus);
-
-                            const currentPrices = skusForCurrentSize && skusForCurrentSize
-                                .map(sku => {
-                                    const skuId = sku.skuId.toString();
-                                    const price = pricesData?.skus[skuId]?.prices;
-                                    return price;
-                                });
-
-                            const rightCurrentPrice = currentPrices[0] && currentPrices[0]
-                                .filter((elem) => elem?.tradeType != 95)
-                                .map((elem) => elem?.price)[0]
-
-                            return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
-                        } else {
-                            const skusForCurrentColor = productData?.skus
-                                .filter(elem => originProps(elem.properties, 1) == colorId && originProps(elem.properties, 2) == sizeId)
-                                .map(elem => ({ skuId: elem.skuId, colorId: originProps(elem.properties, 1), sizeId: originProps(elem.properties, 2) }));
-
-                            const currentPrices = skusForCurrentColor && skusForCurrentColor
-                                .map(sku => {
-                                    const skuId = sku.skuId.toString();
-                                    const price = pricesData?.skus[skuId]?.prices;
-                                    return price;
-                                });
-
-                            const rightCurrentPrice = currentPrices && currentPrices[0] && currentPrices[0]
-                                .filter((elem) => elem?.tradeType != 95)
-                                .map((elem) => elem?.price)[0]
-
-                            return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
-                        }
-                    }
-                }
-            }
-
             axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -126,7 +57,7 @@ const ProductPage = () => {
                     setCurrentProductField('size', sizes?.propertyValueId);
                     setCurrentProductField('images', imagesForCurrentColor(response.data.product?.image?.spuImage?.images, colors?.propertyValueId))
 
-                    setCurrentProductField('price', calcPrice(response?.data?.product, response?.data?.price)(sizes?.propertyValueId)(colors?.propertyValueId));
+                    setCurrentProductField('price', calcPrice(response?.data?.product, response?.data?.price, currentProduct)(sizes?.propertyValueId)(colors?.propertyValueId));
                 })
                 .catch(error => console.error('Ошибка: ', error));
         };
@@ -503,14 +434,17 @@ const ProductPage = () => {
                     display: 'flex',
                     gap: '1em',
                     alignItems: 'start',
-                    justifyContent: 'center'
+                    borderRadius: '1em 1em 0 0',
+                    justifyContent: 'center',
                 }}
             >
                 <Box
                     sx={{
                         minWidth: '50%',
                         position: 'sticky',
-                        top: '1em'
+                        borderRadius: '1em 1em 0 0',
+                        minHeight: '100%',
+                        top: '3em',
                     }}
                 >
                     <Box
@@ -916,10 +850,11 @@ const SlideCell = ({ picture, size }) => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+                borderRadius: '1em 1em 0 0',
                 minWidth: 'calc(100%)',
                 ...(size == 'large' && {
-                    minHeight: '17em',
-                    maxHeight: '17em',
+                    minHeight: '20em',
+                    maxHeight: '20em',
                 }),
                 ...(size != 'large' && {
                     minHeight: '13em',
@@ -932,71 +867,7 @@ const SlideCell = ({ picture, size }) => {
 }
 
 const TypesContainer = () => {
-    const { product, prices, currentProduct, isSizes, isColors } = useProductPage();
-
-    const calcPrice = (sizeId = currentProduct?.size) => {
-        return function (colorId = currentProduct?.color) {
-            const originProps = (arr, needValue) => {
-                const found = arr.find(elem => elem.level === needValue);
-                return found ? found.propertyValueId : null;
-            };
-
-            if (!sizeId && !colorId) {
-                return productData?.price?.item?.price || 'Нет в наличии';
-            } else if (!sizeId) {
-                const skusForCurrentColor = product?.skus
-                    .filter(elem => originProps(elem.properties, 1) == colorId)
-                    .map(elem => ({ skuId: elem?.skuId, colorId: originProps(elem.properties, 1) }));
-
-                const currentPrices = skusForCurrentColor && skusForCurrentColor
-                    .map(sku => {
-                        const skuId = sku.skuId.toString();
-                        const price = prices?.skus[skuId]?.prices;
-                        return price;
-                    });
-
-                const rightCurrentPrice = currentPrices && currentPrices[0]
-                    .filter((elem) => elem?.tradeType != 95)
-                    .map((elem) => elem?.price)[0]
-
-                return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
-            } else if (!colorId) {
-                const skusForCurrentSize = product?.skus
-                    .filter(elem => originProps(elem.properties, 1) == sizeId)
-                    .map(elem => ({ skuId: elem.skuId, sizeId: originProps(elem.properties, 1) }));
-
-                const currentPrices = skusForCurrentSize && skusForCurrentSize
-                    .map(sku => {
-                        const skuId = sku.skuId.toString();
-                        const price = prices?.skus[skuId]?.prices;
-                        return price;
-                    });
-
-                const rightCurrentPrice = currentPrices && currentPrices[0]
-                    .filter((elem) => elem.tradeType != 95)
-                    .map((elem) => elem.price)[0]
-
-                return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
-            } else {
-                const skusForCurrentColor = product?.skus
-                    .filter(elem => originProps(elem.properties, 1) == colorId && originProps(elem.properties, 2) == sizeId)
-                    .map(elem => ({ skuId: elem.skuId, colorId: originProps(elem.properties, 1), sizeId: originProps(elem.properties, 2) }));
-
-                const currentPrices = skusForCurrentColor && skusForCurrentColor
-                    .map(sku => {
-                        const skuId = sku.skuId.toString();
-                        const price = prices?.skus[skuId]?.prices;
-                        return price;
-                    });
-
-                const rightCurrentPrice = currentPrices[0] && currentPrices[0]
-                    .filter((elem) => elem?.tradeType != 95)
-                    .map((elem) => elem?.price)[0]
-
-                return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
-            }
-        }
-    }
+    const { isSizes, isColors } = useProductPage();
 
     return (isSizes || isColors) ? (
         <Box
@@ -1008,13 +879,13 @@ const TypesContainer = () => {
                 borderBottom: '1px solid #ffffff30'
             }}
         >
-            {isColors && <ColorsContainer calcPrice={calcPrice} />}
-            {isSizes && <SizesContainer calcPrice={calcPrice} />}
+            {isColors && <ColorsContainer />}
+            {isSizes && <SizesContainer />}
         </Box>
     ) : (<></>);
 }
 
-const SizesContainer = ({ calcPrice }) => {
+const SizesContainer = () => {
     const navigate = useNavigate();
     const { product } = useProductPage();
 
@@ -1061,23 +932,24 @@ const SizesContainer = ({ calcPrice }) => {
                     alignItems: 'center',
                     gap: '.5em',
                     pb: '.5em',
-                    flexWrap: 'wrap'
+                    overflowX: 'auto',
+                    flexWrap: 'no-wrap'
                 }}
             >
-                {findSizes()?.map((elem) => <SizesElement key={nanoid()} calcPrice={calcPrice} size={elem?.size} sizeId={elem?.sizeId} />)}
+                {findSizes()?.map((elem) => <SizesElement key={nanoid()} size={elem?.size} sizeId={elem?.sizeId} />)}
             </Box>
         </>
     );
 };
 
-const SizesElement = ({ size, sizeId, calcPrice }) => {
-    const { currentProduct, setCurrentProductField } = useProductPage();
+const SizesElement = ({ size, sizeId }) => {
+    const { currentProduct, setCurrentProductField, prices, product } = useProductPage();
 
     return (
         <Box
             onClick={() => {
                 setCurrentProductField('size', sizeId)
-                setCurrentProductField('price', calcPrice(sizeId)());
+                setCurrentProductField('price', calcPrice(product, prices, currentProduct)(sizeId)());
             }}
             sx={{
                 display: 'flex',
@@ -1101,7 +973,7 @@ const SizesElement = ({ size, sizeId, calcPrice }) => {
     );
 };
 
-const ColorsContainer = ({ calcPrice }) => {
+const ColorsContainer = () => {
     const { product } = useProductPage();
 
     const findColors = () => {
@@ -1129,27 +1001,28 @@ const ColorsContainer = ({ calcPrice }) => {
             <Box
                 sx={{
                     display: 'flex',
-                    flexWrap: 'wrap',
+                    overflowX: 'auto',
+                    flexWrap: 'no-wrap',
                     alignItems: 'center',
                     gap: '.5em',
                     pb: '.5em',
                 }}
             >
-                {findColors().map((elem) => <ColorElement key={nanoid()} calcPrice={calcPrice} color={elem?.color} colorId={elem?.colorId} />)}
+                {findColors().map((elem) => <ColorElement key={nanoid()} color={elem?.color} colorId={elem?.colorId} />)}
             </Box>
         </>
     );
 }
 
-const ColorElement = ({ color, colorId, calcPrice }) => {
-    const { product, currentProduct, setCurrentProductField } = useProductPage();
+const ColorElement = ({ color, colorId }) => {
+    const { product, currentProduct, setCurrentProductField, prices } = useProductPage();
 
     return (
         <Box
             onClick={() => {
                 setCurrentProductField('color', colorId);
                 setCurrentProductField('images', imagesForCurrentColor(product?.image?.spuImage?.images, colorId))
-                setCurrentProductField('price', calcPrice()(colorId));
+                setCurrentProductField('price', calcPrice(product, prices, currentProduct)()(colorId));
             }}
             sx={{
                 display: 'flex',
@@ -1273,6 +1146,7 @@ const ReviewContainer = () => {
     return (
         <Box
             sx={{
+                mb: '.5em',
                 p: '.5em .8em',
                 borderRadius: '.5em',
                 backgroundColor: '#2E2E3A',
@@ -1334,8 +1208,8 @@ const AddOnsContainer = () => {
     return (
         <Box
             sx={{
-                p: '.5em .8em',
-                borderRadius: '.5em .5em 0 0',
+                p: '.3em .8em 1em 1em',
+                borderRadius: '.5em',
                 backgroundColor: '#2E2E3A',
                 display: 'flex',
                 gap: '1em',

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const useCart = create((set) => ({
     cart: [],
-    spuIds: [],
+    spuIds: [{ count: 1, spuId: 47668 }, { count: 1, spuId: 1237506 }, { count: 1, spuId: 14480991 }],
 
     usePoints: false,
     useInsurance: false,
@@ -24,11 +24,12 @@ export const useCart = create((set) => ({
         return { isLoading: value }
     }),
 
+
     setSpuIds: (value) => set(() => {
         return { spuIds: value }
     }),
-    setProducts: (value) => set(() => {
-        return { products: value }
+    setCart: (value) => set(() => {
+        return { cart: value }
     }),
 
     removeFromCart: (elemId, userId) => set(state => {

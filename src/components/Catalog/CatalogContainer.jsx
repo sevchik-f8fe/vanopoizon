@@ -168,7 +168,7 @@ const CatalogContent = () => {
                     <Grid sx={{ minWidth: '100%' }} container spacing={1}>
                         {products && products
                             ?.filter(elem => elem?.logoUrl?.length > 0 && elem?.price > 0 && elem?.title?.length > 0)
-                            ?.map((elem) => <CatalogElement key={nanoid()} spuId={elem?.spuId} price={toRub(toNormalPrice(elem?.price))} link={'/product'} title={shortTitle(elem?.title)} picture={elem?.logoUrl} />)}
+                            ?.map((elem) => <CatalogElement key={nanoid()} spuId={elem?.spuId} price={toRub(toNormalPrice(elem?.price))} title={shortTitle(elem?.title)} picture={elem?.logoUrl} />)}
                     </Grid>
 
                 </Box>

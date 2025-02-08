@@ -10,21 +10,40 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from "axios";
 
-import { showShineMainBtn } from "../../utils/utilFuncs";
+import { showShineMainBtn, sliceChn, toNormalPrice, toRub } from "../../utils/utilFuncs";
 import { useCart } from "./store";
 import { useUserData } from "../../utils/store";
 import { useFavorites } from "../FavoritePage/store";
 
 const CartPage = () => {
-    const { spuIds, isLoading, deliveryDataIsFilled, setDeliveryDataIsFilled } = useCart();
+    const { spuIds, isLoading, deliveryDataIsFilled, setDeliveryDataIsFilled, cart, setIsLoading, setCart } = useCart();
     const { user } = useUserData();
 
     const navigate = useNavigate();
     let tg = window.Telegram.WebApp;
 
     useEffect(() => {
+        const getData = async () => {
+            await axios.post('https://vanopoizonserver.ru/vanopoizon/api/getCartBySpuIds',
+                { spuIds },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(res => {
+                    console.log(res.data.cart[0].product)
+                    setCart(res.data.cart);
+                })
+                .catch(err => console.log(`err: ${err}`))
+                .finally(() => setIsLoading(false));
+        }
+
         setDeliveryDataIsFilled((user?.delivery?.fullName?.length > 0 && user?.delivery?.phone?.length > 0 && user?.delivery?.deliveryType?.length > 0) && ((user?.delivery?.pvz?.fullAddress?.length > 0 && user?.delivery?.city?.name?.length > 0) || (user?.delivery?.fullAddress?.length > 0)))
         tg.BackButton.show();
+
+        setIsLoading(true)
+        getData();
     }, [])
 
     useEffect(() => {
@@ -102,7 +121,7 @@ const CartPage = () => {
                 </Box>
             </Box>
 
-            {spuIds.length <= 0 ? (
+            {cart.length <= 0 ? (
                 (isLoading) ? (<>Загрузка</>) : (
                     <Box
                         sx={{
@@ -126,7 +145,7 @@ const CartPage = () => {
                             p: '1em .5em',
                         }}
                     >
-                        {spuIds.map((product) => <CartElement key={nanoid()} spuId={product.spuId} count={product.count} size={product.size} color={product.color} />)}
+                        {cart.map((elem) => <CartElement key={nanoid()} title={sliceChn(elem?.product?.detail?.title)} price={elem?.product?.detail?.authPrice} picture={elem?.product?.image?.spuImage?.images[0]?.url} spuId={elem?.info?.spuId} count={elem?.info?.count} size={elem?.info?.size} color={elem?.info?.color} />)}
                     </Box>
                     <UsePointsBlock />
                     <InsuranceBlock />
@@ -138,7 +157,7 @@ const CartPage = () => {
     );
 }
 
-const CartElement = ({ color, size, spuId, count }) => {
+const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
     const { removeFromCart, setProductCount } = useCart()
     const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
     const { user } = useUserData();
@@ -168,7 +187,10 @@ const CartElement = ({ color, size, spuId, count }) => {
                         gap: '.5em',
                     }}
                 >
-                    {/* <Box
+                    <Box
+                        onClick={() => {
+                            navigate('/product', { state: { spu: spuId } })
+                        }}
                         sx={{
                             backgroundImage: `url(${picture})`,
                             backgroundSize: 'cover',
@@ -178,7 +200,7 @@ const CartElement = ({ color, size, spuId, count }) => {
                             borderRadius: '.5em',
                             minHeight: '5em',
                         }}
-                    ></Box> */}
+                    ></Box>
                     <Box
                         sx={{
                             display: 'flex',
@@ -187,10 +209,10 @@ const CartElement = ({ color, size, spuId, count }) => {
                             p: '.2em 0'
                         }}
                     >
-                        <Typography variant="h5">{spuId}, {size}, {color}</Typography>
-                        {/* <Typography variant="subtitle1">{price} &#8381;</Typography> */}
-                        {/* <Typography variant="subtitle1">размер {size} (EU)</Typography> */}
-                        {/* <Typography variant="subtitle1">{color}</Typography> */}
+                        <Typography variant="h5">{title}</Typography>
+                        <Typography variant="subtitle1">{toRub(price)} &#8381;</Typography>
+                        {size && <Typography variant="subtitle1">размер {size} (EU)</Typography>}
+                        {color && <Typography variant="subtitle1">{color}</Typography>}
                     </Box>
                 </Box>
             </Link>

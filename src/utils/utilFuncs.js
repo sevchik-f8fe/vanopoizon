@@ -74,9 +74,9 @@ export const toNormalPrice = (price) => {
 export const sliceChn = (str) => {
     let chineseChars = str && str.match(/[^\x00-\x7F]+/g);
     let convertedStr = str && str.replace(/[^\x00-\x7F]/g, "");
-    chineseChars = chineseChars.slice(0, 1);
+    chineseChars = chineseChars?.slice(0, 1);
 
-    return [...convertedStr.split(), ...chineseChars].join();
+    return convertedStr ? [...convertedStr?.split(), ...chineseChars].join() : 'ошибка тут';
 }
 
 export const imagesForCurrentColor = (productImg, currentColorId) => {
@@ -131,5 +131,71 @@ export const checkFilter = (type, url) => {
     } else {
         console.log('2: ', url);
         return url.length > 0;
+    }
+}
+
+export const calcPrice = (productData, pricesData, currentProduct) => {
+    return (sizeId = currentProduct?.size) => {
+        return (colorId = currentProduct?.color) => {
+            const originProps = (arr, needValue) => {
+                const found = arr.find(elem => elem.level === needValue);
+                return found ? found.propertyValueId : null;
+            };
+
+            if (!sizeId && !colorId) {
+                return productData?.price?.item?.price || 'Нет в наличии';
+            } else if (!sizeId) {
+                const skusForCurrentColor = productData?.skus
+                    .filter(elem => originProps(elem.properties, 1) == colorId)
+                    .map(elem => ({ skuId: elem?.skuId, colorId: originProps(elem.properties, 1) }));
+
+                const currentPrices = skusForCurrentColor && skusForCurrentColor
+                    .map(sku => {
+                        const skuId = sku?.skuId?.toString();
+                        const price = pricesData?.skus[skuId]?.prices;
+                        return price;
+                    });
+
+                const rightCurrentPrice = currentPrices && currentPrices[0]
+                    .filter((elem) => elem?.tradeType != 95)
+                    .map((elem) => elem?.price)[0]
+
+                return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
+            } else if (!colorId) {
+                const skusForCurrentSize = productData && productData?.skus
+                    .filter(elem => originProps(elem.properties, 1) == sizeId)
+                    .map(elem => ({ skuId: elem.skuId, sizeId: originProps(elem.properties, 1) }));
+
+                const currentPrices = skusForCurrentSize && skusForCurrentSize
+                    .map(sku => {
+                        const skuId = sku.skuId.toString();
+                        const price = pricesData?.skus[skuId]?.prices;
+                        return price;
+                    });
+
+                const rightCurrentPrice = currentPrices && currentPrices[0]
+                    .filter((elem) => elem?.tradeType != 95)
+                    .map((elem) => elem?.price)[0]
+
+                return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
+            } else {
+                const skusForCurrentColor = productData?.skus
+                    .filter(elem => originProps(elem.properties, 1) == colorId && originProps(elem.properties, 2) == sizeId)
+                    .map(elem => ({ skuId: elem.skuId, colorId: originProps(elem.properties, 1), sizeId: originProps(elem.properties, 2) }));
+
+                const currentPrices = skusForCurrentColor && skusForCurrentColor
+                    .map(sku => {
+                        const skuId = sku.skuId.toString();
+                        const price = pricesData?.skus[skuId]?.prices;
+                        return price;
+                    });
+
+                const rightCurrentPrice = currentPrices[0] && currentPrices[0]
+                    .filter((elem) => elem?.tradeType != 95)
+                    .map((elem) => elem?.price)[0]
+
+                return rightCurrentPrice ? rightCurrentPrice : 'Нет в наличии';
+            }
+        }
     }
 }
