@@ -3,7 +3,7 @@ import { nanoid } from "nanoid";
 import Slider from "react-slick";
 import { shareURL } from '@telegram-apps/sdk';
 import { useEffect } from "react";
-import Grid from '@mui/material/Grid2';
+// import Grid from '@mui/material/Grid2';
 import InfoIcon from '@mui/icons-material/Info';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -31,7 +31,7 @@ import { useUserData } from "../../utils/store";
 import { useCart } from "../CartPage/store";
 
 const ProductPage = () => {
-    const { setAccordion, setVariations, storeSpuId, setStoreSpuId, accordion, isSplit, useInsurance, setUseInsurance, setProduct, setPrices, product, currentProduct, setCurrentProductField } = useProductPage();
+    const { setAccordion, setVariations, storeSpuId, setStoreSpuId, accordion, isSplit, useInsurance, setUseInsurance, setProduct, setPrices, product, currentProduct, setCurrentProductField, isColors } = useProductPage();
     const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
     const { user } = useUserData();
     const { spuIds, removeFromCart, addToCart } = useCart();
@@ -84,7 +84,7 @@ const ProductPage = () => {
         if (favorites.some(item => item.spuId === location.state.spu)) {
             removeFromFavorites(location.state.spu, user._id);
         } else {
-            addToFavorites({ photoUrl: picture, title, spuId: location.state.spu }, user._id);
+            addToFavorites({ photoUrl: isColors ? currentProduct?.images[0] : product?.image?.spuImage?.images[0], title: sliceChn(product?.detail?.title), spuId: location.state.spu }, user._id);
         }
     }
 
