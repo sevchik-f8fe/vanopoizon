@@ -88,11 +88,29 @@ const ProductPage = () => {
         }
     }
 
+    const findSize = () => {
+        const sizes = product?.saleProperties?.list
+            .filter(elem => elem.name == "尺码" || elem.name === '尺寸')
+            .sort((elem1, elem2) => elem1.sort - elem2.sort)
+            .map(elem => ({ size: elem.value, sizeId: elem.propertyValueId }));
+
+        return currentProduct.size ? (sizes.find(elem => elem?.sizeId == currentProduct.size)) : null;
+    }
+
+    const findColor = () => {
+        const colors = product?.saleProperties?.list
+            .filter(elem => elem.name == "颜色")
+            .sort((elem1, elem2) => elem1.sort - elem2.sort)
+            .map(elem => ({ color: elem.value, colorId: elem.propertyValueId }));
+
+        return currentProduct.color ? (colors.find(elem => elem?.colorId == currentProduct.color)) : null;
+    }
+
     const handleCartClick = () => {
         if (spuIds.some(item => item.spuId === location.state.spu)) {
             removeFromCart(location.state.spu, user._id);
         } else {
-            addToCart({ count: 1, size: currentProduct?.size, color: currentProduct?.color, spuId: location.state.spu }, user._id);
+            addToCart({ count: 1, size: findSize()?.size, color: findColor()?.color, spuId: location.state.spu }, user._id);
         }
     }
 

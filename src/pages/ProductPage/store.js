@@ -21,6 +21,7 @@ export const useProductPage = create((set, get) => ({
     useInsurance: false,
 
     setCurrentProductField: (field, value) => set(state => {
+        console.log(field, value)
         return { currentProduct: { ...state.currentProduct, [field]: value } };
     }),
     setVariations: (field, value) => set(state => {
