@@ -12,16 +12,7 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
     const navigate = useNavigate();
 
     const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
-    const { removeFromCart, addToCart, spuIds } = useCart()
     const { user } = useUserData();
-
-    const handleCartClick = () => {
-        if (spuIds.some(item => item.spuId === spuId)) {
-            removeFromCart(spuId, user._id);
-        } else {
-            addToCart({ count: 1, spuId }, user._id);
-        }
-    }
 
     const handleFavoriteClick = () => {
         if (favorites.some(item => item.spuId === spuId)) {
@@ -101,10 +92,10 @@ const CatalogElement = ({ picture, price, title, spuId }) => {
                     </Box>
                 </Box>
 
-                <CustomButton
+                {/* <CustomButton
                     isDisabled={false}
                     onClick={() => handleCartClick()}
-                >{spuIds.some(item => item.spuId == spuId) ? 'Удалить' : 'В корзину'}</CustomButton>
+                >{spuIds.some(item => item.spuId == spuId) ? 'Удалить' : 'В корзину'}</CustomButton> */}
             </Box>
         </Grid>
     );

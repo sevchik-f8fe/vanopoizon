@@ -252,9 +252,9 @@ const FreakElement = () => {
                     </Box>
                 </Box>
 
-                <CustomButton
+                {/* <CustomButton
                     isDisabled={false}
-                >В корзину</CustomButton>
+                >В корзину</CustomButton> */}
             </Box>
         </Grid>
     );

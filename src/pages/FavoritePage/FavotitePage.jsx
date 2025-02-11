@@ -67,16 +67,7 @@ const FavoritePage = () => {
 
 const FavoriteElement = ({ picture, title, spuId }) => {
     const { removeFromFavorites } = useFavorites();
-    const { spuIds, addToCart, removeFromCart } = useCart();
     const { user } = useUserData();
-
-    const handleCartClick = () => {
-        if (spuIds.some(item => item.spuId === spuId)) {
-            removeFromCart(spuId, user._id);
-        } else {
-            addToCart({ count: 1, spuId }, user._id);
-        }
-    }
 
     return (
         <Grid size={{ xs: 6, sm: 4, md: 3 }}>
@@ -143,10 +134,10 @@ const FavoriteElement = ({ picture, title, spuId }) => {
                         justifyContent: 'center'
                     }}
                 >
-                    <CustomButton
+                    {/* <CustomButton
                         onClick={() => handleCartClick()}
                         isDisabled={false}
-                    >{spuIds.some(item => item.spuId === spuId) ? 'Удалить' : 'В корзину'}</CustomButton>
+                    >{spuIds.some(item => item.spuId === spuId) ? 'Удалить' : 'В корзину'}</CustomButton> */}
                 </Box>
             </Box>
         </Grid>

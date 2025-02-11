@@ -11,9 +11,9 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import SendIcon from '@mui/icons-material/Send';
 import HealthAndSafetyIcon from '@mui/icons-material/HealthAndSafety';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-// import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
@@ -21,14 +21,21 @@ import "slick-carousel/slick/slick-theme.css";
 import axios from "axios";
 
 import { useProductPage } from "./store";
-import { showShineMainBtn } from "../../utils/utilFuncs";
+import { showMainBtn, showShineMainBtn } from "../../utils/utilFuncs";
 import { useLocation } from "react-router-dom";
 import { toRub, calcPrice } from "../../utils/utilFuncs";
 import { sliceChn, toNormalPrice, imagesForCurrentColor } from "../../utils/utilFuncs";
 import { useTheme, useMediaQuery } from "@mui/material";
+import { useFavorites } from "../FavoritePage/store";
+import { useUserData } from "../../utils/store";
+import { useCart } from "../CartPage/store";
 
 const ProductPage = () => {
     const { setAccordion, setVariations, storeSpuId, setStoreSpuId, accordion, isSplit, useInsurance, setUseInsurance, setProduct, setPrices, product, currentProduct, setCurrentProductField } = useProductPage();
+    const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
+    const { user } = useUserData();
+    const { spuIds, removeFromCart, addToCart } = useCart();
+
     let tg = window.Telegram.WebApp;
     const location = useLocation();
 
@@ -63,7 +70,7 @@ const ProductPage = () => {
         };
 
         tg.BackButton.show();
-        showShineMainBtn(currentProduct?.price);
+        tg.MainButton.hide();
 
         if (storeSpuId != location.state.spu) {
             setPrices(null)
@@ -72,6 +79,22 @@ const ProductPage = () => {
             loadProductData();
         }
     }, []);
+
+    const handleFavoriteClick = () => {
+        if (favorites.some(item => item.spuId === location.state.spu)) {
+            removeFromFavorites(location.state.spu, user._id);
+        } else {
+            addToFavorites({ photoUrl: picture, title, spuId: location.state.spu }, user._id);
+        }
+    }
+
+    const handleCartClick = () => {
+        if (spuIds.some(item => item.spuId === location.state.spu)) {
+            removeFromCart(location.state.spu, user._id);
+        } else {
+            addToCart({ count: 1, size: currentProduct?.size, color: currentProduct?.color, spuId: location.state.spu }, user._id);
+        }
+    }
 
     return isSmallScreen ? (
         <>
@@ -87,8 +110,8 @@ const ProductPage = () => {
                 <Box
                     sx={{
                         display: 'flex',
-                        flexDirection: 'column',
-                        bottom: '3.5em',
+                        // flexDirection: 'column',
+                        top: '1em',
                         right: '1em',
                         position: 'absolute',
                         zIndex: '20',
@@ -100,12 +123,12 @@ const ProductPage = () => {
                             shareURL('https://core.telegram.org', 'Оййй бляяя');
                         }}
                         sx={{
-                            backgroundColor: '#fff',
+                            backgroundColor: '#F34213',
                             '&:hover': {
-                                backgroundColor: '#fff',
+                                backgroundColor: '#F34213',
                             },
                             '&:active': {
-                                backgroundColor: '#fff9',
+                                backgroundColor: '#F3421390',
                             },
                             maxWidth: '1.5em',
                             maxHeight: '1.5em'
@@ -115,51 +138,65 @@ const ProductPage = () => {
                             sx={{
                                 maxWidth: '.8em',
                                 maxHeight: '.8em',
-                                color: '#F34213',
+                                color: '#Fff',
                             }}
                         />
                     </IconButton>
                     <IconButton
+                        onClick={() => handleFavoriteClick()}
                         sx={{
-                            backgroundColor: '#fff',
+                            backgroundColor: '#F34213',
                             '&:hover': {
-                                backgroundColor: '#fff',
+                                backgroundColor: '#F34213',
                             },
                             '&:active': {
-                                backgroundColor: '#fff9',
+                                backgroundColor: '#F3421390',
                             },
                             maxWidth: '1.5em',
                             maxHeight: '1.5em'
                         }}
                     >
-                        <FavoriteBorderIcon
-                            sx={{
+                        {favorites.some(item => item.spuId === location.state.spu) ? (
+                            <FavoriteIcon sx={{
                                 maxWidth: '.8em',
                                 maxHeight: '.8em',
-                                color: '#F34213'
-                            }}
-                        />
+                                color: '#Fff',
+                            }} />
+                        ) : (
+                            <FavoriteBorderIcon sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
+                                color: '#Fff',
+                            }} />
+                        )}
                     </IconButton>
                     <IconButton
+                        onClick={() => handleCartClick()}
                         sx={{
-                            backgroundColor: '#fff',
+                            backgroundColor: '#F34213',
                             '&:hover': {
-                                backgroundColor: '#fff',
+                                backgroundColor: '#F34213',
                             },
                             '&:active': {
-                                backgroundColor: '#fff9',
+                                backgroundColor: '#F3421390',
                             },
                             maxWidth: '1.5em',
                             maxHeight: '1.5em'
                         }}
                     >
-                        <AddShoppingCartIcon
-                            sx={{
+                        {spuIds.some(item => item.spuId === location.state.spu) ? (
+                            <ShoppingCartCheckoutIcon sx={{
                                 maxWidth: '.8em',
                                 maxHeight: '.8em',
-                                color: '#F34213'
-                            }}
-                        />
+                                color: '#Fff',
+                            }} />
+                        ) : (
+                            <AddShoppingCartIcon sx={{
+                                maxWidth: '.8em',
+                                maxHeight: '.8em',
+                                color: '#Fff',
+                            }} />
+                        )}
                     </IconButton>
                 </Box>
 
