@@ -162,13 +162,13 @@ const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
     const { favorites, addToFavorites, removeFromFavorites } = useFavorites();
     const { user } = useUserData();
 
-    // const handleFavoriteClick = () => {
-    //     if (favorites.some(item => item.spuId === spuId)) {
-    //         removeFromFavorites(spuId, user._id);
-    //     } else {
-    //         addToFavorites({ count: 1, spuId }, user._id);
-    //     }
-    // }
+    const handleFavoriteClick = () => {
+        if (favorites.some(item => item.spuId === spuId)) {
+            removeFromFavorites(spuId, user._id);
+        } else {
+            addToFavorites({ spuId, photoUrl: picture, title }, user._id);
+        }
+    }
 
     return (
         <Box
@@ -178,7 +178,7 @@ const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
                 border: '1px solid #fff3'
             }}
         >
-            <Link to={'/product'}>
+            <Link to={'/product'} state={{ spu: spuId }}>
                 <Box
                     sx={{
                         cursor: 'pointer',
@@ -188,9 +188,6 @@ const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
                     }}
                 >
                     <Box
-                        onClick={() => {
-                            navigate('/product', { state: { spu: spuId } })
-                        }}
                         sx={{
                             backgroundImage: `url(${picture})`,
                             backgroundSize: 'cover',
@@ -201,6 +198,7 @@ const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
                             minHeight: '5em',
                         }}
                     ></Box>
+
                     <Box
                         sx={{
                             display: 'flex',
@@ -209,7 +207,7 @@ const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
                             p: '.2em 0'
                         }}
                     >
-                        <Typography variant="h5">{title}</Typography>
+                        <Typography variant="h5">{title}, {spuId}</Typography>
                         <Typography variant="subtitle1">{toRub(price)} &#8381;</Typography>
                         {size && <Typography variant="subtitle1">размер {size} (EU)</Typography>}
                         {color && <Typography variant="subtitle1">{color}</Typography>}
@@ -234,6 +232,7 @@ const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
                     }}
                 >
                     <IconButton
+                        onClick={() => handleFavoriteClick()}
                         size="small"
                     >
                         {favorites.some(item => item.spuId === spuId) ? (

@@ -43,6 +43,7 @@ const ProductPage = () => {
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
 
     useEffect(() => {
+        console.log(location?.state)
         const loadProductData = async () => {
             axios.post('https://vanopoizonserver.ru/vanopoizon/api/getProductBySpu', { spu: location.state.spu }, {
                 headers: {
@@ -84,7 +85,7 @@ const ProductPage = () => {
         if (favorites.some(item => item.spuId === location.state.spu)) {
             removeFromFavorites(location.state.spu, user._id);
         } else {
-            addToFavorites({ photoUrl: isColors ? currentProduct?.images[0] : product?.image?.spuImage?.images[0], title: sliceChn(product?.detail?.title), spuId: location.state.spu }, user._id);
+            addToFavorites({ photoUrl: product?.image?.spuImage?.images[0], title: sliceChn(product?.detail?.title), spuId: location.state.spu }, user._id);
         }
     }
 
@@ -174,7 +175,7 @@ const ProductPage = () => {
                             maxHeight: '1.5em'
                         }}
                     >
-                        {favorites.some(item => item.spuId === location.state.spu) ? (
+                        {favorites.some(item => item.spuId === location?.state?.spu) ? (
                             <FavoriteIcon sx={{
                                 maxWidth: '.8em',
                                 maxHeight: '.8em',
@@ -202,7 +203,7 @@ const ProductPage = () => {
                             maxHeight: '1.5em'
                         }}
                     >
-                        {spuIds.some(item => item.spuId === location.state.spu) ? (
+                        {spuIds.some(item => item.spuId === location?.state?.spu) ? (
                             <ShoppingCartCheckoutIcon sx={{
                                 maxWidth: '.8em',
                                 maxHeight: '.8em',
