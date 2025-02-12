@@ -442,7 +442,7 @@ const StatusContainer = () => {
     ];
 
     const userStatus = () => {
-        let arr = rows.filter(row => row.orders <= user?.order?.length)
+        let arr = rows.filter(row => row.orders <= user?.orders?.length)
         return arr?.length > 0 ? arr[arr.length - 1] : rows[0];
     }
 
