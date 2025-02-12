@@ -100,7 +100,7 @@ const FavoriteElement = ({ picture, title, spuId }) => {
                     <FavoriteIcon sx={{ color: '#F34213' }} />
                 </IconButton>
 
-                <Link to={'/product'}
+                <Link to={'/product'} state={{ spu: spuId }}
                 >
                     <Box
                         sx={{
