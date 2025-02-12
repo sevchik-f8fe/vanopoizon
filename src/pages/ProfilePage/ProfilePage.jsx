@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Box, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar, IconButton } from "@mui/material";
+import { Box, Switch, Typography, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Avatar, IconButton, Paper } from "@mui/material";
 import LoyaltyIcon from '@mui/icons-material/Loyalty';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -430,15 +430,21 @@ const NotificationsContainer = () => {
 }
 
 const StatusContainer = () => {
+    const { user } = useUserData();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const rows = [
-        { status: 'Новичок', points: '+50', orders: '0' },
-        { status: 'Модник', points: '+150', orders: '3' },
-        { status: 'Профи', points: '+250', orders: '10' },
-        { status: 'Шопоголик', points: '+350', orders: '20' },
-        { status: 'Всвеволод', points: '+500', orders: '30' },
+        { status: 'Новичок', points: '+50', orders: 0 },
+        { status: 'Модник', points: '+150', orders: 3 },
+        { status: 'Профи', points: '+250', orders: 10 },
+        { status: 'Шопоголик', points: '+350', orders: 20 },
+        { status: 'Босс', points: '+500', orders: 30 },
     ];
+
+    const userStatus = () => {
+        let arr = rows.filter(row => row.orders <= user?.order?.length)
+        return arr?.length > 0 ? arr[arr.length - 1] : rows[0];
+    }
 
     return (
         <Box
@@ -457,7 +463,7 @@ const StatusContainer = () => {
                         mb: '.5em',
                     }}
                 >
-                    Статус: <span style={{ color: '#F34213' }}>Новичок</span>
+                    Статус: <span style={{ color: '#F34213' }}>{userStatus().status}</span>
                 </Typography>
 
                 <Typography
@@ -466,7 +472,7 @@ const StatusContainer = () => {
                         fontWeight: '500',
                     }}
                 >
-                    Ты получаешь <span style={{ color: '#F34213' }}>+50 баллов</span> за каждый заказ
+                    Ты получаешь <span style={{ color: '#F34213' }}>{userStatus().points} баллов</span> за каждый заказ
                 </Typography>
             </Box>
 
@@ -497,7 +503,8 @@ const StatusContainer = () => {
             </Box>
 
             <TableContainer
-                component={Box}
+                component={Paper}
+                sx={{ backgroundColor: 'transparent' }}
                 size='small'
             >
                 <Table
@@ -509,6 +516,7 @@ const StatusContainer = () => {
                     <TableHead>
                         <TableRow
                             sx={{
+
                                 'td,th': { border: 0 }
                             }}
                         >
@@ -547,6 +555,9 @@ const StatusContainer = () => {
                             <TableRow
                                 key={nanoid()}
                                 sx={{
+                                    backgroundColor: userStatus().status == row.status && '#fff1',
+                                    borderRadius: '5em',
+                                    overflow: 'hidden',
                                     'td,th': { border: 0 }
                                 }}
                             >

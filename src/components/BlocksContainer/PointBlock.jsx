@@ -2,8 +2,10 @@ import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CurrencyRubleIcon from '@mui/icons-material/CurrencyRuble';
 import { Link } from "react-router-dom";
+import { useUserData } from "../../utils/store";
 
-const PointBlock = ({ points }) => {
+const PointBlock = () => {
+    const user = useUserData();
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -70,7 +72,7 @@ const PointBlock = ({ points }) => {
                                 color: '#F34213',
                                 fontWeight: '700'
                             }}
-                        >{points || 0}</Typography>
+                        >{user.pointCount || 0}</Typography>
                     </Box>
                 </Box>
             </Box>

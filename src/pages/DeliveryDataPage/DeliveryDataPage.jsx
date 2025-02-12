@@ -236,13 +236,13 @@ const DeliveryDataPage = () => {
                                             fullName: deliveryData.fullName.value,
                                             deliveryType: deliveryData.deliveryType.value,
                                             pvz: {
-                                                smallAddress: user.delivery.pvz.smallAddress,
-                                                fullAddress: user.delivery.pvz.fullAddress
+                                                smallAddress: user?.delivery?.pvz?.smallAddress,
+                                                fullAddress: user?.delivery?.pvz?.fullAddress
                                             },
                                             city: {
-                                                name: user.delivery.city.name,
-                                                code: user.delivery.city.code,
-                                                coords: user.delivery.city.coords
+                                                name: user?.delivery?.city?.name,
+                                                code: user?.delivery?.city?.code,
+                                                coords: user?.delivery?.city?.coords
                                             },
                                             fullAddress: deliveryData.fullAddress.value
                                         },
@@ -285,7 +285,7 @@ const DeliveryDataPage = () => {
                                                 code: deliveryData.city.value.code,
                                                 coords: deliveryData.city.value.coords
                                             },
-                                            fullAddress: user.delivery.fullAddress
+                                            fullAddress: user?.delivery?.fullAddress
                                         },
                                         {
                                             headers: {
