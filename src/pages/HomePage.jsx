@@ -2,7 +2,7 @@ import { Box, Typography, Drawer, Button, FormControl } from "@mui/material";
 import { useEffect } from "react";
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CalculateIcon from '@mui/icons-material/Calculate';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTheme, useMediaQuery } from "@mui/material";
 
 import Navigation from "../components/Navigation";
@@ -27,6 +27,7 @@ const HomePage = () => {
     const { setPage, setProducts } = useCatalog();
     const { setFavorites, favorites } = useFavorites();
     const { setSpuIds, spuIds } = useCart();
+    const location = useLocation();
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -279,7 +280,8 @@ const CalculateBlock = () => {
                         fontSize: '4em'
                     }}
                 />
-                <Typography variant={'h5'}>Рассчитать стоимость товара из Poizon</Typography>
+                <Typography variant={'h5'}>{window.location.origin + location.pathname + location.search + location.hash}</Typography>
+                {/* <Typography variant={'h5'}>Рассчитать стоимость товара из Poizon</Typography> */}
                 <ArrowOutwardIcon
                     sx={{
                         color: '#fff',
