@@ -14,7 +14,7 @@ import { useCatalog, useFilters } from "../Catalog/store";
 
 const SearchField = () => {
     const { fieldValue, setFieldValue, isTyping, setIsTyping, setMiniProductList } = useSearchField();
-    const { setProducts, setPage } = useCatalog();
+    const { setProducts, setPage, setHasMore } = useCatalog();
     const { setPropsValue, propsOfSearch } = useFilters();
 
     const fetchMiniList = useCallback(_.debounce(async () => {
@@ -99,16 +99,15 @@ const SearchField = () => {
                                             if (checkFilter('keyword', objectToQueryString(propsOfSearch)) || fieldValue.length > 0) {
                                                 if (fieldValue.length > 0) {
                                                     setPropsValue('keyword', fieldValue);
-                                                    setProducts([]);
-                                                    setPage(1);
                                                 } else {
                                                     setPropsValue('keyword', '');
-                                                    setProducts([]);
-                                                    setPage(1);
                                                 }
                                             }
+                                            setProducts([]);
+                                            setPage(1);
                                             setIsTyping(false);
                                             setMiniProductList([]);
+                                            setHasMore(true)
                                         }}
                                         size="small"
                                         sx={{

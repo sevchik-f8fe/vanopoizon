@@ -24,7 +24,7 @@ const HomePage = () => {
     let tg = window.Telegram.WebApp;
     const { user, setUser } = useUserData();
     const { propsOfSearch, setPropsValue, setFieldValues, activeFilter, setActiveFilter, values } = useFilters()
-    const { setPage, setProducts } = useCatalog();
+    const { setPage, setProducts, setHasMore } = useCatalog();
     const { setFavorites, favorites } = useFavorites();
     const { setSpuIds, spuIds } = useCart();
     const location = useLocation();
@@ -61,7 +61,7 @@ const HomePage = () => {
                 .catch(err => console.log(`err: ${err}`));
         }
 
-        sendDataToValidate();
+        // sendDataToValidate();
     }, []);
 
     return (
@@ -160,6 +160,7 @@ const HomePage = () => {
                                         setProducts([]);
                                         setPage(1);
                                         setActiveFilter(null);
+                                        setHasMore(true);
                                     }}
                                 >Применить</Button>
 
@@ -210,6 +211,7 @@ const HomePage = () => {
 
                                             setActiveFilter(null);
                                             setProducts([]);
+                                            setHasMore(true);
                                             setPage(1);
                                         }}
                                         variant="danger"
@@ -280,8 +282,7 @@ const CalculateBlock = () => {
                         fontSize: '4em'
                     }}
                 />
-                <Typography variant={'h5'}>{window.location.origin + location.pathname + location.search + location.hash}</Typography>
-                {/* <Typography variant={'h5'}>Рассчитать стоимость товара из Poizon</Typography> */}
+                <Typography variant={'h5'}>Рассчитать стоимость товара из Poizon</Typography>
                 <ArrowOutwardIcon
                     sx={{
                         color: '#fff',

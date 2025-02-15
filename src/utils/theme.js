@@ -201,7 +201,7 @@ export const theme = createTheme({
                         //!
 
 
-                        fontSize: 'calc((4vh + 1vw) * 0.3)',
+                        fontSize: '1em',
 
 
 
@@ -214,7 +214,8 @@ export const theme = createTheme({
                     },
                     '& .MuiFilledInput-root': {
                         backgroundColor: '#2E2E3A',
-                        fontSize: 'calc((4vh + 1vw) * 0.4)',
+                        fontSize: '1em',
+
                         color: '#fff',
                         '&.Mui-focused': {
                             backgroundColor: '#2E2E3A',

@@ -130,6 +130,7 @@ const CatalogContent = () => {
     const { propsOfSearch } = useFilters();
 
     useEffect(() => {
+        console.log('start');
         const fetchFilteredProducts = async () => {
             await axios.post('https://vanopoizonserver.ru/vanopoizon/api/getFilteredProducts', { page, props: objectToQueryString(propsOfSearch) }, {
                 headers: {
@@ -148,7 +149,7 @@ const CatalogContent = () => {
         setHasMore(true);
 
         fetchFilteredProducts();
-    }, [page])
+    }, [page, propsOfSearch])
 
     return (
         <>
@@ -251,10 +252,6 @@ const FreakElement = () => {
                         />
                     </Box>
                 </Box>
-
-                {/* <CustomButton
-                    isDisabled={false}
-                >В корзину</CustomButton> */}
             </Box>
         </Grid>
     );
