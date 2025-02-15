@@ -61,7 +61,7 @@ const HomePage = () => {
                 .catch(err => console.log(`err: ${err}`));
         }
 
-        // sendDataToValidate();
+        sendDataToValidate();
     }, []);
 
     return (
