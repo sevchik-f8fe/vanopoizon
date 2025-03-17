@@ -253,7 +253,7 @@ const CartElement = ({ color, size, spuId, count, picture, price, title }) => {
                     </IconButton>
                     <IconButton
                         onClick={() => {
-                            removeFromCart(spuId, user._id)
+                            removeFromCart(spuId, size, color, user._id)
                         }}
                         size="small"
                     >

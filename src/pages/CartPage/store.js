@@ -32,16 +32,24 @@ export const useCart = create((set) => ({
         return { cart: value }
     }),
 
-    removeFromCart: (elemId, userId) => set(state => {
+    removeFromCart: (elemId, size, color, userId) => set(state => {
         let tg = window?.Telegram?.WebApp;
+
+        const props = { tg: tg?.initData, userId, spuId: elemId };
+
+        if (size) props.size = size;
+        if (color) props.color = color;
 
         const fetchRemovefromCart = async (userId) => {
             await axios.post('https://vanopoizonserver.ru/vanopoizon/removeFromCart',
-                {
-                    tg: tg?.initData,
-                    userId,
-                    spuId: elemId
-                },
+                // {
+                //     tg: tg?.initData,
+                //     userId,
+                //     spuId: elemId,
+                //     size: size,
+                //     color: color
+                // },
+                props,
                 {
                     headers: {
                         'Content-Type': 'application/json',
@@ -57,7 +65,7 @@ export const useCart = create((set) => ({
 
         fetchRemovefromCart(userId);
 
-        return { spuIds: [...state.spuIds.filter((elem) => elem.spuId !== elemId)] }
+        return { spuIds: [...state.spuIds.filter((elem) => (elem.spuId !== elemId && elem?.color !== color && elem?.size !== size))] }
     }),
     addToCart: (elem, userId) => set(state => {
         let tg = window?.Telegram?.WebApp;

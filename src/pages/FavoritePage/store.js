@@ -31,7 +31,7 @@ export const useFavorites = create((set) => ({
                     console.error('Ошибка')
                 })
         }
-
+        //addToFavorites removeFromFavorites
         fetchAddToFavorites(userId);
 
         return { favorites: [...state.favorites, elem] }
